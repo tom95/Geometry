@@ -55,7 +55,7 @@ GEllipse >> hash [
 	^ (a bitXor: b) bitXor: center hash
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #comparing }
 GEllipse >> intersectLineSegment: aLineSegment [
 	^ aLineSegment intersectEllipse: self
 ]

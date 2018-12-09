@@ -7,7 +7,7 @@ Class {
 	#category : 'Geometry'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 GRectangle >> encompassingRectangle [
 	^ self
 ]

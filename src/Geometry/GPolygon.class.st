@@ -7,10 +7,9 @@ Class {
 	#name : #GPolygon,
 	#superclass : #Object,
 	#instVars : [
-		'vertices',
-		'edges'
+		'vertices'
 	],
-	#category : 'Geometry'
+	#category : #Geometry
 }
 
 { #category : #'as yet unclassified' }
@@ -46,7 +45,7 @@ GPolygon class >> newVertices: aCollection [
 		yourself.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 GPolygon >> center [
 	| min max x y |
 	min := vertices min.
@@ -58,9 +57,9 @@ GPolygon >> center [
 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 GPolygon >> edges [
-	| firstVert prevVert |
+	| edges firstVert prevVert |
 	edges := OrderedCollection new.	
 	firstVert := vertices at: 1.
 	prevVert := firstVert.
@@ -71,7 +70,7 @@ GPolygon >> edges [
 	^ edges
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 GPolygon >> encompasingRectangle [
 	|leftMost rightMost top bottom|
 	leftMost := vertices first. 
@@ -86,25 +85,25 @@ GPolygon >> encompasingRectangle [
 	^Rectangle left: leftMost x right: rightMost x top: top y bottom: bottom y
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #testing }
 GPolygon >> includesPoint: point [
 
   ^ ( AthensPolygonTester new polygon: vertices ) includesPoint: point.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #initialization }
 GPolygon >> initializeVertices: aCollection [
 	self initialize.
 	
 	vertices := aCollection 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #comparing }
 GPolygon >> intersectLineSegment: aLineSegment [
 	^ aLineSegment intersectPolygon: self
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 GPolygon >> vertices [
 	
 	^ vertices

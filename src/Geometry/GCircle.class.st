@@ -101,7 +101,7 @@ GCircle >> inscribedRectangle [
 				
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #comparing }
 GCircle >> intersectLineSegment: aLineSegment [
 	^ aLineSegment intersectCircle: self
 ]

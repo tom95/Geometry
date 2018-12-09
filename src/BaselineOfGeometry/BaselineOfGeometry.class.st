@@ -10,6 +10,16 @@ Class {
 { #category : #baseline }
 BaselineOfGeometry >> baseline: spec [
 	<baseline>
-	
-	spec for: #common do: [ spec package: 'Geometry' ]
+	spec
+		for: #common
+		do: [
+			"Packages"
+			spec
+				package: 'Geometry';
+				package: 'Geometry-Tests' with: [ spec requires: #('Geometry') ].
+				
+			"Groups"
+			spec
+				group: 'Core' with: 'Geometry';
+				group: 'Tests' with: #('Geometry-Tests') ]
 ]

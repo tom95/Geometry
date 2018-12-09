@@ -22,7 +22,7 @@ To install Geometry on your Pharo image you can just execute the following scrip
 
 ```Smalltalk
     Metacello new
-    	githubUser: 'GeometrySt' project: 'Geometry' commitish: 'v1.x.x' path: 'src';
+    	githubUser: 'TelescopeSt' project: 'Geometry' commitish: 'v1.x.x' path: 'src';
     	baseline: 'Geometry';
     	load
 ```
@@ -32,7 +32,7 @@ To add Geometry to your baseline just add this:
 ```Smalltalk
     spec
     	baseline: 'Geometry'
-    	with: [ spec repository: 'github://GeometrySt/Geometry:v1.x.x/src' ]
+    	with: [ spec repository: 'github://TelescopeSt/Geometry:v1.x.x/src' ]
 ```
 
 Note that you can replace the v2.x.x tag by a branch as #master or #development or a tag as #v1.0.0, #v1.? or #v1.0.x or a commit SHA.

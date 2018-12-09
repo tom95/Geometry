@@ -1,7 +1,7 @@
 Class {
 	#name : #GPointTest,
 	#superclass : #TestCase,
-	#category : 'Geometry-Test'
+	#category : #'Geometry-Tests'
 }
 
 { #category : #tests }

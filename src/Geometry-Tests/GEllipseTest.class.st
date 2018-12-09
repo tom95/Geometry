@@ -1,7 +1,7 @@
 Class {
 	#name : #GEllipseTest,
 	#superclass : #TestCase,
-	#category : 'Geometry-Test'
+	#category : #'Geometry-Tests'
 }
 
 { #category : #'as yet unclassified' }

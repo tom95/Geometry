@@ -1,7 +1,7 @@
 Class {
 	#name : #GSegmentTest,
 	#superclass : #TestCase,
-	#category : 'Geometry-Test'
+	#category : #'Geometry-Tests'
 }
 
 { #category : #'as yet unclassified' }

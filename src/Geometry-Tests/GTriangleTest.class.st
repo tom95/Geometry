@@ -1,7 +1,7 @@
 Class {
 	#name : #GTriangleTest,
 	#superclass : #TestCase,
-	#category : 'Geometry-Test'
+	#category : #'Geometry-Tests'
 }
 
 { #category : #'as yet unclassified' }

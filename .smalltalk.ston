@@ -2,11 +2,7 @@ SmalltalkCISpec {
 	#loading : [
 		SCIMetacelloLoadSpec {
 			#baseline : 'Geometry',
-			#directory : 'repository',
-			#platforms : [ #pharo ]
+			#directory : 'src'
 		}
-	],
-	#testing : {
-		#packages : [ 'Geometry.*' ]
-	}
+	]
 }

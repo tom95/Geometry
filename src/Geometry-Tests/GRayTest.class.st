@@ -4,7 +4,7 @@ Class {
 	#category : #'Geometry-Tests'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GRayTest >> test [
 	self skip.
 	self
@@ -14,7 +14,7 @@ GRayTest >> test [
 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GRayTest >> test1 [
 	self
 		assert: (( GRay origin: 28 @ 30 direction: (-14.19823766979061@ -21.67099433810146)) hasPoint:
@@ -24,7 +24,7 @@ GRayTest >> test1 [
 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GRayTest >> testCutWith [
 	self
 		assert: ((GRay origin: -10 @ 10 direction: 20 @ 30) cutWith: (Rectangle origin: -15 @ 0 corner: 15 @ 15 )) v1
@@ -43,7 +43,7 @@ GRayTest >> testCutWith [
 		equals: nil.	
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GRayTest >> testExtendBy [
 
 	self
@@ -55,7 +55,7 @@ GRayTest >> testExtendBy [
 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GRayTest >> testExtendBy0 [
 	self skip.
 	self
@@ -68,7 +68,7 @@ GRayTest >> testExtendBy0 [
 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GRayTest >> testExtendBy1 [
 	self skip.
 	self
@@ -80,7 +80,7 @@ GRayTest >> testExtendBy1 [
 		equals: ( 5 @ ( -5/2 )).
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GRayTest >> testExtendBy3 [
 
 	self
@@ -94,7 +94,7 @@ self
 	equals: false.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GRayTest >> testExtendBy4 [
 	self skip.
 	self
@@ -111,7 +111,7 @@ GRayTest >> testExtendBy4 [
 		equals: ( 1 @ ( 1/2 )).
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GRayTest >> testExtendBy5 [
 	self skip.
 	self
@@ -120,7 +120,7 @@ GRayTest >> testExtendBy5 [
 		
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GRayTest >> testFlipped [
 	self
 		assert: ((GRay origin: 100 @ 100 direction: 80 @ 110) flipped )direction
@@ -130,7 +130,7 @@ GRayTest >> testFlipped [
 		equals: 80 @ 110
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GRayTest >> testHas [
 
 	self
@@ -149,7 +149,7 @@ GRayTest >> testHas [
 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GRayTest >> testHasPoint [
 	self
 		assert: ((GRay origin: 100 @ 100 direction: 80 @ 110) hasPoint: 120 @ 90)
@@ -165,7 +165,7 @@ GRayTest >> testHasPoint [
 		equals: true.	
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GRayTest >> testHasPoint1 [
 	self skip.
 	self
@@ -179,7 +179,7 @@ GRayTest >> testHasPoint1 [
 		equals: false.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GRayTest >> testHasPoint2 [
 	self skip.
 "	self
@@ -191,7 +191,7 @@ GRayTest >> testHasPoint2 [
 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GRayTest >> testLength [
 	self
 		assert: (( GRay origin: 0 @ 0 direction: -12 @ 16 ) length )
@@ -201,7 +201,7 @@ GRayTest >> testLength [
 		equals: 225 sqrt.	
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GRayTest >> testMultiply [
 	self
 		assert: (( GRay origin: 0 @ 0 direction: -12 @ 16 ) * ( GRay origin: 0 @ 0 direction: 12 @ 9)  )

@@ -4,14 +4,14 @@ Class {
 	#category : #'Geometry-Tests'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GEllipseTest >> testEncompassingRectangle [
 	self
 		assert: (GEllipse center: 2 @ 2 a: 3 b: 2) encompassingRectangle
 		equals: (-1 @ 0 corner: 5 @ 4)
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GEllipseTest >> testEquals [
 	self
 		assert: (GEllipse center: 10 @ 10 a: 5 b: 10)

@@ -4,14 +4,14 @@ Class {
 	#category : #'Geometry-Tests'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GTriangleTest >> testArea [
 	self
 		assert:
 			((GTriangle with: 0 @ 0 with: 2 @ 0 with: 0 @ 2) area closeTo: 2)
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GTriangleTest >> testCircumscribedCircle [
 	| circle |
 	circle := (GTriangle with: -1 @ 2 with: 0 @ 0 with: 2 @ 1) circumscribedCircle.
@@ -22,7 +22,7 @@ GTriangleTest >> testCircumscribedCircle [
 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GTriangleTest >> testCircumscribedCircle1 [
 	| circle |
 	circle := (GTriangle with: -1 @ 1 with: 3 @ 0 with: 1 @ 3) circumscribedCircle.
@@ -33,7 +33,7 @@ GTriangleTest >> testCircumscribedCircle1 [
 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GTriangleTest >> testCircumscribedCircle2 [
 	| circle |
 	circle := (GTriangle with: -1 @ 1 with: 2 @ 3  with: 5 @ -3) circumscribedCircle.
@@ -42,7 +42,7 @@ GTriangleTest >> testCircumscribedCircle2 [
 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GTriangleTest >> testCircumscribedCircle3 [
 	| circle |
 	circle := (GTriangle with: 2 @ 3 with: 7 @ 4 with: 5 @ 7) circumscribedCircle.
@@ -53,7 +53,7 @@ GTriangleTest >> testCircumscribedCircle3 [
 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GTriangleTest >> testIsDegenerate [
 	self
 		assert: (GTriangle with: 0 @ 0 with: 2 @ 0 with: 3 @ 0) isDegenerate.
@@ -63,7 +63,7 @@ GTriangleTest >> testIsDegenerate [
 		assert: (GTriangle with: 1 @ 0 with: 1 @ 2 with: 1 @ -1) isDegenerate.	
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GTriangleTest >> testIsDegenerate2 [
 self
 	assert: (GTriangle with: 1@1 with: 3@3 with: 2@2 )isDegenerate.
@@ -76,7 +76,7 @@ self
 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GTriangleTest >> testIsDegenerate3 [
 self
 	assert: (GTriangle with: (1.9357176033002985e-6@212.13203242024665) with: (1.1175870793405243e-6@122.47448602157178) with: (1.5805068047363063e-6@173.2050791763809))isDegenerate.
@@ -89,7 +89,7 @@ self
 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GTriangleTest >> testIsDegenerate4 [
 self
 	assert: (GTriangle with: (-10@ -30) with:(-30@ -10) with:(-10@ -30))isDegenerate.
@@ -97,14 +97,14 @@ self
 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GTriangleTest >> testPerimeter [
 	self
 		assert: (GTriangle with: 0 @ 0 with: 2 @ 0 with: 0 @ 2) perimeter
 		equals: 4 + 8 sqrt
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GTriangleTest >> testSemiperimeter [
 	self
 		assert: (GTriangle with: 0 @ 0 with: 2 @ 0 with: 0 @ 2) semiperimeter

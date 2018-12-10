@@ -4,7 +4,7 @@ Class {
 	#category : #'Geometry-Tests'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GLineTest >> testCutWith [
 	self
 		assert: ((GLine a: -20  b: 30  c: -500 ) cutWith: (Rectangle origin: -15 @ 0 corner: 15 @ 15 )) v1
@@ -23,7 +23,7 @@ GLineTest >> testCutWith [
 		equals: nil.	
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GLineTest >> testDist [
 self
 	assert: ((GLine a:1 b:0 c: -7)dist: 7 @ 0)
@@ -38,7 +38,7 @@ self
 	
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GLineTest >> testEquel [
 self
 	assert: ((GLine a:1 b:1 c: -13)= (GLine a:6 b:6 c: -78))
@@ -64,7 +64,7 @@ self
 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GLineTest >> testEquel1 [
 self
 	assert: ((GLine a:1 b:1 c: -13)= (GLine a:6 b:6 c: 0))
@@ -76,7 +76,7 @@ self
 	
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GLineTest >> testEquel2 [
 self
 	assert: ( ( GLine a: -48.989794855663575 b: 48.98979485566357 c: 4.547473508864641e-13 ) = ( GLine a:
@@ -85,7 +85,7 @@ self
 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GLineTest >> testEquel3 [
 self
 	assert: ( ( 
@@ -97,7 +97,7 @@ self
 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GLineTest >> testEquel4 [
 self
 	assert: ( ( 
@@ -109,7 +109,7 @@ self
 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GLineTest >> testHasPoint [
 "self
 	assert: ((GLine a:(-50634/18737)b:(1594971/37474)c: (-183016593/74948)) 
@@ -121,7 +121,7 @@ GLineTest >> testHasPoint [
 	equals: true."
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GLineTest >> testHasPoint2 [
 
 self
@@ -134,21 +134,21 @@ self
 	equals: true."
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GLineTest >> testIntersect [
 self
 	assert: ((GLine a: 2 b: -3 c: 0.5) intersect: (GLine a: 1 b: 1 c: -2))
 	equals: 1.1 @ 0.9
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GLineTest >> testIntersect1 [
 self
 	assert: ((GLine a: 2 b: -3 c: 0.5) intersect: (GLine a: -2 b: -2 c: 4))
 	equals: 1.1 @ 0.9
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GLineTest >> testParallelTo [
 self
 	assert: ((GLine a: 0 b: -3 c: 0.5) parallelTo: (GLine a: -2 b: 0 c: 4))
@@ -164,7 +164,7 @@ self
 	equals: true.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GLineTest >> testThroughAndHasPoint [
 self
 	assert: ((GLine through: 1@1 and: 3@3)through: 1@1 and: 3@3 hasPoint: 2@2 )

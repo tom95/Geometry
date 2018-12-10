@@ -4,7 +4,7 @@ Class {
 	#category : #'Geometry-Tests'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GRoundedRectangleTest >> testCorners [
 	| rect |
 	rect := GRoundedRectangle

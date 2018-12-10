@@ -4,21 +4,21 @@ Class {
 	#category : #'Geometry-Tests'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GPolygonTest >> testConvexHullOn [
 self
 	assert: ((GPolygon convexHullOn:{ 0 @ -20 . 0 @ 10 . 30 @ -30 . 40 @ 0 . -10 @ 0 . 40 @ -20 } ) vertices )
 	equals:{ -10 @ 0 . 0 @ -20 . 30 @ -30 . 40 @ -20 . 40 @ 0 . 0 @ 10 } asOrderedCollection
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GPolygonTest >> testConvexHullOn1 [
 self
 	assert: ((GPolygon convexHullOn:{ 0 @ -20 . 0 @ 10 . 30 @ -30 . 0 @ 0 . 40 @ 0 . -10 @ 0 . 40 @ -20 } ) vertices )
 	equals:{ -10 @ 0 . 0 @ -20 . 30 @ -30 . 40 @ -20 . 40 @ 0 . 0 @ 10 } asOrderedCollection
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GPolygonTest >> testEdges [
 self
 	assert: ((GPolygon convexHullOn:{ 0 @ -20 . 0 @ 10 . 30 @ -30 . 40 @ 0 . -10 @ 0 . 40 @ -20 } ) edges first )
@@ -34,14 +34,14 @@ self
 	
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GPolygonTest >> testEncompasingRectangle [
 self
 	assert: (GPolygon newVertices:{ 0 @ -20 . 0 @ 10 . 30 @ -30 . 40 @ 0 . -10 @ 0 . 40 @ -20 }  )encompasingRectangle 
 	equals: (Rectangle left: -10  right:40  top: 10 bottom: -30)
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GPolygonTest >> testIncludesPoint [
 self
 	assert: ((GPolygon newVertices:{ 10 @ 10 . -10 @ 10 . -10 @ -10  }  )includesPoint: -5@5)

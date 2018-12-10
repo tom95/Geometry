@@ -4,7 +4,7 @@ Class {
 	#category : #'Geometry-Tests'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GSegmentTest >> testAlreadyExistIn [
 	|segm1 segm2 segm aSet |
 	segm1 := GSegment with:5@2  with: 3@4.
@@ -17,7 +17,7 @@ GSegmentTest >> testAlreadyExistIn [
 		equals: false
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GSegmentTest >> testAlreadyExistIn1 [
 	|segm1 segm2 segm aSet |
 	segm1 := GSegment with:1@2  with: 3@4.
@@ -30,7 +30,7 @@ GSegmentTest >> testAlreadyExistIn1 [
 "equels:true"
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GSegmentTest >> testAsLine [
 |line|
 	line := (GSegment with:  1 @ 3 with: 3 @ 0) asLine .
@@ -39,7 +39,7 @@ GSegmentTest >> testAsLine [
 	self assert: line c equals: -9.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GSegmentTest >> testAsLine1 [
 |line|
 	line := (GSegment with:  -2 @ 4 with: 2 @ 4) asLine .
@@ -48,7 +48,7 @@ GSegmentTest >> testAsLine1 [
 	self assert: line c equals: -4.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GSegmentTest >> testAsLine2 [
 |line|
 	line := (GSegment with:  1 @ 3 with: 1 @ 0) asLine .
@@ -57,13 +57,13 @@ GSegmentTest >> testAsLine2 [
 	self assert: line c equals: -1.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GSegmentTest >> testBelowPoint [
 self assert:((GSegment with: -2 @ 4 with: 2 @ 4) belowPoint: -2 @ 4 ) 
 	equals: false.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GSegmentTest >> testBelowPoint1 [
 
 self assert:((GSegment with:  -2 @ 4 with: 2 @ 4) belowPoint: 0 @ 5 ) 
@@ -72,7 +72,7 @@ self assert:((GSegment with:  -2 @ 4 with: 2 @ 4) belowPoint: 0 @ -5 )
 	equals: false.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GSegmentTest >> testBelowPoint2 [
 self assert:((GSegment with:  -2 @ 4 with: -2 @ 0) belowPoint: 0 @ 2 ) 
 	equals: true.
@@ -80,7 +80,7 @@ self assert:((GSegment with:  -2 @ 4 with: -2 @ 0) belowPoint: -4 @ 2 )
 	equals: false.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GSegmentTest >> testCutWith [
 	self
 		assert: ((GSegment with: -10 @ 10 with: 20 @ 30) cutWith: (Rectangle origin: -15 @ 0 corner: 15 @ 15 )) v1
@@ -99,7 +99,7 @@ GSegmentTest >> testCutWith [
 		equals: nil.	
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GSegmentTest >> testDist1 [
 self assert:(  ((GSegment with: ((838/41)@(4811/82)) with:((57583/914)@(56095/914))) dist: (57.998905906959145@61.11074842728413)) <=~ (2 * 0.02757564283371476 )  ) 
 	equals: true.
@@ -110,25 +110,25 @@ self assert:(  ((GSegment with: ((838/41)@(4811/82)) with:((57583/914)@(56095/91
 	equals: true."
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GSegmentTest >> testDistTo [
 self assert:((GSegment with:  -2 @ 4 with: 2 @ 4) distTo: -2 @ 4 ) 
 	equals: 0.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GSegmentTest >> testDistTo1 [
 self assert:((GSegment with:  -2 @ 4 with: 2 @ 4) distTo: 2 @ 4 ) 
 	equals: 0.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GSegmentTest >> testDistTo2 [
 self assert:((GSegment with: (477/11)@(149/2) with:(-56.73661227723915@143.3189209406019)) distTo: (36819/1022)@(82249/1022) ) 
 	equals: 0.7697676365059569.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GSegmentTest >> testEqual [
 	|segm1 segm2 |
 	segm1 := GSegment with: 1@2 with: 3@4.
@@ -138,7 +138,7 @@ GSegmentTest >> testEqual [
 	equals:false
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GSegmentTest >> testEqual1 [
 	|segm1 segm2 |
 	segm1 := GSegment with:1@1  with: 3@3.
@@ -148,7 +148,7 @@ GSegmentTest >> testEqual1 [
 	equals:true
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GSegmentTest >> testEqual2 [
 	|segm1 segm2 |
 	segm1 := GSegment with: ( -24.494897427831784 @ -24.494897427831795 ) with: ( 24.494897427831784 @ 24.49489742783178 ).
@@ -158,7 +158,7 @@ GSegmentTest >> testEqual2 [
 	equals:true
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GSegmentTest >> testEqual3 [
 	|segm1 segm2 |
 	segm1 := GSegment with: ( -24.494897427831784 @ -24.494897427831795 ) with: ( 24.494897427831784 @ 24.49489742783178 ).
@@ -168,7 +168,7 @@ GSegmentTest >> testEqual3 [
 	equals:true
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GSegmentTest >> testExtendSegmVert [
 	| segm1 segm2 segm3 frame |
 	segm1 := (GSegment with: -2 @ 4 with: 2 @ 4).
@@ -195,7 +195,23 @@ GSegmentTest >> testExtendSegmVert [
 		equals: ( GSegment with: -2 @ 2 with: 4 @ 5 ).	
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
+GSegmentTest >> testExtendWithAnd [
+|frame|
+frame := Rectangle origin: -5 @ 0 corner: 5 @ 5 .
+self assert:((GSegment with:  -2 @ 4 with: 2 @ 4) extendWith: 3 @ 4 and: frame) 
+	equals: (GSegment with: -5 @ 4 with: 3 @ 4).
+]
+
+{ #category : #tests }
+GSegmentTest >> testExtendWithAnd1 [
+|frame|
+frame := Rectangle origin: -5 @ 0 corner: 5 @ 5 .
+self assert:((GSegment with:  -2 @ 4 with: 2 @ 4) extendWith: 3 @ 4 and: frame) 
+	equals: (GSegment with: 3 @ 4 with: -5 @ 4).
+]
+
+{ #category : #tests }
 GSegmentTest >> testHas [
 
 	self
@@ -206,7 +222,7 @@ GSegmentTest >> testHas [
 		equals: true.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GSegmentTest >> testHasPoint [
 
 	self assert:((GSegment with:  1 @ 3 with: 3 @ 0) hasPoint: 1 @ 3)
@@ -217,7 +233,7 @@ GSegmentTest >> testHasPoint [
    		equals: true.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GSegmentTest >> testIntersect [
 	self
 		assert: ((GSegment with: -1 @ -1 with: 1 @ 1) = (GSegment with: 1 @ 1 with: -1 @ -1))
@@ -227,21 +243,21 @@ GSegmentTest >> testIntersect [
 		equals: false.	
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GSegmentTest >> testIntersect1 [
 	self
 		assert: ((GSegment with: -1 @ -1 with: 1 @ 1) intersect:(GSegment with: -3 @ 3 with: -1 @ 1))
 		equals: nil
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GSegmentTest >> testIntersect2 [
 	self
 		assert: ((GSegment with: -1 @ -1 with: 1 @ 1) intersect:(GSegment with: -3 @ 3 with: 2 @ -2))
 		equals: (0@0)
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GSegmentTest >> testIntersectionPointWithVector [
 	self
 		assert: ((GSegment with: 2 @ 0 with: 2 @ 3) intersectionPointWithRay: (GRay origin: 0 @ 0  direction:  3 @ 2))
@@ -257,13 +273,13 @@ GSegmentTest >> testIntersectionPointWithVector [
 		equals: 0 @ 0.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GSegmentTest >> testIsOnLinePointWithRespectWith [
 "self assert: ((GSegment with:((18427/974)@(57187/974)) with:(362.2460738148583@ -421.94450334080176)) hasOnLinePoint: ((838/41)@(4811/82)) withRespectTo: ((18427/974)@(57187/974)) withApprox: 0.8902246907382428)
 equals: false."
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GSegmentTest >> testIsOnLineWith [
 	self assert:((GSegment with:  -2 @ 4 with: 2 @ 4) isOnLineWith:  (GSegment with:  -2 @ 4 with: 2 @ 4) ) 
 		equals: true.
@@ -275,42 +291,42 @@ GSegmentTest >> testIsOnLineWith [
 		equals: false.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GSegmentTest >> testLength [
 	self
 		assert: (GSegment with: 0 @ 0 with: 3 @ 4) length
 		equals: 5
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GSegmentTest >> testLength1 [
 	self
 		assert: (GSegment with: -2 @ 1 with: 3 @ 4) length
 		equals: 34 sqrt
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GSegmentTest >> testMidPoint [
 	self
 		assert: (GSegment with: -1 @ 2 with: 2 @ 1) midPoint 
 		equals: 0.5 @ 1.5
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GSegmentTest >> testMidPoint1 [
 	self
 		assert: (GSegment with: 2 @ 1 with: 2 @ 1) midPoint 
 		equals: 2 @ 1
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GSegmentTest >> testPerpendicularBisector [
 	self
 		assert: (GSegment with: -1 @ 2 with: 0 @ 0) perpendicularBisector a
 		equals: 1
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GSegmentTest >> testPerpendicularBisector1 [
 |line|
 	line := (GSegment with: 1 @ 3 with: -1 @ 1) perpendicularBisector. 
@@ -319,34 +335,18 @@ GSegmentTest >> testPerpendicularBisector1 [
 		self assert: line c equals: 4.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GSegmentTest >> testPerpendicularBisector2 [
 	self
 		assert: (GSegment with: -1 @ 2 with: 0 @ 0) perpendicularBisector b
 		equals: -2
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GSegmentTest >> testPerpendicularBisector3 [
 |line|
 	line := (GSegment with: 3 @ 0 with: 1 @ 3)  perpendicularBisector. 
 		self assert: line a equals: -2.
 		self assert: line b equals: 3.
 		self assert: line c equals: -1/2.
-]
-
-{ #category : #'as yet unclassified' }
-GSegmentTest >> testextendWithAnd [
-|frame|
-frame := Rectangle origin: -5 @ 0 corner: 5 @ 5 .
-self assert:((GSegment with:  -2 @ 4 with: 2 @ 4) extendWith: 3 @ 4 and: frame) 
-	equals: (GSegment with: -5 @ 4 with: 3 @ 4).
-]
-
-{ #category : #'as yet unclassified' }
-GSegmentTest >> testextendWithAnd1 [
-|frame|
-frame := Rectangle origin: -5 @ 0 corner: 5 @ 5 .
-self assert:((GSegment with:  -2 @ 4 with: 2 @ 4) extendWith: 3 @ 4 and: frame) 
-	equals: (GSegment with: 3 @ 4 with: -5 @ 4).
 ]

@@ -85,6 +85,20 @@ GPolygon >> encompasingRectangle [
 	^Rectangle left: leftMost x right: rightMost x top: top y bottom: bottom y
 ]
 
+{ #category : #converting }
+GPolygon >> fitInExtent: extent [
+	"I take as parameter a point and will fit the polygon in a rectangle whose dimensions is defined by the extent.
+	
+	To do that, I will first fit my vertices in a square of lenght of 1, then I will multiply my vertices by the extent required."
+
+	| max verticesInSquareOfSizeOne |
+	max := (self vertices collect: #x) max max: ((self vertices collect: #y )) max. "We do not take `self vertices max` because we want to preserve proportions"
+	"Fit the polygon in a square of size 1 by doing a division of it's vertices by 2 times the value of the furthest point from the center of the polygon."
+	verticesInSquareOfSizeOne := self vertices collect: [ :point | point / (max * 2) ].
+	
+	vertices := (verticesInSquareOfSizeOne collect: [ :point | point * extent ])
+]
+
 { #category : #testing }
 GPolygon >> includesPoint: point [
 
@@ -103,7 +117,7 @@ GPolygon >> intersectLineSegment: aLineSegment [
 	^ aLineSegment intersectPolygon: self
 ]
 
-{ #category : #private }
+{ #category : #converting }
 GPolygon >> moveBy: aPoint [
 	"Move a polygon by a delta defined by aPoint"
 

@@ -42,6 +42,68 @@ self
 ]
 
 { #category : #tests }
+GPolygonTest >> testFitInExtent [
+	| polygon |
+	polygon := GPolygon
+		newVertices:
+			{(10 @ 10).
+			(-10 @ 10).
+			(-10 @ -10)}.
+	polygon fitInExtent: 20 @ 20.
+	self
+		assert: polygon vertices
+		equals:
+			{(10 @ 10).
+			(-10 @ 10).
+			(-10 @ -10)}.
+	polygon fitInExtent: 40 @ 40.
+	self
+		assert: polygon vertices
+		equals:
+			{(20 @ 20).
+			(-20 @ 20).
+			(-20 @ -20)}.
+	polygon fitInExtent: 10 @ 10.
+	self
+		assert: polygon vertices
+		equals:
+			{(5 @ 5).
+			(-5 @ 5).
+			(-5 @ -5)}
+]
+
+{ #category : #tests }
+GPolygonTest >> testFitInExtentNonProportionnal [
+	| polygon |
+	polygon := GPolygon
+		newVertices:
+			{(10 @ 4).
+			(-4 @ 10).
+			(-10 @ -8)}.
+	polygon fitInExtent: 20 @ 20.
+	self
+		assert: polygon vertices
+		equals:
+			{(10 @ 4).
+			(-4 @ 10).
+			(-10 @ -8)}.
+	polygon fitInExtent: 40 @ 40.
+	self
+		assert: polygon vertices
+		equals:
+			{(20 @ 8).
+			(-8 @ 20).
+			(-20 @ -16)}.
+	polygon fitInExtent: 10 @ 10.
+	self
+		assert: polygon vertices
+		equals:
+			{(5 @ 2).
+			(-2 @ 5).
+			(-5 @ -4)}
+]
+
+{ #category : #tests }
 GPolygonTest >> testIncludesPoint [
 self
 	assert: ((GPolygon newVertices:{ 10 @ 10 . -10 @ 10 . -10 @ -10  }  )includesPoint: -5@5)

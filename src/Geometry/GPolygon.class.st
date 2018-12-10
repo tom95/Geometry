@@ -103,6 +103,13 @@ GPolygon >> intersectLineSegment: aLineSegment [
 	^ aLineSegment intersectPolygon: self
 ]
 
+{ #category : #private }
+GPolygon >> moveBy: aPoint [
+	"Move a polygon by a delta defined by aPoint"
+
+	vertices := self vertices collect: [ :point | point + aPoint ]
+]
+
 { #category : #accessing }
 GPolygon >> vertices [
 	

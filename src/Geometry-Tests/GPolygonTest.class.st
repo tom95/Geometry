@@ -47,3 +47,20 @@ self
 	assert: ((GPolygon newVertices:{ 10 @ 10 . -10 @ 10 . -10 @ -10  }  )includesPoint: -5@5)
 	equals: true
 ]
+
+{ #category : #tests }
+GPolygonTest >> testMoveBy [
+	| polygon |
+	polygon := GPolygon
+		newVertices:
+			{(10 @ 10).
+			(-10 @ 10).
+			(-10 @ -10)}.
+	polygon moveBy: 10 @ 10.
+	self
+		assert: polygon vertices
+		equals:
+			{(20 @ 20).
+			(0 @ 20).
+			(0 @ 0)}
+]

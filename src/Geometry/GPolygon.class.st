@@ -71,21 +71,30 @@ GPolygon >> edges [
 ]
 
 { #category : #accessing }
-GPolygon >> encompasingRectangle [
-	|leftMost rightMost top bottom|
-	leftMost := vertices first. 
+GPolygon >> encompassingRectangle [
+	| leftMost rightMost top bottom |
+	leftMost := vertices first.
 	rightMost := vertices first.
-	top := vertices first. 
-	bottom:= vertices first.
-	vertices allButFirst do:[ :v | 
-		(v y > top y) ifTrue:[ top := v ].
-		(v y < bottom y) ifTrue:[ bottom := v ].
-		(v x < leftMost x) ifTrue:[ leftMost := v ].
-		(v x > rightMost x) ifTrue:[ rightMost := v ]].
-	^Rectangle left: leftMost x right: rightMost x top: top y bottom: bottom y
+	top := vertices first.
+	bottom := vertices first.
+	vertices allButFirst
+		do: [ :v | 
+			v y > top y
+				ifTrue: [ top := v ].
+			v y < bottom y
+				ifTrue: [ bottom := v ].
+			v x < leftMost x
+				ifTrue: [ leftMost := v ].
+			v x > rightMost x
+				ifTrue: [ rightMost := v ] ].
+	^ Rectangle
+		left: leftMost x
+		right: rightMost x
+		top: top y
+		bottom: bottom y
 ]
 
-{ #category : #converting }
+{ #category : #transforming }
 GPolygon >> fitInExtent: extent [
 	"I take as parameter a point and will fit the polygon in a rectangle whose dimensions is defined by the extent.
 	
@@ -116,8 +125,16 @@ GPolygon >> intersectLineSegment: aLineSegment [
 	^ aLineSegment intersectPolygon: self
 ]
 
-{ #category : #converting }
+{ #category : #transforming }
 GPolygon >> moveBy: aPoint [
+	"Move a polygon by a delta defined by aPoint"
+
+	self deprecated: 'Use #translateBy:' transformWith: '`@receiver moveBy: `@statements' -> '`@receiver translateBy: `@statements'.
+	self translateBy: aPoint
+]
+
+{ #category : #transforming }
+GPolygon >> translateBy: aPoint [
 	"Move a polygon by a delta defined by aPoint"
 
 	vertices := self vertices collect: [ :point | point + aPoint ]

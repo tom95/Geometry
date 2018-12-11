@@ -20,3 +20,15 @@ GEllipseTest >> testEquals [
 		assert: (GEllipse center: 10 @ 10 a: 5 b: 10) hash
 		equals: (GEllipse center: 10 @ 10 a: 5 b: 10) hash
 ]
+
+{ #category : #tests }
+GEllipseTest >> testHeight [
+	self assert: (GEllipse center: 10 @ 10 a: 5 b: 10) width equals: 10.
+	self assert: (GEllipse center: 10 @ 10 a: 10 b: 20) width equals: 20
+]
+
+{ #category : #tests }
+GEllipseTest >> testWidth [
+	self assert: (GEllipse center: 10 @ 10 a: 5 b: 10) width equals: 10.
+	self assert: (GEllipse center: 10 @ 10 a: 10 b: 20) width equals: 20
+]

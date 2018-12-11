@@ -50,9 +50,25 @@ GEllipse >> encompassingRectangle [
 	^ center - (a @ b) corner: center + (a @ b)
 ]
 
+{ #category : #transforming }
+GEllipse >> fitInExtent: aPoint [
+	a := (aPoint x min: aPoint y) / 2.
+	b := (aPoint x max: aPoint y) / 2
+]
+
 { #category : #comparing }
 GEllipse >> hash [
 	^ (a bitXor: b) bitXor: center hash
+]
+
+{ #category : #accessing }
+GEllipse >> height [
+	^ self encompassingRectangle height
+]
+
+{ #category : #testing }
+GEllipse >> includesPoint: aPoint [
+	^ (aPoint x - center x) squared / a squared + ((aPoint y - center y) squared / b squared) <= 1
 ]
 
 { #category : #comparing }
@@ -65,4 +81,14 @@ GEllipse >> setCenter: aCenter a: xRadius b: yRadius [
 	center := aCenter.
 	a := xRadius.
 	b := yRadius
+]
+
+{ #category : #transforming }
+GEllipse >> translateBy: aPoint [ 
+	center := center + aPoint
+]
+
+{ #category : #accessing }
+GEllipse >> width [
+	^ self encompassingRectangle width
 ]

@@ -111,14 +111,14 @@ self
 ]
 
 { #category : #tests }
-GPolygonTest >> testMoveBy [
+GPolygonTest >> testTranslateBy [
 	| polygon |
 	polygon := GPolygon
 		newVertices:
 			{(10 @ 10).
 			(-10 @ 10).
 			(-10 @ -10)}.
-	polygon moveBy: 10 @ 10.
+	polygon translateBy: 10 @ 10.
 	self
 		assert: polygon vertices
 		equals:

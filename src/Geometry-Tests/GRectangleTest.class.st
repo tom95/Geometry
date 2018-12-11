@@ -150,27 +150,6 @@ GRectangleTest >> testRight [
 ]
 
 { #category : #tests }
-GRectangleTest >> testRotateByCenterAt [
-	rectangle := GRectangle
-		left: 0
-		right: 6
-		top: 4
-		bottom: 2.
-	self assert: (rectangle rotateBy: #left centerAt: 0 @ 0) left equals: 2.
-	self assert: (rectangle rotateBy: #left centerAt: 0 @ 0) right equals: 4.
-	self assert: (rectangle rotateBy: #left centerAt: 0 @ 0) top equals: -6.
-	self assert: (rectangle rotateBy: #left centerAt: 0 @ 0) bottom equals: 0.
-	self assert: (rectangle rotateBy: #right centerAt: 0 @ 0) left equals: -4.
-	self assert: (rectangle rotateBy: #right centerAt: 0 @ 0) right equals: -2.
-	self assert: (rectangle rotateBy: #right centerAt: 0 @ 0) top equals: 0.
-	self assert: (rectangle rotateBy: #right centerAt: 0 @ 0) bottom equals: 6.
-	self assert: (rectangle rotateBy: #pi centerAt: 0 @ 0) left equals: -6.
-	self assert: (rectangle rotateBy: #pi centerAt: 0 @ 0) right equals: 0.
-	self assert: (rectangle rotateBy: #pi centerAt: 0 @ 0) top equals: -4.
-	self assert: (rectangle rotateBy: #pi centerAt: 0 @ 0) bottom equals: -2
-]
-
-{ #category : #tests }
 GRectangleTest >> testScaleBy [
 	rectangle := 2 @ 2 geometryCorner: 6 @ 4.
 	rectangle scaleBy: 2.

@@ -38,6 +38,13 @@ GShape >> encompassingRectangle [
 	^ self subclassResponsibility
 ]
 
+{ #category : #transforming }
+GShape >> fitInExtent: anExtent [
+	"I should transform my shape to fit in a rectangle of size 0@0 to the extent as parameter, keeping my center."
+	
+	self subclassResponsibility
+]
+
 { #category : #testing }
 GShape >> includesPoint: aPoint [
 	"I should return true if the points is contained in the shape. Else I will answer false."
@@ -45,9 +52,9 @@ GShape >> includesPoint: aPoint [
 	^ self subclassResponsibility
 ]
 
-{ #category : #transforming }
-GShape >> rotateBy: direction centerAt: aPoint [
-	"Return a copy rotated #right, #left, or #pi about aPoint"
+{ #category : #accessing }
+GShape >> perimeter [
+	"Return the perimeter of the shape"
 	
 	^ self subclassResponsibility
 ]

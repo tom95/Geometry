@@ -335,13 +335,6 @@ GRectangle >> rightCenter [
 ]
 
 { #category : #transforming }
-GRectangle >> rotateBy: direction centerAt: aPoint [
-	"Return a copy rotated #right, #left, or #pi about aPoint"
-
-	^ (origin rotateBy: direction centerAt: aPoint) rectangle: (corner rotateBy: direction centerAt: aPoint)
-]
-
-{ #category : #transforming }
 GRectangle >> scaleBy: scale [
 	"Answer a Rectangle scaled by scale, a Point or a scalar."
 

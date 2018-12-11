@@ -40,7 +40,8 @@ GShape >> encompassingRectangle [
 
 { #category : #transforming }
 GShape >> fitInExtent: anExtent [
-	"I should transform my shape to fit in a rectangle of size 0@0 to the extent as parameter, keeping my center."
+	"I should transform my shape to fit in a rectangle of size 0@0 to the extent as parameter, keeping my center.
+	Note that I should keep proportions. We could maybe implement another method to not keep proportions."
 	
 	self subclassResponsibility
 ]

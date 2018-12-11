@@ -4,40 +4,66 @@ I am an Ellipse geometry.
 I am described by center and two radii.
 
 - `center `is the center point of the ellipse
-- `a` is the major radius along the x axis
-- `b` is the minor radius along the y axis
+- `a` is the radius along the x axis
+- `b` is the radius along the y axis
+
+TODO
+------------------
+
+(Cyril Ferlicot) Note: I think that this representation of an ellipse is not correct. With that we can represent only ellipse whose major and minor axes are on x and y axis. But we cannot represent all ellipses. For example we cannot make a GEllipse rotate. 
+
+We will need to review the implementation to get:
+- A center
+- A semi minor axis
+- A semi major axis
+- An angle between the x axis and the major axis 
+
+Another problem is that here we have one center, but an ellipse would be better described with two focus instead of one center.
 "
 Class {
 	#name : #GEllipse,
 	#superclass : #GShape,
 	#instVars : [
 		'center',
-		'a',
-		'b'
+		'xRadius',
+		'yRadius'
 	],
 	#category : #'Geometry-Shapes'
 }
 
 { #category : #'instance creation' }
 GEllipse class >> center: aPoint a: xRadius b: yRadius [
-	^ self new setCenter: aPoint a: xRadius b: yRadius
+	self
+		deprecated: 'Use #center:xRadius:yRadius: instead'
+		transformWith: '`@receiver center: `@statements1 a: `@statements2 b: `@statements3' -> '`@receiver center: `@statements1 xRadius: `@statements2 yRadius: `@statements3'.
+	^ self center: aPoint xRadius: xRadius yRadius: yRadius
+]
+
+{ #category : #'instance creation' }
+GEllipse class >> center: aPoint xRadius: aNumber yRadius: anotherNumber [
+	^ self new
+		setCenter: aPoint xRadius: aNumber yRadius: anotherNumber;
+		yourself
 ]
 
 { #category : #comparing }
 GEllipse >> = anEllipse [
-	self species = anEllipse species
-		ifFalse: [ ^ false ].
-	^ self center = anEllipse center & (self a = anEllipse a) & (self b = anEllipse b)
+	self == anEllipse ifTrue: [ ^ true ].
+	self species = anEllipse species ifFalse: [ ^ false ].
+
+	^ center = anEllipse center and: [ xRadius = anEllipse xRadius and: [ yRadius = anEllipse yRadius ] ]
 ]
 
 { #category : #accessing }
 GEllipse >> a [
-	^ a
+	self deprecated: 'Use #xRadius instead' transformWith: '`@receiver a' -> '`@receiver xRadius'.
+	^ self xRadius
 ]
 
 { #category : #accessing }
 GEllipse >> b [
-	^ b
+	self deprecated: 'Use #yRadius instead' transformWith: '`@receiver b' -> '`@receiver yRadius'.
+	^ self yRadius
 ]
 
 { #category : #accessing }
@@ -47,18 +73,23 @@ GEllipse >> center [
 
 { #category : #accessing }
 GEllipse >> encompassingRectangle [
-	^ center - (a @ b) corner: center + (a @ b)
+	^ center - (xRadius @ yRadius) corner: center + (xRadius @ yRadius)
 ]
 
 { #category : #transforming }
 GEllipse >> fitInExtent: aPoint [
-	a := (aPoint x min: aPoint y) / 2.
-	b := (aPoint x max: aPoint y) / 2
+	"Since we need to keep the proportions, we will divide both points by the furthest point in order to fit the ellipse in a rectangle of size 1 then we will multiply by the extent."
+
+	| majorDiagonalSize |
+	majorDiagonalSize := self majorRadius * 2.
+
+	xRadius := xRadius / majorDiagonalSize * aPoint x.
+	yRadius := yRadius / majorDiagonalSize * aPoint y
 ]
 
 { #category : #comparing }
 GEllipse >> hash [
-	^ (a bitXor: b) bitXor: center hash
+	^ (xRadius hash bitXor: yRadius hash) bitXor: center hash
 ]
 
 { #category : #accessing }
@@ -68,7 +99,9 @@ GEllipse >> height [
 
 { #category : #testing }
 GEllipse >> includesPoint: aPoint [
-	^ (aPoint x - center x) squared / a squared + ((aPoint y - center y) squared / b squared) <= 1
+	"Solution from: https://math.stackexchange.com/questions/76457/check-if-a-point-is-within-an-ellipse"
+
+	^ (aPoint x - center x) squared / xRadius squared + ((aPoint y - center y) squared / yRadius squared) <= 1
 ]
 
 { #category : #comparing }
@@ -76,11 +109,29 @@ GEllipse >> intersectLineSegment: aLineSegment [
 	^ aLineSegment intersectEllipse: self
 ]
 
+{ #category : #accessing }
+GEllipse >> majorRadius [
+	^ xRadius max: yRadius
+]
+
+{ #category : #accessing }
+GEllipse >> minorRadius [
+	^ xRadius min: yRadius
+]
+
 { #category : #initialization }
-GEllipse >> setCenter: aCenter a: xRadius b: yRadius [
+GEllipse >> setCenter: aCenter a: xRad b: yRad [
+	self
+		deprecated: 'Use #setCenter:xRadius:yRadius: instead'
+		transformWith: '`@receiver setCenter: `@statements1 a: `@statements2 b: `@statements3' -> '`@receiver setCenter: `@statements1 xRadius: `@statements2 yRadius: `@statements3'.
+	self setCenter: aCenter xRadius: xRad yRadius: yRad
+]
+
+{ #category : #initialization }
+GEllipse >> setCenter: aCenter xRadius: xRad yRadius: yRad [
 	center := aCenter.
-	a := xRadius.
-	b := yRadius
+	xRadius := xRad.
+	yRadius := yRad
 ]
 
 { #category : #transforming }
@@ -91,4 +142,14 @@ GEllipse >> translateBy: aPoint [
 { #category : #accessing }
 GEllipse >> width [
 	^ self encompassingRectangle width
+]
+
+{ #category : #accessing }
+GEllipse >> xRadius [
+	^ xRadius
+]
+
+{ #category : #accessing }
+GEllipse >> yRadius [
+	^ yRadius
 ]

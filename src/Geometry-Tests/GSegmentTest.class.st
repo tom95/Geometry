@@ -83,19 +83,19 @@ self assert:((GSegment with:  -2 @ 4 with: -2 @ 0) belowPoint: -4 @ 2 )
 { #category : #tests }
 GSegmentTest >> testCutWith [
 	self
-		assert: ((GSegment with: -10 @ 10 with: 20 @ 30) cutWith: (Rectangle origin: -15 @ 0 corner: 15 @ 15 )) v1
+		assert: ((GSegment with: -10 @ 10 with: 20 @ 30) cutWith: (GRectangle origin: -15 @ 0 corner: 15 @ 15 )) v1
 		equals: (-5/2)@15.
 	self
-		assert: ((GSegment with: -10 @ 10 with: 20 @ 30) cutWith: (Rectangle origin: -15 @ 0 corner: 15 @ 15 )) v2
+		assert: ((GSegment with: -10 @ 10 with: 20 @ 30) cutWith: (GRectangle origin: -15 @ 0 corner: 15 @ 15 )) v2
 		equals: -10 @ 10.	
 	self
-		assert: ((GSegment with: -30 @ 0 with: 20 @ 30) cutWith: (Rectangle origin: -15 @ 0 corner: 15 @ 15 )) v1 
+		assert: ((GSegment with: -30 @ 0 with: 20 @ 30) cutWith: (GRectangle origin: -15 @ 0 corner: 15 @ 15 )) v1 
 		equals: (-15 @ 9) .	
 	self
-		assert: ((GSegment with: -30 @ 0 with: 20 @ 30) cutWith: (Rectangle origin: -15 @ 0 corner: 15 @ 15 )) v2 
+		assert: ((GSegment with: -30 @ 0 with: 20 @ 30) cutWith: (GRectangle origin: -15 @ 0 corner: 15 @ 15 )) v2 
 		equals: (-5 @ 15).
 	self
-		assert: ((GSegment with: -30 @ 30 with: 20 @ 30) cutWith: (Rectangle origin: -15 @ 0 corner: 15 @ 15 ))
+		assert: ((GSegment with: -30 @ 30 with: 20 @ 30) cutWith: (GRectangle origin: -15 @ 0 corner: 15 @ 15 ))
 		equals: nil.	
 ]
 
@@ -174,7 +174,7 @@ GSegmentTest >> testExtendSegmVert [
 	segm1 := (GSegment with: -2 @ 4 with: 2 @ 4).
 	segm2 := (GSegment with: -2 @ 2 with: -2 @ 4).
 	segm3 := (GSegment with: -2 @ 2 with: 2 @ 4).
-	frame := Rectangle origin: -5 @ 0 corner: 5 @ 5.
+	frame := GRectangle origin: -5 @ 0 corner: 5 @ 5.
 	self
 		assert: ( segm1 extendSegmVert: 2 @ 4 to: frame )
 		equals: ( GSegment with: -2 @ 4 with: 5 @ 4 ).
@@ -198,7 +198,7 @@ GSegmentTest >> testExtendSegmVert [
 { #category : #tests }
 GSegmentTest >> testExtendWithAnd [
 |frame|
-frame := Rectangle origin: -5 @ 0 corner: 5 @ 5 .
+frame := GRectangle origin: -5 @ 0 corner: 5 @ 5 .
 self assert:((GSegment with:  -2 @ 4 with: 2 @ 4) extendWith: 3 @ 4 and: frame) 
 	equals: (GSegment with: -5 @ 4 with: 3 @ 4).
 ]
@@ -206,7 +206,7 @@ self assert:((GSegment with:  -2 @ 4 with: 2 @ 4) extendWith: 3 @ 4 and: frame)
 { #category : #tests }
 GSegmentTest >> testExtendWithAnd1 [
 |frame|
-frame := Rectangle origin: -5 @ 0 corner: 5 @ 5 .
+frame := GRectangle origin: -5 @ 0 corner: 5 @ 5 .
 self assert:((GSegment with:  -2 @ 4 with: 2 @ 4) extendWith: 3 @ 4 and: frame) 
 	equals: (GSegment with: 3 @ 4 with: -5 @ 4).
 ]

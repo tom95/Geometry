@@ -5,11 +5,11 @@ I'm polygon builded on my vertices.
 "
 Class {
 	#name : #GPolygon,
-	#superclass : #Object,
+	#superclass : #GShape,
 	#instVars : [
 		'vertices'
 	],
-	#category : #Geometry
+	#category : #'Geometry-Shapes'
 }
 
 { #category : #'as yet unclassified' }
@@ -101,8 +101,7 @@ GPolygon >> fitInExtent: extent [
 
 { #category : #testing }
 GPolygon >> includesPoint: point [
-
-  ^ ( AthensPolygonTester new polygon: vertices ) includesPoint: point.
+	^ (AthensPolygonTester new polygon: vertices) includesPoint: point
 ]
 
 { #category : #initialization }

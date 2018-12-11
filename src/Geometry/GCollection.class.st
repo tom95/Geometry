@@ -4,7 +4,7 @@ I am a collection of several shapes. Useful for finding an intersection of a mor
 Class {
 	#name : #GCollection,
 	#superclass : #OrderedCollection,
-	#category : 'Geometry'
+	#category : #'Geometry-Core'
 }
 
 { #category : #accessing }

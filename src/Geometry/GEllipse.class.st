@@ -9,13 +9,13 @@ I am described by center and two radii.
 "
 Class {
 	#name : #GEllipse,
-	#superclass : #Object,
+	#superclass : #GShape,
 	#instVars : [
 		'center',
 		'a',
 		'b'
 	],
-	#category : 'Geometry'
+	#category : #'Geometry-Shapes'
 }
 
 { #category : #'instance creation' }

@@ -3,13 +3,13 @@ I am a segment between two vertices
 "
 Class {
 	#name : #GSegment,
-	#superclass : #Object,
+	#superclass : #GElement,
 	#instVars : [
 		'v1',
 		'v2',
 		'epsilon'
 	],
-	#category : 'Geometry'
+	#category : #'Geometry-Elements'
 }
 
 { #category : #'as yet unclassified' }

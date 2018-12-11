@@ -3,13 +3,13 @@ I represent a circle arc described by the underlying GCircle and the start and e
 "
 Class {
 	#name : #GCircleArc,
-	#superclass : #Object,
+	#superclass : #GElement,
 	#instVars : [
 		'circle',
 		'startAngle',
 		'endAngle'
 	],
-	#category : 'Geometry'
+	#category : #'Geometry-Elements'
 }
 
 { #category : #'instance creation' }

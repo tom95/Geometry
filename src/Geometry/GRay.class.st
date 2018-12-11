@@ -5,12 +5,12 @@ I am a vector builded on line ax+by+c=0 and have my start in point v1.
 "
 Class {
 	#name : #GRay,
-	#superclass : #Object,
+	#superclass : #GElement,
 	#instVars : [
 		'origin',
 		'direction'
 	],
-	#category : 'Geometry'
+	#category : #'Geometry-Elements'
 }
 
 { #category : #'as yet unclassified' }

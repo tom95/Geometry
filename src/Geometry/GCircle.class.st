@@ -6,12 +6,12 @@ a * (x^2) + a * (y^2) + d * x + e * y + f = 0
 "
 Class {
 	#name : #GCircle,
-	#superclass : #Object,
+	#superclass : #GShape,
 	#instVars : [
 		'center',
 		'radius'
 	],
-	#category : 'Geometry'
+	#category : #'Geometry-Shapes'
 }
 
 { #category : #'as yet unclassified' }

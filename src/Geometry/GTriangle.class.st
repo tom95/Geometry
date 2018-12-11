@@ -3,14 +3,14 @@ I am a triangle
 "
 Class {
 	#name : #GTriangle,
-	#superclass : #Object,
+	#superclass : #GShape,
 	#instVars : [
 		'v1',
 		'v2',
 		'v3',
 		'edgesByOpositeVertex'
 	],
-	#category : 'Geometry'
+	#category : #'Geometry-Shapes'
 }
 
 { #category : #'as yet unclassified' }

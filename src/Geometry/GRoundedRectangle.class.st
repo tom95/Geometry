@@ -3,12 +3,12 @@ I represent a rectangle whose corners are rounded.
 "
 Class {
 	#name : #GRoundedRectangle,
-	#superclass : #Object,
+	#superclass : #GShape,
 	#instVars : [
 		'rectangle',
 		'borderRadius'
 	],
-	#category : 'Geometry'
+	#category : #'Geometry-Shapes'
 }
 
 { #category : #'instance creation' }

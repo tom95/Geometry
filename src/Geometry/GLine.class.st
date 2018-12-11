@@ -6,13 +6,13 @@ ax+by+c=0
 "
 Class {
 	#name : #GLine,
-	#superclass : #Object,
+	#superclass : #GElement,
 	#instVars : [
 		'a',
 		'b',
 		'c'
 	],
-	#category : 'Geometry'
+	#category : #'Geometry-Elements'
 }
 
 { #category : #'as yet unclassified' }

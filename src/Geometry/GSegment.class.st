@@ -6,8 +6,7 @@ Class {
 	#superclass : #GElement,
 	#instVars : [
 		'v1',
-		'v2',
-		'epsilon'
+		'v2'
 	],
 	#category : #'Geometry-Elements'
 }

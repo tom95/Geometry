@@ -7,6 +7,16 @@ Point >> =~ aPoint [
 ]
 
 { #category : #'*Geometry' }
+Point >> asGPoint [
+	^ x , y
+]
+
+{ #category : #'*Geometry' }
+Point >> asGVector [
+	^ GVector coordinates: (G2DCoordinates x: x y: y)
+]
+
+{ #category : #'*Geometry' }
 Point >> geometryCorner: aPoint [
 	^ GRectangle origin: self corner: aPoint
 ]

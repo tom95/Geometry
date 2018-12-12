@@ -144,7 +144,7 @@ GLine >> initializeWithA: aNumber1 b: aNumber2 c: aNumber3 [
 
 { #category : #'rectangle functions' }
 GLine >> intersect: aGLine [
-	"ax + by + c = 0 and px + qy + r = 0"
+	"ax + by = c and px + qy = r"
 
 	| p q r xi yi determinant |
 	determinant := self determinantWith: aGLine.
@@ -152,6 +152,7 @@ GLine >> intersect: aGLine [
 	p := aGLine a.
 	q := aGLine b.
 	r := aGLine c.
+	
 	xi := (c negated * q - (r negated * b)) / determinant.
 	yi := (a * r negated - (p * c negated)) / determinant.
 	^ xi @ yi

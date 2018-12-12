@@ -183,11 +183,7 @@ GRay >> initializeWithOrigin: aPoint1 direction: aPoint2 [
 
 { #category : #accessing }
 GRay >> length [
-	^ (( self origin x - self direction x ) * ( self origin x - self direction x )
-	+
-	(( self origin y - self direction y ) * ( self origin y - self direction y )))sqrt
-	
-
+	^ ((self origin x - self direction x) * (self origin x - self direction x) + ((self origin y - self direction y) * (self origin y - self direction y))) sqrt
 ]
 
 { #category : #accessing }

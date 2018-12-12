@@ -37,7 +37,19 @@ GPolygon class >> convexHullOn: aCollection [
 				
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance creation' }
+GPolygon class >> newRegularPolygonWithEdgeNumber: aNumber [
+	"I return the polygon vertices for a regular polygon with a number of segment given as parameter.
+	
+	If Y give 8 as parameter I get an octogon."
+
+	| angle encompassingCircleRadius |
+	angle := 2 * Float pi / aNumber.
+	encompassingCircleRadius := 0.5.
+	^ self newVertices: ((1 to: aNumber) collect: [ :index | ((encompassingCircleRadius + index) * angle) sin , ((encompassingCircleRadius + index) * angle) cos negated ])
+]
+
+{ #category : #'instance creation' }
 GPolygon class >> newVertices: aCollection [
 	
 	^ self new
@@ -117,7 +129,7 @@ GPolygon >> includesPoint: point [
 GPolygon >> initializeVertices: aCollection [
 	self initialize.
 	
-	vertices := aCollection 
+	vertices := aCollection collect: #asGPoint
 ]
 
 { #category : #comparing }

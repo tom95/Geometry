@@ -1,27 +1,66 @@
 Class {
 	#name : #GPointTest,
 	#superclass : #TestCase,
+	#instVars : [
+		'point'
+	],
 	#category : #'Geometry-Tests'
 }
 
 { #category : #tests }
-GPointTest >> testHasOnTheSameSideAs [
-	self assert:(1@1 has: 3@2 onTheSameSideAs: 2@2)
-		equals: true.
-	self assert:(1@1 has: 1@1 onTheSameSideAs: 2@2)
-		equals: true.
-	self assert:(1@1 has: -1@2 onTheSameSideAs: 2@2)
-		equals: false.
+GPointTest >> test2DPoint [
+	point := GPoint x: 1 y: 2.
+	self assert: point x equals: 1.
+	self assert: point y equals: 2.
+	
+	point := GPoint x: -1 y: -2.
+	self assert: point x equals: -1.
+	self assert: point y equals: -2.
+	
+	point := GPoint coordinates: (G2DCoordinates x: 1 y: 2).
+	self assert: point x equals: 1.
+	self assert: point y equals: 2.
+	
+	point := (1 , 2).
+	self assert: point x equals: 1.
+	self assert: point y equals: 2.
 ]
 
 { #category : #tests }
-GPointTest >> testHasOnTheSameSideAs1 [
+GPointTest >> testAddition [
+	| vector |
+	point := (1, 2).
+	vector := GVector x: 2 y: 3.
+	self assert: point + vector equals: (3, 5).
+	self assert: point equals: (1, 2)
+]
 
-	self assert:(((17674/229)@(14582/229)) has: ((9244/147)@(1090/21)) 
-				onTheSameSideAs: (76.82622578909061@64.97050543967634))
-		equals: false.
-		
-	self assert:(((17674/229)@(14582/229)) has: ((-28206/397)@(50382/397)) 
-				onTheSameSideAs: (76.82622578909061@64.97050543967634))
-		equals: true
+{ #category : #tests }
+GPointTest >> testCopy [
+	| pointCopy |
+	point := (1, 2).
+	pointCopy := point copy.
+	self assert: point equals: pointCopy.
+	point x: 2.
+	self deny: point equals: pointCopy.
+	self deny: point == pointCopy
+]
+
+{ #category : #tests }
+GPointTest >> testEquals [
+	self assert: (1 , 2) equals: (1 , 2).
+	self deny: (2 , 4) equals: (1 , 2).
+	self assert: (1 , 2) hash equals: (1 , 2) hash.
+	self deny: (2 , 4) hash equals: (1 , 2) hash
+]
+
+{ #category : #tests }
+GPointTest >> testTranslateBy [
+	| vector |
+	point := (1, 2).
+	vector := GVector x: 2 y: 3.
+	point translateBy: vector.
+	self assert: point equals: (3, 5).
+	point translateBy: vector.
+	self assert: point equals: (5 , 8)
 ]

@@ -105,6 +105,11 @@ GEllipse >> includesPoint: aPoint [
 ]
 
 { #category : #comparing }
+GEllipse >> intersectLine: aGLine [ 
+	^ {  }
+]
+
+{ #category : #comparing }
 GEllipse >> intersectLineSegment: aLineSegment [
 	^ aLineSegment intersectEllipse: self
 ]

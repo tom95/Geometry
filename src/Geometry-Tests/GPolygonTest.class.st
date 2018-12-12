@@ -22,11 +22,7 @@ GPolygonTest >> testConvexHullOn [
 			(30 , -30).
 			(40 , -20).
 			(40 , 0).
-			(0 , 10)} asOrderedCollection
-]
-
-{ #category : #tests }
-GPolygonTest >> testConvexHullOn1 [
+			(0 , 10)} asOrderedCollection.
 	self
 		assert:
 			(GPolygon
@@ -85,17 +81,17 @@ GPolygonTest >> testEdges [
 ]
 
 { #category : #tests }
-GPolygonTest >> testEncompasingRectangle [
+GPolygonTest >> testEncompassingRectangle [
 	self
 		assert:
 			(GPolygon
 				newVertices:
-					{(0 @ -20).
-					(0 @ 10).
-					(30 @ -30).
-					(40 @ 0).
-					(-10 @ 0).
-					(40 @ -20)}) encompassingRectangle
+					{(0 , -20).
+					(0 , 10).
+					(30 , -30).
+					(40 , 0).
+					(-10 , 0).
+					(40 , -20)}) encompassingRectangle
 		equals:
 			(Rectangle
 				left: -10
@@ -109,30 +105,30 @@ GPolygonTest >> testFitInExtent [
 	| polygon |
 	polygon := GPolygon
 		newVertices:
-			{(10 @ 10).
-			(-10 @ 10).
-			(-10 @ -10)}.
-	polygon fitInExtent: 20 @ 20.
+			{(10 , 10).
+			(-10 , 10).
+			(-10 , -10)}.
+	polygon fitInExtent: 20 , 20.
 	self
 		assert: polygon vertices
 		equals:
-			{(10 @ 10).
-			(-10 @ 10).
-			(-10 @ -10)}.
-	polygon fitInExtent: 40 @ 40.
+			{(10 , 10).
+			(-10 , 10).
+			(-10 , -10)}.
+	polygon fitInExtent: 40 , 40.
 	self
 		assert: polygon vertices
 		equals:
-			{(20 @ 20).
-			(-20 @ 20).
-			(-20 @ -20)}.
-	polygon fitInExtent: 10 @ 10.
+			{(20 , 20).
+			(-20 , 20).
+			(-20 , -20)}.
+	polygon fitInExtent: 10 , 10.
 	self
 		assert: polygon vertices
 		equals:
-			{(5 @ 5).
-			(-5 @ 5).
-			(-5 @ -5)}
+			{(5 , 5).
+			(-5 , 5).
+			(-5 , -5)}
 ]
 
 { #category : #tests }
@@ -140,30 +136,30 @@ GPolygonTest >> testFitInExtentNonProportionnal [
 	| polygon |
 	polygon := GPolygon
 		newVertices:
-			{(10 @ 4).
-			(-4 @ 10).
-			(-10 @ -8)}.
-	polygon fitInExtent: 20 @ 20.
+			{(10 , 4).
+			(-4 , 10).
+			(-10 , -8)}.
+	polygon fitInExtent: 20 , 20.
 	self
 		assert: polygon vertices
 		equals:
-			{(10 @ 4).
-			(-4 @ 10).
-			(-10 @ -8)}.
-	polygon fitInExtent: 40 @ 40.
+			{(10 , 4).
+			(-4 , 10).
+			(-10 , -8)}.
+	polygon fitInExtent: 40 , 40.
 	self
 		assert: polygon vertices
 		equals:
-			{(20 @ 8).
-			(-8 @ 20).
-			(-20 @ -16)}.
-	polygon fitInExtent: 10 @ 10.
+			{(20 , 8).
+			(-8 , 20).
+			(-20 , -16)}.
+	polygon fitInExtent: 10 , 10.
 	self
 		assert: polygon vertices
 		equals:
-			{(5 @ 2).
-			(-2 @ 5).
-			(-5 @ -4)}
+			{(5 , 2).
+			(-2 , 5).
+			(-5 , -4)}
 ]
 
 { #category : #tests }
@@ -172,9 +168,9 @@ GPolygonTest >> testIncludesPoint [
 		assert:
 			((GPolygon
 				newVertices:
-					{(10 @ 10).
-					(-10 @ 10).
-					(-10 @ -10)}) includesPoint: -5 @ 5)
+					{(10 , 10).
+					(-10 , 10).
+					(-10 , -10)}) includesPoint: -5 , 5)
 ]
 
 { #category : #tests }
@@ -182,14 +178,14 @@ GPolygonTest >> testTranslateBy [
 	| polygon |
 	polygon := GPolygon
 		newVertices:
-			{(10 @ 10).
-			(-10 @ 10).
-			(-10 @ -10)}.
-	polygon translateBy: 10 @ 10.
+			{(10 , 10).
+			(-10 , 10).
+			(-10 , -10)}.
+	polygon translateBy: 10 , 10.
 	self
 		assert: polygon vertices
 		equals:
-			{(20 @ 20).
-			(0 @ 20).
-			(0 @ 0)}
+			{(20 , 20).
+			(0 , 20).
+			(0 , 0)}
 ]

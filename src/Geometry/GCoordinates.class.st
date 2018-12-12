@@ -161,7 +161,6 @@ GCoordinates >> printCoordinatesOn: aStream [
 
 { #category : #printing }
 GCoordinates >> printOn: aStream [
-	super printOn: aStream.
 	self printCoordinatesOn: aStream
 ]
 

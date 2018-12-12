@@ -1,6 +1,40 @@
+"
+Description
+--------------------
+
+I represent a set of coordinates that will be used by other geometric elements.
+
+My subclass will represent sets of a certain amount of coordinates. In the long terme we would like to remove all the subclasses and that everything manage myself as a n-dimensions coordinates set, but for now we prefer to begin with simple sets like 2D or 3D.
+
+I implement basic arithmetic that can be done with coordinates.
+
+Examples
+--------------------
+	
+	""Instance creation""
+	GCoordinates withCollection: #(1 3). 	""(1,3)""
+	
+	#(1 3) asGCoordinates.	""(1,3)""
+	
+	""Arithmetic""		
+	(GCoordinates withCollection: #(1 3)) + (GCoordinates withCollection: #(5 1)). 	""(6,4)""
+		
+	(GCoordinates withCollection: #(1 3)) - (GCoordinates withCollection: #(5 1)). 	""(-4,2)""
+		
+	(GCoordinates withCollection: #(1 3)) * 2. 	""(2,6)""
+		
+	(GCoordinates withCollection: #(1 3)) / 2. 	""((1/2),(3/2))""
+ 
+Internal Representation and Key Implementation Points.
+--------------------
+
+    Instance Variables
+	coordinates:		<aCollection> 	A collection of all the coordinates I contains.
+
+"
 Class {
 	#name : #GCoordinates,
-	#superclass : #Object,
+	#superclass : #GElement,
 	#instVars : [
 		'coordinates'
 	],

@@ -65,6 +65,12 @@ GPointTest >> testEquals [
 ]
 
 { #category : #tests }
+GPointTest >> testMiddlePointTo [
+	point := 1, 2.
+	self assert: (point middlePointTo: 5, 10 ) equals: 3 , 6
+]
+
+{ #category : #tests }
 GPointTest >> testTranslateBy [
 	| vector |
 	point := (1, 2).
@@ -73,4 +79,10 @@ GPointTest >> testTranslateBy [
 	self assert: point equals: (3, 5).
 	point translateBy: vector.
 	self assert: point equals: (5 , 8)
+]
+
+{ #category : #tests }
+GPointTest >> testWithCollection [
+	self assert: (GPoint withCollection: #(1 2)) equals: 1 , 2.
+	self should: [ GPoint withCollection: #() ] raise: GError
 ]

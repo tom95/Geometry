@@ -10,6 +10,16 @@ Class {
 	#category : #'Geometry-Elements'
 }
 
+{ #category : #'error handling' }
+GElement class >> error [
+	GError signal
+]
+
+{ #category : #'error handling' }
+GElement class >> error: aString [
+	GError signal: aString
+]
+
 { #category : #testing }
 GElement class >> isAbstract [
 	^ self = GElement
@@ -17,16 +27,10 @@ GElement class >> isAbstract [
 
 { #category : #'error handling' }
 GElement >> error [
-	GError signal
+	^ self class error
 ]
 
 { #category : #'error handling' }
 GElement >> error: aString [
-	GError signal: aString
-]
-
-{ #category : #printing }
-GElement >> printOn: aStream [
-	super printOn: aStream.
-	aStream << $[ << self hash << $]
+	^ self class error: aString
 ]

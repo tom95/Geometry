@@ -196,3 +196,8 @@ GSegmentTest >> testPerpendicularBisector [
 	self assert: line b equals: 3.
 	self assert: line c equals: -1 / 2
 ]
+
+{ #category : #tests }
+GSegmentTest >> testSegmentFromPoints [
+	self assert: (1 , 2 segment: 2 , 3) equals: (GSegment with: 1 , 2 with: 2 , 3)
+]

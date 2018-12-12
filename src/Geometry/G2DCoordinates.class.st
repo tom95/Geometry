@@ -1,3 +1,16 @@
+"
+Description
+--------------------
+
+I am a coordinates set for plans. (2D space).
+
+Examples
+--------------------
+
+	G2DCoordinates coordinates: #(1 3).
+	
+	G2DCoordinates x: 1 y: 2
+"
 Class {
 	#name : #G2DCoordinates,
 	#superclass : #GCoordinates,

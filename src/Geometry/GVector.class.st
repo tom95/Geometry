@@ -1,6 +1,36 @@
+"
+Description
+--------------------
+
+I represent a geometric vector. I have a state close to the state of a GPoint but a vector only represent a direction and a length.
+
+My direction will go from the origin of the plan ( (0, 0) in a 2D plan) to my coordinates. My length will be defined by my coordinates.
+
+Examples
+--------------------
+
+	""Instance creation""
+	GVector withCollection: #(1 2).	 ""a GVector(1,2)""
+	
+	GVector coordinates: (GCoordinates withCollection: #(1 3)). 	""a GVector(1,3)""
+	
+	(GCoordinates withCollection: #(1 3)) asGVector.	""a GVector(1,3)""
+	
+	#(1 2) asGVector.	""a GVector(1,2)""	
+			
+	""Arithmetic""	
+	#(3 5) asGVector length.	""5.830951894845301""
+ 
+Internal Representation and Key Implementation Points.
+--------------------
+
+    Instance Variables
+	coordinates:		<GCoordinates> 	Coordinates defining my direction and length.
+
+"
 Class {
 	#name : #GVector,
-	#superclass : #Object,
+	#superclass : #GElement,
 	#traits : 'TGWithCoordinates',
 	#classTraits : 'TGWithCoordinates classTrait',
 	#instVars : [

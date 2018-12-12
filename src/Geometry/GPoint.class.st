@@ -1,6 +1,50 @@
+"
+Description
+--------------------
+
+I represent a geometric point. In the contrary of default Pharo point, I implement only the point logic and cannot be used as a vector. 
+
+Vectors can be used with GVector.
+
+I am based on a set of coordinates and my API should be independent from the number of dimensions of the current space. The computations will rely on coordinates.
+
+Examples
+--------------------
+
+	""Instance creation""
+	
+	GPoint withCollection: #(1 2).	 ""a GPoint(1,2)""
+	
+	GPoint coordinates: (GCoordinates withCollection: #(1 3)). 	""a GPoint(1,3)""
+	
+	(GCoordinates withCollection: #(1 3)) asGPoint.	""a GPoint(1,3)""
+	
+	#(1 2) asGPoint.	""a GPoint(1,2)""
+		
+	1 , 2.		""a GPoint(1,2)""		
+		
+	""Arithmetic""
+	(1 , 2) + (2 , 3). ""a GPoint(3,5) <= This will be a new instance.""
+	
+	(1, 2) translateBy: (2 , 3).	""a GPoint(3,5) <= This will be the same instance than the receiver"" 
+		
+	(4, 2) - (1, 1).	""a GVector(3,1)""
+		
+	(3, 5) middlePointTo: (9, 15).	""a GPoint(6,10)""
+	
+	(3, 5) distanceTo: (9, 15).	""11.661903789690601""
+	
+ 
+Internal Representation and Key Implementation Points.
+--------------------
+
+    Instance Variables
+	coordinates:		<aGCoordinates> 	I represent the coordinates of the point.
+
+"
 Class {
 	#name : #GPoint,
-	#superclass : #Object,
+	#superclass : #GElement,
 	#traits : 'TGWithCoordinates',
 	#classTraits : 'TGWithCoordinates classTrait',
 	#instVars : [
@@ -106,5 +150,5 @@ GPoint >> segment: aPoint [
 GPoint >> translateBy: aVector [ 
 	"Answer a Point translated by a vector."
 
-	^ coordinates := coordinates + aVector coordinates
+	coordinates := coordinates + aVector coordinates
 ]

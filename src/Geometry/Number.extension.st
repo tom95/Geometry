@@ -1,6 +1,11 @@
 Extension { #name : #Number }
 
 { #category : #'*Geometry' }
+Number >> , aNumber [
+	^ GPoint x: self y: aNumber
+]
+
+{ #category : #'*Geometry' }
 Number >> =~ aNumber [ 
 	^((self - aNumber) abs) < Number epsilon.
 ]

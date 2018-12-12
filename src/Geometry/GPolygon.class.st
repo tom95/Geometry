@@ -127,8 +127,6 @@ GPolygon >> includesPoint: point [
 
 { #category : #initialization }
 GPolygon >> initializeVertices: aCollection [
-	self initialize.
-	
 	vertices := aCollection collect: #asGPoint
 ]
 

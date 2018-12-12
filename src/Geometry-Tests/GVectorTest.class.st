@@ -29,3 +29,9 @@ GVectorTest >> testEquals [
 	self assert: (GVector x: 1 y: 2) hash equals: (GVector x: 1 y: 2) hash.
 	self deny: (GVector x: 2 y: 4) hash equals: (GVector x: 1 y: 2) hash
 ]
+
+{ #category : #tests }
+GVectorTest >> testLength [
+	vector := GVector x: 3 y: -4.
+	self assert: vector length equals: 5
+]

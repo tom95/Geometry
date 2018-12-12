@@ -155,7 +155,7 @@ GLine >> intersect: aGLine [
 	
 	xi := (c negated * q - (r negated * b)) / determinant.
 	yi := (a * r negated - (p * c negated)) / determinant.
-	^ xi @ yi
+	^ xi , yi
 ]
 
 { #category : #comparing }

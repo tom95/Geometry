@@ -56,3 +56,10 @@ GVector >> hash [
 	coordHash := coordinates hash.
 	^ coordHash squared + coordHash "Try to avoid collisions with GAbstractCoordinates and GPoint"
 ]
+
+{ #category : #accessing }
+GVector >> length [
+	"https://onlinemschool.com/math/library/vector/length/"
+
+	^ (self coordinates inject: 0 into: [ :res :number | res + (number * number) ]) sqrt
+]

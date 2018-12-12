@@ -29,7 +29,7 @@ GPolygon class >> convexHullOn: aCollection [
 				((point x - lastPoint x) * (nextPoint y - lastPoint y)).
 			(turn < 0 or:
 				[ turn = 0 and:
-				[ (lastPoint dist: point) > (lastPoint dist: nextPoint) ] ]) ifTrue:
+				[ (lastPoint distanceTo: point) > (lastPoint distanceTo: nextPoint) ] ]) ifTrue:
 					[ nextPoint := point ] ] ] doWhileTrue: [
 				convexHull first ~= nextPoint ].
 		

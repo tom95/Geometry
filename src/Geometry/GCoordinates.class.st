@@ -76,6 +76,16 @@ GCoordinates >> = otherCoordinates [
 	^ true
 ]
 
+{ #category : #converting }
+GCoordinates >> asGPoint [
+	^ GPoint coordinates: self
+]
+
+{ #category : #converting }
+GCoordinates >> asGVector [
+	^ GVector coordinates: self
+]
+
 { #category : #accessing }
 GCoordinates >> coordinates [
 	^ coordinates
@@ -101,6 +111,11 @@ GCoordinates >> coordinatesWith: aCollection do: aBlock [
 	coordinates with: aCollection do: aBlock
 ]
 
+{ #category : #enumerating }
+GCoordinates >> fold: aBlock [
+	^ self coordinates fold: aBlock
+]
+
 { #category : #comparing }
 GCoordinates >> hash [
 	"Answer an integer value that is related to the identity of the receiver."
@@ -116,9 +131,14 @@ GCoordinates >> initialize [
 
 { #category : #private }
 GCoordinates >> initializeWith: anArray [
-	anArray size = self numberOfDimensions
-		ifFalse: [ self error: 'The provided array must have the same size than my number of dimensions which is ' , self numberOfDimensions size asString ].
+	anArray size = self numberOfDimensions ifFalse: [ self error: 'The provided array must have the same size than my number of dimensions which is ' , self numberOfDimensions size asString ].
+
 	coordinates := anArray
+]
+
+{ #category : #enumerating }
+GCoordinates >> inject: aSeed into: aBlock [
+	^ self coordinates inject: aSeed into: aBlock
 ]
 
 { #category : #accessing }
@@ -135,7 +155,7 @@ GCoordinates >> postCopy [
 { #category : #printing }
 GCoordinates >> printCoordinatesOn: aStream [
 	aStream << $(.
-	coordinates do: [ :number | aStream << number ] separatedBy: [ aStream << $, ].
+	coordinates do: [ :number | aStream << number asString ] separatedBy: [ aStream << $, ].
 	aStream << $)
 ]
 
@@ -157,10 +177,14 @@ GCoordinates >> x: aNumber [
 
 { #category : #accessing }
 GCoordinates >> y [
+	"Might return an error for 1D coordinates, but do they make sense?"
+
 	^ coordinates at: 2
 ]
 
 { #category : #accessing }
 GCoordinates >> y: aNumber [
+	"Might return an error for 1D coordinates, but do they make sense?"
+
 	coordinates at: 2 put: aNumber
 ]

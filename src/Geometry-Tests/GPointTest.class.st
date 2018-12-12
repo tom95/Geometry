@@ -47,6 +47,16 @@ GPointTest >> testCopy [
 ]
 
 { #category : #tests }
+GPointTest >> testDistanceTo [
+	self assert: (0 , 0 distanceTo: 0 , 0) equals: 0.
+	self assert: (0 , 0 distanceTo: 0 , 5) equals: 5.
+	self assert: (5 , 0 distanceTo: 0 , 0) equals: 5.
+	self assert: (3 , 0 distanceTo: 0 , 4) equals: 5.
+	self assert: (5 , 0 distanceTo: 2 , 4) equals: 5.
+	self deny: (0 , 0 distanceTo: 0 , 0) equals: 1
+]
+
+{ #category : #tests }
 GPointTest >> testEquals [
 	self assert: (1 , 2) equals: (1 , 2).
 	self deny: (2 , 4) equals: (1 , 2).

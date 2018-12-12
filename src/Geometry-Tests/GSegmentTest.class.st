@@ -6,347 +6,193 @@ Class {
 
 { #category : #tests }
 GSegmentTest >> testAlreadyExistIn [
-	|segm1 segm2 segm aSet |
-	segm1 := GSegment with:5@2  with: 3@4.
-	segm2 := GSegment with:1@1  with:4@8.
-	segm := GSegment with: 0@0 with: 3@3.
-	aSet := Set new.
-	aSet add: segm1.
-	aSet add: segm2.
-	self assert: (segm alreadyExistIn:aSet )
-		equals: false
-]
+	| segm aSet |
+	segm := GSegment with: 0 , 0 with: 3 , 3.
+	aSet := Set
+		withAll:
+			{(GSegment with: 5 , 2 with: 3 , 4).
+			(GSegment with: 1 , 1 with: 4 , 8)}.
+	self deny: (segm alreadyExistIn: aSet).
 
-{ #category : #tests }
-GSegmentTest >> testAlreadyExistIn1 [
-	|segm1 segm2 segm aSet |
-	segm1 := GSegment with:1@2  with: 3@4.
-	segm2 := GSegment with:1@1  with:2@2.
-	segm := GSegment with: 0@0 with: 3@3.
-	aSet := Set new.
-	aSet add: segm1.
-	aSet add: segm2.
-	self assert: (segm alreadyExistIn:aSet )
-"equels:true"
+	aSet := Set
+		withAll:
+			{(GSegment with: 1 , 2 with: 3 , 4).
+			(GSegment with: 1 , 1 with: 2 , 2)}.
+	self assert: (segm alreadyExistIn: aSet)
 ]
 
 { #category : #tests }
 GSegmentTest >> testAsLine [
-|line|
-	line := (GSegment with:  1 @ 3 with: 3 @ 0) asLine .
+	| line |
+	line := (GSegment with: 1 , 3 with: 3 , 0) asLine.
 	self assert: line a equals: 3.
 	self assert: line b equals: 2.
 	self assert: line c equals: -9.
-]
-
-{ #category : #tests }
-GSegmentTest >> testAsLine1 [
-|line|
-	line := (GSegment with:  -2 @ 4 with: 2 @ 4) asLine .
+	
+	line := (GSegment with: -2 , 4 with: 2 , 4) asLine.
 	self assert: line a equals: 0.
 	self assert: line b equals: 1.
 	self assert: line c equals: -4.
-]
-
-{ #category : #tests }
-GSegmentTest >> testAsLine2 [
-|line|
-	line := (GSegment with:  1 @ 3 with: 1 @ 0) asLine .
+	
+	line := (GSegment with: 1 , 3 with: 1 , 0) asLine.
 	self assert: line a equals: 1.
 	self assert: line b equals: 0.
-	self assert: line c equals: -1.
+	self assert: line c equals: -1
 ]
 
 { #category : #tests }
 GSegmentTest >> testBelowPoint [
-self assert:((GSegment with: -2 @ 4 with: 2 @ 4) belowPoint: -2 @ 4 ) 
-	equals: false.
-]
-
-{ #category : #tests }
-GSegmentTest >> testBelowPoint1 [
-
-self assert:((GSegment with:  -2 @ 4 with: 2 @ 4) belowPoint: 0 @ 5 ) 
-	equals: true.
-self assert:((GSegment with:  -2 @ 4 with: 2 @ 4) belowPoint: 0 @ -5 ) 
-	equals: false.
-]
-
-{ #category : #tests }
-GSegmentTest >> testBelowPoint2 [
-self assert:((GSegment with:  -2 @ 4 with: -2 @ 0) belowPoint: 0 @ 2 ) 
-	equals: true.
-self assert:((GSegment with:  -2 @ 4 with: -2 @ 0) belowPoint: -4 @ 2 ) 
-	equals: false.
+	self deny: ((GSegment with: -2 , 4 with: 2 , 4) belowPoint: -2 , 4).
+	self assert: ((GSegment with: -2 , 4 with: 2 , 4) belowPoint: 0 , 5).
+	self deny: ((GSegment with: -2 , 4 with: 2 , 4) belowPoint: 0 , -5).
+	self assert: ((GSegment with: -2 , 4 with: -2 , 0) belowPoint: 0 , 2).
+	self deny: ((GSegment with: -2 , 4 with: -2 , 0) belowPoint: -4 , 2)
 ]
 
 { #category : #tests }
 GSegmentTest >> testCutWith [
-	self
-		assert: ((GSegment with: -10 @ 10 with: 20 @ 30) cutWith: (GRectangle origin: -15 @ 0 corner: 15 @ 15 )) v1
-		equals: (-5/2)@15.
-	self
-		assert: ((GSegment with: -10 @ 10 with: 20 @ 30) cutWith: (GRectangle origin: -15 @ 0 corner: 15 @ 15 )) v2
-		equals: -10 @ 10.	
-	self
-		assert: ((GSegment with: -30 @ 0 with: 20 @ 30) cutWith: (GRectangle origin: -15 @ 0 corner: 15 @ 15 )) v1 
-		equals: (-15 @ 9) .	
-	self
-		assert: ((GSegment with: -30 @ 0 with: 20 @ 30) cutWith: (GRectangle origin: -15 @ 0 corner: 15 @ 15 )) v2 
-		equals: (-5 @ 15).
-	self
-		assert: ((GSegment with: -30 @ 30 with: 20 @ 30) cutWith: (GRectangle origin: -15 @ 0 corner: 15 @ 15 ))
-		equals: nil.	
+	self assert: ((GSegment with: -10 , 10 with: 20 , 30) cutWith: (GRectangle origin: -15 , 0 corner: 15 , 15)) v1 equals: -5 / 2 , 15.
+	self assert: ((GSegment with: -10 , 10 with: 20 , 30) cutWith: (GRectangle origin: -15 , 0 corner: 15 , 15)) v2 equals: -10 , 10.
+	self assert: ((GSegment with: -30 , 0 with: 20 , 30) cutWith: (GRectangle origin: -15 , 0 corner: 15 , 15)) v1 equals: -15 , 9.
+	self assert: ((GSegment with: -30 , 0 with: 20 , 30) cutWith: (GRectangle origin: -15 , 0 corner: 15 , 15)) v2 equals: -5 , 15.
+	self assert: ((GSegment with: -30 , 30 with: 20 , 30) cutWith: (GRectangle origin: -15 , 0 corner: 15 , 15)) equals: nil
 ]
 
 { #category : #tests }
-GSegmentTest >> testDist1 [
-self assert:(  ((GSegment with: ((838/41)@(4811/82)) with:((57583/914)@(56095/914))) dist: (57.998905906959145@61.11074842728413)) <=~ (2 * 0.02757564283371476 )  ) 
-	equals: true.
-	
-"self
-	assert: ((GSegment with:	((838/41)@(4811/82)) with:((57583/914)@(56095/914))) asLine
-		hasPoint: (57.998905906959145@61.11074842728413) withApproximation: 0.02757564283371476 )
-	equals: true."
-]
-
-{ #category : #tests }
-GSegmentTest >> testDistTo [
-self assert:((GSegment with:  -2 @ 4 with: 2 @ 4) distTo: -2 @ 4 ) 
-	equals: 0.
-]
-
-{ #category : #tests }
-GSegmentTest >> testDistTo1 [
-self assert:((GSegment with:  -2 @ 4 with: 2 @ 4) distTo: 2 @ 4 ) 
-	equals: 0.
-]
-
-{ #category : #tests }
-GSegmentTest >> testDistTo2 [
-self assert:((GSegment with: (477/11)@(149/2) with:(-56.73661227723915@143.3189209406019)) distTo: (36819/1022)@(82249/1022) ) 
-	equals: 0.7697676365059569.
+GSegmentTest >> testDistanceTo [
+	self assert: ((GSegment with: -2 , 4 with: 2 , 4) distanceTo: -2 , 4) equals: 0.
+	self assert: ((GSegment with: -2 , 4 with: 2 , 4) distanceTo: 2 , 4) equals: 0.
+	self
+		assert:
+			((GSegment with: 477 / 11 , (149 / 2) with: -56.73661227723915 , 143.3189209406019) distanceTo: 36819 / 1022 , (82249 / 1022))
+				=~ 0.7697676365059569.
+	self
+		assert:
+			((GSegment with: 838 / 41 , (4811 / 82) with: 57583 / 914 , (56095 / 914)) distanceTo: 57.998905906959145 , 61.11074842728413)
+				<=~ (2 * 0.02757564283371476)
+		equals: true
 ]
 
 { #category : #tests }
 GSegmentTest >> testEqual [
-	|segm1 segm2 |
-	segm1 := GSegment with: 1@2 with: 3@4.
-	segm2 := GSegment with: 0@0 with: 3@3.
-
-	self assert: (segm1 asLine = (segm2 asLine))
-	equals:false
-]
-
-{ #category : #tests }
-GSegmentTest >> testEqual1 [
-	|segm1 segm2 |
-	segm1 := GSegment with:1@1  with: 3@3.
-	segm2 := GSegment with: 0@0 with: 3@3.
-
-	self assert: (segm1 asLine = (segm2 asLine))
-	equals:true
-]
-
-{ #category : #tests }
-GSegmentTest >> testEqual2 [
-	|segm1 segm2 |
-	segm1 := GSegment with: ( -24.494897427831784 @ -24.494897427831795 ) with: ( 24.494897427831784 @ 24.49489742783178 ).
-	segm2 := GSegment with: ( 24.494897427831784 @ 24.49489742783178 ) with: ( -24.494897427831784 @ -24.494897427831795 ).
-
-	self assert: (segm1 asLine = (segm2 asLine))
-	equals:true
-]
-
-{ #category : #tests }
-GSegmentTest >> testEqual3 [
-	|segm1 segm2 |
-	segm1 := GSegment with: ( -24.494897427831784 @ -24.494897427831795 ) with: ( 24.494897427831784 @ 24.49489742783178 ).
-	segm2 := GSegment with: ( 24.494897427831784 @ 24.49489742783178 ) with: ( -24.494897427831784 @ -24.494897427831795 ).
-
-	self assert: (segm1 = segm2)
-	equals:true
+	| segm1 segm2 |
+	segm1 := GSegment with: 1 , 2 with: 3 , 4.
+	segm2 := GSegment with: 0 , 0 with: 3 , 3.
+	self deny: segm1 asLine equals: segm2 asLine.
+	
+	segm1 := GSegment with: 1 , 1 with: 3 , 3.
+	segm2 := GSegment with: 0 , 0 with: 3 , 3.
+	self assert: segm1 asLine equals: segm2 asLine.
+	
+	segm1 := GSegment with: -24.494897427831784 , -24.494897427831795 with: 24.494897427831784 , 24.49489742783178.
+	segm2 := GSegment with: 24.494897427831784 , 24.49489742783178 with: -24.494897427831784 , -24.494897427831795.
+	self assert: segm1 asLine equals: segm2 asLine .
+	
+	segm1 := GSegment with: -24.494897427831784 , -24.494897427831795 with: 24.494897427831784 , 24.49489742783178.
+	segm2 := GSegment with: 24.494897427831784 , 24.49489742783178 with: -24.494897427831784 , -24.494897427831795.
+	self assert: segm1 equals: segm2
 ]
 
 { #category : #tests }
 GSegmentTest >> testExtendSegmVert [
 	| segm1 segm2 segm3 frame |
-	segm1 := (GSegment with: -2 @ 4 with: 2 @ 4).
-	segm2 := (GSegment with: -2 @ 2 with: -2 @ 4).
-	segm3 := (GSegment with: -2 @ 2 with: 2 @ 4).
-	frame := GRectangle origin: -5 @ 0 corner: 5 @ 5.
-	self
-		assert: ( segm1 extendSegmVert: 2 @ 4 to: frame )
-		equals: ( GSegment with: -2 @ 4 with: 5 @ 4 ).
-	self
-		assert: ( segm1 extendSegmVert: -2 @ 4 to: frame )
-		equals: ( GSegment with: -5 @ 4 with: 2 @ 4 ).	
-	self
-		assert: ( segm2 extendSegmVert: -2 @ 2 to: frame )
-		equals: ( GSegment with: -2 @ 0 with: -2 @ 4 ).	
-	self
-		assert: ( segm2 extendSegmVert: -2 @ 4 to: frame ) 
-		equals: ( GSegment with: -2 @ 2 with: -2 @ 5 ).
-	self
-		assert: ( segm3 extendSegmVert: -2 @ 2 to: frame )
-		equals: ( GSegment with: -5 @ (1/2) with: 2 @ 4 ).
-	self
-		assert: ( segm3 extendSegmVert: 2 @ 4 to: frame )
-		equals: ( GSegment with: -2 @ 2 with: 4 @ 5 ).	
+	segm1 := GSegment with: -2 , 4 with: 2 , 4.
+	segm2 := GSegment with: -2 , 2 with: -2 , 4.
+	segm3 := GSegment with: -2 , 2 with: 2 , 4.
+	frame := GRectangle origin: -5 , 0 corner: 5 , 5.
+	self assert: (segm1 extendSegmVert: 2 , 4 to: frame) equals: (GSegment with: -2 , 4 with: 5 , 4).
+	self assert: (segm1 extendSegmVert: -2 , 4 to: frame) equals: (GSegment with: -5 , 4 with: 2 , 4).
+	self assert: (segm2 extendSegmVert: -2 , 2 to: frame) equals: (GSegment with: -2 , 0 with: -2 , 4).
+	self assert: (segm2 extendSegmVert: -2 , 4 to: frame) equals: (GSegment with: -2 , 2 with: -2 , 5).
+	self assert: (segm3 extendSegmVert: -2 , 2 to: frame) equals: (GSegment with: -5 , (1 / 2) with: 2 , 4).
+	self assert: (segm3 extendSegmVert: 2 , 4 to: frame) equals: (GSegment with: -2 , 2 with: 4 , 5)
 ]
 
 { #category : #tests }
 GSegmentTest >> testExtendWithAnd [
-|frame|
-frame := GRectangle origin: -5 @ 0 corner: 5 @ 5 .
-self assert:((GSegment with:  -2 @ 4 with: 2 @ 4) extendWith: 3 @ 4 and: frame) 
-	equals: (GSegment with: -5 @ 4 with: 3 @ 4).
+	| frame |
+	frame := GRectangle origin: -5 , 0 corner: 5 , 5.
+	self assert: ((GSegment with: -2 , 4 with: 2 , 4) extendWith: 3 , 4 and: frame) equals: (GSegment with: -5 , 4 with: 3 , 4)
 ]
 
 { #category : #tests }
 GSegmentTest >> testExtendWithAnd1 [
-|frame|
-frame := GRectangle origin: -5 @ 0 corner: 5 @ 5 .
-self assert:((GSegment with:  -2 @ 4 with: 2 @ 4) extendWith: 3 @ 4 and: frame) 
-	equals: (GSegment with: 3 @ 4 with: -5 @ 4).
-]
-
-{ #category : #tests }
-GSegmentTest >> testHas [
-
-	self
-		assert: (( GSegment with: 0 @ 0 with: 12 @ 9 ) has: (13@(39/4)) ) 
-		equals: false.
-	self
-		assert: (( GSegment with: 0 @ 0 with: (13@(39/4))) has: 12 @ 9  ) 
-		equals: true.
+	| frame |
+	frame := GRectangle origin: -5 , 0 corner: 5 , 5.
+	self assert: ((GSegment with: -2 , 4 with: 2 , 4) extendWith: 3 , 4 and: frame) equals: (GSegment with: 3 , 4 with: -5 , 4)
 ]
 
 { #category : #tests }
 GSegmentTest >> testHasPoint [
-
-	self assert:((GSegment with:  1 @ 3 with: 3 @ 0) hasPoint: 1 @ 3)
-   		equals: true.
-	self assert:((GSegment with:  1 @ 3 with: 3 @ 0) hasPoint: 3 @ 0)
-   		equals: true.
-	self assert:((GSegment with:  -1 @ 1 with: 1 @ -1) hasPoint: 0 @ 0)
-   		equals: true.
+	self assert: ((GSegment with: 1 , 3 with: 3 , 0) hasPoint: 1 , 3).
+	self assert: ((GSegment with: 1 , 3 with: 3 , 0) hasPoint: 3 , 0).
+	self assert: ((GSegment with: -1 , 1 with: 1 , -1) hasPoint: 0 , 0).
+	self deny: ((GSegment with: 0 , 0 with: 12 , 9) hasPoint: 13 , (39 / 4)).
+	self assert: ((GSegment with: 0 , 0 with: 13 , (39 / 4)) hasPoint: 12 , 9)
 ]
 
 { #category : #tests }
 GSegmentTest >> testIntersect [
-	self
-		assert: ((GSegment with: -1 @ -1 with: 1 @ 1) = (GSegment with: 1 @ 1 with: -1 @ -1))
-		equals: true.
-	self
-		assert: ((GSegment with: -1 @ -1 with: 1 @ 1) = (GSegment with: -1 @ 1 with: -1 @ 1))
-		equals: false.	
-]
-
-{ #category : #tests }
-GSegmentTest >> testIntersect1 [
-	self
-		assert: ((GSegment with: -1 @ -1 with: 1 @ 1) intersect:(GSegment with: -3 @ 3 with: -1 @ 1))
-		equals: nil
-]
-
-{ #category : #tests }
-GSegmentTest >> testIntersect2 [
-	self
-		assert: ((GSegment with: -1 @ -1 with: 1 @ 1) intersect:(GSegment with: -3 @ 3 with: 2 @ -2))
-		equals: (0@0)
+	self assert: (GSegment with: -1 , -1 with: 1 , 1) equals: (GSegment with: 1 , 1 with: -1 , -1).
+	self deny: (GSegment with: -1 , -1 with: 1 , 1) equals: (GSegment with: -1 , 1 with: -1 , 1).
+	self assert: ((GSegment with: -1 , -1 with: 1 , 1) intersect: (GSegment with: -3 , 3 with: -1 , 1)) equals: nil.
+	self assert: ((GSegment with: -1 , -1 with: 1 , 1) intersect: (GSegment with: -3 , 3 with: 2 , -2)) equals: 0 , 0
 ]
 
 { #category : #tests }
 GSegmentTest >> testIntersectionPointWithVector [
-	self
-		assert: ((GSegment with: 2 @ 0 with: 2 @ 3) intersectionPointWithRay: (GRay origin: 0 @ 0  direction:  3 @ 2))
-		equals: 2 @ (4/3).
-	self
-		assert: ((GSegment with: 2 @ 0 with: 2 @ 3) intersectionPointWithRay: (GRay origin: 0 @ 0  direction:  1 @ 1))
-		equals: 2 @ 2.	
-	self
-		assert: ((GSegment with: -2 @ 0 with: -2 @ 3) intersectionPointWithRay: (GRay origin: 0 @ 0  direction:  1 @ 1))
-		equals: nil.
-	self
-		assert: ((GSegment with: 0 @ 0 with: 0 @ 3) intersectionPointWithRay: (GRay origin: 0 @ 0  direction:  1 @ 1))
-		equals: 0 @ 0.
+	self assert: ((GSegment with: 2 , 0 with: 2 , 3) intersectionPointWithRay: (GRay origin: 0 , 0 direction: 3 , 2)) equals: 2 , (4 / 3).
+	self assert: ((GSegment with: 2 , 0 with: 2 , 3) intersectionPointWithRay: (GRay origin: 0 , 0 direction: 1 , 1)) equals: 2 , 2.
+	self assert: ((GSegment with: -2 , 0 with: -2 , 3) intersectionPointWithRay: (GRay origin: 0 , 0 direction: 1 , 1)) equals: nil.
+	self assert: ((GSegment with: 0 , 0 with: 0 , 3) intersectionPointWithRay: (GRay origin: 0 , 0 direction: 1 , 1)) equals: 0 , 0
 ]
 
 { #category : #tests }
 GSegmentTest >> testIsOnLinePointWithRespectWith [
-"self assert: ((GSegment with:((18427/974)@(57187/974)) with:(362.2460738148583@ -421.94450334080176)) hasOnLinePoint: ((838/41)@(4811/82)) withRespectTo: ((18427/974)@(57187/974)) withApprox: 0.8902246907382428)
-equals: false."
+	self skip.	"The test was commented, I prefer to use skip."
+	self
+		assert:
+			((GSegment with: 18427 / 974 , (57187 / 974) with: 362.2460738148583 , -421.94450334080176)
+				hasOnLinePoint: 838 / 41 , (4811 / 82)
+				withRespectTo: 18427 / 974 , (57187 / 974)
+				withApprox: 0.8902246907382428)
+		equals: false
 ]
 
 { #category : #tests }
 GSegmentTest >> testIsOnLineWith [
-	self assert:((GSegment with:  -2 @ 4 with: 2 @ 4) isOnLineWith:  (GSegment with:  -2 @ 4 with: 2 @ 4) ) 
-		equals: true.
-	self assert:((GSegment with:  -4 @ 4 with: 4 @ 4) isOnLineWith:  (GSegment with:  -2 @ 4 with: 2 @ 4) ) 
-		equals: true.
-	self assert:((GSegment with:  -2 @ 3 with: 2 @ 4) isOnLineWith:  (GSegment with:  -2 @ 4 with: 2 @ 4) ) 
-		equals: false.
-	self assert:((GSegment with:  -2 @ 4 with: 2 @ 4) isOnLineWith:  (GSegment with:  -2 @ 2 with: 2 @ 2) ) 
-		equals: false.
+	self assert: ((GSegment with: -2 , 4 with: 2 , 4) isOnLineWith: (GSegment with: -2 , 4 with: 2 , 4)).
+	self assert: ((GSegment with: -4 , 4 with: 4 , 4) isOnLineWith: (GSegment with: -2 , 4 with: 2 , 4)).
+	self deny: ((GSegment with: -2 , 3 with: 2 , 4) isOnLineWith: (GSegment with: -2 , 4 with: 2 , 4)).
+	self deny: ((GSegment with: -2 , 4 with: 2 , 4) isOnLineWith: (GSegment with: -2 , 2 with: 2 , 2))
 ]
 
 { #category : #tests }
 GSegmentTest >> testLength [
-	self
-		assert: (GSegment with: 0 @ 0 with: 3 @ 4) length
-		equals: 5
-]
-
-{ #category : #tests }
-GSegmentTest >> testLength1 [
-	self
-		assert: (GSegment with: -2 @ 1 with: 3 @ 4) length
-		equals: 34 sqrt
+	self assert: (GSegment with: 0 , 0 with: 3 , 4) length equals: 5.
+	self assert: (GSegment with: -2 , 1 with: 3 , 4) length equals: 34 sqrt
 ]
 
 { #category : #tests }
 GSegmentTest >> testMidPoint [
-	self
-		assert: (GSegment with: -1 @ 2 with: 2 @ 1) midPoint 
-		equals: 0.5 @ 1.5
-]
-
-{ #category : #tests }
-GSegmentTest >> testMidPoint1 [
-	self
-		assert: (GSegment with: 2 @ 1 with: 2 @ 1) midPoint 
-		equals: 2 @ 1
+	self assert: (GSegment with: -1 , 2 with: 2 , 1) midPoint equals: 0.5 , 1.5.
+	self assert: (GSegment with: 2 , 1 with: 2 , 1) midPoint equals: 2 , 1
 ]
 
 { #category : #tests }
 GSegmentTest >> testPerpendicularBisector [
-	self
-		assert: (GSegment with: -1 @ 2 with: 0 @ 0) perpendicularBisector a
-		equals: 1
-]
+	| line |
+	self assert: (GSegment with: -1 , 2 with: 0 , 0) perpendicularBisector a equals: 1.
+	
+	line := (GSegment with: 1 , 3 with: -1 , 1) perpendicularBisector.
+	self assert: line a equals: -2.
+	self assert: line b equals: -2.
+	self assert: line c equals: 4.
+	
+	self assert: (GSegment with: -1 , 2 with: 0 , 0) perpendicularBisector b equals: -2.
 
-{ #category : #tests }
-GSegmentTest >> testPerpendicularBisector1 [
-|line|
-	line := (GSegment with: 1 @ 3 with: -1 @ 1) perpendicularBisector. 
-		self assert: line a equals: -2.
-		self assert: line b equals: -2.
-		self assert: line c equals: 4.
-]
-
-{ #category : #tests }
-GSegmentTest >> testPerpendicularBisector2 [
-	self
-		assert: (GSegment with: -1 @ 2 with: 0 @ 0) perpendicularBisector b
-		equals: -2
-]
-
-{ #category : #tests }
-GSegmentTest >> testPerpendicularBisector3 [
-|line|
-	line := (GSegment with: 3 @ 0 with: 1 @ 3)  perpendicularBisector. 
-		self assert: line a equals: -2.
-		self assert: line b equals: 3.
-		self assert: line c equals: -1/2.
+	line := (GSegment with: 3 , 0 with: 1 , 3) perpendicularBisector.
+	self assert: line a equals: -2.
+	self assert: line b equals: 3.
+	self assert: line c equals: -1 / 2
 ]

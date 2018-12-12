@@ -76,9 +76,10 @@ GSegmentTest >> testDistanceTo [
 { #category : #tests }
 GSegmentTest >> testEqual [
 	| segm1 segm2 |
+	self flag: #pharo6. "Use #deny:equals: when Pharo 7 will be the minimum requirement"
 	segm1 := GSegment with: 1 , 2 with: 3 , 4.
 	segm2 := GSegment with: 0 , 0 with: 3 , 3.
-	self deny: segm1 asLine equals: segm2 asLine.
+	self deny: segm1 asLine = segm2 asLine.
 	
 	segm1 := GSegment with: 1 , 1 with: 3 , 3.
 	segm2 := GSegment with: 0 , 0 with: 3 , 3.
@@ -133,8 +134,9 @@ GSegmentTest >> testHasPoint [
 
 { #category : #tests }
 GSegmentTest >> testIntersect [
+	self flag: #pharo6. "Use #deny:equals: when Pharo 7 will be the minimum requirement"
 	self assert: (GSegment with: -1 , -1 with: 1 , 1) equals: (GSegment with: 1 , 1 with: -1 , -1).
-	self deny: (GSegment with: -1 , -1 with: 1 , 1) equals: (GSegment with: -1 , 1 with: -1 , 1).
+	self deny: (GSegment with: -1 , -1 with: 1 , 1) = (GSegment with: -1 , 1 with: -1 , 1).
 	self assert: ((GSegment with: -1 , -1 with: 1 , 1) intersect: (GSegment with: -3 , 3 with: -1 , 1)) equals: nil.
 	self assert: ((GSegment with: -1 , -1 with: 1 , 1) intersect: (GSegment with: -3 , 3 with: 2 , -2)) equals: 0 , 0
 ]

@@ -39,10 +39,11 @@ GCoordinatesTest >> testDivision [
 
 { #category : #tests }
 GCoordinatesTest >> testEquals [
+	self flag: #pharo6. "Use #deny:equals: when Pharo 7 will be the minimum requirement"
 	self assert: (G2DCoordinates x: 1 y: 2) equals: (G2DCoordinates x: 1 y: 2).
-	self deny: (G2DCoordinates x: 2 y: 4) equals: (G2DCoordinates x: 1 y: 2).
+	self deny: (G2DCoordinates x: 2 y: 4) = (G2DCoordinates x: 1 y: 2).
 	self assert: (G2DCoordinates x: 1 y: 2) hash equals: (G2DCoordinates x: 1 y: 2) hash.
-	self deny: (G2DCoordinates x: 2 y: 4) hash equals: (G2DCoordinates x: 1 y: 2) hash
+	self deny: (G2DCoordinates x: 2 y: 4) hash = (G2DCoordinates x: 1 y: 2) hash
 ]
 
 { #category : #tests }

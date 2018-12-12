@@ -4,5 +4,10 @@ SmalltalkCISpec {
 			#baseline : 'Geometry',
 			#directory : 'src'
 		}
-	]
+	],  
+	#testing : {
+		#coverage : {
+			#packages : [ 'Geometry' ]
+		}
+	}
 }

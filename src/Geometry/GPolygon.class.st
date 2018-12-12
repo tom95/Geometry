@@ -121,6 +121,14 @@ GPolygon >> initializeVertices: aCollection [
 ]
 
 { #category : #comparing }
+GPolygon >> intersectLine: aLine [
+	| intersections |
+	intersections := Set new.
+	self segmentsDo: [ :segment | (segment intersectionPointWithLine: aLine) ifNotNil: [ :point | intersections add: point ] ].
+	^ intersections
+]
+
+{ #category : #comparing }
 GPolygon >> intersectLineSegment: aLineSegment [
 	^ aLineSegment intersectPolygon: self
 ]
@@ -131,6 +139,12 @@ GPolygon >> moveBy: aPoint [
 
 	self deprecated: 'Use #translateBy:' transformWith: '`@receiver moveBy: `@statements' -> '`@receiver translateBy: `@statements'.
 	self translateBy: aPoint
+]
+
+{ #category : #enumerating }
+GPolygon >> segmentsDo: aBlock [
+	self vertices overlappingPairsDo: [ :point1 :point2 | aBlock value: (GSegment with: point1 with: point2) ].
+	aBlock value: (GSegment with: self vertices last with: self vertices first)
 ]
 
 { #category : #transforming }

@@ -18,10 +18,11 @@ GSegment class >> with: aPoint1 with: aPoint2 [
 
 { #category : #initialization }
 GSegment >> = segment [
-^
-((self v1 =~ segment v1) and: [self v2 =~ segment v2]) 
-or: 
-[(self v1 =~ segment v2) and: [self v2 =~ segment v1]]
+	self == segment ifTrue: [ ^ true ].
+	self class = segment class ifFalse: [ ^ false ].
+	
+	^ (v1 =~ segment v1 and: [ v2 =~ segment v2 ])
+		or: [ v1 =~ segment v2 and: [ v2 =~ segment v1 ] ]
 ]
 
 { #category : #properties }
@@ -234,14 +235,9 @@ GSegment >> hasOnLinePoint: p withRespectTo: vert withApprox: apro [
 ]
 
 { #category : #properties }
-GSegment >> hasPoint:aPoint [
-
-  ^( (self v1 x <=~ aPoint x and: [aPoint x <=~ self v2 x])  or:
-		[self v2 x <=~ aPoint x and: [aPoint x <=~ self v1 x]]  ) and: 
-   [ (self v1 y <=~ aPoint y and: [aPoint y <=~ self v2 y])  or:
-		[self v2 y <=~ aPoint y and: [aPoint y <=~ self v1 y]]   ]  .
-   
-
+GSegment >> hasPoint: aPoint [
+	^ ((self v1 x <=~ aPoint x and: [ aPoint x <=~ self v2 x ]) or: [ self v2 x <=~ aPoint x and: [ aPoint x <=~ self v1 x ] ])
+		and: [ (self v1 y <=~ aPoint y and: [ aPoint y <=~ self v2 y ]) or: [ self v2 y <=~ aPoint y and: [ aPoint y <=~ self v1 y ] ] ]
 ]
 
 { #category : #initialization }
@@ -345,10 +341,20 @@ GSegment >> v1 [
 ]
 
 { #category : #accessing }
+GSegment >> v1: anObject [
+	v1 := anObject
+]
+
+{ #category : #accessing }
 GSegment >> v2 [
 ^v2
 
 
+]
+
+{ #category : #accessing }
+GSegment >> v2: anObject [
+	v2 := anObject
 ]
 
 { #category : #initialization }

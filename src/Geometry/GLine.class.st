@@ -22,17 +22,14 @@ GLine class >> a: aNumber1 b: aNumber2 c: aNumber3 [
 
 { #category : #'as yet unclassified' }
 GLine class >> through: aPoint1 and: aPoint2 [
-|ai bi ci|
-(aPoint1 y) = (aPoint2 y) ifTrue:
-[ ^ GLine
-		a: 0 b: 1 c: ((aPoint1 y) negated)].
-(aPoint1 x) = (aPoint2 x) ifTrue:[ 
-	^ GLine
-		a: 1 b: 0 c: ((aPoint1 x) negated)].	
-ai := (aPoint1 y) - (aPoint2 y). 
-bi := (aPoint2 x) - (aPoint1 x).
-ci := ((aPoint1 x) - (aPoint2 x)) * (aPoint1 y) + ( ((aPoint2 y) - (aPoint1 y)) * (aPoint1 x) ).
-^ self	 a:ai b: bi c: ci
+	| ai bi ci |
+	aPoint1 y = aPoint2 y ifTrue: [ ^ GLine a: 0 b: 1 c: aPoint1 y negated ].
+	aPoint1 x = aPoint2 x ifTrue: [ ^ GLine a: 1 b: 0 c: aPoint1 x negated ].
+	
+	ai := aPoint1 y - aPoint2 y.
+	bi := aPoint2 x - aPoint1 x.
+	ci := (aPoint1 x - aPoint2 x) * aPoint1 y + ((aPoint2 y - aPoint1 y) * aPoint1 x).
+	^ self a: ai b: bi c: ci
 ]
 
 { #category : #comparing }
@@ -96,6 +93,19 @@ coll isEmpty
 
 ]
 
+{ #category : #accessing }
+GLine >> determinantWith: aLine [
+	"I return the determinant between two line.
+	
+	First line: ax + by + c = 0
+	Second line: px + qy + c = 0
+	
+	Determinant: a*q - p*b
+	"
+	
+	^ a * aLine b - (aLine a * b)
+]
+
 { #category : #'distance functions' }
 GLine >> dist: p [
 	^ ( ( a * p x ) + ( b * p y ) + c )abs
@@ -133,35 +143,30 @@ GLine >> initializeWithA: aNumber1 b: aNumber2 c: aNumber3 [
 ]
 
 { #category : #'rectangle functions' }
-GLine >> intersect: aGLine [ 
-	| xi yi |
+GLine >> intersect: aGLine [
+	"ax + by + c = 0 and px + qy + r = 0"
 
-	(self parallelTo: aGLine) ifTrue: [ ^ nil ].
-					
-	yi := (self c * (aGLine a) - (self a * (aGLine c)))
-			/ 
-			(self a * (aGLine b) - (self b * (aGLine a))).
+	| p q r xi yi determinant |
+	determinant := self determinantWith: aGLine.
+	determinant = 0 ifTrue: [ ^ nil	"Line are parallel if determinant = 0" ].
+	p := aGLine a.
+	q := aGLine b.
+	r := aGLine c.
+	xi := (c negated * q - (r negated * b)) / determinant.
+	yi := (a * r negated - (p * c negated)) / determinant.
+	^ xi @ yi
+]
 
-	xi := self a isZero
-		ifTrue: [
-			 ( aGLine b * yi + (aGLine c)) negated / (aGLine a)]
-		ifFalse: [
-			 ( self b * yi + self c) negated / self a].
-	
-	^xi@yi.
-
-
-
-
+{ #category : #comparing }
+GLine >> intersectPolygon: aGPolygon [
+	^ aGPolygon intersectLine: self
 ]
 
 { #category : #properties }
 GLine >> parallelTo: aLine [
+	"If the determinant it 0 then the lines are parallel"
 
-	^ (self a isZero & aLine a isZero) or:
-	[ (self b isZero & aLine b isZero) or:
-	[ (aLine a isZero | aLine b isZero) not and:
-	[ (self a / aLine a) = (self b / aLine b) ] ] ]
+	^ (self determinantWith: aLine) = 0
 ]
 
 { #category : #properties }

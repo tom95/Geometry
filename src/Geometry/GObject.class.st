@@ -11,6 +11,16 @@ Class {
 }
 
 { #category : #'error handling' }
+GObject class >> error [
+	GError signal
+]
+
+{ #category : #'error handling' }
+GObject class >> error: aString [
+	GError signal: aString
+]
+
+{ #category : #'error handling' }
 GObject >> error [
 	^ self class error
 ]

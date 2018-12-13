@@ -10,16 +10,6 @@ Class {
 	#category : #'Geometry-Elements'
 }
 
-{ #category : #'error handling' }
-GElement class >> error [
-	GError signal
-]
-
-{ #category : #'error handling' }
-GElement class >> error: aString [
-	GError signal: aString
-]
-
 { #category : #testing }
 GElement class >> isAbstract [
 	^ self = GElement

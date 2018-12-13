@@ -3,11 +3,7 @@ I am a rectangle. See my parent for API
 "
 Class {
 	#name : #GRectangle,
-	#superclass : #GShape,
-	#instVars : [
-		'origin',
-		'corner'
-	],
+	#superclass : #GPolygon,
 	#category : #'Geometry-Shapes'
 }
 
@@ -60,9 +56,13 @@ GRectangle class >> origin: point1 corner: point2 [
 	"Answer an instance of me whose corners (top left and bottom right) are 
 	determined by the arguments."
 
-	^ self new
-		origin: point1 corner: point2;
-		yourself
+	| or cor |
+	or := (point1 x min: point2 x) , (point1 y min: point2 y).
+	cor := (point1 x max: point2 x) , (point1 y max: point2 y).
+	
+	or = cor ifTrue: [ self error: 'This is not a rectangle but a point.' ].
+	
+	^ self newVertices: { or . (cor x , or y). cor. (or x , cor y) }
 ]
 
 { #category : #'instance creation' }
@@ -72,15 +72,6 @@ GRectangle class >> origin: originPoint extent: extentPoint [
 	^ self
 		origin: originPoint
 		corner: (originPoint x + (extentPoint x max: 0)) @ (originPoint y + (extentPoint y max: 0))
-]
-
-{ #category : #comparing }
-GRectangle >> = aRectangle [
-	"Answer true if the receiver's species, origin and corner match aRectangle's."
-
-	self species = aRectangle species
-		ifTrue: [ ^ origin = aRectangle origin and: [ corner = aRectangle corner ] ]
-		ifFalse: [ ^ false ]
 ]
 
 { #category : #accessing }
@@ -94,12 +85,7 @@ GRectangle >> area [
 GRectangle >> bottom [
 	"Answer the position of the receiver's bottom horizontal line."
 
-	^ corner y
-]
-
-{ #category : #accessing }
-GRectangle >> bottom: aNumber [
-	^ origin corner: corner x @ aNumber
+	^ self corner y
 ]
 
 { #category : #accessing }
@@ -115,7 +101,7 @@ GRectangle >> bottomLeft [
 	"Answer the point at the left edge of the bottom horizontal line of the 
 	receiver."
 
-	^ origin x @ corner y
+	^ self origin x @ self corner y
 ]
 
 { #category : #accessing }
@@ -123,7 +109,7 @@ GRectangle >> bottomRight [
 	"Answer the point at the right edge of the bottom horizontal line of the 
 	receiver."
 
-	^ corner
+	^ self corner
 ]
 
 { #category : #accessing }
@@ -137,7 +123,9 @@ GRectangle >> center [
 GRectangle >> corner [
 	"Answer the point at the bottom right corner of the receiver."
 
-	^ corner
+	| or |
+	or := 0 , 0.
+	^ self vertices fold: [ :ver1 :ver2 | ((ver1 distanceTo: or) > (ver2 distanceTo: or)) ifTrue: [ ver1 ] ifFalse: [ ver2 ] ]
 ]
 
 { #category : #accessing }
@@ -168,12 +156,12 @@ GRectangle >> encompassingRectangle [
 GRectangle >> extent [
 	"Answer a point with the receiver's width @ the receiver's height."
 
-	^ (corner coordinates - origin coordinates) asGVector
+	^ (self corner coordinates - self origin coordinates) asGVector
 ]
 
 { #category : #testing }
 GRectangle >> hasOnBoundary: point [
-	^ self edges anySatisfy: [ :edge | edge hasPoint: point ]
+	^ self edges anySatisfy: [ :edge | edge includesPoint: point ]
 ]
 
 { #category : #testing }
@@ -188,32 +176,18 @@ GRectangle >> hasPoint: aGPoint [
 	^ self includesPoint: aGPoint
 ]
 
-{ #category : #comparing }
-GRectangle >> hash [
-	"Hash is reimplemented because = is implemented."
-
-	^ origin hash bitXor: corner hash
-]
-
 { #category : #accessing }
 GRectangle >> height [
 	"Answer the height of the receiver."
 
-	^ corner y - origin y
-]
-
-{ #category : #testing }
-GRectangle >> includesPoint: aPoint [
-	"I should return true if the points is contained in the shape. Else I will answer false."
-
-	^ origin <= aPoint and: [ aPoint <= corner ]
+	^ self corner y - self origin y
 ]
 
 { #category : #testing }
 GRectangle >> includesRect: aRect [
 	"Answer whether aRect is within the receiver."
 
-	^ aRect origin >= origin and: [ aRect corner <= corner ]
+	^ aRect origin >= self origin and: [ aRect corner <= self corner ]
 ]
 
 { #category : #accessing }
@@ -267,12 +241,7 @@ GRectangle >> intersectionPointsWithSegment: segm [
 GRectangle >> left [
 	"Answer the position of the receiver's left vertical line."
 
-	^ origin x
-]
-
-{ #category : #accessing }
-GRectangle >> left: aNumber [
-	^ aNumber @ origin y corner: corner
+	^ self origin x
 ]
 
 { #category : #accessing }
@@ -286,41 +255,16 @@ GRectangle >> leftCenter [
 GRectangle >> origin [
 	"Answer the point at the top left corner of the receiver."
 
-	^ origin
-]
-
-{ #category : #initialization }
-GRectangle >> origin: point1 corner: point2 [
-	| or cor |
-	or := (point1 x min: point2 x) , (point1 y min: point2 y).
-	cor := (point1 x max: point2 x) , (point1 y max: point2 y).
-
-	or = cor ifTrue: [ self error: 'This is not a rectangle but a point.' ].
-	
-	origin := or.
-	corner := cor
-]
-
-{ #category : #printing }
-GRectangle >> printOn: aStream [
-	super printOn: aStream.
-	aStream << ' ('.
-	origin printOn: aStream.
-	aStream << ' corner: '.
-	corner printOn: aStream.
-	aStream << $)
+	| or |
+	or := 0 , 0.
+	^ self vertices fold: [ :ver1 :ver2 | ((ver1 distanceTo: or) < (ver2 distanceTo: or)) ifTrue: [ ver1 ] ifFalse: [ ver2 ] ]
 ]
 
 { #category : #accessing }
 GRectangle >> right [
 	"Answer the position of the receiver's right vertical line."
 
-	^ corner x
-]
-
-{ #category : #accessing }
-GRectangle >> right: aNumber [
-	^ origin corner: aNumber @ corner y
+	^ self corner x
 ]
 
 { #category : #accessing }
@@ -334,26 +278,24 @@ GRectangle >> rightCenter [
 GRectangle >> scaleBy: scale [
 	"Answer a Rectangle scaled by scale, a Point or a scalar."
 
-	scale <= 0 ifTrue: [ self error: 'Scale must be over zeo' ].
+	"scale <= 0 ifTrue: [ self error: 'Scale must be over zeo' ].
 
-	^ self origin: origin * scale corner: corner * scale
+	^ self origin: origin * scale corner: corner * scale"
+	
+	self flag: #todo. "check if this is right"
+	^ super scaleBy: scale
 ]
 
 { #category : #enumerating }
 GRectangle >> sideWhichHas: point [
-	^ self edges detect: [ :edge | edge hasPoint: point ]
+	^ self edges detect: [ :edge | edge includesPoint: point ]
 ]
 
 { #category : #accessing }
 GRectangle >> top [
 	"Answer the position of the receiver's top horizontal line."
 
-	^ origin y
-]
-
-{ #category : #accessing }
-GRectangle >> top: aNumber [
-	^ origin x @ aNumber corner: corner
+	^ self origin y
 ]
 
 { #category : #accessing }
@@ -367,7 +309,7 @@ GRectangle >> topCenter [
 GRectangle >> topLeft [
 	"Answer the point at the top left corner of the receiver's top horizontal line."
 
-	^ origin
+	^ self origin
 ]
 
 { #category : #accessing }
@@ -375,27 +317,12 @@ GRectangle >> topRight [
 	"Answer the point at the top right corner of the receiver's top horizontal 
 	line."
 
-	^ corner x @ origin y
-]
-
-{ #category : #transforming }
-GRectangle >> translateBy: factor [
-	"Answer a Rectangle translated by factor, a Point or a scalar."
-
-	^ self origin: origin + factor corner: corner + factor
-]
-
-{ #category : #accessing }
-GRectangle >> vertices [
-	^ {origin.
-	(origin x @ corner y).
-	corner.
-	(corner x @ origin y)}
+	^ self corner x @ self origin y
 ]
 
 { #category : #accessing }
 GRectangle >> width [
 	"Answer the width of the receiver."
 
-	^ corner x - origin x
+	^ self corner x - self origin x
 ]

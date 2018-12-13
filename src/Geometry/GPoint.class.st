@@ -124,6 +124,12 @@ GPoint >> coordinates: anObject [
 	coordinates := anObject
 ]
 
+{ #category : #accessing }
+GPoint >> corner: aPoint [
+	self flag: #todo.	"This should maybe be removed in the futur since it's for compatibility with Pharo rectangles."
+	^ GRectangle origin: self corner: aPoint
+]
+
 { #category : #comparing }
 GPoint >> distanceTo: aGPoint [ 
 	"Answer the distance between aPoint and the receiver.

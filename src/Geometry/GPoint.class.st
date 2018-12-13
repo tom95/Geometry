@@ -123,7 +123,7 @@ GPoint >> coordinates: anObject [
 GPoint >> distanceTo: aGPoint [ 
 	"Answer the distance between aPoint and the receiver.
 	
-	Create a vector from the substraction between me and the argument and ask its size."
+	The distance between two points is the length of the vector transposing v1 into v2"
 	
 	^ (self - aGPoint) length
 ]
@@ -133,12 +133,6 @@ GPoint >> hash [
 	"Answer an integer value that is related to the identity of the receiver."
 
 	^ coordinates hash squared "Try to avoid collisions with GAbstractCoordinates"
-]
-
-{ #category : #accessing }
-GPoint >> middlePointTo: aGPoint [
-	self flag: #todo. "Ask Guillaume if it's the best solution and add test"
-	^ ((self coordinates + aGPoint coordinates) / 2) asGPoint
 ]
 
 { #category : #accessing }

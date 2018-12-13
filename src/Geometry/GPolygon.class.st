@@ -116,7 +116,7 @@ GPolygon >> fitInExtent: extent [
 	| max verticesInSquareOfSizeOne |
 	max := (self vertices collect: #x) max max: ((self vertices collect: #y )) max. "We do not take `self vertices max` because we want to preserve proportions"
 	"Fit the polygon in a square of size 1 by doing a division of it's vertices by 2 times the value of the furthest point from the center of the polygon."
-	1halt.
+
 	verticesInSquareOfSizeOne := self vertices collect: [ :point | point / (max * 2) ].
 	
 	vertices := (verticesInSquareOfSizeOne collect: [ :point | point * extent ])

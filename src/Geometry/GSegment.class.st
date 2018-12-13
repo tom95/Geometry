@@ -217,11 +217,9 @@ GSegment >> hasOnLinePoint: aGPoint withRespectTo: vert withApprox: apro [
 
 { #category : #properties }
 GSegment >> hasPoint: aGPoint [
-	self flag: #todo. "This is only for 2D. We should rely on GPoints to be able to do it for n-dimensions."
+	"The point is on the segment if the sum of the distance from v1 to aGPoint and the distance of a GPoint to v2 is my length"
 
-	(self asLine hasPoint: aGPoint) ifFalse: [ ^ false ].
-
-	^ ((aGPoint x between: v1 x and: v2 x) or: [ aGPoint x between: v2 x and: v1 x ]) and: [ (aGPoint y between: v1 y and: v2 y) or: [ aGPoint y between: v2 y and: v1 y ] ]
+	^ (v2 distanceTo: aGPoint) + (aGPoint distanceTo: v1) = self length
 ]
 
 { #category : #initialization }
@@ -279,7 +277,9 @@ GSegment >> isOnLineWith: segm [
 
 { #category : #properties }
 GSegment >> length [
-	^ v1 distanceTo: v2
+	"The distance between two points is the length of the vector transposing v1 into v2"
+
+	^ (v2 - v1) length
 ]
 
 { #category : #properties }
@@ -290,7 +290,7 @@ GSegment >> locationOf: aPoint [
 
 { #category : #properties }
 GSegment >> midPoint [
-	^ v1 middlePointTo: v2
+	^ ((v1 coordinates + v2 coordinates) / 2) asGPoint
 ]
 
 { #category : #properties }

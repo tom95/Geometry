@@ -65,12 +65,6 @@ GPointTest >> testEquals [
 ]
 
 { #category : #tests }
-GPointTest >> testMiddlePointTo [
-	point := 1, 2.
-	self assert: (point middlePointTo: 5, 10 ) equals: 3 , 6
-]
-
-{ #category : #tests }
 GPointTest >> testTranslateBy [
 	| vector |
 	point := (1, 2).

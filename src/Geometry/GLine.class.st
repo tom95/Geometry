@@ -115,9 +115,9 @@ GLine >> dist: p [
 ]
 
 { #category : #properties }
-GLine >> hasPoint: aPoint [
-
-	^ a * aPoint x + (b * aPoint y) + c =~ 0
+GLine >> hasPoint: aGPoint [
+	self deprecated: 'Use #hasPoint:' transformWith: '`@receiver hasPoint: `@statements' -> '`@receiver includesPoint: `@statements'.
+	^ self includesPoint: aGPoint
 ]
 
 { #category : #properties }
@@ -132,6 +132,12 @@ GLine >> hasPoint: aPoint withApproximation: approx [
 GLine >> hash [
 ^( a hash  + b hash + c hash ) hashMultiply
 
+]
+
+{ #category : #properties }
+GLine >> includesPoint: aPoint [
+
+	^ a * aPoint x + (b * aPoint y) + c =~ 0
 ]
 
 { #category : #initialization }

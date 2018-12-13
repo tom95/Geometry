@@ -88,13 +88,6 @@ GRectangleTest >> testHasOnOneSideAnd [
 ]
 
 { #category : #tests }
-GRectangleTest >> testHasPoint [
-	self assert: ((GRectangle origin: 1 @ 3 corner: 3 @ 0) hasPoint: 1 @ 3).
-	self assert: ((GRectangle origin: 1 @ 3 corner: 3 @ 0) hasPoint: 2 @ 1).
-	self deny: ((GRectangle origin: 1 @ 3 corner: 3 @ 0) hasPoint: 0 @ 0)
-]
-
-{ #category : #tests }
 GRectangleTest >> testHeight [
 	self assert: rectangle height equals: 10
 ]
@@ -107,7 +100,10 @@ GRectangleTest >> testIncludesPoint [
 	self deny: (rectangle includesPoint: 9 @ 9).
 	self deny: (rectangle includesPoint: 21 @ 21).
 	self deny: (rectangle includesPoint: 15 @ 21).
-	self deny: (rectangle includesPoint: 9 @ 15)
+	self deny: (rectangle includesPoint: 9 @ 15).
+	self assert: ((GRectangle origin: 1 @ 3 corner: 3 @ 0) includesPoint: 1 @ 3).
+	self assert: ((GRectangle origin: 1 @ 3 corner: 3 @ 0) includesPoint: 2 @ 1).
+	self deny: ((GRectangle origin: 1 @ 3 corner: 3 @ 0) includesPoint: 0 @ 0)
 ]
 
 { #category : #tests }

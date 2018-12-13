@@ -183,13 +183,9 @@ GRectangle >> hasOnOneSide: point1 and: point2 [
 ]
 
 { #category : #testing }
-GRectangle >> hasPoint: point [
-	"inside the frame and on the boundary"
-
-	^ ((self origin x <= point x and: [ point x <= self corner x ])
-		and: [ (self origin y <= point y and: [ point y <= self corner y ]) or: [ self origin y >= point y and: [ point y >= self corner y ] ] ])
-		or: [ (self origin x >= point x and: [ point x >= self corner x ])
-				and: [ (self origin y <= point y and: [ point y <= self corner y ]) or: [ self origin y >= point y and: [ point y >= self corner y ] ] ] ]
+GRectangle >> hasPoint: aGPoint [
+	self deprecated: 'Use #hasPoint:' transformWith: '`@receiver hasPoint: `@statements' -> '`@receiver includesPoint: `@statements'.
+	^ self includesPoint: aGPoint
 ]
 
 { #category : #comparing }

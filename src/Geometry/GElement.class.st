@@ -6,7 +6,7 @@ I am a common super class for all geometric elements
 "
 Class {
 	#name : #GElement,
-	#superclass : #Object,
+	#superclass : #GObject,
 	#category : #'Geometry-Elements'
 }
 
@@ -25,12 +25,16 @@ GElement class >> isAbstract [
 	^ self = GElement
 ]
 
-{ #category : #'error handling' }
-GElement >> error [
-	^ self class error
+{ #category : #testing }
+GElement >> includesPoint: aPoint [
+	"I should return true if the points is contained in the shape. Else I will answer false."
+
+	^ self subclassResponsibility
 ]
 
-{ #category : #'error handling' }
-GElement >> error: aString [
-	^ self class error: aString
+{ #category : #transforming }
+GElement >> translateBy: aPoint [
+	"Translate the shape by a delta defined by a point."
+	
+	self subclassResponsibility
 ]

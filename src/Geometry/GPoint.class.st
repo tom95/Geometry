@@ -135,6 +135,11 @@ GPoint >> hash [
 	^ coordinates hash squared "Try to avoid collisions with GAbstractCoordinates"
 ]
 
+{ #category : #testing }
+GPoint >> includesPoint: aGPoint [
+	^ aGPoint =~ self
+]
+
 { #category : #accessing }
 GPoint >> segment: aPoint [ 
 	^ GSegment with: self with: aPoint 

@@ -46,13 +46,6 @@ GShape >> fitInExtent: anExtent [
 	self subclassResponsibility
 ]
 
-{ #category : #testing }
-GShape >> includesPoint: aPoint [
-	"I should return true if the points is contained in the shape. Else I will answer false."
-
-	^ self subclassResponsibility
-]
-
 { #category : #comparing }
 GShape >> intersectLine: aGSegment [
 	"I should return a collection of intersections between a line and me"
@@ -70,13 +63,6 @@ GShape >> perimeter [
 { #category : #transforming }
 GShape >> scaleBy: aPoint [
 	"Scale the shape by a delta defined by a point."
-	
-	self subclassResponsibility
-]
-
-{ #category : #transforming }
-GShape >> translateBy: aPoint [
-	"Translate the shape by a delta defined by a point."
 	
 	self subclassResponsibility
 ]

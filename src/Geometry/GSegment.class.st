@@ -108,23 +108,23 @@ GSegment >> extendSegmVert: v to: frame [
 { #category : #properties }
 GSegment >> extendWith: aGPoint and: frame [
 	| points v |
-	(self asLine hasPoint: aGPoint) ifFalse: [ ^ self ].
-
+	(self asLine includesPoint: aGPoint)
+		ifFalse: [ ^ self ].
 	(self v1 distanceTo: aGPoint) < (self v2 distanceTo: aGPoint)
 		ifTrue: [ v1 := aGPoint ]
 		ifFalse: [ v2 := aGPoint ].
 	v := self vertices detect: [ :p | p ~= aGPoint ].
 	points := frame intersectionPointsWithLine: self asLine.
 	points size = 2
-		ifTrue: [ ((GSegment with: aGPoint with: points first) hasPoint: v)
+		ifTrue: [ ((GSegment with: aGPoint with: points first) includesPoint: v)
 				ifTrue: [ ^ GSegment with: aGPoint with: points first ]
 				ifFalse: [ ^ GSegment with: aGPoint with: points second ] ]
 ]
 
 { #category : #properties }
 GSegment >> has: aGPoint [
-	self deprecated: 'Use #has:' transformWith: '`@receiver has: `@statements' -> '`@receiver hasPoint: `@statements'.
-	^ self hasPoint: aGPoint
+	self deprecated: 'Use #includesPoint:' transformWith: '`@receiver has: `@statements' -> '`@receiver includesPoint: `@statements'.
+	^ self includesPoint: aGPoint
 ]
 
 { #category : #properties }
@@ -217,14 +217,20 @@ GSegment >> hasOnLinePoint: aGPoint withRespectTo: vert withApprox: apro [
 
 { #category : #properties }
 GSegment >> hasPoint: aGPoint [
-	"The point is on the segment if the sum of the distance from v1 to aGPoint and the distance of a GPoint to v2 is my length"
-
-	^ (v2 distanceTo: aGPoint) + (aGPoint distanceTo: v1) = self length
+	self deprecated: 'Use #hasPoint:' transformWith: '`@receiver hasPoint: `@statements' -> '`@receiver includesPoint: `@statements'.
+	^ self includesPoint: aGPoint
 ]
 
 { #category : #initialization }
 GSegment >> hash [
 	^ v1 hash bitXor: v2 hash
+]
+
+{ #category : #properties }
+GSegment >> includesPoint: aGPoint [
+	"The point is on the segment if the sum of the distance from v1 to aGPoint and the distance of a GPoint to v2 is my length"
+
+	^ (v2 distanceTo: aGPoint) + (aGPoint distanceTo: v1) =~ self length
 ]
 
 { #category : #initialization }
@@ -237,7 +243,7 @@ GSegment >> initializeWith: aPoint1 with: aPoint2 [
 GSegment >> intersect: aSegment [
 	^ (self asLine intersect: aSegment asLine)
 		ifNotNil: [ :point | 
-			((self hasPoint: point) and: [ aSegment hasPoint: point ])
+			((self includesPoint: point) and: [ aSegment includesPoint: point ])
 				ifTrue: [ point ] ]
 ]
 
@@ -245,7 +251,7 @@ GSegment >> intersect: aSegment [
 GSegment >> intersectionPointWithLine: aLine [
 	^ (self asLine intersect: aLine)
 		ifNotNil: [ :point | 
-			(self hasPoint: point)
+			(self includesPoint: point)
 				ifTrue: [ point ]
 				ifFalse: [ nil ] ]
 ]
@@ -254,7 +260,7 @@ GSegment >> intersectionPointWithLine: aLine [
 GSegment >> intersectionPointWithRay: ray [
 	^ (self asLine intersect: ray asLine)
 		ifNotNil: [ :point | 
-			((self hasPoint: point) and: [ ray hasPoint: point ])
+			((self includesPoint: point) and: [ ray hasPoint: point ])
 				ifTrue: [ point ]
 				ifFalse: [ nil ] ]
 ]
@@ -263,7 +269,7 @@ GSegment >> intersectionPointWithRay: ray [
 GSegment >> intersectionPointWithSegment: segm [
 	^ (self asLine intersect: segm asLine)
 		ifNotNil: [ :point | 
-			((self hasPoint: point) and: [ segm hasPoint: point ])
+			((self includesPoint: point) and: [ segm includesPoint: point ])
 				ifTrue: [ point ]
 				ifFalse: [ nil ] ]
 ]

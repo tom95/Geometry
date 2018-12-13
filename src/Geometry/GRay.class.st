@@ -152,17 +152,23 @@ GRay >> flipped [
 ]
 
 { #category : #properties }
-GRay >> hasPoint: aPoint [
-^ (( origin - direction ) signFuz = ( origin - aPoint ) signFuz  or:
-					[ origin = aPoint ])
- 
-
+GRay >> hasPoint: aGPoint [
+	self deprecated: 'Use #hasPoint:' transformWith: '`@receiver hasPoint: `@statements' -> '`@receiver includesPoint: `@statements'.
+	^ self includesPoint: aGPoint
 ]
 
 { #category : #comparing }
 GRay >> hash [
 	^ ( self origin hash hashMultiply +
 		(self origin bearingToPoint: self direction) hash ) hashMultiply
+
+]
+
+{ #category : #properties }
+GRay >> includesPoint: aPoint [
+^ (( origin - direction ) signFuz = ( origin - aPoint ) signFuz  or:
+					[ origin = aPoint ])
+ 
 
 ]
 

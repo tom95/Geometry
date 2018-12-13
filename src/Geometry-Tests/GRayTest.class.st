@@ -151,25 +151,13 @@ GRayTest >> testHas [
 ]
 
 { #category : #tests }
-GRayTest >> testHasPoint [
-	self
-		assert: ((GRay origin: 100 @ 100 direction: 80 @ 110) hasPoint: 120 @ 90)
-		equals: false.
-	self
-		assert: ((GRay origin: 100 @ 100 direction: 120 @ 90) hasPoint: 120 @ 90)
-		equals: true.
-	self
-		assert: ((GRay origin: 100 @ 100 direction: 120 @ 90) hasPoint: 100 @ 100)
-		equals: true.
-	self
-		assert: ((GRay origin: 100 @ 100 direction: 110 @ 110) hasPoint: 150 @ 150)
-		equals: true.	
-]
-
-{ #category : #tests }
-GRayTest >> testHasPoint1 [
-	self skip.
-	self
+GRayTest >> testIncludesPoint [
+	self assert: ((GRay origin: 100 @ 100 direction: 80 @ 110) includesPoint: 120 @ 90) equals: false.
+	self assert: ((GRay origin: 100 @ 100 direction: 120 @ 90) includesPoint: 120 @ 90) equals: true.
+	self assert: ((GRay origin: 100 @ 100 direction: 120 @ 90) includesPoint: 100 @ 100) equals: true.
+	self assert: ((GRay origin: 100 @ 100 direction: 110 @ 110) includesPoint: 150 @ 150) equals: true.
+	self assert: ((GRay origin: 0 @ 0 direction: 12 @ 9) includesPoint: 13 @ (39 / 4)) equals: true
+	"self
 		assert: 	((( GRay origin: 0 @ 0 direction: 12 @ 9 ) extendBy: 1 ) asSegment has: 13@(39/4))
 		equals: true.
 	self
@@ -177,19 +165,14 @@ GRayTest >> testHasPoint1 [
 		equals: true.
 	self
 		assert: 	((( GRay origin: 0 @ 0 direction: 12 @ 9 ) extendBy: 1 ) asSegment has: 17@(51/4))
-		equals: false.
-]
-
-{ #category : #tests }
-GRayTest >> testHasPoint2 [
-	self skip.
-"	self
+		equals: false."
+	"	self
 		assert: 	((( GRay origin: ((57583/914)@(56095/914)) direction: (62.998905906959145@61.37297058105469) ) extendBy: 5 ) asSegment has: (62.998905906959145@61.37297058105469))
-		equals: true."
+		equals: true.
 		self
 		assert: 	((( GRay origin: 63@61 direction: (62@61) ) extendBy: 5 ) asSegment has: (62@61))
 		equals: true.
-
+"
 ]
 
 { #category : #tests }

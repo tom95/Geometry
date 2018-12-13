@@ -130,7 +130,7 @@ GRectangle >> bottomRight [
 GRectangle >> center [
 	"Answer the point at the center of the receiver."
 
-	^ (self topLeft + self bottomRight) / 2
+	^ (self topLeft segment: self bottomRight) midPoint
 ]
 
 { #category : #accessing }
@@ -168,7 +168,7 @@ GRectangle >> encompassingRectangle [
 GRectangle >> extent [
 	"Answer a point with the receiver's width @ the receiver's height."
 
-	^ corner - origin
+	^ (corner coordinates - origin coordinates) asGVector
 ]
 
 { #category : #testing }
@@ -292,8 +292,8 @@ GRectangle >> origin [
 { #category : #initialization }
 GRectangle >> origin: point1 corner: point2 [
 	| or cor |
-	or := (point1 x min: point2 x) @ (point1 y min: point2 y).
-	cor := (point1 x max: point2 x) @ (point1 y max: point2 y).
+	or := (point1 x min: point2 x) , (point1 y min: point2 y).
+	cor := (point1 x max: point2 x) , (point1 y max: point2 y).
 
 	or = cor ifTrue: [ self error: 'This is not a rectangle but a point.' ].
 	

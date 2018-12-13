@@ -58,18 +58,6 @@ GPolygon class >> newVertices: aCollection [
 ]
 
 { #category : #accessing }
-GPolygon >> center [
-	| min max x y |
-	min := vertices min.
-	max := vertices max.
-	x := (min x + max x)/2.0.
-	y := (min y + max y)/2.0.
-	^ x @ y
-	
-
-]
-
-{ #category : #accessing }
 GPolygon >> edges [
 	| edges firstVert prevVert |
 	edges := OrderedCollection new.	
@@ -84,42 +72,19 @@ GPolygon >> edges [
 
 { #category : #accessing }
 GPolygon >> encompassingRectangle [
-	| leftMost rightMost top bottom |
-	self flag: #todo.	"I think we can find something more elegant."
-	leftMost := vertices first.
-	rightMost := vertices first.
-	top := vertices first.
-	bottom := vertices first.
-	vertices allButFirst
-		do: [ :v | 
-			v y > top y
-				ifTrue: [ top := v ].
-			v y < bottom y
-				ifTrue: [ bottom := v ].
-			v x < leftMost x
-				ifTrue: [ leftMost := v ].
-			v x > rightMost x
-				ifTrue: [ rightMost := v ] ].
-	^ Rectangle
-		left: leftMost x
-		right: rightMost x
-		top: top y
-		bottom: bottom y
+	| origin corner |
+	origin := ((self vertices collect: #coordinates) fold: [ :coor1 :coor2 | coor1 lowerLimitsWith: coor2 ]) asGPoint.
+	corner := ((self vertices collect: #coordinates) fold: [ :coor1 :coor2 | coor1 upperLimitsWith: coor2 ]) asGPoint.
+	^ GRectangle origin: origin corner: corner
 ]
 
 { #category : #transforming }
 GPolygon >> fitInExtent: extent [
-	"I take as parameter a point and will fit the polygon in a rectangle whose dimensions is defined by the extent.
-	
-	To do that, I will first fit my vertices in a square of lenght of 1, then I will multiply my vertices by the extent required."
+	"I take as parameter a point and will fit the polygon in a rectangle whose dimensions is defined by the extent."
 
-	| max verticesInSquareOfSizeOne |
-	max := (self vertices collect: #x) max max: ((self vertices collect: #y )) max. "We do not take `self vertices max` because we want to preserve proportions"
-	"Fit the polygon in a square of size 1 by doing a division of it's vertices by 2 times the value of the furthest point from the center of the polygon."
-
-	verticesInSquareOfSizeOne := self vertices collect: [ :point | point / (max * 2) ].
-	
-	vertices := (verticesInSquareOfSizeOne collect: [ :point | point * extent ])
+	| scales |
+	scales := extent coordinatesWith: self encompassingRectangle extent coordinates collect: [ :number1 :number2 | number1 / number2 ].
+	vertices := self vertices collect: [ :vertice | ((vertice - self center) coordinates coordinatesWith: scales collect: [ :a :b | a * b ]) asGVector + self center ]
 ]
 
 { #category : #testing }
@@ -153,6 +118,11 @@ GPolygon >> moveBy: aPoint [
 	self translateBy: aPoint
 ]
 
+{ #category : #transforming }
+GPolygon >> scaleBy: anInteger [
+	vertices := self vertices collect: [ :vertice | (vertice - self center) * anInteger + self center ]
+]
+
 { #category : #enumerating }
 GPolygon >> segmentsDo: aBlock [
 	self vertices overlappingPairsDo: [ :point1 :point2 | aBlock value: (GSegment with: point1 with: point2) ].
@@ -170,4 +140,9 @@ GPolygon >> translateBy: aPoint [
 GPolygon >> vertices [
 	
 	^ vertices
+]
+
+{ #category : #accessing }
+GPolygon >> vertices: anObject [
+	vertices := anObject
 ]

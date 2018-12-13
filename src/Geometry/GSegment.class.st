@@ -241,6 +241,7 @@ GSegment >> initializeWith: aPoint1 with: aPoint2 [
 
 { #category : #properties }
 GSegment >> intersect: aSegment [
+	self flag: #todo.	"Use polymorphism to accept any kind of argument that is a GElement"
 	^ (self asLine intersect: aSegment asLine)
 		ifNotNil: [ :point | 
 			((self includesPoint: point) and: [ aSegment includesPoint: point ])
@@ -260,7 +261,7 @@ GSegment >> intersectionPointWithLine: aLine [
 GSegment >> intersectionPointWithRay: ray [
 	^ (self asLine intersect: ray asLine)
 		ifNotNil: [ :point | 
-			((self includesPoint: point) and: [ ray hasPoint: point ])
+			((self includesPoint: point) and: [ ray includesPoint: point ])
 				ifTrue: [ point ]
 				ifFalse: [ nil ] ]
 ]
@@ -286,12 +287,6 @@ GSegment >> length [
 	"The distance between two points is the length of the vector transposing v1 into v2"
 
 	^ (v2 - v1) length
-]
-
-{ #category : #properties }
-GSegment >> locationOf: aPoint [
-	self flag: #todo.	"This is only for 2D. We should rely on GPoints to be able to do it for n-dimensions."
-	^ ((v2 x - v1 x) * (aPoint y - v1 y) - ((v2 y - v1 y) * (aPoint x - v1 x))) signFuz
 ]
 
 { #category : #properties }

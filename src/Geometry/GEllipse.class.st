@@ -68,6 +68,8 @@ GEllipse >> b [
 
 { #category : #accessing }
 GEllipse >> center [
+	"Since we have it, diretly return it to be faster than my original implementation"
+	
 	^ center
 ]
 

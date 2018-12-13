@@ -26,9 +26,7 @@ GShape >> area [
 
 { #category : #accessing }
 GShape >> center [
-	"I should return a point that is at the center of the shape"
-	
-	^ self subclassResponsibility
+	^ self encompassingRectangle center
 ]
 
 { #category : #accessing }

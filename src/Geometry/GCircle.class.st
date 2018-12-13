@@ -48,8 +48,9 @@ GCircle >> boundaryContainsWhichOf: points [
 
 { #category : #accessing }
 GCircle >> center [
-
-	^center 
+	"Since we have it, diretly return it to be faster than my original implementation"
+	
+	^ center
 ]
 
 { #category : #testing }

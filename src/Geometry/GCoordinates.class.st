@@ -175,6 +175,11 @@ GCoordinates >> inject: aSeed into: aBlock [
 	^ self coordinates inject: aSeed into: aBlock
 ]
 
+{ #category : #'as yet unclassified' }
+GCoordinates >> lowerLimitsWith: otherCoordinates [
+	^ self class newWithCoordinates: (self coordinatesWith: otherCoordinates coordinates collect: [ :number1 :number2 | number1 min: number2 ])
+]
+
 { #category : #accessing }
 GCoordinates >> numberOfDimensions [
 	^ self class numberOfDimensions
@@ -196,6 +201,11 @@ GCoordinates >> printCoordinatesOn: aStream [
 { #category : #printing }
 GCoordinates >> printOn: aStream [
 	self printCoordinatesOn: aStream
+]
+
+{ #category : #'as yet unclassified' }
+GCoordinates >> upperLimitsWith: otherCoordinates [
+	^ self class newWithCoordinates: (self coordinatesWith: otherCoordinates coordinates collect: [ :number1 :number2 | number1 max: number2 ])
 ]
 
 { #category : #accessing }

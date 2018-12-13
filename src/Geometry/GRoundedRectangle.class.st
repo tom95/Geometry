@@ -31,11 +31,6 @@ GRoundedRectangle >> borderRadius [
 ]
 
 { #category : #accessing }
-GRoundedRectangle >> center [
-	^ self rectangle center
-]
-
-{ #category : #accessing }
 GRoundedRectangle >> corners [
 	| r |
 	r := borderRadius.

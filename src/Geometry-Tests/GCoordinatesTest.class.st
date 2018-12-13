@@ -47,6 +47,16 @@ GCoordinatesTest >> testEquals [
 ]
 
 { #category : #tests }
+GCoordinatesTest >> testLowerLimitsWith [
+	| coordinates2 coordinates3 |
+	coordinates := G2DCoordinates x: 1 y: 8.
+	coordinates2 := G2DCoordinates x: 4 y: 6.
+	coordinates3 := coordinates lowerLimitsWith: coordinates2.
+	self assert: coordinates3 x equals: 1.
+	self assert: coordinates3 y equals: 6
+]
+
+{ #category : #tests }
 GCoordinatesTest >> testMultiplication [
 	| coordinates2 |
 	coordinates := G2DCoordinates x: 2 y: 8.
@@ -63,4 +73,14 @@ GCoordinatesTest >> testSubstraction [
 	coordinates3 := coordinates - coordinates2.
 	self assert: coordinates3 x equals: -3.
 	self assert: coordinates3 y equals: -6
+]
+
+{ #category : #tests }
+GCoordinatesTest >> testUpperLimitsWith [
+	| coordinates2 coordinates3 |
+	coordinates := G2DCoordinates x: 1 y: 8.
+	coordinates2 := G2DCoordinates x: 4 y: 6.
+	coordinates3 := coordinates upperLimitsWith: coordinates2.
+	self assert: coordinates3 x equals: 4.
+	self assert: coordinates3 y equals: 8
 ]

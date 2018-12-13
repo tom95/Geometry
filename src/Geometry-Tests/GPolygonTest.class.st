@@ -93,7 +93,7 @@ GPolygonTest >> testEncompassingRectangle [
 					(-10 , 0).
 					(40 , -20)}) encompassingRectangle
 		equals:
-			(Rectangle
+			(GRectangle
 				left: -10
 				right: 40
 				top: 10
@@ -108,58 +108,27 @@ GPolygonTest >> testFitInExtent [
 			{(10 , 10).
 			(-10 , 10).
 			(-10 , -10)}.
-	polygon fitInExtent: 20 , 20.
+	polygon fitInExtent: {20 . 20} asGVector.
 	self
 		assert: polygon vertices
 		equals:
 			{(10 , 10).
 			(-10 , 10).
 			(-10 , -10)}.
-	polygon fitInExtent: 40 , 40.
+	polygon fitInExtent: {40 . 40} asGVector.
 	self
 		assert: polygon vertices
 		equals:
 			{(20 , 20).
 			(-20 , 20).
 			(-20 , -20)}.
-	polygon fitInExtent: 10 , 10.
+	polygon fitInExtent: {10 . 10} asGVector.
 	self
 		assert: polygon vertices
 		equals:
 			{(5 , 5).
 			(-5 , 5).
 			(-5 , -5)}
-]
-
-{ #category : #tests }
-GPolygonTest >> testFitInExtentNonProportionnal [
-	| polygon |
-	polygon := GPolygon
-		newVertices:
-			{(10 , 4).
-			(-4 , 10).
-			(-10 , -8)}.
-	polygon fitInExtent: 20 , 20.
-	self
-		assert: polygon vertices
-		equals:
-			{(10 , 4).
-			(-4 , 10).
-			(-10 , -8)}.
-	polygon fitInExtent: 40 , 40.
-	self
-		assert: polygon vertices
-		equals:
-			{(20 , 8).
-			(-8 , 20).
-			(-20 , -16)}.
-	polygon fitInExtent: 10 , 10.
-	self
-		assert: polygon vertices
-		equals:
-			{(5 , 2).
-			(-2 , 5).
-			(-5 , -4)}
 ]
 
 { #category : #tests }
@@ -171,6 +140,47 @@ GPolygonTest >> testIncludesPoint [
 					{(10 , 10).
 					(-10 , 10).
 					(-10 , -10)}) includesPoint: -5 , 5)
+]
+
+{ #category : #tests }
+GPolygonTest >> testScaleBy [
+	| polygon |
+	polygon := GPolygon
+		newVertices:
+			{(10 , 4).
+			(-4 , 10).
+			(-10 , -8)}.
+	polygon scaleBy: 1.
+	self
+		assert: polygon vertices
+		equals:
+			{(10 , 4).
+			(-4 , 10).
+			(-10 , -8)}.
+	polygon := GPolygon
+		newVertices:
+			{(5 , 2).
+			(-2 , 5).
+			(-5 , -5)}.
+	polygon scaleBy: 2.
+	self
+		assert: polygon vertices
+		equals:
+			{(10 , 4).
+			(-4 , 10).
+			(-10 , -10)}.
+	polygon := GPolygon
+		newVertices:
+			{(10 , 4).
+			(-4 , 10).
+			(-10 , -10)}.
+	polygon scaleBy: 1 / 2.
+	self
+		assert: polygon vertices
+		equals:
+			{(5 , 2).
+			(-2 , 5).
+			(-5 , -5)}
 ]
 
 { #category : #tests }

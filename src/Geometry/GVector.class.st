@@ -58,6 +58,21 @@ GVector class >> x: aNumber y: anotherNumber [
 		yourself
 ]
 
+{ #category : #arithmetic }
+GVector >> * anOperand [
+	^ anOperand multiplyWithVector: self
+]
+
+{ #category : #arithmetic }
+GVector >> + anOperand [
+	^ anOperand additionWithVector: self
+]
+
+{ #category : #arithmetic }
+GVector >> / aGVector [ 
+	self shouldBeImplemented.
+]
+
 { #category : #comparing }
 GVector >> = anotherPoint [
 	"Answer whether the receiver and anObject represent the same object."
@@ -66,6 +81,16 @@ GVector >> = anotherPoint [
 	self class = anotherPoint class ifFalse: [ ^ false ].
 
 	^ coordinates = anotherPoint coordinates
+]
+
+{ #category : #arithmetic }
+GVector >> adaptToNumber: anInteger andSend: aString [ 
+	^ self perform: aString with: anInteger
+]
+
+{ #category : #arithmetic }
+GVector >> additionWithVector: aGVector [
+	^ (self coordinates + aGVector coordinates) asGVector
 ]
 
 { #category : #accessing }
@@ -91,5 +116,12 @@ GVector >> hash [
 GVector >> length [
 	"https://onlinemschool.com/math/library/vector/length/"
 
-	^ (self coordinates inject: 0 into: [ :res :number | res + (number * number) ]) sqrt
+	^ (self coordinates inject: 0 into: [ :res :number | res + number squared ]) sqrt
+]
+
+{ #category : #arithmetic }
+GVector >> multiplyWithVector: aGVector [
+	"We should implement vector product later."
+	
+	self shouldBeImplemented
 ]

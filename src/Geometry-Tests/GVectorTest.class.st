@@ -36,3 +36,12 @@ GVectorTest >> testLength [
 	vector := GVector x: 3 y: -4.
 	self assert: vector length equals: 5
 ]
+
+{ #category : #tests }
+GVectorTest >> testMultiplication [
+	| newVector |
+	vector := #(2 8) asGVector.
+	newVector := vector * 2.
+	self assert: newVector x equals: 4.
+	self assert: newVector y equals: 16
+]

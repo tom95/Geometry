@@ -13,6 +13,16 @@ TGWithCoordinates >> coordinates: gCoordinates [
 	^ self explicitRequirement
 ]
 
+{ #category : #enumerating }
+TGWithCoordinates >> coordinatesWith: aCollection collect: aBlock [
+	^ self coordinates coordinatesWith: aCollection coordinates collect: aBlock
+]
+
+{ #category : #enumerating }
+TGWithCoordinates >> coordinatesWith: aCollection do: aBlock [
+	self coordinates coordinatesWith: aCollection coordinates do: aBlock
+]
+
 { #category : #copying }
 TGWithCoordinates >> postCopy [
 	super postCopy.

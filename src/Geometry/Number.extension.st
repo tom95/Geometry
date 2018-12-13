@@ -30,6 +30,11 @@ Number >> isBetween: a and: b with: eps [
 ]
 
 { #category : #'*Geometry' }
+Number >> multiplyWithVector: aGVector [ 
+	^ (aGVector coordinates * self) asGVector
+]
+
+{ #category : #'*Geometry' }
 Number >> signFuz [
 	"Answer 1 if the receiver is greater than 0, -1 if less than 0, else 0."
 

@@ -104,6 +104,11 @@ GPoint >> =~ aPoint [
 
 ]
 
+{ #category : #arithmetic }
+GPoint >> additionWithVector: aGVector [
+	^ self + aGVector
+]
+
 { #category : #converting }
 GPoint >> asGPoint [
 	^ self

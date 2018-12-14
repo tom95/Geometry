@@ -17,11 +17,17 @@ GRayTest >> test [
 { #category : #tests }
 GRayTest >> test1 [
 	self
-		assert: (( GRay origin: 28 @ 30 direction: (-14.19823766979061@ -21.67099433810146)) hasPoint:
-		(9@1)). 
+		assert:
+			((GRay
+				origin: 28 @ 30
+				direction: -14.19823766979061 @ -21.67099433810146)
+				includesPoint: 9 @ 1).
 	self
-		assert: ((GRay origin: 20 @ 23 direction: (-16.331370027835703@ -32.66274005567141)) hasPoint: (9@1)).
-
+		assert:
+			((GRay
+				origin: 20 @ 23
+				direction: -16.331370027835703 @ -32.66274005567141)
+				includesPoint: 9 @ 1)
 ]
 
 { #category : #tests }
@@ -133,12 +139,12 @@ GRayTest >> testFlipped [
 { #category : #tests }
 GRayTest >> testHas [
 	self
-		assert: ((GRay origin: 0 @ 0 direction: 12 @ 9) hasPoint: 13 @ (39 / 4))
+		assert: ((GRay origin: 0 @ 0 direction: 12 @ 9) includesPoint: 13 @ (39 / 4))
 		equals: true.
 	self
 		assert:
 			((GRay origin: 0 @ 0 direction: 12 @ 9) asSegment
-				hasPoint: 13 @ (39 / 4))
+				includesPoint: 13 @ (39 / 4))
 		equals: false.
 	self
 		assert: ((GRay origin: 0 @ 0 direction: 13 @ (39 / 4)) hasPoint: 12 @ 9)

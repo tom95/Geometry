@@ -72,13 +72,6 @@ GRectangleTest >> testHasOnBoundary [
 ]
 
 { #category : #tests }
-GRectangleTest >> testHasOnOneSideAnd [
-	self assert: ((GRectangle origin: -22 , -42 corner: 62 , 42) hasOnOneSide: -9 , 42 and: 30 , 42).
-	self assert: ((GRectangle origin: -22 , -42 corner: 62 , 42) hasOnOneSide: -22 , 30 and: -22 , -10).
-	self deny: ((GRectangle origin: -22 , -42 corner: 62 , 42) hasOnOneSide: -9 , 42 and: -22 , -10)
-]
-
-{ #category : #tests }
 GRectangleTest >> testHeight [
 	self assert: rectangle height equals: 10
 ]
@@ -87,12 +80,10 @@ GRectangleTest >> testHeight [
 GRectangleTest >> testIncludesPoint [
 	self assert: (rectangle includesPoint: 11 , 11).
 	self assert: (rectangle includesPoint: 10 , 10).
-	self assert: (rectangle includesPoint: 20 , 20).
 	self deny: (rectangle includesPoint: 9 , 9).
 	self deny: (rectangle includesPoint: 21 , 21).
 	self deny: (rectangle includesPoint: 15 , 21).
 	self deny: (rectangle includesPoint: 9 , 15).
-	self assert: ((GRectangle origin: 1 , 3 corner: 3 , 0) includesPoint: 1 , 3).
 	self assert: ((GRectangle origin: 1 , 3 corner: 3 , 0) includesPoint: 2 , 1).
 	self deny: ((GRectangle origin: 1 , 3 corner: 3 , 0) includesPoint: 0 , 0)
 ]
@@ -117,45 +108,8 @@ GRectangleTest >> testIntersectionPointsWithLine [
 ]
 
 { #category : #tests }
-GRectangleTest >> testScaleBy [
-	rectangle := 2 , 2 corner: 6 , 4.
-	rectangle scaleBy: 2.
-	self assert: rectangle left equals: 4.
-	self assert: rectangle right equals: 12.
-	self assert: rectangle top equals: 4.
-	self assert: rectangle bottom equals: 8.
-	
-	rectangle := 2 , 2 corner: 6 , 4.
-	rectangle scaleBy: 1 / 2.
-	self assert: rectangle left equals: 1.
-	self assert: rectangle right equals: 3.
-	self assert: rectangle top equals: 1.
-	self assert: rectangle bottom equals: 2.
-	
-	rectangle := 2 , 2 corner: 6 , 4.
-	self should: [ rectangle scaleBy: 0 ] raise: GError
-]
-
-{ #category : #tests }
 GRectangleTest >> testSideWhichHas [
 	self assert: ((GRectangle origin: 1 , 3 corner: 3 , 0) sideWhichHas: 1 , 2.5) equals: (GSegment with: 1 , 3 with: 1 , 0)
-]
-
-{ #category : #tests }
-GRectangleTest >> testTranslateBy [
-	rectangle := 2 , 2 corner: 6 , 4.
-	rectangle translateBy: 2.
-	self assert: rectangle left equals: 4.
-	self assert: rectangle right equals: 8.
-	self assert: rectangle top equals: 4.
-	self assert: rectangle bottom equals: 6.
-
-	rectangle := 2 , 2 corner: 6 , 4.
-	rectangle translateBy: 2 negated.
-	self assert: rectangle left equals: 0.
-	self assert: rectangle right equals: 4.
-	self assert: rectangle top equals: 0.
-	self assert: rectangle bottom equals: 2
 ]
 
 { #category : #tests }

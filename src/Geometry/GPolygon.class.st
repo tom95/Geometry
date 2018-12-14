@@ -15,26 +15,24 @@ Class {
 { #category : #'as yet unclassified' }
 GPolygon class >> convexHullOn: aCollection [
 	| lastPoint nextPoint convexHull |
-"self halt."
-	convexHull := OrderedCollection new.	
+	"self halt."
+	convexHull := OrderedCollection new.
 	nextPoint := aCollection detectMin: #x.
-	 [
-		lastPoint := nextPoint.
-		convexHull add: lastPoint.
-		nextPoint := aCollection detect: [ :point | point ~= lastPoint ].
-		(aCollection copyWithout: nextPoint) do: [ :point |
-			| turn |		
-			turn :=
-				(nextPoint x - lastPoint x) * (point y - lastPoint y) -
-				((point x - lastPoint x) * (nextPoint y - lastPoint y)).
-			(turn < 0 or:
-				[ turn = 0 and:
-				[ (lastPoint distanceTo: point) > (lastPoint distanceTo: nextPoint) ] ]) ifTrue:
-					[ nextPoint := point ] ] ] doWhileTrue: [
-				convexHull first ~= nextPoint ].
-		
-	^ self newVertices: convexHull
-				
+	[ lastPoint := nextPoint.
+	convexHull add: lastPoint.
+	nextPoint := aCollection detect: [ :point | point ~= lastPoint ].
+	(aCollection copyWithout: nextPoint)
+		do: [ :point | 
+			| turn |
+			turn := (nextPoint x - lastPoint x) * (point y - lastPoint y)
+				- ((point x - lastPoint x) * (nextPoint y - lastPoint y)).
+			(turn < 0
+				or: [ turn = 0
+						and: [ (lastPoint distanceTo: point) > (lastPoint distanceTo: nextPoint) ] ])
+				ifTrue: [ nextPoint := point ] ] ]
+		doWhileTrue: [ convexHull first ~= nextPoint ].
+
+	^ self vertices: convexHull
 ]
 
 { #category : #'instance creation' }
@@ -61,6 +59,16 @@ GPolygon class >> vertices: aCollection [
 	^ self new
 		initializeVertices: aCollection;
 		yourself.
+]
+
+{ #category : #comparing }
+GPolygon >> = anObject [
+	"Answer whether the receiver and anObject represent the same object."
+
+	self == anObject ifTrue: [ ^ true ].
+	self class = anObject class ifFalse: [ ^ false ].
+
+	^ vertices = anObject vertices
 ]
 
 { #category : #accessing }
@@ -91,6 +99,13 @@ GPolygon >> fitInExtent: extent [
 	| scales |
 	scales := extent coordinatesWith: self encompassingRectangle extent coordinates collect: [ :number1 :number2 | number1 / number2 ].
 	vertices := self vertices collect: [ :vertice | ((vertice - self center) coordinates coordinatesWith: scales collect: [ :a :b | a * b ]) asGVector + self center ]
+]
+
+{ #category : #comparing }
+GPolygon >> hash [
+	"Answer an integer value that is related to the identity of the receiver."
+
+	^ vertices hash bitXor: self class hash
 ]
 
 { #category : #testing }
@@ -126,6 +141,9 @@ GPolygon >> moveBy: aPoint [
 
 { #category : #transforming }
 GPolygon >> scaleBy: anInteger [
+
+	anInteger <= 0 ifTrue: [ self error: 'Scale must be over zeo' ].
+
 	vertices := self vertices collect: [ :vertice | (vertice - self center) * anInteger + self center ]
 ]
 

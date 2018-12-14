@@ -85,12 +85,8 @@ GPolygonTest >> testEncompassingRectangle [
 	self
 		assert:
 			(GPolygon
-				newVertices:
-					{(0 , -20).
-					(0 , 10).
-					(30 , -30).
-					(40 , 0).
-					(-10 , 0).
+				vertices:
+					{(0 , -20) . (0 , 10) . (30 , -30) . (40 , 0) . (-10 , 0).
 					(40 , -20)}) encompassingRectangle
 		equals:
 			(GRectangle
@@ -103,99 +99,53 @@ GPolygonTest >> testEncompassingRectangle [
 { #category : #tests }
 GPolygonTest >> testFitInExtent [
 	| polygon |
-	polygon := GPolygon
-		newVertices:
-			{(10 , 10).
-			(-10 , 10).
-			(-10 , -10)}.
+	polygon := GPolygon vertices: {(10 , 10) . (-10 , 10) . (-10 , -10)}.
 	polygon fitInExtent: {20 . 20} asGVector.
 	self
 		assert: polygon vertices
-		equals:
-			{(10 , 10).
-			(-10 , 10).
-			(-10 , -10)}.
+		equals: {(10 , 10) . (-10 , 10) . (-10 , -10)}.
 	polygon fitInExtent: {40 . 40} asGVector.
 	self
 		assert: polygon vertices
-		equals:
-			{(20 , 20).
-			(-20 , 20).
-			(-20 , -20)}.
+		equals: {(20 , 20) . (-20 , 20) . (-20 , -20)}.
 	polygon fitInExtent: {10 . 10} asGVector.
 	self
 		assert: polygon vertices
-		equals:
-			{(5 , 5).
-			(-5 , 5).
-			(-5 , -5)}
+		equals: {(5 , 5) . (-5 , 5) . (-5 , -5)}
 ]
 
 { #category : #tests }
 GPolygonTest >> testIncludesPoint [
 	self
 		assert:
-			((GPolygon
-				newVertices:
-					{(10 , 10).
-					(-10 , 10).
-					(-10 , -10)}) includesPoint: -5 , 5)
+			((GPolygon vertices: {(10 , 10) . (-10 , 10) . (-10 , -10)})
+				includesPoint: -5 , 5)
 ]
 
 { #category : #tests }
 GPolygonTest >> testScaleBy [
 	| polygon |
-	polygon := GPolygon
-		newVertices:
-			{(10 , 4).
-			(-4 , 10).
-			(-10 , -8)}.
+	polygon := GPolygon vertices: {(10 , 4) . (-4 , 10) . (-10 , -8)}.
 	polygon scaleBy: 1.
-	self
-		assert: polygon vertices
-		equals:
-			{(10 , 4).
-			(-4 , 10).
-			(-10 , -8)}.
-	polygon := GPolygon
-		newVertices:
-			{(5 , 2).
-			(-2 , 5).
-			(-5 , -5)}.
+	self assert: polygon vertices equals: {(10 , 4) . (-4 , 10) . (-10 , -8)}.
+	
+	polygon := GPolygon vertices: {(5 , 2) . (-2 , 5) . (-5 , -5)}.
 	polygon scaleBy: 2.
-	self
-		assert: polygon vertices
-		equals:
-			{(10 , 4).
-			(-4 , 10).
-			(-10 , -10)}.
-	polygon := GPolygon
-		newVertices:
-			{(10 , 4).
-			(-4 , 10).
-			(-10 , -10)}.
+	self assert: polygon vertices equals: {(10 , 4) . (-4 , 10) . (-10 , -10)}.
+	
+	polygon := GPolygon vertices: {(10 , 4) . (-4 , 10) . (-10 , -10)}.
 	polygon scaleBy: 1 / 2.
-	self
-		assert: polygon vertices
-		equals:
-			{(5 , 2).
-			(-2 , 5).
-			(-5 , -5)}
+	self assert: polygon vertices equals: {(5 , 2) . (-2 , 5) . (-5 , -5)}.
+	
+	self should: [ polygon scaleBy: 0 ] raise: GError
 ]
 
 { #category : #tests }
 GPolygonTest >> testTranslateBy [
 	| polygon |
-	polygon := GPolygon
-		newVertices:
-			{(10 , 10).
-			(-10 , 10).
-			(-10 , -10)}.
+	polygon := GPolygon vertices: {(10 , 10) . (-10 , 10) . (-10 , -10)}.
 	polygon translateBy: 10 , 10.
 	self
 		assert: polygon vertices
-		equals:
-			{(20 , 20).
-			(0 , 20).
-			(0 , 0)}
+		equals: {(20 , 20) . (0 , 20) . (0 , 0)}
 ]

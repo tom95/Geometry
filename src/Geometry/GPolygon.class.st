@@ -51,6 +51,12 @@ GPolygon class >> newRegularPolygonWithEdgeNumber: aNumber [
 
 { #category : #'instance creation' }
 GPolygon class >> newVertices: aCollection [
+	self deprecated: 'Use #vertices: instead' transformWith: '`@receiver newVertices: `@statements' -> '`@receiver vertices: `@statements'.
+	^ self vertices: aCollection
+]
+
+{ #category : #'instance creation' }
+GPolygon class >> vertices: aCollection [
 	
 	^ self new
 		initializeVertices: aCollection;

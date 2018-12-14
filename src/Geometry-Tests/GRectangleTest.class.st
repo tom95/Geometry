@@ -22,55 +22,46 @@ GRectangleTest >> testArea [
 ]
 
 { #category : #tests }
-GRectangleTest >> testBottom [
-	self assert: rectangle bottom equals: 20
-]
-
-{ #category : #tests }
-GRectangleTest >> testBottomCenter [
-	self assert: rectangle bottomCenter equals: 15, 20
-]
-
-{ #category : #tests }
-GRectangleTest >> testBottomLeft [
-	self assert: rectangle bottomLeft equals: 10, 20
-]
-
-{ #category : #tests }
-GRectangleTest >> testBottomRight [
-	self assert: rectangle bottomRight equals: 20, 20
-]
-
-{ #category : #tests }
 GRectangleTest >> testCenter [
-	| c |
-	rectangle := GRectangle origin: 0 , 0 extent:  10 , 20.
-	c := rectangle center.
-	self assert: (rectangle includesPoint: c) description: 'the center is inside the rectangle'.
-	self assert: (rectangle topLeft distanceTo: c) equals: (rectangle bottomRight distanceTo: c).
-	self assert: (rectangle bottomLeft distanceTo: c) equals: (rectangle topRight distanceTo: c).
-	self assert: (rectangle topLeft distanceTo: c) equals: (rectangle bottomLeft distanceTo: c).
-	self assert: (rectangle translateBy: -20 , 10) center = (c translateBy: -20 , 10) description: 'the center is translated with the rectangle'
+	| translated1 translated2 |
+	rectangle := GRectangle vertices: {(1 , 1) . (5 , 1) . (5 , 6) . (1 , 6)}.
+	self assert: rectangle center equals: 3, (7/2).
+
+	rectangle := GRectangle vertices: {(1 , 3) . (2 , 1) . (5 , 4) . (4 , 6)}.
+	self assert: rectangle center equals: 3, (7/2).
+
+	rectangle := GRectangle vertices: {(1 , 3) . (4 , 6) . (5 , 4) . (2 , 1)}.
+	self assert: rectangle center equals: 3, (7/2).
+	
+	rectangle := GRectangle vertices: {(1 , 3) . (4 , 6) . (5 , 4) . (2 , 1)}.
+	translated1 := rectangle translateBy: #(1 2) asGVector.
+	rectangle := GRectangle vertices: {(1 , 3) . (4 , 6) . (5 , 4) . (2 , 1)}.
+	translated2 := rectangle translateBy: #(1 2) asGVector.
+	self assert: translated1 center = translated2 center description: 'the center is translated with the rectangle'
 ]
 
 { #category : #tests }
-GRectangleTest >> testCorners [
-	self
-		assertCollection: rectangle corners
-		hasSameElements:
-			{(10 , 10).
-			(10 , 20).
-			(20 , 20).
-			(20 , 10)}
+GRectangleTest >> testDiagonals [
+	rectangle := GRectangle vertices: {(1 , 1) . (5 , 1) . (5 , 6) . (1 , 6)}.
+	self assertCollection: rectangle diagonals hasSameElements: {(GSegment with: 1 , 6 with: 5 , 1) . (GSegment with: 5 , 6 with: 1 , 1)}.
+
+	rectangle := GRectangle vertices: {(1 , 3) . (2 , 1) . (5 , 4) . (4 , 6)}.
+	self assertCollection: rectangle diagonals hasSameElements: {(GSegment with: 1 , 3 with: 5 , 4) . (GSegment with: 4 , 6 with: 2 , 1)}.
+
+	rectangle := GRectangle vertices: {(1 , 3) . (4 , 6) . (5 , 4) . (2 , 1)}.
+	self assertCollection: rectangle diagonals hasSameElements: {(GSegment with: 1 , 3 with: 5 , 4) . (GSegment with: 4 , 6 with: 2 , 1)}
 ]
 
 { #category : #tests }
 GRectangleTest >> testExtent [
-	self assert: rectangle extent equals: 10 , 10.
-	rectangle := GRectangle origin: 10 , 5 extent: 30 , 45.
-	self assert: rectangle extent equals: 30 , 45.
-	rectangle := GRectangle origin: 10 , 5 corner: 40 , 50.
-	self assert: rectangle extent equals: 30 , 45
+	rectangle := GRectangle vertices: {(1 , 1) . (5 , 1) . (5 , 6) . (1 , 6)}.
+	self assert: rectangle extent equals: #(4 5) asGVector.
+
+	rectangle := GRectangle vertices: {(1 , 3) . (2 , 1) . (5 , 4) . (4 , 6)}.
+	self assert: rectangle extent equals: #(4 5) asGVector.
+
+	rectangle := GRectangle vertices: {(1 , 3) . (4 , 6) . (5 , 4) . (2 , 1)}.
+	self assert: rectangle extent equals: #(4 5) asGVector
 ]
 
 { #category : #tests }
@@ -112,37 +103,17 @@ GRectangleTest >> testIntersectionPointWithRay [
 ]
 
 { #category : #tests }
-GRectangleTest >> testIntersectionPointsWith1 [
-	self
-		assert: ((GRectangle origin: 1 , 3 corner: 3 , 0) intersectionPointsWithLine: (GSegment with: 0 , 3 with: 4 , 1) asLine) first
-		equals: 1 , 2.5.
-	self
-		assert: ((GRectangle origin: 1 , 3 corner: 3 , 0) intersectionPointsWithLine: (GSegment with: 0 , 3 with: 4 , 1) asLine) second
-		equals: 3 , 1.5
-]
-
-{ #category : #tests }
-GRectangleTest >> testIntersectionPointsWith2 [
+GRectangleTest >> testIntersectionPointsWithLine [
+	self assert: ((GRectangle origin: 1 , 3 corner: 3 , 0) intersectionPointsWithLine: (GSegment with: 0 , 3 with: 4 , 1) asLine) first equals: 1 , 2.5.
+	self assert: ((GRectangle origin: 1 , 3 corner: 3 , 0) intersectionPointsWithLine: (GSegment with: 0 , 3 with: 4 , 1) asLine) second equals: 3 , 1.5.
 	self
 		assert:
 			((GRectangle origin: -60 , -80 corner: 80 , 60)
-				intersectionPointsWithLine: (GSegment with: 174.8683298050514 , -174.86832980505142 with: -14.868329805051376 , 14.868329805051385) asLine)
-				first =~ (-60 , 60).
+				intersectionPointsWithLine: (GSegment with: 174.8683298050514 , -174.86832980505142 with: -14.868329805051376 , 14.868329805051385) asLine) first =~ (-60 , 60).
 	self
 		assert:
 			((GRectangle origin: -60 , -80 corner: 80 , 60)
-				intersectionPointsWithLine: (GSegment with: 174.8683298050514 , -174.86832980505142 with: -14.868329805051376 , 14.868329805051385) asLine)
-				second =~ (80 , -80)
-]
-
-{ #category : #tests }
-GRectangleTest >> testLeft [
-	self assert: rectangle left equals: 10
-]
-
-{ #category : #tests }
-GRectangleTest >> testRight [
-	self assert: rectangle right equals: 20
+				intersectionPointsWithLine: (GSegment with: 174.8683298050514 , -174.86832980505142 with: -14.868329805051376 , 14.868329805051385) asLine) second =~ (80 , -80)
 ]
 
 { #category : #tests }
@@ -168,26 +139,6 @@ GRectangleTest >> testScaleBy [
 { #category : #tests }
 GRectangleTest >> testSideWhichHas [
 	self assert: ((GRectangle origin: 1 , 3 corner: 3 , 0) sideWhichHas: 1 , 2.5) equals: (GSegment with: 1 , 3 with: 1 , 0)
-]
-
-{ #category : #tests }
-GRectangleTest >> testTop [
-	self assert: rectangle top equals: 10
-]
-
-{ #category : #tests }
-GRectangleTest >> testTopCenter [
-	self assert: rectangle topCenter equals: 15, 10
-]
-
-{ #category : #tests }
-GRectangleTest >> testTopLeft [
-	self assert: rectangle topLeft equals: 10, 10
-]
-
-{ #category : #tests }
-GRectangleTest >> testTopRight [
-	self assert: rectangle topRight equals: 20, 10
 ]
 
 { #category : #tests }

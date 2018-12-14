@@ -36,6 +36,13 @@ GShape >> encompassingRectangle [
 	^ self subclassResponsibility
 ]
 
+{ #category : #accessing }
+GShape >> extent [
+	"I return a vector representing the extent of the encompassing rectangle of the shape. I should be able to translate the corner of the encompassing rectangle to its origin."
+	
+	^ self encompassingRectangle extent
+]
+
 { #category : #transforming }
 GShape >> fitInExtent: anExtent [
 	"I should transform my shape to fit in a rectangle of size 0@0 to the extent as parameter, keeping my center.

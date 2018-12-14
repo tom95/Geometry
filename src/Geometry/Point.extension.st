@@ -17,18 +17,6 @@ Point >> asGVector [
 ]
 
 { #category : #'*Geometry' }
-Point >> geometryCorner: aPoint [
-	^ GRectangle origin: self corner: aPoint
-]
-
-{ #category : #'*Geometry' }
-Point >> geometryExtent: aPoint [
-	"Answer a Rectangle whose origin is the receiver and whose extent is aPoint. This is one of the infix ways of expressing the creation of a rectangle."
-
-	^ GRectangle origin: self extent: aPoint
-]
-
-{ #category : #'*Geometry' }
 Point >> has: aPoint onTheSameSideAs: p [
 	(self x <= p x) 
 		ifTrue:[ self y <= p y

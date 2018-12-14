@@ -62,7 +62,7 @@ GRectangle class >> origin: point1 corner: point2 [
 	
 	or = cor ifTrue: [ self error: 'This is not a rectangle but a point.' ].
 	
-	^ self newVertices: { or . (cor x , or y). cor. (or x , cor y) }
+	^ self vertices: { or . (cor x , or y). cor. (or x , cor y) }
 ]
 
 { #category : #'instance creation' }
@@ -74,6 +74,14 @@ GRectangle class >> origin: originPoint extent: extentPoint [
 		corner: (originPoint x + (extentPoint x max: 0)) @ (originPoint y + (extentPoint y max: 0))
 ]
 
+{ #category : #'instance creation' }
+GRectangle class >> vertices: aCollection [
+	aCollection size = 4 ifFalse: [ self error: 'A Rectangle should have 4 vertices.' ].
+	self flag: #todo. "We should also check other properties of the rectangle."
+
+	^ super vertices: aCollection
+]
+
 { #category : #accessing }
 GRectangle >> area [
 	"Answer the receiver's area, the product of width and height."
@@ -82,61 +90,25 @@ GRectangle >> area [
 ]
 
 { #category : #accessing }
-GRectangle >> bottom [
-	"Answer the position of the receiver's bottom horizontal line."
-
-	^ self corner y
-]
-
-{ #category : #accessing }
-GRectangle >> bottomCenter [
-	"Answer the point at the center of the bottom horizontal line of the 
-	receiver."
-
-	^ self center x @ self bottom
-]
-
-{ #category : #accessing }
-GRectangle >> bottomLeft [
-	"Answer the point at the left edge of the bottom horizontal line of the 
-	receiver."
-
-	^ self origin x @ self corner y
-]
-
-{ #category : #accessing }
-GRectangle >> bottomRight [
-	"Answer the point at the right edge of the bottom horizontal line of the 
-	receiver."
-
-	^ self corner
-]
-
-{ #category : #accessing }
 GRectangle >> center [
 	"Answer the point at the center of the receiver."
 
-	^ (self topLeft segment: self bottomRight) midPoint
+	^ self diagonals anyOne midPoint
 ]
 
 { #category : #accessing }
 GRectangle >> corner [
 	"Answer the point at the bottom right corner of the receiver."
 
-	| or |
-	or := 0 , 0.
-	^ self vertices fold: [ :ver1 :ver2 | ((ver1 distanceTo: or) > (ver2 distanceTo: or)) ifTrue: [ ver1 ] ifFalse: [ ver2 ] ]
+	| topLeftMost | 
+	topLeftMost := Float negativeInfinity , Float negativeInfinity.
+	^ self vertices fold: [ :ver1 :ver2 | ((ver1 distanceTo: topLeftMost) > (ver2 distanceTo: topLeftMost)) ifTrue: [ ver1 ] ifFalse: [ ver2 ] ]
 ]
 
 { #category : #accessing }
-GRectangle >> corners [
-	"Return an array of corner points in the order of a quadrilateral spec for WarpBlt."
-
-	^ Array
-		with: self topLeft
-		with: self bottomLeft
-		with: self bottomRight
-		with: self topRight
+GRectangle >> diagonals [
+	^ {((self vertices at: 1) segment: (self vertices at: 3)).
+	((self vertices at: 2) segment: (self vertices at: 4))}
 ]
 
 { #category : #accessing }
@@ -154,9 +126,13 @@ GRectangle >> encompassingRectangle [
 
 { #category : #accessing }
 GRectangle >> extent [
-	"Answer a point with the receiver's width @ the receiver's height."
+	"Answer a vector representing the extent of my encompassing rectangle."
 
-	^ (self corner coordinates - self origin coordinates) asGVector
+	| verticesCoordinates encompassingRectangleOrigin encompassingRectangleCorner |
+	verticesCoordinates := self vertices collect: #coordinates.
+	encompassingRectangleOrigin := verticesCoordinates fold: [:coor1 :coor2 | coor1 upperLimitsWith: coor2].
+	encompassingRectangleCorner := verticesCoordinates fold: [:coor1 :coor2 | coor1 lowerLimitsWith: coor2].
+	^ (encompassingRectangleOrigin - encompassingRectangleCorner) asGVector
 ]
 
 { #category : #testing }
@@ -180,7 +156,7 @@ GRectangle >> hasPoint: aGPoint [
 GRectangle >> height [
 	"Answer the height of the receiver."
 
-	^ self corner y - self origin y
+	^ (self vertices at: 2) distanceTo: (self vertices at: 3)
 ]
 
 { #category : #testing }
@@ -188,21 +164,6 @@ GRectangle >> includesRect: aRect [
 	"Answer whether aRect is within the receiver."
 
 	^ aRect origin >= self origin and: [ aRect corner <= self corner ]
-]
-
-{ #category : #accessing }
-GRectangle >> innerCorners [
-	"Return an array of inner corner points,
-	ie, the most extreme pixels included,
-	in the order of a quadrilateral spec for WarpBlt"
-
-	| r1 |
-	r1 := self topLeft corner: self bottomRight - (1 @ 1).
-	^ Array
-		with: r1 topLeft
-		with: r1 bottomLeft
-		with: r1 bottomRight
-		with: r1 topRight
 ]
 
 { #category : #comparing }
@@ -238,26 +199,16 @@ GRectangle >> intersectionPointsWithSegment: segm [
 ]
 
 { #category : #accessing }
-GRectangle >> left [
-	"Answer the position of the receiver's left vertical line."
-
-	^ self origin x
-]
-
-{ #category : #accessing }
-GRectangle >> leftCenter [
-	"Answer the point at the center of the receiver's left vertical line."
-
-	^ self left @ self center y
-]
-
-{ #category : #accessing }
 GRectangle >> origin [
 	"Answer the point at the top left corner of the receiver."
 
-	| or |
-	or := 0 , 0.
-	^ self vertices fold: [ :ver1 :ver2 | ((ver1 distanceTo: or) < (ver2 distanceTo: or)) ifTrue: [ ver1 ] ifFalse: [ ver2 ] ]
+	| topLeftMost |
+	topLeftMost := Float negativeInfinity , Float negativeInfinity.
+	^ self vertices
+		fold: [ :ver1 :ver2 | 
+			(ver1 distanceTo: topLeftMost) < (ver2 distanceTo: topLeftMost)
+				ifTrue: [ ver1 ]
+				ifFalse: [ ver2 ] ]
 ]
 
 { #category : #accessing }
@@ -292,37 +243,8 @@ GRectangle >> sideWhichHas: point [
 ]
 
 { #category : #accessing }
-GRectangle >> top [
-	"Answer the position of the receiver's top horizontal line."
-
-	^ self origin y
-]
-
-{ #category : #accessing }
-GRectangle >> topCenter [
-	"Answer the point at the center of the receiver's top horizontal line."
-
-	^ self center x @ self top
-]
-
-{ #category : #accessing }
-GRectangle >> topLeft [
-	"Answer the point at the top left corner of the receiver's top horizontal line."
-
-	^ self origin
-]
-
-{ #category : #accessing }
-GRectangle >> topRight [
-	"Answer the point at the top right corner of the receiver's top horizontal 
-	line."
-
-	^ self corner x @ self origin y
-]
-
-{ #category : #accessing }
 GRectangle >> width [
 	"Answer the width of the receiver."
 
-	^ self corner x - self origin x
+	^ (self vertices at: 2) distanceTo: (self vertices at: 1)
 ]

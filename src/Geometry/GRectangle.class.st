@@ -8,25 +8,6 @@ Class {
 }
 
 { #category : #'instance creation' }
-GRectangle class >> center: centerPoint extent: extentPoint [
-	"Answer an instance of me whose center is centerPoint and width 
-	by height is extentPoint.  "
-
-	^ self origin: centerPoint - (extentPoint / 2) extent: extentPoint
-]
-
-{ #category : #'instance creation' }
-GRectangle class >> encompassing: listOfPoints [
-	| topLeft bottomRight |
-	topLeft := bottomRight := listOfPoints first.
-	listOfPoints
-		allButFirstDo: [ :p | 
-			topLeft := topLeft min: p.
-			bottomRight := bottomRight max: p ].
-	^ self origin: topLeft corner: bottomRight
-]
-
-{ #category : #'instance creation' }
 GRectangle class >> left: left right: right top: top bottom: bottom [
 	"Answer an instance of me whose left, right, top, and bottom coordinates 
 	are determined by the arguments."
@@ -50,15 +31,6 @@ GRectangle class >> origin: point1 corner: point2 [
 	or = cor ifTrue: [ self error: 'This is not a rectangle but a point.' ].
 	
 	^ self vertices: { or . (cor x , or y). cor. (or x , cor y) }
-]
-
-{ #category : #'instance creation' }
-GRectangle class >> origin: originPoint extent: extentPoint [
-	"Answer an instance of me whose top left corner is originPoint and width by height is extentPoint. Note that extentPoint should be non negative since it represents the size of the rectangle"
-
-	^ self
-		origin: originPoint
-		corner: (originPoint x + (extentPoint x max: 0)) @ (originPoint y + (extentPoint y max: 0))
 ]
 
 { #category : #'instance creation' }

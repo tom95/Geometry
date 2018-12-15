@@ -36,6 +36,11 @@ GShape >> encompassingRectangle [
 	^ self subclassResponsibility
 ]
 
+{ #category : #'as yet unclassified' }
+GShape >> encompassingRectangleAsPharoRectangle [
+	^ Rectangle encompassing: (self encompassingRectangle vertices collect: [ :gPoint | gPoint x @ gPoint y ])
+]
+
 { #category : #accessing }
 GShape >> extent [
 	"I return a vector representing the extent of the encompassing rectangle of the shape. I should be able to translate the corner of the encompassing rectangle to its origin."

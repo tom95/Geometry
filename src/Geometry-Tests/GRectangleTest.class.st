@@ -53,6 +53,17 @@ GRectangleTest >> testDiagonals [
 ]
 
 { #category : #tests }
+GRectangleTest >> testExpandBy [
+	rectangle := GRectangle vertices: {(-1 , -1) . (-1 , 1) . (1 , 1) . (1 , -1)}.
+	rectangle expandBy: 0.5.
+	self assert: rectangle equals: (GRectangle vertices: {(-1.5 , -1.5) . (-1.5 , 1.5) . (1.5 , 1.5) . (1.5 , -1.5)}).
+
+	rectangle := GRectangle vertices: {(-2 , -1) . (-2 , 1) . (2 , 1) . (2 , -1)}.
+	rectangle expandBy: 0.5.
+	self assert: rectangle equals: (GRectangle vertices: {(-2.5 , -1.5) . (-2.5 , 1.5) . (2.5 , 1.5) . (2.5 , -1.5)})
+]
+
+{ #category : #tests }
 GRectangleTest >> testExtent [
 	rectangle := GRectangle vertices: {(1 , 1) . (5 , 1) . (5 , 6) . (1 , 6)}.
 	self assert: rectangle extent equals: #(4 5) asGVector.

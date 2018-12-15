@@ -92,6 +92,11 @@ GPolygon >> encompassingRectangle [
 	^ GRectangle origin: origin corner: corner
 ]
 
+{ #category : #'rectangle functions' }
+GPolygon >> expandBy: anInteger [
+	self fitInExtent: self extent + (2 * {anInteger . anInteger} asGVector)
+]
+
 { #category : #transforming }
 GPolygon >> fitInExtent: extent [
 	"I take as parameter a point and will fit the polygon in a rectangle whose dimensions is defined by the extent."

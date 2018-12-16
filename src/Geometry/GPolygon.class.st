@@ -73,14 +73,9 @@ GPolygon >> = anObject [
 
 { #category : #accessing }
 GPolygon >> edges [
-	| edges firstVert prevVert |
-	edges := OrderedCollection new.	
-	firstVert := vertices at: 1.
-	prevVert := firstVert.
-	vertices allButFirstDo: [ :curVert |
-		edges add: (GSegment with: prevVert with: curVert).
-		prevVert := curVert ].
-	edges add: (GSegment with: (vertices at: (vertices size)) with: firstVert).
+	| edges |
+	edges := (self vertices overlappingPairsCollect: [ :point1 :point2 | (GSegment with: point1 with: point2) ]) asOrderedCollection.
+	edges add: (GSegment with: self vertices last with: self vertices first).
 	^ edges
 ]
 
@@ -125,10 +120,7 @@ GPolygon >> initializeVertices: aCollection [
 
 { #category : #comparing }
 GPolygon >> intersectLine: aLine [
-	| intersections |
-	intersections := Set new.
-	self segmentsDo: [ :segment | (segment intersectionPointWithLine: aLine) ifNotNil: [ :point | intersections add: point ] ].
-	^ intersections
+	^ (self edges collect: [ :segment | segment intersectionPointWithLine: aLine ] thenReject: #isNil) asSet
 ]
 
 { #category : #comparing }
@@ -150,12 +142,6 @@ GPolygon >> scaleBy: anInteger [
 	anInteger <= 0 ifTrue: [ self error: 'Scale must be over zeo' ].
 
 	vertices := self vertices collect: [ :vertice | (vertice - self center) * anInteger + self center ]
-]
-
-{ #category : #enumerating }
-GPolygon >> segmentsDo: aBlock [
-	self vertices overlappingPairsDo: [ :point1 :point2 | aBlock value: (GSegment with: point1 with: point2) ].
-	aBlock value: (GSegment with: self vertices last with: self vertices first)
 ]
 
 { #category : #transforming }

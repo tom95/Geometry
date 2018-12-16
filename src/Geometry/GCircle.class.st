@@ -130,7 +130,7 @@ GCircle >> polygonOn: points [
 	
 	[ notUsedPoints isNotEmpty ] whileTrue: [
 		| nextP |
-		nextP := notUsedPoints detectMin: [ :point | point dist: currentP ].
+		nextP := notUsedPoints detectMin: [ :point | point distanceTo: currentP ].
 		polygonSegm add:( GSegment with: currentP with: nextP).
 		currentP := nextP.
 		notUsedPoints remove: currentP ].

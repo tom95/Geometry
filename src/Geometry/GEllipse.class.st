@@ -14,9 +14,8 @@ TODO
 
 We will need to review the implementation to get:
 - A center
-- A semi minor axis
-- A semi major axis
-- An angle between the x axis and the major axis 
+- A vector for the minor axis
+- A vector for the major axis
 
 Another problem is that here we have one center, but an ellipse would be better described with two focus instead of one center.
 "

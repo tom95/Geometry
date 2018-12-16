@@ -101,7 +101,7 @@ GRectangleTest >> testIncludesPoint [
 
 { #category : #tests }
 GRectangleTest >> testIntersectionPointWithRay [
-	self assert: ((GRectangle origin: 1 , 3 corner: 3 , 0) intersectionPointWithRay: (GRay origin: 2 , 1 direction: 4 , 1)) equals: {(3 , 1)}
+	self assert: ((GRectangle origin: 1 , 3 corner: 3 , 0) intersectionPointWithRay: (GRay origin: 2 , 1 direction: {4. 1} asGVector)) equals: {(3 , 1)}
 ]
 
 { #category : #tests }

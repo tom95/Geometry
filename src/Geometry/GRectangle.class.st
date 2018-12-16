@@ -90,12 +90,6 @@ GRectangle >> height [
 	^ (self vertices at: 2) distanceTo: (self vertices at: 3)
 ]
 
-{ #category : #comparing }
-GRectangle >> intersectLineSegment: aLineSegment [
-	self deprecated: 'Use new system instead'.
-	^ aLineSegment intersectRectangle: self
-]
-
 { #category : #intersections }
 GRectangle >> intersectionPointWithRay: ray [
 	self deprecated: 'Use new system instead'.

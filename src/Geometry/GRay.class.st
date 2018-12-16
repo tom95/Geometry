@@ -13,14 +13,11 @@ Class {
 	#category : #'Geometry-Elements'
 }
 
-{ #category : #'as yet unclassified' }
-GRay class >> new [
-	^ self basicNew initializeWithOrigin: 0@0 direction: 0@0
-]
-
-{ #category : #'as yet unclassified' }
-GRay class >> origin: aPoint1 direction: aPoint2 [
-	^ self new initializeWithOrigin: aPoint1 direction: aPoint2
+{ #category : #'instance creation' }
+GRay class >> origin: aGPoint direction: aGVector [
+	^ self new
+		initializeWithOrigin: aGPoint direction: aGVector;
+		yourself
 ]
 
 { #category : #arithmetic }
@@ -166,10 +163,7 @@ GRay >> hash [
 
 { #category : #properties }
 GRay >> includesPoint: aPoint [
-^ (( origin - direction ) signFuz = ( origin - aPoint ) signFuz  or:
-					[ origin = aPoint ])
- 
-
+	^ (origin - direction) signFuz = (origin - aPoint) signFuz or: [ origin = aPoint ]
 ]
 
 { #category : #initialization }
@@ -180,11 +174,9 @@ GRay >> initialize [
 ]
 
 { #category : #initialization }
-GRay >> initializeWithOrigin: aPoint1 direction: aPoint2 [
-	super initialize.
-	origin  := aPoint1.
-	direction  := aPoint2 
-
+GRay >> initializeWithOrigin: aPoint1 direction: aVector [
+	origin  := aPoint1 asGPoint.
+	direction  := aVector
 ]
 
 { #category : #accessing }

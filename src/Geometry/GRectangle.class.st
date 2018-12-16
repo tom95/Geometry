@@ -92,33 +92,19 @@ GRectangle >> height [
 
 { #category : #comparing }
 GRectangle >> intersectLineSegment: aLineSegment [
+	self deprecated: 'Use new system instead'.
 	^ aLineSegment intersectRectangle: self
 ]
 
 { #category : #intersections }
 GRectangle >> intersectionPointWithRay: ray [
+	self deprecated: 'Use new system instead'.
 	^ self edges collect: [ :edge | edge intersectionPointWithRay: ray ] thenReject: #isNil
 ]
 
 { #category : #intersections }
-GRectangle >> intersectionPointsWithLine: line [
-	| points |
-	points := OrderedCollection new.
-	self edges
-		do: [ :edge | 
-			| point |
-			point := edge intersectionPointWithLine: line.
-			point
-				ifNotNil: [ (points noneSatisfy: [ :pi | pi =~ point ])
-						ifTrue: [ points add: point ] ] ].
-	^ points
-
-	"^ self edges collect:[ :edge | edge intersectionPointWithLine: line]  
-				thenReject: #isNil."
-]
-
-{ #category : #intersections }
 GRectangle >> intersectionPointsWithSegment: segm [
+	self deprecated: 'Use new system instead'.
 	^ self edges collect: [ :edge | edge intersectionPointWithSegment: segm ] thenReject: #isNil
 ]
 

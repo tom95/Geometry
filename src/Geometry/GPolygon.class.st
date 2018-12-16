@@ -118,17 +118,14 @@ GPolygon >> initializeVertices: aCollection [
 	vertices := aCollection collect: #asGPoint
 ]
 
-{ #category : #comparing }
-GPolygon >> intersectLine: aLine [
-	^ (self edges collect: [ :segment | segment intersectionPointWithLine: aLine ] thenReject: #isNil) asSet
+{ #category : #intersections }
+GPolygon >> intersectionPointsWith: anElement [
+	^ anElement intersectionPointsWithPolygon: self
 ]
 
-{ #category : #transforming }
-GPolygon >> moveBy: aPoint [
-	"Move a polygon by a delta defined by aPoint"
-
-	self deprecated: 'Use #translateBy:' transformWith: '`@receiver moveBy: `@statements' -> '`@receiver translateBy: `@statements'.
-	self translateBy: aPoint
+{ #category : #comparing }
+GPolygon >> intersectionPointsWithLine: aGLine [
+	^ (self edges flatCollect: [ :segment | segment intersectionPointsWithLine: aGLine ]) asSet
 ]
 
 { #category : #transforming }

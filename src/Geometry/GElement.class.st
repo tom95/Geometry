@@ -22,6 +22,34 @@ GElement >> includesPoint: aPoint [
 	^ self subclassResponsibility
 ]
 
+{ #category : #intersections }
+GElement >> intersectionPointsWith: anElement [
+	"We should use double dispatch to find intersection points"
+
+	^ self subclassResponsibility
+]
+
+{ #category : #intersections }
+GElement >> intersectionPointsWithLine: aGLine [
+	"I should return the intersection points between me and a line"
+	
+	^ self subclassResponsibility
+]
+
+{ #category : #intersections }
+GElement >> intersectionPointsWithPolygon: aGPolygon [
+	"I should return the intersection points between me and a polygon"
+	
+	^ self subclassResponsibility
+]
+
+{ #category : #intersections }
+GElement >> intersectionPointsWithSegment: aGSegment [
+	"I should return the intersection points between me and a segment"
+	
+	^ self subclassResponsibility
+]
+
 { #category : #transforming }
 GElement >> translateBy: aPoint [
 	"Translate the shape by a delta defined by a point."

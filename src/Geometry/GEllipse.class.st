@@ -108,6 +108,7 @@ GEllipse >> includesPoint: aPoint [
 
 { #category : #comparing }
 GEllipse >> intersectLine: aGLine [ 
+	self deprecated: 'Use new system instead'.
 	^ {  }
 ]
 

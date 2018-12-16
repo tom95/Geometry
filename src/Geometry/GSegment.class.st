@@ -240,6 +240,7 @@ GSegment >> initializeWith: aPoint1 with: aPoint2 [
 { #category : #properties }
 GSegment >> intersect: aSegment [
 	self flag: #todo.	"Use polymorphism to accept any kind of argument that is a GElement"
+	self deprecated: 'Use new system instead'.
 	^ (self asLine intersect: aSegment asLine)
 		ifNotNil: [ :point | 
 			((self includesPoint: point) and: [ aSegment includesPoint: point ])
@@ -248,6 +249,7 @@ GSegment >> intersect: aSegment [
 
 { #category : #properties }
 GSegment >> intersectionPointWithLine: aLine [
+	self deprecated: 'Use #intersectionPointsWithLine: instead'.
 	^ (self asLine intersect: aLine)
 		ifNotNil: [ :point | 
 			(self includesPoint: point)
@@ -257,6 +259,7 @@ GSegment >> intersectionPointWithLine: aLine [
 
 { #category : #properties }
 GSegment >> intersectionPointWithRay: ray [
+	self deprecated: 'Use new system instead'.
 	^ (self asLine intersect: ray asLine)
 		ifNotNil: [ :point | 
 			((self includesPoint: point) and: [ ray includesPoint: point ])
@@ -266,11 +269,22 @@ GSegment >> intersectionPointWithRay: ray [
 
 { #category : #properties }
 GSegment >> intersectionPointWithSegment: segm [
+	self deprecated: 'Use new system instead'.
 	^ (self asLine intersect: segm asLine)
 		ifNotNil: [ :point | 
 			((self includesPoint: point) and: [ segm includesPoint: point ])
 				ifTrue: [ point ]
 				ifFalse: [ nil ] ]
+]
+
+{ #category : #properties }
+GSegment >> intersectionPointsWith: anElement [
+	^ anElement intersectionPointsWithSegment: self
+]
+
+{ #category : #properties }
+GSegment >> intersectionPointsWithLine: aLine [
+	^ (self asLine intersectionPointsWithLine: aLine) select: [ :point | self includesPoint: point ]
 ]
 
 { #category : #properties }

@@ -36,7 +36,7 @@ GShape >> encompassingRectangle [
 	^ self subclassResponsibility
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #compatibility }
 GShape >> encompassingRectangleAsPharoRectangle [
 	^ Rectangle encompassing: (self encompassingRectangle vertices collect: [ :gPoint | gPoint x @ gPoint y ])
 ]

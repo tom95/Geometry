@@ -123,11 +123,6 @@ GPolygon >> intersectLine: aLine [
 	^ (self edges collect: [ :segment | segment intersectionPointWithLine: aLine ] thenReject: #isNil) asSet
 ]
 
-{ #category : #comparing }
-GPolygon >> intersectLineSegment: aLineSegment [
-	^ aLineSegment intersectPolygon: self
-]
-
 { #category : #transforming }
 GPolygon >> moveBy: aPoint [
 	"Move a polygon by a delta defined by aPoint"

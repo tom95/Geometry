@@ -49,11 +49,6 @@ GCircleArc >> endAngle [
 	^ endAngle
 ]
 
-{ #category : #comparing }
-GCircleArc >> intersectLineSegment: aLineSegment [
-	^ aLineSegment intersectCircleArc: self
-]
-
 { #category : #accessing }
 GCircleArc >> radius [
 	^ circle radius

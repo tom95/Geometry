@@ -73,13 +73,6 @@ GRoundedRectangle >> intersectLine: aLine [
 	^ aLine intersectRectangle: self rectangle
 ]
 
-{ #category : #comparing }
-GRoundedRectangle >> intersectLineSegment: aLine [
-	(self corners flatCollect: [ :each | aLine intersectCircleArc: each ])
-		ifNotEmpty: [ :col | ^ col ].
-	^ aLine intersectRectangle: self rectangle
-]
-
 { #category : #accessing }
 GRoundedRectangle >> rectangle [
 	^ rectangle

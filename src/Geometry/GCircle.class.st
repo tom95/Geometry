@@ -102,11 +102,6 @@ GCircle >> inscribedRectangle [
 				
 ]
 
-{ #category : #comparing }
-GCircle >> intersectLineSegment: aLineSegment [
-	^ aLineSegment intersectCircle: self
-]
-
 { #category : #'public interface' }
 GCircle >> intersectWith: line [
   

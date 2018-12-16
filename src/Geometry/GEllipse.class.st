@@ -111,11 +111,6 @@ GEllipse >> intersectLine: aGLine [
 	^ {  }
 ]
 
-{ #category : #comparing }
-GEllipse >> intersectLineSegment: aLineSegment [
-	^ aLineSegment intersectEllipse: self
-]
-
 { #category : #accessing }
 GEllipse >> majorRadius [
 	^ xRadius max: yRadius

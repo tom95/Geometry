@@ -103,6 +103,11 @@ GVector >> coordinates: anObject [
 	coordinates := anObject
 ]
 
+{ #category : #arithmetic }
+GVector >> dotProduct: aGVector [
+	^ (self coordinatesWith: aGVector coordinates collect: [ :point1 :point2 | point1 * point2 ]) sum
+]
+
 { #category : #comparing }
 GVector >> hash [
 	"Answer an integer value that is related to the identity of the receiver."

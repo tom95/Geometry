@@ -23,6 +23,12 @@ GVectorTest >> test2DVector [
 ]
 
 { #category : #tests }
+GVectorTest >> testDotProduct [
+	vector := {-6 . 8} asGVector.
+	self assert: (vector dotProduct: {5 . 12} asGVector) equals: 66
+]
+
+{ #category : #tests }
 GVectorTest >> testEquals [
 	self flag: #pharo6. "Use #deny:equals: when Pharo 7 will be the minimum requirement"
 	self assert: (GVector x: 1 y: 2) equals: (GVector x: 1 y: 2).

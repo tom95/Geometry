@@ -30,8 +30,8 @@ GRayTest >> testEquals [
 
 { #category : #tests }
 GRayTest >> testFlipped [
-	self assert: (GRay origin: 100 , 100 direction: 80 , 110) flipped direction equals: 120 , 90.
-	self assert: (GRay origin: 100 , 100 direction: 120 , 90) flipped direction equals: 80 , 110
+	self assert: (GRay origin: 100 , 100 direction: 80 , 110) flipped directionPoint equals: 120 , 90.
+	self assert: (GRay origin: 100 , 100 direction: 120 , 90) flipped directionPoint equals: 80 , 110
 ]
 
 { #category : #tests }
@@ -52,9 +52,4 @@ GRayTest >> testIntersect [
 			((GRay origin: 28 , 30 direction: -14.19823766979061 , -21.67099433810146) asLine
 				intersect: (GRay origin: 20 , 23 direction: -16.331370027835703 , -32.66274005567141) asLine)
 		equals: 9 , 1
-]
-
-{ #category : #tests }
-GRayTest >> testMultiply [
-	self assert: (GRay origin: 0 , 0 direction: -12 , 16) * (GRay origin: 0 , 0 direction: 12 , 9) equals: 0
 ]

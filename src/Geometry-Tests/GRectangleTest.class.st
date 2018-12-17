@@ -101,21 +101,20 @@ GRectangleTest >> testIncludesPoint [
 
 { #category : #tests }
 GRectangleTest >> testIntersectionPointWithRay [
-	self assert: ((GRectangle origin: 1 , 3 corner: 3 , 0) intersectionPointWithRay: (GRay origin: 2 , 1 direction: {4. 1} asGVector)) equals: {(3 , 1)}
+	self assertCollection: ((GRectangle origin: 1 , 3 corner: 3 , 0) intersectionPointWithRay: (GRay origin: 2 , 1 direction: 4 , 1)) hasSameElements: {(3 , 1)}
 ]
 
 { #category : #tests }
 GRectangleTest >> testIntersectionPointsWithLine [
-	self assert: ((GRectangle origin: 1 , 3 corner: 3 , 0) intersectionPointsWithLine: (GSegment with: 0 , 3 with: 4 , 1) asLine) first equals: 1 , 2.5.
-	self assert: ((GRectangle origin: 1 , 3 corner: 3 , 0) intersectionPointsWithLine: (GSegment with: 0 , 3 with: 4 , 1) asLine) second equals: 3 , 1.5.
-	self
-		assert:
-			((GRectangle origin: -60 , -80 corner: 80 , 60)
-				intersectionPointsWithLine: (GSegment with: 174.8683298050514 , -174.86832980505142 with: -14.868329805051376 , 14.868329805051385) asLine) first =~ (-60 , 60).
-	self
-		assert:
-			((GRectangle origin: -60 , -80 corner: 80 , 60)
-				intersectionPointsWithLine: (GSegment with: 174.8683298050514 , -174.86832980505142 with: -14.868329805051376 , 14.868329805051385) asLine) second =~ (80 , -80)
+	| intersections |
+	intersections := (GRectangle origin: 1 , 3 corner: 3 , 0) intersectionPointsWithLine: (GSegment with: 0 , 3 with: 4 , 1) asLine.
+	self assert: (intersections anySatisfy: [ :e | e =~ (1 , (5 / 2)) ]).
+	self assert: (intersections anySatisfy: [ :e | e =~ (3 , (3 / 2)) ]).
+
+	intersections := (GRectangle origin: -60 , -80 corner: 80 , 60)
+		intersectionPointsWithLine: (GSegment with: 174.8683298050514 , -174.86832980505142 with: -14.868329805051376 , 14.868329805051385) asLine.
+	self assert: (intersections anySatisfy: [ :e | e =~ (-60 , 60) ]).
+	self assert: (intersections anySatisfy: [ :e | e =~ (80 , -80) ])
 ]
 
 { #category : #tests }

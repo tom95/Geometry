@@ -36,42 +36,22 @@ GRay class >> origin: aGPoint direction: anotherPoint [
 		yourself
 ]
 
-{ #category : #arithmetic }
-GRay >> * aRay [
-
-^ ( self origin x - self direction x ) * ( aRay origin x - aRay direction x ) 
-+ (( self origin y - self direction y ) * ( aRay origin y - aRay direction y ) )
-]
-
-{ #category : #arithmetic }
-GRay >> + aRay [
-	| newOrigin vector |
-	
-	newOrigin := self origin + aRay origin / 2.
-	
-	vector := (self direction - self origin) + 
-				 (aRay direction - aRay origin).
-
-	^ GRay origin: newOrigin direction: newOrigin + vector
- 
-]
-
 { #category : #comparing }
 GRay >> = aRay [
 	self == aRay ifTrue: [ ^ true ].
 	self class = aRay class ifFalse: [ ^ false ].
 
-	^ self origin =~ aRay origin and: [ (self angleInRadiansWith: aRay) closeTo: 0 ]
+	^ self initialPoint =~ aRay initialPoint and: [ (self angleInRadiansWith: aRay) closeTo: 0 ]
 ]
 
 { #category : #arithmetic }
 GRay >> angleInRadiansWith: aGRay [ 
-	^ (self direction - self origin) angleInRadiansWith: (aGRay direction - aGRay origin)
+	^ (self directionPoint - self initialPoint) angleInRadiansWith: (aGRay directionPoint - aGRay initialPoint)
 ]
 
 { #category : #converting }
 GRay >> asLine [
-	^ GLine through: self origin and: self direction
+	^ GLine through: self initialPoint and: self directionPoint
 ]
 
 { #category : #converting }
@@ -80,14 +60,14 @@ GRay >> asSegment [
 ]
 
 { #category : #accessing }
-GRay >> direction [
-	^directionPoint 
+GRay >> directionPoint [
+	^ directionPoint 
 
 ]
 
 { #category : #properties }
 GRay >> flipped [
-	^ GRay origin: self origin direction: initialPoint + (initialPoint - directionPoint)
+	^ self class origin: self initialPoint direction: initialPoint + (initialPoint - directionPoint)
 ]
 
 { #category : #properties }
@@ -100,19 +80,18 @@ GRay >> hasPoint: aGPoint [
 GRay >> hash [
 	"We define the hash by its origin and the angle the ray has with the x axis."
 
-	^ self origin hash bitXor: (self direction - self origin angleInRadiansWith: {1 . 1} asGVector) hash
+	^ self initialPoint hash bitXor: (self directionPoint - self initialPoint angleInRadiansWith: {1 . 1} asGVector) hash
 ]
 
 { #category : #testing }
 GRay >> includesPoint: aPoint [
-	^ ((self direction - self origin) angleInRadiansWith: (aPoint - self origin)) =~ 0
+	^ ((self directionPoint - self initialPoint) angleInRadiansWith: (aPoint - self initialPoint)) =~ 0
 ]
 
-{ #category : #initialization }
-GRay >> initialize [
-	super initialize.
-	initialPoint := 0@0.
-	directionPoint := 0@0
+{ #category : #accessing }
+GRay >> initialPoint [ 
+	^ initialPoint
+
 ]
 
 { #category : #initialization }
@@ -126,10 +105,4 @@ GRay >> length [
 	"A ray is not finite."
 
 	^ Float infinity
-]
-
-{ #category : #accessing }
-GRay >> origin [ 
-	^initialPoint
-
 ]

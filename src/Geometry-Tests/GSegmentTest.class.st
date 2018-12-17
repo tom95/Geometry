@@ -104,20 +104,6 @@ GSegmentTest >> testExtendSegmVert [
 ]
 
 { #category : #tests }
-GSegmentTest >> testExtendWithAnd [
-	| frame |
-	frame := GRectangle origin: -5 , 0 corner: 5 , 5.
-	self assert: ((GSegment with: -2 , 4 with: 2 , 4) extendWith: 3 , 4 and: frame) equals: (GSegment with: -5 , 4 with: 3 , 4)
-]
-
-{ #category : #tests }
-GSegmentTest >> testExtendWithAnd1 [
-	| frame |
-	frame := GRectangle origin: -5 , 0 corner: 5 , 5.
-	self assert: ((GSegment with: -2 , 4 with: 2 , 4) extendWith: 3 , 4 and: frame) equals: (GSegment with: 3 , 4 with: -5 , 4)
-]
-
-{ #category : #tests }
 GSegmentTest >> testIncludesPoint [
 	self assert: ((GSegment with: 1 , 3 with: 3 , 0) includesPoint: 1 , 3).
 	self assert: ((GSegment with: 1 , 3 with: 3 , 0) includesPoint: 3 , 0).

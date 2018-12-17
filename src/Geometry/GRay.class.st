@@ -70,12 +70,6 @@ GRay >> flipped [
 	^ self class origin: self initialPoint direction: initialPoint + (initialPoint - directionPoint)
 ]
 
-{ #category : #properties }
-GRay >> hasPoint: aGPoint [
-	self deprecated: 'Use #hasPoint:' transformWith: '`@receiver hasPoint: `@statements' -> '`@receiver includesPoint: `@statements'.
-	^ self includesPoint: aGPoint
-]
-
 { #category : #comparing }
 GRay >> hash [
 	"We define the hash by its origin and the angle the ray has with the x axis."

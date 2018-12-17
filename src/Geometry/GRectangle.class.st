@@ -77,12 +77,6 @@ GRectangle >> hasOnBoundary: point [
 	^ self edges anySatisfy: [ :edge | edge includesPoint: point ]
 ]
 
-{ #category : #testing }
-GRectangle >> hasPoint: aGPoint [
-	self deprecated: 'Use #hasPoint:' transformWith: '`@receiver hasPoint: `@statements' -> '`@receiver includesPoint: `@statements'.
-	^ self includesPoint: aGPoint
-]
-
 { #category : #accessing }
 GRectangle >> height [
 	"Answer the height of the receiver."

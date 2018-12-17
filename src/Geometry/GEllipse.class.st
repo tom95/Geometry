@@ -105,12 +105,6 @@ GEllipse >> includesPoint: aPoint [
 	^ (aPoint x - center x) squared / xRadius squared + ((aPoint y - center y) squared / yRadius squared) <= 1
 ]
 
-{ #category : #comparing }
-GEllipse >> intersectLine: aGLine [ 
-	self deprecated: 'Use new system instead'.
-	^ {  }
-]
-
 { #category : #accessing }
 GEllipse >> majorRadius [
 	^ xRadius max: yRadius

@@ -66,14 +66,6 @@ GRoundedRectangle >> encompassingRectangle [
 	^ self rectangle
 ]
 
-{ #category : #comparing }
-GRoundedRectangle >> intersectLine: aLine [
-	self deprecated: 'Use new system instead'.
-	(self corners flatCollect: [ :each | aLine intersectCircleArc: each ])
-		ifNotEmpty: [ :col | ^ col ].
-	^ aLine intersectRectangle: self rectangle
-]
-
 { #category : #accessing }
 GRoundedRectangle >> rectangle [
 	^ rectangle

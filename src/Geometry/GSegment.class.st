@@ -85,28 +85,6 @@ GSegment >> extendSegmVert: v to: frame [
 ]
 
 { #category : #properties }
-GSegment >> extendWith: aGPoint and: frame [
-	| points v |
-	(self asLine includesPoint: aGPoint)
-		ifFalse: [ ^ self ].
-	(self v1 distanceTo: aGPoint) < (self v2 distanceTo: aGPoint)
-		ifTrue: [ v1 := aGPoint ]
-		ifFalse: [ v2 := aGPoint ].
-	v := self vertices detect: [ :p | p ~= aGPoint ].
-	points := frame intersectionsWithLine: self asLine.
-	points size = 2
-		ifTrue: [ ((GSegment with: aGPoint with: points first) includesPoint: v)
-				ifTrue: [ ^ GSegment with: aGPoint with: points first ]
-				ifFalse: [ ^ GSegment with: aGPoint with: points second ] ]
-]
-
-{ #category : #properties }
-GSegment >> has: aGPoint [
-	self deprecated: 'Use #includesPoint:' transformWith: '`@receiver has: `@statements' -> '`@receiver includesPoint: `@statements'.
-	^ self includesPoint: aGPoint
-]
-
-{ #category : #properties }
 GSegment >> hasOnLinePoint: aGPoint [
 	| e k edges tr v|
 	self flag: #todo. "This is only for 2D. We should rely on GPoints to be able to do it for n-dimensions."
@@ -123,7 +101,7 @@ GSegment >> hasOnLinePoint: aGPoint [
 			/k length).
 			v := tr vertices detect:[ :vi |  vi~= k v1 and:[ vi ~= k v2 ]].
 			^ "k asLine hasPoint: v withApproximation: e."
-			(k dist: v) <=~ (2*e)] 
+			(k distanceTo: v) <=~ (2*e)] 
 	
 
 ]
@@ -155,7 +133,7 @@ GSegment >> hasOnLinePoint: aGPoint withRespectTo: vert [
 					/k length).
 					v := tr vertices detect:[ :vi |  vi~= k v1 and:[ vi ~= k v2 ]].
 					^ "k asLine hasPoint: v withApproximation: e."
-					(k dist: v) <=~ (2*e)]] 
+					(k distanceTo: v) <=~ (2*e)]] 
 	
 
 ]
@@ -192,12 +170,6 @@ GSegment >> hasOnLinePoint: aGPoint withRespectTo: vert withApprox: apro [
 					(k distanceTo: v) <=~ (2 * e)
 						ifTrue: [ ^ true	"(k asLine hasPoint: v withApproximation: e)" ]
 						ifFalse: [ ^ false ] ]	"and:[ self asLine hasPoint: p withApproximation: e ]" ]
-]
-
-{ #category : #properties }
-GSegment >> hasPoint: aGPoint [
-	self deprecated: 'Use #hasPoint:' transformWith: '`@receiver hasPoint: `@statements' -> '`@receiver includesPoint: `@statements'.
-	^ self includesPoint: aGPoint
 ]
 
 { #category : #initialization }

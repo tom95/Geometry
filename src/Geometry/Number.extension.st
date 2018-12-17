@@ -6,8 +6,28 @@ Number >> , aNumber [
 ]
 
 { #category : #'*Geometry' }
+Number >> <=~ other [
+	^ self < other or: [ self =~ other ]
+]
+
+{ #category : #'*Geometry' }
+Number >> <~ other [
+	^ (self >=~ other) not
+]
+
+{ #category : #'*Geometry' }
 Number >> =~ aNumber [ 
 	^((self - aNumber) abs) < Number epsilon.
+]
+
+{ #category : #'*Geometry' }
+Number >> >=~ other [
+	^ other <=~ self
+]
+
+{ #category : #'*Geometry' }
+Number >> >~ other [
+	^ other <~ self
 ]
 
 { #category : #'*geometry' }
@@ -32,18 +52,4 @@ Number >> isBetween: a and: b with: eps [
 { #category : #'*Geometry' }
 Number >> multiplyWithVector: aGVector [ 
 	^ (aGVector coordinates * self) asGVector
-]
-
-{ #category : #'*Geometry' }
-Number >> signFuz [
-	"Answer 1 if the receiver is greater than 0, -1 if less than 0, else 0."
-
-	self >~ 0 ifTrue: [ ^  1 ].
-	self <~ 0 ifTrue: [ ^ -1 ].
-	^ 0
-]
-
-{ #category : #'*Geometry' }
-Number >> ~=~ aNumber [
-   ^ (self =~ aNumber) not
 ]

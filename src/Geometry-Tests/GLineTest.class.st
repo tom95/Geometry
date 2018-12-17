@@ -45,9 +45,10 @@ GLineTest >> testIncludesPoint [
 ]
 
 { #category : #tests }
-GLineTest >> testIntersect [
-	self assert: ((GLine a: 2 b: -3 c: 0.5) intersect: (GLine a: 1 b: 1 c: -2)) equals: 1.1 , 0.9.
-	self assert: ((GLine a: 2 b: -3 c: 0.5) intersect: (GLine a: -2 b: -2 c: 4)) equals: 1.1 , 0.9
+GLineTest >> testIntersectionsWithLine [
+	self assertCollection: ((GLine a: 2 b: -3 c: 0.5) intersectionsWithLine: (GLine a: 1 b: 1 c: -2)) hasSameElements: {(1.1 , 0.9)}.
+	self assertCollection: ((GLine a: 2 b: -3 c: 0.5) intersectionsWithLine: (GLine a: -2 b: -2 c: 4)) hasSameElements: {(1.1 , 0.9)}.
+	self assert: ((GLine through: 0 , 0 and: 1 , 1) intersectionsWithLine: (GLine through: 3 , 3 and: 5 , 5)) isEmpty
 ]
 
 { #category : #tests }

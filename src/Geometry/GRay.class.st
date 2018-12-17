@@ -100,6 +100,16 @@ GRay >> initializeWithOrigin: aGPoint direction: anotherGPoints [
 	directionPoint  := anotherGPoints asGPoint
 ]
 
+{ #category : #intersections }
+GRay >> intersectionsWith: anElement [
+	^ anElement intersectionsWithRay: self
+]
+
+{ #category : #intersections }
+GRay >> intersectionsWithSegment: aGSegment [ 
+	^ aGSegment intersectionsWithRay: self
+]
+
 { #category : #accessing }
 GRay >> length [
 	"A ray is not finite."

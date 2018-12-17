@@ -100,11 +100,6 @@ GRectangleTest >> testIncludesPoint [
 ]
 
 { #category : #tests }
-GRectangleTest >> testIntersectionPointWithRay [
-	self assertCollection: ((GRectangle origin: 1 , 3 corner: 3 , 0) intersectionPointWithRay: (GRay origin: 2 , 1 direction: 4 , 1)) hasSameElements: {(3 , 1)}
-]
-
-{ #category : #tests }
 GRectangleTest >> testIntersectionsWithLine [
 	| intersections |
 	intersections := (GRectangle origin: 1 , 3 corner: 3 , 0) intersectionsWithLine: (GSegment with: 0 , 3 with: 4 , 1) asLine.
@@ -115,6 +110,11 @@ GRectangleTest >> testIntersectionsWithLine [
 		intersectionsWithLine: (GSegment with: 174.8683298050514 , -174.86832980505142 with: -14.868329805051376 , 14.868329805051385) asLine.
 	self assert: (intersections anySatisfy: [ :e | e =~ (-60 , 60) ]).
 	self assert: (intersections anySatisfy: [ :e | e =~ (80 , -80) ])
+]
+
+{ #category : #tests }
+GRectangleTest >> testIntersectionsWithRay [
+	self assertCollection: ((GRectangle origin: 1 , 3 corner: 3 , 0) intersectionsWithRay: (GRay origin: 2 , 1 direction: 4 , 1)) hasSameElements: {(3 , 1)}
 ]
 
 { #category : #tests }

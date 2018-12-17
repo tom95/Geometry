@@ -31,16 +31,8 @@ GTriangle >> area [
 
 { #category : #figures }
 GTriangle >> circumscribedCircle [
-	| center radius |
-	center := self edges first perpendicularBisector intersect: self edges last perpendicularBisector.
-	center isNil ifTrue: [ ^nil ] ifFalse: [ radius := (v1 distanceTo: v2) * (v2 distanceTo: v3) * (v3 distanceTo: v1) / (4 * self area).
-		^GCircle center: center radius: radius ] 
-	
-	"^ GCircle
-		center:
-			(self edges first perpendicularBisector intersect:
-			 self edges last perpendicularBisector)
-		radius: (v1 dist: v2) * (v2 dist: v3) * (v3 dist: v1) / (4 * self area)"
+	^ (self edges first perpendicularBisector intersectionsWith: self edges last perpendicularBisector)
+		ifNotEmpty: [ :points | GCircle center: points anyOne radius: (v1 distanceTo: v2) * (v2 distanceTo: v3) * (v3 distanceTo: v1) / (4 * self area) ]
 ]
 
 { #category : #accessing }
@@ -60,40 +52,33 @@ GTriangle >> edgesByOpositeVertex [
 
 { #category : #properties }
 GTriangle >> hasTwoIntersectionWithSegm: segm [
-	|i|
+	| i |
 	i := 0.
-	self edges do:[:e | (e intersect: segm) isNotNil ifTrue:[ i := i + 1 ] ].
-	^ (i = 2 or:[ i = 3])
+	self edges do: [ :e | (e intersectionsWith: segm) ifNotEmpty: [ i := i + 1 ] ].
+	^ i = 2 or: [ i = 3 ]
 ]
 
 { #category : #initialization }
 GTriangle >> initializeWith: aPoint1 with: aPoint2 with: aPoint3 [
-	super initialize.
-	v1 := aPoint1.
-	v2 := aPoint2.
-	v3 := aPoint3 
+	v1 := aPoint1 asGPoint.
+	v2 := aPoint2 asGPoint.
+	v3 := aPoint3 asGPoint 
 ]
 
 { #category : #figures }
 GTriangle >> isDegenerate [
-(v1 = v2 or:[ v1 = v3 or:[ v2 = v3 ]])
-	ifTrue:[^ true]
-	ifFalse:[
-	^  (self edges first length + self edges second length ="closeTo:" (self edges third length)) or: [ 
-		(self edges second length + self edges third length ="closeTo:" (self edges first length)) or: [ 
-		 self edges third length + self edges first length ="closeTo:" (self edges second length) ] ]]
+	^ (v1 = v2 or: [ v1 = v3 or: [ v2 = v3 ] ])
+		ifTrue: [ true ]
+		ifFalse: [ self edges first length + self edges second length = self edges third length
+				or: [ self edges second length + self edges third length = self edges first length or: [ self edges third length + self edges first length = self edges second length ] ] ]
 ]
 
 { #category : #properties }
 GTriangle >> perimeter [
-	^ self edges
-		inject: 0
-		into: [ :subSum :edge |
-			subSum + edge length ]
+	^ self edges inject: 0 into: [ :subSum :edge | subSum + edge length ]
 ]
 
 { #category : #accessing }
 GTriangle >> vertices [
-
 	^ { v1 . v2 . v3 }
 ]

@@ -29,7 +29,7 @@ GCircle >> = circ [
 
 { #category : #comparing }
 GCircle >> boundaryContains: aPoint [
-^(self radius =~ (self center dist: aPoint))
+^(self radius =~ (self center distanceTo: aPoint))
 
 ]
 
@@ -55,7 +55,7 @@ GCircle >> center [
 
 { #category : #testing }
 GCircle >> contains: aPoint [
-^ (self radius > (self center dist: aPoint)) and:[ (self boundaryContains: aPoint) not ]
+^ (self radius > (self center distanceTo: aPoint)) and:[ (self boundaryContains: aPoint) not ]
 ]
 
 { #category : #comparing }
@@ -70,7 +70,7 @@ GCircle >> cosBetween: p1 and: p2 [
 
 { #category : #accessing }
 GCircle >> encompassingRectangle [
-	^ (center - radius) corner: (center + radius)
+	^ (center + ({radius . radius} asGVector)) corner: (center + ({radius negated. radius negated} asGVector))
 ]
 
 { #category : #comparing }
@@ -88,18 +88,8 @@ GCircle >> equal: circ withApproximation: aNumber [
 
 { #category : #initialization }
 GCircle >> initializeWithCenter: aPoint1 radius: aNumber [
-	super initialize.
-	center := aPoint1.
+	center := aPoint1 asGPoint.
 	radius := aNumber.
-]
-
-{ #category : #accessing }
-GCircle >> inscribedRectangle [
-	
-	^ Rectangle
-		origin: center - (radius / 2 sqrt)
-		corner: center + (radius / 2 sqrt)
-				
 ]
 
 { #category : #'public interface' }
@@ -146,7 +136,7 @@ GCircle >> radius [
 
 { #category : #'public interface' }
 GCircle >> upperPoint [
-	^ center x @ ( center y + radius )
+	^ center x , ( center y + radius )
 ]
 
 { #category : #'public interface' }

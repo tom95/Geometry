@@ -65,7 +65,7 @@ GSegmentTest >> testDistanceTo [
 ]
 
 { #category : #tests }
-GSegmentTest >> testEqual [
+GSegmentTest >> testEquals [
 	| segm1 segm2 |
 	self flag: #pharo6. "Use #deny:equals: when Pharo 7 will be the minimum requirement"
 	segm1 := GSegment with: 1 , 2 with: 3 , 4.
@@ -82,7 +82,10 @@ GSegmentTest >> testEqual [
 	
 	segm1 := GSegment with: -24.494897427831784 , -24.494897427831795 with: 24.494897427831784 , 24.49489742783178.
 	segm2 := GSegment with: 24.494897427831784 , 24.49489742783178 with: -24.494897427831784 , -24.494897427831795.
-	self assert: segm1 equals: segm2
+	self assert: segm1 equals: segm2.
+	
+	self assert: (GSegment with: -1 , -1 with: 1 , 1) equals: (GSegment with: 1 , 1 with: -1 , -1).
+	self deny: (GSegment with: -1 , -1 with: 1 , 1) = (GSegment with: -1 , 1 with: -1 , 1).
 ]
 
 { #category : #tests }
@@ -124,32 +127,31 @@ GSegmentTest >> testIncludesPoint [
 ]
 
 { #category : #tests }
-GSegmentTest >> testIntersect [
-	self flag: #pharo6. "Use #deny:equals: when Pharo 7 will be the minimum requirement"
-	self assert: (GSegment with: -1 , -1 with: 1 , 1) equals: (GSegment with: 1 , 1 with: -1 , -1).
-	self deny: (GSegment with: -1 , -1 with: 1 , 1) = (GSegment with: -1 , 1 with: -1 , 1).
-	self assert: ((GSegment with: -1 , -1 with: 1 , 1) intersect: (GSegment with: -3 , 3 with: -1 , 1)) equals: nil.
-	self assert: ((GSegment with: -1 , -1 with: 1 , 1) intersect: (GSegment with: -3 , 3 with: 2 , -2)) equals: 0 , 0
+GSegmentTest >> testIntersectionsWithRay [
+	self assert: ((GSegment with: 2 , 0 with: 2 , 3) intersectionsWithRay: (GRay origin: 0 , 0 direction: 3 , 2)) anyOne equals: 2 , (4 / 3).
+	self assert: ((GSegment with: 2 , 0 with: 2 , 3) intersectionsWithRay: (GRay origin: 0 , 0 direction: 1 , 1)) anyOne equals: 2 , 2.
+	self assert: ((GSegment with: 2 , 0 with: 2 , 3) intersectionsWith: (GRay origin: 0 , 0 direction: 1 , 1)) anyOne equals: 2 , 2.
+	self assert: ((GSegment with: -2 , 0 with: -2 , 3) intersectionsWithRay: (GRay origin: 0 , 0 direction: 1 , 1)) isEmpty.
+	self assert: ((GSegment with: 0 , 0 with: 0 , 3) intersectionsWithRay: (GRay origin: 0 , 0 direction: 1 , 1)) anyOne equals: 0 , 0
 ]
 
 { #category : #tests }
-GSegmentTest >> testIntersectionPointWithVector [
-	self assert: ((GSegment with: 2 , 0 with: 2 , 3) intersectionPointWithRay: (GRay origin: 0 , 0 direction: 3 , 2)) equals: 2 , (4 / 3).
-	self assert: ((GSegment with: 2 , 0 with: 2 , 3) intersectionPointWithRay: (GRay origin: 0 , 0 direction: 1 , 1)) equals: 2 , 2.
-	self assert: ((GSegment with: -2 , 0 with: -2 , 3) intersectionPointWithRay: (GRay origin: 0 , 0 direction: 1 , 1)) equals: nil.
-	self assert: ((GSegment with: 0 , 0 with: 0 , 3) intersectionPointWithRay: (GRay origin: 0 , 0 direction: 1 , 1)) equals: 0 , 0
+GSegmentTest >> testIntersectionsWithSegment [
+	self assert: ((GSegment with: -1 , -1 with: 1 , 1) intersectionsWithSegment: (GSegment with: -3 , 3 with: -1 , 1)) isEmpty.
+	self assertCollection: ((GSegment with: -1 , -1 with: 1 , 1) intersectionsWithSegment: (GSegment with: -3 , 3 with: 2 , -2)) hasSameElements: {(0 , 0)}.
+	self assertCollection: ((GSegment with: 0 , 1 with: 3 , 1) intersectionsWithSegment: (GSegment with: 0 , 3 with: 4 , -1)) hasSameElements: {(2 , 1)}.
+	self assertCollection: ((GSegment with: 0 , 1 with: 3 , 1) intersectionsWith: (GSegment with: 0 , 3 with: 4 , -1)) hasSameElements: {(2 , 1)}.
 ]
 
 { #category : #tests }
 GSegmentTest >> testIsOnLinePointWithRespectWith [
 	self skip.	"The test was commented, I prefer to use skip."
 	self
-		assert:
+		deny:
 			((GSegment with: 18427 / 974 , (57187 / 974) with: 362.2460738148583 , -421.94450334080176)
 				hasOnLinePoint: 838 / 41 , (4811 / 82)
 				withRespectTo: 18427 / 974 , (57187 / 974)
 				withApprox: 0.8902246907382428)
-		equals: false
 ]
 
 { #category : #tests }

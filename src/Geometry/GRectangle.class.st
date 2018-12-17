@@ -90,18 +90,6 @@ GRectangle >> height [
 	^ (self vertices at: 2) distanceTo: (self vertices at: 3)
 ]
 
-{ #category : #intersections }
-GRectangle >> intersectionPointWithRay: ray [
-	self deprecated: 'Use new system instead'.
-	^ self edges collect: [ :edge | edge intersectionPointWithRay: ray ] thenReject: #isNil
-]
-
-{ #category : #intersections }
-GRectangle >> intersectionsWithSegment: segm [
-	self deprecated: 'Use new system instead'.
-	^ self edges collect: [ :edge | edge intersectionPointWithSegment: segm ] thenReject: #isNil
-]
-
 { #category : #enumerating }
 GRectangle >> sideWhichHas: point [
 	^ self edges detect: [ :edge | edge includesPoint: point ]

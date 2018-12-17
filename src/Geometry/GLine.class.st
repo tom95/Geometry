@@ -92,12 +92,6 @@ GLine >> distanceTo: aGPoint [
 ]
 
 { #category : #properties }
-GLine >> hasPoint: aGPoint [
-	self deprecated: 'Use #hasPoint:' transformWith: '`@receiver hasPoint: `@statements' -> '`@receiver includesPoint: `@statements'.
-	^ self includesPoint: aGPoint
-]
-
-{ #category : #properties }
 GLine >> hasPoint: aPoint withApproximation: approx [
 	self a * aPoint x + (self b * aPoint y) + self c
 		- ((self a * approx + (self b * approx)) abs + self c) <=~ 0.
@@ -123,26 +117,8 @@ GLine >> initializeWithA: aNumber1 b: aNumber2 c: aNumber3 [
 	c := aNumber3.
 ]
 
-{ #category : #'rectangle functions' }
-GLine >> intersect: aGLine [
-	"ax + by = c and px + qy = r"
-
-	| p q r xi yi determinant |
-	self deprecated: 'Use new system instead'.
-	determinant := self determinantWith: aGLine.
-
-	determinant = 0 ifTrue: [ ^ nil	"Line are parallel if determinant = 0" ].
-	p := aGLine a.
-	q := aGLine b.
-	r := aGLine c.
-	
-	xi := (c negated * q - (r negated * b)) / determinant.
-	yi := (a * r negated - (p * c negated)) / determinant.
-	^ xi , yi
-]
-
 { #category : #intersections }
-GLine >> intersectionPointWithLine: aGLine [
+GLine >> intersectionWithLine: aGLine [
 	"ax + by = c and px + qy = r"
 
 	| p q r x y determinant |
@@ -166,7 +142,7 @@ GLine >> intersectionsWith: anElement [
 
 { #category : #intersections }
 GLine >> intersectionsWithLine: aGLine [
-	^ (self intersectionPointWithLine: aGLine) ifNil: [ OrderedCollection new ] ifNotNil: [ :point | OrderedCollection with: point ]
+	^ (self intersectionWithLine: aGLine) ifNil: [ OrderedCollection new ] ifNotNil: [ :point | OrderedCollection with: point ]
 ]
 
 { #category : #intersections }
@@ -179,40 +155,6 @@ GLine >> parallelTo: aLine [
 	"If the determinant it 0 then the lines are parallel"
 
 	^ (self determinantWith: aLine) =~ 0
-]
-
-{ #category : #properties }
-GLine >> pointsWithDist1: aNumber to: aPoint [
-	| deltaX delta |
-	
-	"(self hasPoint: aPoint) ifFalse: [
-		Error signal: 'This line does not contain ', aPoint asString ]."
-
-	b = 0 ifTrue: [
-		^ { aPoint + (0 @ aNumber) . aPoint - (0 @ aNumber) } ].
-	
-	deltaX := aNumber / ((a / b) squared + 1) sqrt.		
-	delta := deltaX @ (deltaX * a / b) negated.
-
-	^ { aPoint + delta . aPoint - delta }
-	
-]
-
-{ #category : #properties }
-GLine >> pointsWithDist: aNumber to: aPoint [
-	| deltaX delta |
-	
-	(self hasPoint: aPoint) ifFalse: [
-		Error signal: 'This line does not contain ', aPoint asString ].
-
-	b = 0 ifTrue: [
-		^ { aPoint + (0 @ aNumber) . aPoint - (0 @ aNumber) } ].
-	
-	deltaX := aNumber / ((a / b) squared + 1) sqrt.		
-	delta := deltaX @ (deltaX * a / b) negated.
-
-	^ { aPoint + delta . aPoint - delta }
-	
 ]
 
 { #category : #printing }

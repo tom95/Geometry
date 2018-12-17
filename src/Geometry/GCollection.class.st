@@ -25,14 +25,8 @@ GCollection >> height [
 ]
 
 { #category : #comparing }
-GCollection >> intersectLine: aLine [
-	self logCr: (self flatCollect: [ :each | aLine intersect: each ]).
-	^ (self flatCollect: [ :each | aLine intersect: each ]) asArray
-]
-
-{ #category : #intersection }
-GCollection >> intersectLineSegment: aLineSegment [
-	^ self flatCollect: [ :each | each intersectLineSegment: aLineSegment ]
+GCollection >> intersectionsWith: anElement [
+	^ (self flatCollect: [ :each | anElement intersectionsWith: each ]) asArray
 ]
 
 { #category : #accessing }

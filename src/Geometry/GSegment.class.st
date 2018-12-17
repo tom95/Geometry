@@ -218,54 +218,24 @@ GSegment >> initializeWith: aPoint1 with: aPoint2 [
 	v2 := aPoint2 asGPoint
 ]
 
-{ #category : #properties }
-GSegment >> intersect: aSegment [
-	self flag: #todo.	"Use polymorphism to accept any kind of argument that is a GElement"
-	self deprecated: 'Use new system instead'.
-	^ (self asLine intersect: aSegment asLine)
-		ifNotNil: [ :point | 
-			((self includesPoint: point) and: [ aSegment includesPoint: point ])
-				ifTrue: [ point ] ]
-]
-
-{ #category : #properties }
-GSegment >> intersectionPointWithLine: aLine [
-	self deprecated: 'Use #intersectionPointsWithLine: instead'.
-	^ (self asLine intersect: aLine)
-		ifNotNil: [ :point | 
-			(self includesPoint: point)
-				ifTrue: [ point ]
-				ifFalse: [ nil ] ]
-]
-
-{ #category : #properties }
-GSegment >> intersectionPointWithRay: ray [
-	self deprecated: 'Use new system instead'.
-	^ (self asLine intersect: ray asLine)
-		ifNotNil: [ :point | 
-			((self includesPoint: point) and: [ ray includesPoint: point ])
-				ifTrue: [ point ]
-				ifFalse: [ nil ] ]
-]
-
-{ #category : #properties }
-GSegment >> intersectionPointWithSegment: segm [
-	self deprecated: 'Use new system instead'.
-	^ (self asLine intersect: segm asLine)
-		ifNotNil: [ :point | 
-			((self includesPoint: point) and: [ segm includesPoint: point ])
-				ifTrue: [ point ]
-				ifFalse: [ nil ] ]
-]
-
-{ #category : #properties }
+{ #category : #intersections }
 GSegment >> intersectionsWith: anElement [
 	^ anElement intersectionsWithSegment: self
 ]
 
-{ #category : #properties }
+{ #category : #intersections }
 GSegment >> intersectionsWithLine: aLine [
 	^ (self asLine intersectionsWithLine: aLine) select: [ :point | self includesPoint: point ]
+]
+
+{ #category : #intersections }
+GSegment >> intersectionsWithRay: ray [
+	^ (self asLine intersectionsWithLine: ray asLine) select: [ :point | (self includesPoint: point) and: [ ray includesPoint: point ] ]
+]
+
+{ #category : #intersections }
+GSegment >> intersectionsWithSegment: segm [
+	^ (self asLine intersectionsWithLine: segm asLine) select: [ :point | (self includesPoint: point) and: [ segm includesPoint: point ] ]
 ]
 
 { #category : #properties }

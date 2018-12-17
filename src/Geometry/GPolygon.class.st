@@ -123,9 +123,19 @@ GPolygon >> intersectionsWith: anElement [
 	^ anElement intersectionsWithPolygon: self
 ]
 
-{ #category : #comparing }
+{ #category : #intersections }
 GPolygon >> intersectionsWithLine: aGLine [
 	^ (self edges flatCollect: [ :segment | segment intersectionsWithLine: aGLine ]) asSet
+]
+
+{ #category : #intersections }
+GPolygon >> intersectionsWithRay: ray [
+	^ self edges flatCollect: [ :edge | edge intersectionsWithRay: ray ]
+]
+
+{ #category : #intersections }
+GPolygon >> intersectionsWithSegment: aGSegment [
+	^ self edges flatCollect: [ :edge | edge intersectionsWithSegment: aGSegment ]
 ]
 
 { #category : #accessing }

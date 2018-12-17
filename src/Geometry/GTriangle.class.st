@@ -3,19 +3,20 @@ I am a triangle
 "
 Class {
 	#name : #GTriangle,
-	#superclass : #GShape,
-	#instVars : [
-		'v1',
-		'v2',
-		'v3',
-		'edgesByOpositeVertex'
-	],
+	#superclass : #GPolygon,
 	#category : #'Geometry-Shapes'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance creation' }
+GTriangle class >> vertices: aCollection [	
+	aCollection size = 3 ifFalse: [ self error: 'A triangle should have 3 vertices.' ].
+
+	^ super vertices: aCollection
+]
+
+{ #category : #'instance creation' }
 GTriangle class >> with: aPoint1 with: aPoint2 with: aPoint3 [
-	^ self new initializeWith: aPoint1 with: aPoint2 with: aPoint3
+	^ self vertices: { aPoint1. aPoint2. aPoint3 }
 ]
 
 { #category : #properties }
@@ -32,53 +33,28 @@ GTriangle >> area [
 { #category : #figures }
 GTriangle >> circumscribedCircle [
 	^ (self edges first perpendicularBisector intersectionsWith: self edges last perpendicularBisector)
-		ifNotEmpty: [ :points | GCircle center: points anyOne radius: (v1 distanceTo: v2) * (v2 distanceTo: v3) * (v3 distanceTo: v1) / (4 * self area) ]
-]
-
-{ #category : #accessing }
-GTriangle >> edges [
-	^ self edgesByOpositeVertex values
-]
-
-{ #category : #accessing }
-GTriangle >> edgesByOpositeVertex [
-
-	^ edgesByOpositeVertex ifNil: [
-		edgesByOpositeVertex := {
-			v1 -> (GSegment with: v2 with: v3) .
-			v2 -> (GSegment with: v3 with: v1) .
-	   		v3 -> (GSegment with: v1 with: v2)  } asDictionary ]
-]
-
-{ #category : #properties }
-GTriangle >> hasTwoIntersectionWithSegm: segm [
-	| i |
-	i := 0.
-	self edges do: [ :e | (e intersectionsWith: segm) ifNotEmpty: [ i := i + 1 ] ].
-	^ i = 2 or: [ i = 3 ]
-]
-
-{ #category : #initialization }
-GTriangle >> initializeWith: aPoint1 with: aPoint2 with: aPoint3 [
-	v1 := aPoint1 asGPoint.
-	v2 := aPoint2 asGPoint.
-	v3 := aPoint3 asGPoint 
+		ifNotEmpty: [ :points | GCircle center: points anyOne radius: (self v1 distanceTo: self v2) * (self v2 distanceTo: self v3) * (self v3 distanceTo: self v1) / (4 * self area) ]
 ]
 
 { #category : #figures }
 GTriangle >> isDegenerate [
-	^ (v1 = v2 or: [ v1 = v3 or: [ v2 = v3 ] ])
+	^ (self v1 = self v2 or: [ self v1 = self v3 or: [ self v2 = self v3 ] ])
 		ifTrue: [ true ]
 		ifFalse: [ self edges first length + self edges second length = self edges third length
 				or: [ self edges second length + self edges third length = self edges first length or: [ self edges third length + self edges first length = self edges second length ] ] ]
 ]
 
-{ #category : #properties }
-GTriangle >> perimeter [
-	^ self edges inject: 0 into: [ :subSum :edge | subSum + edge length ]
+{ #category : #accessing }
+GTriangle >> v1 [
+	^ vertices at: 1
 ]
 
 { #category : #accessing }
-GTriangle >> vertices [
-	^ { v1 . v2 . v3 }
+GTriangle >> v2 [
+	^ vertices at: 2
+]
+
+{ #category : #accessing }
+GTriangle >> v3 [
+	^ vertices at: 3
 ]

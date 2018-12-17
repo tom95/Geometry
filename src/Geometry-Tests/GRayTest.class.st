@@ -50,17 +50,7 @@ GRayTest >> testIncludesPoint [
 	self assert: ((GRay origin: 100 , 100 direction: 120 , 90) includesPoint: 100 , 100).
 	self assert: ((GRay origin: 100 , 100 direction: 110 , 110) includesPoint: 150 , 150).
 	self assert: ((GRay origin: 0 , 0 direction: 12 , 9) includesPoint: 13 , (39 / 4)).
-	self assert: ((GRay origin: 28 , 30 direction: -14.19823766979061 , -21.67099433810146) includesPoint: 9 , 1).
-	self assert: ((GRay origin: 20 , 23 direction: -16.331370027835703 , -32.66274005567141) includesPoint: 9 , 1)
-	"self assert: ((( GRay origin: 0 , 0 direction: (12 ,9)) extendBy: 1 ) asSegment has: 13,(39/4)).
-	self assert: ((( GRay origin: 0 , 0 direction: (12 , 9)) extendBy: 5 ) asSegment has: 13,(39/4)).
-	self deny: 	((( GRay origin: 0 , 0 direction: (12 , 9)) extendBy: 1 ) asSegment has: 17,(51/4)).
-	self assert: (((GRay origin: (57583 / 914) , (56095 / 914) direction: (62.998905906959145 , 61.37297058105469)) extendBy: 5) asSegment has: 62.998905906959145 , 61.37297058105469).
-	self assert: (((GRay origin: 63 , 61 direction: (62 , 61)) extendBy: 5) asSegment has: 62 , 61).
-	self assert: ((GRay origin: 0 , 0 direction: (12 , 9)) includesPoint: 13 , (39 / 4)).
-	self deny: ((GRay origin: 0 , 0 direction: (12 , 9)) asSegment includesPoint: 13 , (39 / 4)).
-	self assert: ((GRay origin: 0 , 0 direction: (13 , (39 / 4))) hasPoint: 12 , 9).
-	self assert: ((GRay origin: 0 , 0 direction: (13 , (39 / 4))) asSegment hasPoint: 12 , 9)"
+	self assert: ((GRay origin: 28 , 30 direction: 9 , 1) includesPoint: -4.97992 , -20.33777)
 ]
 
 { #category : #tests }

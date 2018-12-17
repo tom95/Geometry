@@ -41,6 +41,8 @@ Class {
 
 { #category : #'instance creation' }
 GVector class >> coordinates: aCoordinates [
+	(aCoordinates coordinates allSatisfy: [ :e | e = 0]) ifTrue: [ ^ GZeroVector coordinates: aCoordinates ].
+
 	^ self new
 		coordinates: aCoordinates;
 		yourself
@@ -53,9 +55,7 @@ GVector class >> withCollection: aCollection [
 
 { #category : #'instance creation' }
 GVector class >> x: aNumber y: anotherNumber [
-	^ self new
-		coordinates: (G2DCoordinates x: aNumber y: anotherNumber);
-		yourself
+	^ self coordinates: (G2DCoordinates x: aNumber y: anotherNumber)
 ]
 
 { #category : #arithmetic }
@@ -102,6 +102,9 @@ GVector >> angleInDegreesWith: aGVector [
 GVector >> angleInRadiansWith: aGVector [ 
 	"angle = cos^-1 a . b / (|a| * |b|)"
 	
+	"If we have a zero vector, delegate it the computation to avoid a zero divide."
+	aGVector isZeroVector ifTrue: [ ^ aGVector angleInRadiansWith: self ].
+
 	^ ((self dotProduct: aGVector) / (self length * aGVector length)) arcCos
 ]
 
@@ -127,6 +130,11 @@ GVector >> hash [
 	| coordHash |
 	coordHash := coordinates hash.
 	^ coordHash squared + coordHash "Try to avoid collisions with GAbstractCoordinates and GPoint"
+]
+
+{ #category : #testing }
+GVector >> isZeroVector [
+	^ false
 ]
 
 { #category : #accessing }

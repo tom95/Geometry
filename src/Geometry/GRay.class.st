@@ -115,9 +115,9 @@ GRay >> hash [
 	^ self origin hash bitXor: (self direction - self origin angleInRadiansWith: {1 . 1} asGVector) hash
 ]
 
-{ #category : #properties }
+{ #category : #testing }
 GRay >> includesPoint: aPoint [
-	^ (initialPoint - directionPoint) signFuz = (initialPoint - aPoint) signFuz or: [ initialPoint = aPoint ]
+	^ ((self direction - self origin) angleInRadiansWith: (aPoint - self origin)) =~ 0
 ]
 
 { #category : #initialization }

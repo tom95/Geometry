@@ -49,25 +49,6 @@ GSegment >> boundBy: aGPoint [
 ]
 
 { #category : #properties }
-GSegment >> cutWith: frame [
-	| coll |
-	coll := OrderedCollection new.
-	frame edges
-		collect: [ :edge | edge intersectionPointWithSegment: self ]
-		thenDo: [ :p | 
-			(p notNil and: [ coll noneSatisfy: [ :p2 | p2 =~ p ] ])
-				ifTrue: [ coll add: p ] ].
-	coll
-		ifEmpty:
-			[ "self halt" (frame hasPoint: self v1) ifTrue: [ ^ self ] ifFalse: [ ^ nil ] ].
-	coll size = 2
-		ifTrue: [ ^ GSegment with: coll first with: coll second ].
-	(frame includesPoint: self v1)
-		ifTrue: [ ^ GSegment with: coll first with: self v1 ]
-		ifFalse: [ ^ GSegment with: coll first with: self v2 ]
-]
-
-{ #category : #properties }
 GSegment >> dist: p [
 	self deprecated: 'Use #distanceTo:' transformWith: '`@receiver dist: `@statements' -> '`@receiver distanceTo: `@statements'.
 	^ self distanceTo: p

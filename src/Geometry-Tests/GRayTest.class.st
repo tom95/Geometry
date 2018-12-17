@@ -1,8 +1,19 @@
 Class {
 	#name : #GRayTest,
 	#superclass : #TestCase,
+	#instVars : [
+		'ray'
+	],
 	#category : #'Geometry-Tests'
 }
+
+{ #category : #tests }
+GRayTest >> testAngleInRadiansWith [
+	| ray2 |
+	ray := GRay origin: 0 , 0 direction: 5 , 24.
+	ray2 := GRay origin: 3 , 4 direction: 4 , 7.
+	self assert: (ray angleInRadiansWith: ray2) closeTo: 0.11635
+]
 
 { #category : #tests }
 GRayTest >> testCutWith [
@@ -11,6 +22,19 @@ GRayTest >> testCutWith [
 	self assert: ((GRay origin: -30 , 0 direction: 20 , 30) cutWith: (GRectangle origin: -15 , 0 corner: 15 , 15)) v1 equals: -15 , 9.
 	self assert: ((GRay origin: -30 , 0 direction: 20 , 30) cutWith: (GRectangle origin: -15 , 0 corner: 15 , 15)) v2 equals: -5 , 15.
 	self assert: ((GRay origin: -30 , 30 direction: 20 , 30) cutWith: (GRectangle origin: -15 , 0 corner: 15 , 15)) equals: nil
+]
+
+{ #category : #tests }
+GRayTest >> testEquals [
+	| ray2 |
+	ray := GRay origin: 0 , 0 direction: 1 , 1.
+	ray2 := GRay origin: 0 , 0 direction: 2 , 2.
+	self assert: ray equals: ray2.
+	self assert: ray hash equals: ray2 hash.
+
+	ray2 := GRay origin: 0,0 direction: 2, 3.
+	self deny: ray equals: ray2.
+	self deny: ray hash equals: ray2 hash
 ]
 
 { #category : #tests }
@@ -65,12 +89,6 @@ GRayTest >> testIntersect [
 			((GRay origin: 28 , 30 direction: -14.19823766979061 , -21.67099433810146) asLine
 				intersect: (GRay origin: 20 , 23 direction: -16.331370027835703 , -32.66274005567141) asLine)
 		equals: 9 , 1
-]
-
-{ #category : #tests }
-GRayTest >> testLength [
-	self assert: (GRay origin: 0 , 0 direction: -12 , 16) length equals: 400 sqrt.
-	self assert: (GRay origin: 0 , 0 direction: 12 , 9) length equals: 225 sqrt
 ]
 
 { #category : #tests }

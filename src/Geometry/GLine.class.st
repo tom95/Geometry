@@ -34,19 +34,14 @@ GLine class >> through: aPoint1 and: aPoint2 [
 
 { #category : #comparing }
 GLine >> = line [
-	self == line ifTrue: [ ^ true ].
-	self class = line class ifFalse: [ ^ false ].
+	self == line ifTrue: [^ true].
+	self class = line class ifFalse: [^ false].
 
-	^ (self a asFloat =~ line a asFloat and: [self b asFloat =~ line b asFloat and: [self c asFloat =~ line c asFloat]])
-		or: [(line a ~=~ 0 and: [line b ~=~ 0 and: [line c ~=~ 0]])
-				ifTrue: [(self a / line a) asFloat =~ (self b / line b) asFloat and: [(self b / line b) asFloat =~ (self c / line c) asFloat]]
-				ifFalse: [(self a ~=~ 0 and: [self b ~=~ 0 and: [self c ~=~ 0]])
-						ifTrue: [(line a / self a) asFloat =~ (line b / self b) asFloat and: [(line b / self b) asFloat =~ (line c / self c) asFloat]]
-						ifFalse: [(line a ~=~ 0 and: [line c ~=~ 0])
-								ifTrue: [(self a / line a) asFloat =~ (self c / line c) asFloat]
-								ifFalse: [(line b ~=~ 0 and: [line c ~=~ 0])
-										ifTrue: [(self b / line b) asFloat =~ (self c / line c) asFloat]
-										ifFalse: [(line a ~=~ 0 and: [line b ~=~ 0]) ifTrue: [(self a / line a) asFloat =~ (self b / line b) asFloat] ifFalse: [(line a =~ 0 and: [line c =~ 0]) or: [line b =~ 0 and: [line c =~ 0]]]]]]]]
+	(self parallelTo: line) ifFalse: [^ false].
+
+	^ [(self yFor: 1) =~ (line yFor: 1)]
+		on: GError
+		do: ["This can happen if b = 0" (self xFor: 1) =~ (line xFor: 1)]
 ]
 
 { #category : #accessing }
@@ -111,8 +106,7 @@ GLine >> hasPoint: aPoint withApproximation: approx [
 
 { #category : #comparing }
 GLine >> hash [
-^( a hash  + b hash + c hash ) hashMultiply
-
+	^ (a hash bitXor: b hash) bitXor: c hash
 ]
 
 { #category : #properties }
@@ -154,7 +148,7 @@ GLine >> intersectionPointWithLine: aGLine [
 	| p q r x y determinant |
 	determinant := self determinantWith: aGLine.
 
-	determinant = 0 ifTrue: [ ^ nil "Line are parallel if determinant = 0" ].
+	determinant =~ 0 ifTrue: [ ^ nil "Line are parallel if determinant = 0" ].
 
 	p := aGLine a.
 	q := aGLine b.
@@ -184,7 +178,7 @@ GLine >> intersectionPointsWithPolygon: aGPolygon [
 GLine >> parallelTo: aLine [
 	"If the determinant it 0 then the lines are parallel"
 
-	^ (self determinantWith: aLine) = 0
+	^ (self determinantWith: aLine) =~ 0
 ]
 
 { #category : #properties }
@@ -244,12 +238,14 @@ GLine >> through: aPoint1 and: aPoint2 hasPoint: aPoint [
 
 { #category : #properties }
 GLine >> xFor: anY [
+	a = 0 ifTrue: [self error: 'Cannot answer a x if a = 0'].
 
 	^ ((anY * b + c) / a) negated
 ]
 
 { #category : #properties }
 GLine >> yFor: anX [
+	b = 0 ifTrue: [self error: 'Cannot answer an y if b = 0'].
 
 	^ ((anX * a + c) / b) negated
 ]

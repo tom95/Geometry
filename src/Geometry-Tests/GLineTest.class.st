@@ -33,23 +33,15 @@ GLineTest >> testEquals [
 
 { #category : #tests }
 GLineTest >> testIncludesPoint [
-	"self
-	assert: ((GLine a:(-50634/18737)b:(1594971/37474)c: (-183016593/74948)) 
-		hasPoint: (57.998905906959145,61.11074842728413) withApproximation: 0.02757564283371476 )
-	equals: true."
-
-	"self
-	assert: ((GSegment with:	((838/41),(4811/82)) with:((57583/914),(56095/914))) asLine
-		hasPoint: (57.998905906959145,61.11074842728413) withApproximation: 0.02757564283371476 )
-	equals: true."
-
-	self
-		deny: ((GSegment with: (17674 / 229) , (14582 / 229) with: 76.82622578909061 , 64.97050543967634) asLine hasPoint: (-28206 / 397) , (50382 / 397) withApproximation: 0.525738602984892)
-
-	"self
-	assert: ((GSegment with:	((17674/229),(14582/229)) with:(76.82622578909061,64.97050543967634)) 
-			asLine hasPoint: ((9244/147),(1090/21)) withApproximation: 0.525738602984892 )
-	equals: true."
+	self deny: ((GSegment with: 17674 / 229 , (14582 / 229) with: 76.82622578909061 , 64.97050543967634) asLine includesPoint: -28206 / 397 , (50382 / 397)).
+	self assert: ((GLine through: 1 , 3 and: 3 , 0) includesPoint: 1 , 3).
+	self assert: ((GLine through: 1 , 3 and: 3 , 0) includesPoint: 3 , 0).
+	self assert: ((GLine through: -1 , 1 and: 1 , -1) includesPoint: 0 , 0).
+	self assert: ((GLine through: 0 , 0 and: 12 , 9) includesPoint: 13 , (39 / 4)).
+	self assert: ((GLine through: 0 , 0 and: 13 , (39 / 4)) includesPoint: 12 , 9).
+	self deny: ((GLine through: 0 , 0 and: 1 , 1) includesPoint: 1 , 2).
+	self deny: ((GLine through: 0 , 0 and: 1 , 1) includesPoint: 1 , 1.01).
+	self deny: ((GLine through: 0 , 0 and: 1 , 1) includesPoint: 2 , 2.001)
 ]
 
 { #category : #tests }

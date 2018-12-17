@@ -14,12 +14,12 @@ GCircleTest >> testBoundaryContains [
 ]
 
 { #category : #tests }
-GCircleTest >> testBoundaryContainsThis [
-	self assert: ((GCircle center: 2 , 2 radius: 3) boundaryContainsThis: {(2 , 2) . (5 , 2)})
+GCircleTest >> testBoundaryContainsAny [
+	self assert: ((GCircle center: 2 , 2 radius: 3) boundaryContainsAny: {(2 , 2) . (5 , 2)})
 ]
 
 { #category : #tests }
-GCircleTest >> testBoundaryContainsWhich [
+GCircleTest >> testBoundaryContainsWhichOf [
 	self assert: ((GCircle center: 2 , 2 radius: 3) boundaryContainsWhichOf: {(2 , 2) . (5 , 2)}) equals: {(5 , 2)}
 ]
 
@@ -39,13 +39,6 @@ GCircleTest >> testContains [
 ]
 
 { #category : #tests }
-GCircleTest >> testCosBetweenAnd [
-	self assert: ((GCircle center: (609 / 17) , (10837 / 136) radius: 38.27069133568686) cosBetween: 74 , 72 and: 74 , 74) equals: 0.9987089260705257.
-	self assert: ((GCircle center: 0 , 0 radius: 15) cosBetween: 15 , 0 and: 0 , 15) equals: 0.
-	self assert: ((GCircle center: 0 , 0 radius: 15) cosBetween: 15 , 0 and: 15 , 0) equals: 1
-]
-
-{ #category : #tests }
 GCircleTest >> testEncompassingRectangle [
 	self assert: (GCircle center: 2 , 2 radius: 3) encompassingRectangle equals: (-1 , -1 corner: 5 , 5)
 ]
@@ -61,31 +54,24 @@ GCircleTest >> testEquals [
 ]
 
 { #category : #tests }
-GCircleTest >> testEqualsWithApproximation [
-	| cos |
-	cos := (GCircle center: 609 / 17 , (10837 / 136) radius: 38.27069133568686) cosBetween: 74 , 72 and: 74 , 74.
-	self
-		assert:
-			((GCircle center: 609 / 17 , (10837 / 136) radius: 38.27069133568686)
-				equal: (GCircle center: 36819 / 1022 , (82249 / 1022) radius: 38.90857726043159)
-				withApproximation: cos).
-	cos := (GCircle center: 609 / 17 , (10837 / 136) radius: 38.27069133568686) cosBetween: 52 , 45 and: 74 , 74.
-	self
-		deny:
-			((GCircle center: 609 / 17 , (10837 / 136) radius: 38.27069133568686)
-				equal: (GCircle center: 36819 / 1022 , (82249 / 1022) radius: 38.90857726043159)
-				withApproximation: cos)
+GCircleTest >> testIncludesPoint [
+	self assert: ((GCircle center: 2 , 2 radius: 3) includesPoint: 2 , 2).
+	self deny: ((GCircle center: 2 , 2 radius: 3) includesPoint: 6 , 2).
+	self assert: ((GCircle center: 30 , 30 radius: 20) includesPoint: 50 , 30).
+	self assert: ((GCircle center: 30 , 30 radius: 20) includesPoint: 10 , 30).
+	self assert: ((GCircle center: 30 , 30 radius: 20) includesPoint: 30 , 10).
+	self assert: ((GCircle center: 30 , 30 radius: 20) includesPoint: 30 , 30).
+	self assert: ((GCircle center: 0 , 0 radius: 31.62277660168381) includesPoint: -30 , -10).
+	self assert: ((GCircle center: 0 , 0 radius: 31.62277660168381) includesPoint: 10 , -30).
+	self assert: ((GCircle center: 0 , 0 radius: 31.62277660168381) includesPoint: 30 , 10).
+	self deny: ((GCircle center: 0 , 0 radius: 31.62277660168381) includesPoint: 30 , 30).
+	self deny: ((GCircle center: 0 , 0 radius: 31.61277660168381) includesPoint: 30 , 10).
+	self assert: ((GCircle center: 0 , 0 radius: 31.62277660168381) includesPoint: 10 , 10)
 ]
 
 { #category : #tests }
-GCircleTest >> testLength [
-	self assert: (GCircle center: (609 / 17) , (10837 / 136) radius: 38.27069133568686) length equals: 240.46184549599278
-]
-
-{ #category : #tests }
-GCircleTest >> testPointIsTooCloseTo [
-	self assert: ((GCircle center: (609 / 17) , (10837 / 136) radius: 38.27069133568686) point: 74 , 72 isTooCloseTo: 74 , 74).
-	self deny: ((GCircle center: (609 / 17) , (10837 / 136) radius: 38.27069133568686) point: 74 , 72 isTooCloseTo: 52 , 45)
+GCircleTest >> testPerimeter [
+	self assert: (GCircle center: (609 / 17) , (10837 / 136) radius: 38.27069133568686) perimeter equals: 240.46184549599278
 ]
 
 { #category : #tests }
@@ -96,13 +82,4 @@ GCircleTest >> testPolygonOn [
 { #category : #tests }
 GCircleTest >> testUpperPoint [
 	self assert: (GCircle center: 1 , 1 radius: 3) upperPoint equals: 1 , 4
-]
-
-{ #category : #tests }
-GCircleTest >> testWithBoundaryContains [
-	self assert: ((GCircle center: (609 / 17) , (10837 / 136) radius: 38.27069133568686) with: 74 , 77 boundaryContains: 74 , 72).
-	self assert: ((GCircle center: (609 / 17) , (10837 / 136) radius: 38.27069133568686) with: 5 , 57 boundaryContains: 74 , 77).
-	self deny: ((GCircle center: (609 / 17) , (10837 / 136) radius: 38.27069133568686) with: 5 , 57 boundaryContains: 74 , 74)
-	
-	"self deny: ((GCircle  center: (609/17),(10837/136) radius: 38.27069133568686)  with: (74,77) boundaryContains1:(74,72))"
 ]

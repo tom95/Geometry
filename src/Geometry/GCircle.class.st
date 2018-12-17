@@ -20,30 +20,33 @@ GCircle class >> center: aPoint1 radius: aNumber [
 ]
 
 { #category : #comparing }
-GCircle >> = circ [
-	^( self radius =~ circ radius and:[ self center =~ circ center ])
+GCircle >> = anObject [
+	"Answer whether the receiver and anObject represent the same object."
 
+	self == anObject ifTrue: [ ^ true ].
+	self class = anObject class ifFalse: [ ^ false ].
 
+	^ center =~ anObject center and: [ radius =~ anObject radius ]
+]
 
+{ #category : #accessing }
+GCircle >> area [
+	^ 2 * Float pi * self radius squared
 ]
 
 { #category : #comparing }
 GCircle >> boundaryContains: aPoint [
-^(self radius =~ (self center distanceTo: aPoint))
-
+	^ self radius =~ (self center distanceTo: aPoint)
 ]
 
 { #category : #comparing }
-GCircle >> boundaryContainsThis: points [
-
- ^(points select:[ :point| self boundaryContains: point]) isNotEmpty 
-
+GCircle >> boundaryContainsAny: points [
+	^ points anySatisfy: [ :point | self boundaryContains: point ]
 ]
 
 { #category : #comparing }
 GCircle >> boundaryContainsWhichOf: points [
- ^ points select:[ :point| self boundaryContains: point]
-
+	^ points select: [ :point | self boundaryContains: point ]
 ]
 
 { #category : #accessing }
@@ -55,17 +58,7 @@ GCircle >> center [
 
 { #category : #testing }
 GCircle >> contains: aPoint [
-^ (self radius > (self center distanceTo: aPoint)) and:[ (self boundaryContains: aPoint) not ]
-]
-
-{ #category : #comparing }
-GCircle >> cosBetween: p1 and: p2 [
-
-
-^ (( GRay origin: self center direction: p1 ) * ( GRay origin: self center direction: p2 )) 
-/
-( ( GRay origin: self center direction: p1 )length * (( GRay origin: self center direction: p2 ) length ) )
-
+	^ (self includesPoint: aPoint) and: [ (self boundaryContains: aPoint) not ]
 ]
 
 { #category : #accessing }
@@ -74,16 +67,15 @@ GCircle >> encompassingRectangle [
 ]
 
 { #category : #comparing }
-GCircle >> equal: circ withApproximation: aNumber [
-"self halt."
-	^( (self radius - circ radius ) abs < aNumber )
-	and:[ 
-		( (self center x - circ center x)abs < aNumber)
-		""and:[  (self center y - circ center y)abs < aNumber ]""
-		]
+GCircle >> hash [
+	"Answer an integer value that is related to the identity of the receiver."
 
+	^ center hash bitXor: radius hash
+]
 
-
+{ #category : #testing }
+GCircle >> includesPoint: aGPoint [
+	^ self radius >=~ (self center distanceTo: aGPoint)
 ]
 
 { #category : #initialization }
@@ -92,22 +84,9 @@ GCircle >> initializeWithCenter: aPoint1 radius: aNumber [
 	radius := aNumber.
 ]
 
-{ #category : #'public interface' }
-GCircle >> intersectWith: line [
-  
-
-]
-
 { #category : #accessing }
-GCircle >> length [
-	^ 2 * (self radius)* (Float pi)
-]
-
-{ #category : #'public interface' }
-GCircle >> point: p1 isTooCloseTo: p2 [
-	^ 1 -( self cosBetween: p1 and: p2 ) <~ 0.1
-
-
+GCircle >> perimeter [
+	^ 2 * self radius * Float pi
 ]
 
 { #category : #'public interface' }
@@ -130,30 +109,10 @@ GCircle >> polygonOn: points [
 
 { #category : #accessing }
 GCircle >> radius [
-
-^radius 
+	^ radius
 ]
 
 { #category : #'public interface' }
 GCircle >> upperPoint [
 	^ center x , ( center y + radius )
-]
-
-{ #category : #'public interface' }
-GCircle >> with: p1 boundaryContains1: aPoint [
- ( self boundaryContains: aPoint )
-	ifFalse:[
-		(self point: p1 isTooCloseTo: aPoint) 
-			ifTrue:[ |cir newCenter| 
-				newCenter := (self center + (self center distanceTo: aPoint))/2.
-				cir := GCircle center: newCenter radius: (self radius + (self radius distanceTo: aPoint))/2 ]
-		
-		]
-
-]
-
-{ #category : #'public interface' }
-GCircle >> with: p1 boundaryContains: aPoint [
-^ ( self boundaryContains: aPoint ) or:[self point: p1 isTooCloseTo: aPoint]
-
 ]

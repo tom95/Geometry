@@ -62,10 +62,10 @@ GSegment >> distTo: point [
 
 { #category : #properties }
 GSegment >> distanceTo: aGPoint [
-	self flag: #todo. "«The distance between segments and rays may not be the same as the distance between their extended lines. » http://geomalgorithms.com/a07-_distance.html
+	self flag: #todo.	"«The distance between segments and rays may not be the same as the distance between their extended lines. » http://geomalgorithms.com/a07-_distance.html
 	
 	So apparently this implementation is wrong."
-	^ self asLine dist: aGPoint
+	^ self asLine distanceTo: aGPoint
 ]
 
 { #category : #properties }

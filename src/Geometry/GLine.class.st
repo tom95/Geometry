@@ -33,25 +33,20 @@ GLine class >> through: aPoint1 and: aPoint2 [
 ]
 
 { #category : #comparing }
-GLine >> = line [ 
-^( self a asFloat =~ line a asFloat and: [ self b asFloat =~ line b asFloat and: [ self c asFloat =~ line c asFloat ] ] )  
-or:
-[ ( line a ~=~ 0 and: [ line b ~=~ 0 and: [ line c ~=~ 0 ] ] ) 
-	ifTrue: [ ( self a / line a ) asFloat =~ ( self b / line b ) asFloat and: [ ( self b / line b ) asFloat =~ ( self c / line c ) asFloat] ]
-	ifFalse:[ ( self a ~=~ 0 and: [self b ~=~ 0 and: [ self c ~=~ 0 ]]) 
-		ifTrue: [ ( line a / self a ) asFloat =~ ( line b / self b) asFloat and: [ ( line b / self b ) asFloat =~ ( line c / self c ) asFloat ] ]
-		ifFalse:[ ( line a ~=~ 0 and: [ line c ~=~ 0 ] )
-			ifTrue:[ ( self a / line a ) asFloat =~ ( self c / line c ) asFloat]
-			ifFalse:[ ( line b ~=~ 0 and:[ line c ~=~ 0] )
-				ifTrue:[ ( self b / line b ) asFloat =~ ( self c / line c ) asFloat ] 
-				ifFalse:[ ( line a ~=~ 0 and:[ line b ~=~ 0] )
-					ifTrue:[ ( self a / line a ) asFloat =~ ( self b / line b ) asFloat ] 
-					ifFalse:[ ( line a =~ 0 and: [ line c =~ 0 ] ) or: [ ( line b =~ 0 and: [ line c =~ 0 ] ) ]
-					]
-				] 
-			]]]
-	]
+GLine >> = line [
+	self == line ifTrue: [ ^ true ].
+	self class = line class ifFalse: [ ^ false ].
 
+	^ (self a asFloat =~ line a asFloat and: [self b asFloat =~ line b asFloat and: [self c asFloat =~ line c asFloat]])
+		or: [(line a ~=~ 0 and: [line b ~=~ 0 and: [line c ~=~ 0]])
+				ifTrue: [(self a / line a) asFloat =~ (self b / line b) asFloat and: [(self b / line b) asFloat =~ (self c / line c) asFloat]]
+				ifFalse: [(self a ~=~ 0 and: [self b ~=~ 0 and: [self c ~=~ 0]])
+						ifTrue: [(line a / self a) asFloat =~ (line b / self b) asFloat and: [(line b / self b) asFloat =~ (line c / self c) asFloat]]
+						ifFalse: [(line a ~=~ 0 and: [line c ~=~ 0])
+								ifTrue: [(self a / line a) asFloat =~ (self c / line c) asFloat]
+								ifFalse: [(line b ~=~ 0 and: [line c ~=~ 0])
+										ifTrue: [(self b / line b) asFloat =~ (self c / line c) asFloat]
+										ifFalse: [(line a ~=~ 0 and: [line b ~=~ 0]) ifTrue: [(self a / line a) asFloat =~ (self b / line b) asFloat] ifFalse: [(line a =~ 0 and: [line c =~ 0]) or: [line b =~ 0 and: [line c =~ 0]]]]]]]]
 ]
 
 { #category : #accessing }
@@ -92,10 +87,13 @@ GLine >> determinantWith: aLine [
 
 { #category : #'distance functions' }
 GLine >> dist: p [
-	^ ( ( a * p x ) + ( b * p y ) + c )abs
-	/
-	( ( a * a + ( b * b ) ) sqrt)
+	self deprecated: 'Use #distanceTo:' transformWith: '`@receiver dist: `@statements' -> '`@receiver distanceTo: `@statements'.
+	^ self distanceTo: p
+]
 
+{ #category : #'distance functions' }
+GLine >> distanceTo: aGPoint [
+	^ (a * aGPoint x + (b * aGPoint y) + c) abs / (a * a + (b * b)) sqrt
 ]
 
 { #category : #properties }
@@ -106,10 +104,9 @@ GLine >> hasPoint: aGPoint [
 
 { #category : #properties }
 GLine >> hasPoint: aPoint withApproximation: approx [
-	(self a * aPoint x) + (self b * aPoint y) + self c - (((self a * approx) + (self b * approx))abs + self c)  <=~ 0.
-	^ "(self a * aPoint x) + (self b * aPoint y) + self c <=~ (2 * approx)"
-	(self dist: aPoint) <=~ (2 * approx)
-	
+	self a * aPoint x + (self b * aPoint y) + self c
+		- ((self a * approx + (self b * approx)) abs + self c) <=~ 0.
+	^ (self distanceTo: aPoint) <=~ (2 * approx)	"(self a * aPoint x) + (self b * aPoint y) + self c <=~ (2 * approx)"
 ]
 
 { #category : #comparing }

@@ -24,11 +24,11 @@ GVectorTest >> test2DVector [
 
 { #category : #tests }
 GVectorTest >> testAngleInDegreesWith [
-	vector := {2 . 9 . -3} asGVector.
-	self assert: (vector angleInDegreesWith: {-3 . -4 . 8} asGVector) closeTo: 136.18515.
+	vector := #(2 9 -3) asGVector.
+	self assert: (vector angleInDegreesWith: #(-3 -4 8) asGVector) closeTo: 136.18515.
 
-	vector := {5 . 24} asGVector.
-	self assert: (vector angleInDegreesWith: {1 . 3} asGVector) closeTo: 6.66666
+	vector := #(5 24) asGVector.
+	self assert: (vector angleInDegreesWith: #(1 3) asGVector) closeTo: 6.66666
 ]
 
 { #category : #tests }

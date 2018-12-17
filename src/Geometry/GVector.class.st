@@ -93,6 +93,18 @@ GVector >> additionWithVector: aGVector [
 	^ (self coordinates + aGVector coordinates) asGVector
 ]
 
+{ #category : #arithmetic }
+GVector >> angleInDegreesWith: aGVector [ 
+	^ (self angleInRadiansWith: aGVector) radiansToDegrees
+]
+
+{ #category : #arithmetic }
+GVector >> angleInRadiansWith: aGVector [ 
+	"angle = cos^-1 a . b / (|a| * |b|)"
+	
+	^ ((self dotProduct: aGVector) / (self length * aGVector length)) arcCos
+]
+
 { #category : #accessing }
 GVector >> coordinates [
 	^ coordinates

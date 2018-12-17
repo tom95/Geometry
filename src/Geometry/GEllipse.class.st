@@ -1,151 +1,129 @@
-"
-I am an Ellipse geometry.
-
-I am described by center and two radii.
-
-- `center `is the center point of the ellipse
-- `a` is the radius along the x axis
-- `b` is the radius along the y axis
-
-TODO
-------------------
-
-(Cyril Ferlicot) Note: I think that this representation of an ellipse is not correct. With that we can represent only ellipse whose major and minor axes are on x and y axis. But we cannot represent all ellipses. For example we cannot make a GEllipse rotate. 
-
-We will need to review the implementation to get:
-- A center
-- A vector for the minor axis
-- A vector for the major axis
-
-Another problem is that here we have one center, but an ellipse would be better described with two focus instead of one center.
-"
 Class {
 	#name : #GEllipse,
 	#superclass : #GShape,
 	#instVars : [
 		'center',
-		'xRadius',
-		'yRadius'
+		'vertex',
+		'coVertex'
 	],
 	#category : #'Geometry-Shapes'
 }
 
 { #category : #'instance creation' }
-GEllipse class >> center: aPoint a: xRadius b: yRadius [
-	self
-		deprecated: 'Use #center:xRadius:yRadius: instead'
-		transformWith: '`@receiver center: `@statements1 a: `@statements2 b: `@statements3' -> '`@receiver center: `@statements1 xRadius: `@statements2 yRadius: `@statements3'.
-	^ self center: aPoint xRadius: xRadius yRadius: yRadius
-]
-
-{ #category : #'instance creation' }
-GEllipse class >> center: aPoint xRadius: aNumber yRadius: anotherNumber [
+GEllipse class >> center: aGPoint vertex: aGPoint2 coVertex: aGPoint3 [
 	^ self new
-		setCenter: aPoint xRadius: aNumber yRadius: anotherNumber;
+		center: aGPoint;
+		vertex: aGPoint2;
+		coVertex: aGPoint3;
 		yourself
 ]
 
 { #category : #comparing }
-GEllipse >> = anEllipse [
-	self == anEllipse ifTrue: [ ^ true ].
-	self species = anEllipse species ifFalse: [ ^ false ].
+GEllipse >> = anObject [
+	"Answer whether the receiver and anObject represent the same object."
 
-	^ center = anEllipse center and: [ xRadius = anEllipse xRadius and: [ yRadius = anEllipse yRadius ] ]
+	self == anObject ifTrue: [ ^ true ].
+	self class = anObject class ifFalse: [ ^ false ].
+	
+	^ vertex = anObject vertex and: [ center = anObject center and: [ coVertex = anObject coVertex ] ]
 ]
 
 { #category : #accessing }
-GEllipse >> a [
-	self deprecated: 'Use #xRadius instead' transformWith: '`@receiver a' -> '`@receiver xRadius'.
-	^ self xRadius
-]
+GEllipse >> area [
+	"pi * a * b"
 
-{ #category : #accessing }
-GEllipse >> b [
-	self deprecated: 'Use #yRadius instead' transformWith: '`@receiver b' -> '`@receiver yRadius'.
-	^ self yRadius
+	^ Float pi * self semiMajorAxisLength * self semiMinorAxisLength
 ]
 
 { #category : #accessing }
 GEllipse >> center [
-	"Since we have it, diretly return it to be faster than my original implementation"
-	
 	^ center
 ]
 
 { #category : #accessing }
-GEllipse >> encompassingRectangle [
-	^ center - (xRadius @ yRadius) corner: center + (xRadius @ yRadius)
+GEllipse >> center: anObject [
+	center := anObject
 ]
 
-{ #category : #transforming }
-GEllipse >> fitInExtent: aPoint [
-	"Since we need to keep the proportions, we will divide both points by the furthest point in order to fit the ellipse in a rectangle of size 1 then we will multiply by the extent."
+{ #category : #accessing }
+GEllipse >> coVertex [
+	^ coVertex
+]
 
-	| majorDiagonalSize |
-	majorDiagonalSize := self majorRadius * 2.
+{ #category : #accessing }
+GEllipse >> coVertex: anObject [
+	coVertex := anObject
+]
 
-	xRadius := xRadius / majorDiagonalSize * aPoint x.
-	yRadius := yRadius / majorDiagonalSize * aPoint y
+{ #category : #accessing }
+GEllipse >> encompassingRectangle [
+	| radiuxPoints |
+	radiuxPoints := { vertex . (center + (center - vertex)). coVertex . (center + (center - coVertex)) } collect: #coordinates.
+	^ (radiuxPoints fold: [ :pt1 :pt2 | pt1 upperLimitsWith: pt2 ]) asGPoint corner: (radiuxPoints fold: [ :pt1 :pt2 | pt1 lowerLimitsWith: pt2 ]) asGPoint
+]
+
+{ #category : #accessing }
+GEllipse >> foci [
+	self shouldBeImplemented.
+]
+
+{ #category : #accessing }
+GEllipse >> fociLocation [
+	"c² = a² - b²"
+
+	^ (self semiMajorAxisLength squared - self semiMinorAxisLength squared) sqrt
 ]
 
 { #category : #comparing }
 GEllipse >> hash [
-	^ (xRadius hash bitXor: yRadius hash) bitXor: center hash
+	"Answer an integer value that is related to the identity of the receiver."
+
+	^ vertex hash bitXor: (center hash bitXor: coVertex hash)
 ]
 
 { #category : #accessing }
-GEllipse >> height [
-	^ self encompassingRectangle height
-]
-
-{ #category : #testing }
-GEllipse >> includesPoint: aPoint [
-	"Solution from: https://math.stackexchange.com/questions/76457/check-if-a-point-is-within-an-ellipse"
-
-	^ (aPoint x - center x) squared / xRadius squared + ((aPoint y - center y) squared / yRadius squared) <= 1
+GEllipse >> majorAxis [
+	^ GSegment with: center + (center - vertex) with: center + (vertex - center)
 ]
 
 { #category : #accessing }
-GEllipse >> majorRadius [
-	^ xRadius max: yRadius
+GEllipse >> majorAxisLength [
+	^ self majorAxis length
 ]
 
 { #category : #accessing }
-GEllipse >> minorRadius [
-	^ xRadius min: yRadius
+GEllipse >> minorAxis [
+	^ GSegment with: center + (center - coVertex) with: center + (coVertex - center)
 ]
 
-{ #category : #initialization }
-GEllipse >> setCenter: aCenter a: xRad b: yRad [
-	self
-		deprecated: 'Use #setCenter:xRadius:yRadius: instead'
-		transformWith: '`@receiver setCenter: `@statements1 a: `@statements2 b: `@statements3' -> '`@receiver setCenter: `@statements1 xRadius: `@statements2 yRadius: `@statements3'.
-	self setCenter: aCenter xRadius: xRad yRadius: yRad
+{ #category : #accessing }
+GEllipse >> minorAxisLength [
+	^ self minorAxis length
 ]
 
-{ #category : #initialization }
-GEllipse >> setCenter: aCenter xRadius: xRad yRadius: yRad [
-	center := aCenter.
-	xRadius := xRad.
-	yRadius := yRad
+{ #category : #accessing }
+GEllipse >> semiMajorAxisLength [
+	^ self majorAxis length / 2
+]
+
+{ #category : #accessing }
+GEllipse >> semiMinorAxisLength [
+	^ self minorAxis length / 2
 ]
 
 { #category : #transforming }
-GEllipse >> translateBy: aPoint [ 
-	center := center + aPoint
+GEllipse >> translateBy: aGVector [ 
+	center translateBy: aGVector.
+	vertex translateBy: aGVector.
+	coVertex translateBy: aGVector
 ]
 
 { #category : #accessing }
-GEllipse >> width [
-	^ self encompassingRectangle width
+GEllipse >> vertex [
+	^ vertex
 ]
 
 { #category : #accessing }
-GEllipse >> xRadius [
-	^ xRadius
-]
-
-{ #category : #accessing }
-GEllipse >> yRadius [
-	^ yRadius
+GEllipse >> vertex: anObject [
+	vertex := anObject
 ]

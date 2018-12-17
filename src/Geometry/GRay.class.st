@@ -1,22 +1,38 @@
 "
-I am a vector builded on line ax+by+c=0 and have my start in point v1.
+Description
+--------------------
 
+A ray starts out at a point and continues off to infinity
+
+A ray is a geometry figure defined by an initial point, the origin, and another point to define a direction.
+
+Examples
+--------------------
+
+TODO	
+ 
+Internal Representation and Key Implementation Points.
+--------------------
+
+    Instance Variables
+	directionPoint:		<aGPoint>		A point that can be anywhere on the ray and defining the direction of the ray.
+	initialPoint:		<aGPoint>		A GPoint defining the end point of the ray.
 
 "
 Class {
 	#name : #GRay,
 	#superclass : #GElement,
 	#instVars : [
-		'origin',
-		'direction'
+		'initialPoint',
+		'directionPoint'
 	],
 	#category : #'Geometry-Elements'
 }
 
 { #category : #'instance creation' }
-GRay class >> origin: aGPoint direction: aGVector [
+GRay class >> origin: aGPoint direction: anotherPoint [
 	^ self new
-		initializeWithOrigin: aGPoint direction: aGVector;
+		initializeWithOrigin: aGPoint direction: anotherPoint;
 		yourself
 ]
 
@@ -42,11 +58,10 @@ GRay >> + aRay [
 
 { #category : #comparing }
 GRay >> = aRay [
+	self == aRay ifTrue: [ ^ true ].
+	self class = aRay class ifFalse: [ ^ false ].
 
-^ self origin =~ aRay origin and: [
- (self origin bearingToPoint: self direction) =~
- (aRay origin bearingToPoint: aRay direction) ]
-
+	^ self origin =~ aRay origin and: [ (self origin bearingToPoint: self direction) =~ (aRay origin bearingToPoint: aRay direction) ]
 ]
 
 { #category : #converting }
@@ -68,7 +83,7 @@ ci := ((self origin x) - (self direction x)) * (self origin y) + ( ((self direct
 
 { #category : #converting }
 GRay >> asSegment [
-	^ GSegment with: origin with: direction
+	^ GSegment with: initialPoint with: directionPoint
 ]
 
 { #category : #properties }
@@ -88,13 +103,13 @@ coll isEmpty ifTrue:[^ nil]
 
 { #category : #accessing }
 GRay >> direction [
-	^direction 
+	^directionPoint 
 
 ]
 
 { #category : #accessing }
 GRay >> direction: aPoint [
-	direction := aPoint
+	directionPoint := aPoint
 
 ]
 
@@ -122,10 +137,10 @@ GRay >> extendBy1: num [
 GRay >> extendBy: num [
 |cos sin|
 self length = 0 
-	ifTrue:[ self direction: ( (direction - origin) x * num  ) @ ((direction - origin) y * num ) ]
+	ifTrue:[ self direction: ( (directionPoint - initialPoint) x * num  ) @ ((directionPoint - initialPoint) y * num ) ]
 	ifFalse:[
-cos := (direction - origin) x / self length.
-sin := (direction - origin) y / self length.	
+cos := (directionPoint - initialPoint) x / self length.
+sin := (directionPoint - initialPoint) y / self length.	
 self direction: ( cos * num * self length ) @ ( sin * num * self length )].
 ^ self 
 
@@ -134,8 +149,8 @@ self direction: ( cos * num * self length ) @ ( sin * num * self length )].
 { #category : #'rectangle functions' }
 GRay >> extendWith: num [
 |cos sin|
-cos := (direction - origin) x / self length.
-sin := (direction - origin) y / self length.	
+cos := (directionPoint - initialPoint) x / self length.
+sin := (directionPoint - initialPoint) y / self length.	
 self direction: ( self direction x +  (cos * num) ) @ ( self direction y + (sin * num) ).
 ^ self 
 
@@ -144,7 +159,7 @@ self direction: ( self direction x +  (cos * num) ) @ ( self direction y + (sin 
 { #category : #properties }
 GRay >> flipped [
 
-	^ GRay origin: self origin direction: (origin + (origin - direction))
+	^ GRay origin: self origin direction: (initialPoint + (initialPoint - directionPoint))
 
 ]
 
@@ -156,27 +171,25 @@ GRay >> hasPoint: aGPoint [
 
 { #category : #comparing }
 GRay >> hash [
-	^ ( self origin hash hashMultiply +
-		(self origin bearingToPoint: self direction) hash ) hashMultiply
-
+	^ (self origin hash hashMultiply + (self origin bearingToPoint: self direction) hash) hashMultiply
 ]
 
 { #category : #properties }
 GRay >> includesPoint: aPoint [
-	^ (origin - direction) signFuz = (origin - aPoint) signFuz or: [ origin = aPoint ]
+	^ (initialPoint - directionPoint) signFuz = (initialPoint - aPoint) signFuz or: [ initialPoint = aPoint ]
 ]
 
 { #category : #initialization }
 GRay >> initialize [
 	super initialize.
-	origin := 0@0.
-	direction := 0@0
+	initialPoint := 0@0.
+	directionPoint := 0@0
 ]
 
 { #category : #initialization }
-GRay >> initializeWithOrigin: aPoint1 direction: aVector [
-	origin  := aPoint1 asGPoint.
-	direction  := aVector
+GRay >> initializeWithOrigin: aGPoint direction: anotherGPoints [
+	initialPoint  := aGPoint asGPoint.
+	directionPoint  := anotherGPoints asGPoint
 ]
 
 { #category : #accessing }
@@ -186,6 +199,6 @@ GRay >> length [
 
 { #category : #accessing }
 GRay >> origin [ 
-	^origin
+	^initialPoint
 
 ]

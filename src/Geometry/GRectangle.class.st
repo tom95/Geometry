@@ -35,10 +35,17 @@ GRectangle class >> origin: point1 corner: point2 [
 
 { #category : #'instance creation' }
 GRectangle class >> vertices: aCollection [
+	| rectangle edges |
+	
 	aCollection size = 4 ifFalse: [ self error: 'A Rectangle should have 4 vertices.' ].
-	self flag: #todo. "We should also check other properties of the rectangle."
-
-	^ super vertices: aCollection
+	
+	rectangle := super vertices: aCollection.
+	
+	edges := rectangle edges.
+	
+	(((edges at: 1) length = (edges at: 3) length) and: [ ((edges at: 2) length = (edges at: 4) length) ]) ifFalse: [ self error: 'This is not a rectangle but a parallelogram' ].
+	
+	^ rectangle
 ]
 
 { #category : #accessing }
@@ -72,21 +79,11 @@ GRectangle >> extent [
 	^ (encompassingRectangleOrigin - encompassingRectangleCorner) asGVector
 ]
 
-{ #category : #testing }
-GRectangle >> hasOnBoundary: point [
-	^ self edges anySatisfy: [ :edge | edge includesPoint: point ]
-]
-
 { #category : #accessing }
 GRectangle >> height [
 	"Answer the height of the receiver."
 
 	^ (self vertices at: 2) distanceTo: (self vertices at: 3)
-]
-
-{ #category : #enumerating }
-GRectangle >> sideWhichHas: point [
-	^ self edges detect: [ :edge | edge includesPoint: point ]
 ]
 
 { #category : #accessing }

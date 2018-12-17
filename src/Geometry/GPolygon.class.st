@@ -101,6 +101,11 @@ GPolygon >> fitInExtent: extent [
 	vertices := self vertices collect: [ :vertice | ((vertice - self center) coordinates coordinatesWith: scales collect: [ :a :b | a * b ]) asGVector + self center ]
 ]
 
+{ #category : #testing }
+GPolygon >> hasOnBoundary: point [
+	^ self edges anySatisfy: [ :edge | edge includesPoint: point ]
+]
+
 { #category : #comparing }
 GPolygon >> hash [
 	"Answer an integer value that is related to the identity of the receiver."
@@ -149,6 +154,11 @@ GPolygon >> scaleBy: anInteger [
 	anInteger <= 0 ifTrue: [ self error: 'Scale must be over zeo' ].
 
 	vertices := self vertices collect: [ :vertice | (vertice - self center) * anInteger + self center ]
+]
+
+{ #category : #enumerating }
+GPolygon >> sideWhichHas: point [
+	^ self edges detect: [ :edge | edge includesPoint: point ]
 ]
 
 { #category : #transforming }

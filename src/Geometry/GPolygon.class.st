@@ -128,6 +128,11 @@ GPolygon >> intersectionPointsWithLine: aGLine [
 	^ (self edges flatCollect: [ :segment | segment intersectionPointsWithLine: aGLine ]) asSet
 ]
 
+{ #category : #accessing }
+GPolygon >> perimeter [
+	^ self edges sum: #length
+]
+
 { #category : #transforming }
 GPolygon >> scaleBy: anInteger [
 

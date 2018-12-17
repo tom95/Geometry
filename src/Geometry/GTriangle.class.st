@@ -33,7 +33,7 @@ GTriangle >> area [
 GTriangle >> circumscribedCircle [
 	| center radius |
 	center := self edges first perpendicularBisector intersect: self edges last perpendicularBisector.
-	center isNil ifTrue: [ ^nil ] ifFalse: [ radius := (v1 dist: v2) * (v2 dist: v3) * (v3 dist: v1) / (4 * self area).
+	center isNil ifTrue: [ ^nil ] ifFalse: [ radius := (v1 distanceTo: v2) * (v2 distanceTo: v3) * (v3 distanceTo: v1) / (4 * self area).
 		^GCircle center: center radius: radius ] 
 	
 	"^ GCircle
@@ -90,11 +90,6 @@ GTriangle >> perimeter [
 		inject: 0
 		into: [ :subSum :edge |
 			subSum + edge length ]
-]
-
-{ #category : #properties }
-GTriangle >> semiperimeter [
-	^ self perimeter / 2
 ]
 
 { #category : #accessing }

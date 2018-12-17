@@ -76,3 +76,8 @@ GShape >> scaleBy: aPoint [
 	
 	self subclassResponsibility
 ]
+
+{ #category : #properties }
+GShape >> semiperimeter [
+	^ self perimeter / 2
+]

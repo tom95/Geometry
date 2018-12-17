@@ -38,24 +38,6 @@ GRayTest >> testEquals [
 ]
 
 { #category : #tests }
-GRayTest >> testExtendBy [
-	self assert: ((GRay origin: 0 , 0 direction: 12 , 9) extendBy1: 1) direction equals: 13 , (39 , 4).
-	self assert: ((GRay origin: 0 , 0 direction: 12 , 9) extendBy1: 5) direction equals: 17 , (51 , 4)
-	"self assert: ((GRay origin:0 ,0 direction: (4 ,2)) extendBy: 1) direction equals:5 ,(5/ 2).
-	self assert: ((GRay origin:0 ,0 direction: (-4 ,-2)) extendBy: 1) direction equals: -5 ,(-5/ 2).
-	self assert: ((GRay origin:0 ,0 direction: (-4 ,2)) extendBy: 1) direction equals: -5 ,(5/ 2).
-	self assert: ((GRay origin:0 ,0 direction: (4 ,-2)) extendBy: 1) direction equals:5 ,(-5/ 2).
-	self assert: ((GRay origin:0 ,0 direction: (12 ,9)) extendBy: 1) asLine equals: ((GRay origin:0 ,0 direction: ((12 ,9))) extendBy: 5) asLine.
-	self deny: ((GRay origin:0 ,0 direction: (12 ,9)) extendBy: 1) asLine ~= ((GRay origin:0 ,0 direction: (12 ,9)) extendBy: 5) asLine.
-	self assert: ((GRay origin:4 ,2 direction: (0 ,2)) extendBy: 1) direction equals: -1 ,2.
-	self assert: ((GRay origin:4 ,2 direction: (4 ,0)) extendBy: 1) direction equals:4 ,-1.
-	self assert: ((GRay origin:4 ,2 direction: (0 ,0)) extendBy: 1) direction equals: -1 ,(-1/ 2).
-	self assert: ((GRay origin:4 ,2 direction: (2 ,1)) extendBy: 1) direction equals:1 ,(1/ 2).
-	self assert: ((GRay origin: 63 ,61 direction: (62 ,61)) extendBy: 5) direction equals: 57 ,61
-	"
-]
-
-{ #category : #tests }
 GRayTest >> testFlipped [
 	self assert: (GRay origin: 100 , 100 direction: 80 , 110) flipped direction equals: 120 , 90.
 	self assert: (GRay origin: 100 , 100 direction: 120 , 90) flipped direction equals: 80 , 110

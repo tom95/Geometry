@@ -23,28 +23,28 @@ GElement >> includesPoint: aPoint [
 ]
 
 { #category : #intersections }
-GElement >> intersectionPointsWith: anElement [
+GElement >> intersectionsWith: anElement [
 	"We should use double dispatch to find intersection points"
 
 	^ self subclassResponsibility
 ]
 
 { #category : #intersections }
-GElement >> intersectionPointsWithLine: aGLine [
+GElement >> intersectionsWithLine: aGLine [
 	"I should return the intersection points between me and a line"
 	
 	^ self subclassResponsibility
 ]
 
 { #category : #intersections }
-GElement >> intersectionPointsWithPolygon: aGPolygon [
+GElement >> intersectionsWithPolygon: aGPolygon [
 	"I should return the intersection points between me and a polygon"
 	
 	^ self subclassResponsibility
 ]
 
 { #category : #intersections }
-GElement >> intersectionPointsWithSegment: aGSegment [
+GElement >> intersectionsWithSegment: aGSegment [
 	"I should return the intersection points between me and a segment"
 	
 	^ self subclassResponsibility

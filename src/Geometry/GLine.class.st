@@ -160,18 +160,18 @@ GLine >> intersectionPointWithLine: aGLine [
 ]
 
 { #category : #intersections }
-GLine >> intersectionPointsWith: anElement [
-	^ anElement intersectionPointsWithLine: self
+GLine >> intersectionsWith: anElement [
+	^ anElement intersectionsWithLine: self
 ]
 
 { #category : #intersections }
-GLine >> intersectionPointsWithLine: aGLine [
+GLine >> intersectionsWithLine: aGLine [
 	^ (self intersectionPointWithLine: aGLine) ifNil: [ OrderedCollection new ] ifNotNil: [ :point | OrderedCollection with: point ]
 ]
 
 { #category : #intersections }
-GLine >> intersectionPointsWithPolygon: aGPolygon [
-	^ aGPolygon intersectionPointsWithLine: self
+GLine >> intersectionsWithPolygon: aGPolygon [
+	^ aGPolygon intersectionsWithLine: self
 ]
 
 { #category : #properties }

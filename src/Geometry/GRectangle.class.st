@@ -97,7 +97,7 @@ GRectangle >> intersectionPointWithRay: ray [
 ]
 
 { #category : #intersections }
-GRectangle >> intersectionPointsWithSegment: segm [
+GRectangle >> intersectionsWithSegment: segm [
 	self deprecated: 'Use new system instead'.
 	^ self edges collect: [ :edge | edge intersectionPointWithSegment: segm ] thenReject: #isNil
 ]

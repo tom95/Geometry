@@ -119,13 +119,13 @@ GPolygon >> initializeVertices: aCollection [
 ]
 
 { #category : #intersections }
-GPolygon >> intersectionPointsWith: anElement [
-	^ anElement intersectionPointsWithPolygon: self
+GPolygon >> intersectionsWith: anElement [
+	^ anElement intersectionsWithPolygon: self
 ]
 
 { #category : #comparing }
-GPolygon >> intersectionPointsWithLine: aGLine [
-	^ (self edges flatCollect: [ :segment | segment intersectionPointsWithLine: aGLine ]) asSet
+GPolygon >> intersectionsWithLine: aGLine [
+	^ (self edges flatCollect: [ :segment | segment intersectionsWithLine: aGLine ]) asSet
 ]
 
 { #category : #accessing }

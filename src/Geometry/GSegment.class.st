@@ -72,7 +72,7 @@ GSegment >> distanceTo: aGPoint [
 GSegment >> extendSegmVert: v to: frame [
 	| points ver p |
 	self flag: #todo.	"This is only for 2D. We should review it to works with v1 and v2 that are 3D."
-	points := frame intersectionPointsWithLine: self asLine.
+	points := frame intersectionsWithLine: self asLine.
 	ver := self vertices detect: [ :vi | vi ~= v ].
 	p := ver x = v x
 		ifTrue: [ ver y > v y
@@ -93,7 +93,7 @@ GSegment >> extendWith: aGPoint and: frame [
 		ifTrue: [ v1 := aGPoint ]
 		ifFalse: [ v2 := aGPoint ].
 	v := self vertices detect: [ :p | p ~= aGPoint ].
-	points := frame intersectionPointsWithLine: self asLine.
+	points := frame intersectionsWithLine: self asLine.
 	points size = 2
 		ifTrue: [ ((GSegment with: aGPoint with: points first) includesPoint: v)
 				ifTrue: [ ^ GSegment with: aGPoint with: points first ]
@@ -259,13 +259,13 @@ GSegment >> intersectionPointWithSegment: segm [
 ]
 
 { #category : #properties }
-GSegment >> intersectionPointsWith: anElement [
-	^ anElement intersectionPointsWithSegment: self
+GSegment >> intersectionsWith: anElement [
+	^ anElement intersectionsWithSegment: self
 ]
 
 { #category : #properties }
-GSegment >> intersectionPointsWithLine: aLine [
-	^ (self asLine intersectionPointsWithLine: aLine) select: [ :point | self includesPoint: point ]
+GSegment >> intersectionsWithLine: aLine [
+	^ (self asLine intersectionsWithLine: aLine) select: [ :point | self includesPoint: point ]
 ]
 
 { #category : #properties }

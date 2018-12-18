@@ -56,13 +56,6 @@ GShape >> fitInExtent: anExtent [
 	self subclassResponsibility
 ]
 
-{ #category : #comparing }
-GShape >> intersectLine: aGSegment [
-	"I should return a collection of intersections between a line and me"
-	
-	^ self subclassResponsibility
-]
-
 { #category : #accessing }
 GShape >> perimeter [
 	"Return the perimeter of the shape"

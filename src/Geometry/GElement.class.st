@@ -30,6 +30,13 @@ GElement >> intersectionsWith: anElement [
 ]
 
 { #category : #intersections }
+GElement >> intersectionsWithEllipse: aGEllipse [
+	"I should return the intersection points between me and an ellipse"
+	
+	^ self subclassResponsibility
+]
+
+{ #category : #intersections }
 GElement >> intersectionsWithLine: aGLine [
 	"I should return the intersection points between me and a line"
 	
@@ -39,6 +46,13 @@ GElement >> intersectionsWithLine: aGLine [
 { #category : #intersections }
 GElement >> intersectionsWithPolygon: aGPolygon [
 	"I should return the intersection points between me and a polygon"
+	
+	^ self subclassResponsibility
+]
+
+{ #category : #intersections }
+GElement >> intersectionsWithRay: aGRay [
+	"I should return the intersection points between me and a ray"
 	
 	^ self subclassResponsibility
 ]

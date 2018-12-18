@@ -81,6 +81,11 @@ GEllipse >> hash [
 	^ vertex hash bitXor: (center hash bitXor: coVertex hash)
 ]
 
+{ #category : #intersections }
+GEllipse >> intersectionsWith: anElement [
+	^ anElement intersectionWithEllipse: self
+]
+
 { #category : #accessing }
 GEllipse >> majorAxis [
 	^ GSegment with: center + (center - vertex) with: center + (vertex - center)

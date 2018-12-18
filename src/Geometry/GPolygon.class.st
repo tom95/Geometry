@@ -130,7 +130,7 @@ GPolygon >> intersectionsWith: anElement [
 
 { #category : #intersections }
 GPolygon >> intersectionsWithLine: aGLine [
-	^ (self edges flatCollect: [ :segment | segment intersectionsWithLine: aGLine ]) asSet
+	^ self edges flatCollect: [ :segment | segment intersectionsWithLine: aGLine ]
 ]
 
 { #category : #intersections }

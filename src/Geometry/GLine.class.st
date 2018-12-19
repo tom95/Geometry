@@ -111,10 +111,9 @@ GLine >> includesPoint: aPoint [
 
 { #category : #initialization }
 GLine >> initializeWithA: aNumber1 b: aNumber2 c: aNumber3 [
-	super initialize.
 	a := aNumber1.
 	b := aNumber2.
-	c := aNumber3.
+	c := aNumber3
 ]
 
 { #category : #intersections }
@@ -141,6 +140,11 @@ GLine >> intersectionsWith: anElement [
 ]
 
 { #category : #intersections }
+GLine >> intersectionsWithEllipse: aGEllipse [ 
+	^ aGEllipse intersectionsWithLine: self
+]
+
+{ #category : #intersections }
 GLine >> intersectionsWithLine: aGLine [
 	^ (self intersectionWithLine: aGLine) ifNil: [ OrderedCollection new ] ifNotNil: [ :point | OrderedCollection with: point ]
 ]
@@ -159,17 +163,16 @@ GLine >> parallelTo: aLine [
 
 { #category : #printing }
 GLine >> printOn: aStream [
-	a printOn: aStream.
+	a ~~ 1 ifTrue: [a printOn: aStream].
 	aStream nextPutAll: 'x '.
-	b sign >= 0 ifTrue: [ 
-		aStream nextPut: $+ ].
-	b printOn: aStream.
-	aStream nextPutAll: 'y '.
-	c sign >= 0 ifTrue: [ 
-		aStream nextPut: $+ ].
-	c printOn: aStream.
-	aStream nextPutAll: ' = 0'.
-	
+	b sign >= 0 ifTrue: [aStream nextPutAll: '+ '].
+	b ~~ 1 ifTrue: [b printOn: aStream].
+	aStream nextPutAll: 'y'.
+	c ~~ 0
+		ifTrue: [aStream space.
+			c sign >= 0 ifTrue: [aStream nextPutAll: '+ '].
+			c printOn: aStream].
+	aStream nextPutAll: ' = 0'
 ]
 
 { #category : #properties }

@@ -64,7 +64,7 @@ GEllipse >> encompassingRectangle [
 
 { #category : #accessing }
 GEllipse >> foci [
-	self shouldBeImplemented.
+	^ self majorAxis asLine intersectionsWith: (GCircle center: center radius: self fociLocation)
 ]
 
 { #category : #accessing }
@@ -83,7 +83,44 @@ GEllipse >> hash [
 
 { #category : #intersections }
 GEllipse >> intersectionsWith: anElement [
-	^ anElement intersectionWithEllipse: self
+	^ anElement intersectionsWithEllipse: self
+]
+
+{ #category : #intersections }
+GEllipse >> intersectionsWithLine: aGLine [
+	"
+	http://www.ambrsoft.com/TrigoCalc/Circles2/Ellipse/EllipseLine.htm
+	
+	Ellipse: ((x-h)²/a²) + ((y - k)²/b²) = 1
+	Line: y = mx + c
+	"
+
+	| h k a b m c e t a2m2 ab a2 b2 m2 k2 t2 tk sqrt abm x1 x2 y1 y2 |
+	h := center x.
+	k := center y.
+	a := self semiMajorAxisLength.
+	b := self semiMinorAxisLength.
+	m := aGLine a / aGLine b negated.
+	c := aGLine c / aGLine b negated.
+	e := c - k.
+	t := c + (m * h).
+	ab := a * b.
+	abm := ab * m.
+	a2 := a squared.
+	b2 := b squared.
+	m2 := m squared.
+	k2 := k squared.
+	t2 := t squared.
+	a2m2 := a2 * m2.
+	tk := t * k.
+	sqrt := (a2m2 + b2 - t2 - k2 + (2 * tk)) sqrt.
+
+	x1 := (h * b2 - (m * a2 * e) + (ab * sqrt)) / (a2m2 + b2).
+	x2 := (h * b2 - (m * a2 * e) - (ab * sqrt)) / (a2m2 + b2).
+	y1 := (b2 * t + (k * a2m2) + (abm * sqrt)) / (a2m2 + b2).
+	y2 := (b2 * t + (k * a2m2) - (abm * sqrt)) / (a2m2 + b2).
+
+	^ {(x1 , y1) . (x2 , y2)} asSet
 ]
 
 { #category : #accessing }
@@ -104,6 +141,11 @@ GEllipse >> minorAxis [
 { #category : #accessing }
 GEllipse >> minorAxisLength [
 	^ self minorAxis length
+]
+
+{ #category : #printing }
+GEllipse >> printOn: aStream [
+	aStream nextPutAll: ('((x - {1})²/{2}) + ((y - {3})²/{4}) = 1' format: {center x . self semiMajorAxisLength squared . center y . self semiMinorAxisLength squared})
 ]
 
 { #category : #accessing }

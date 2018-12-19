@@ -84,6 +84,11 @@ GCircle >> initializeWithCenter: aPoint1 radius: aNumber [
 	radius := aNumber.
 ]
 
+{ #category : #intersections }
+GCircle >> intersectionsWith: anElement [
+	^ anElement intersectionsWithCircle: self
+]
+
 { #category : #accessing }
 GCircle >> perimeter [
 	^ 2 * self radius * Float pi

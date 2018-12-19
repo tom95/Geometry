@@ -55,6 +55,64 @@ GEllipseTest >> testIncludesPoint [
 ]
 
 { #category : #tests }
+GEllipseTest >> testIntersectionsWithLine [
+	"Test with an ellipse centered at the origin and a line going through the origin"
+
+	self
+		assert:
+			(((GEllipse center: 0 , 0 vertex: 0 , 3 coVertex: 2 , 0) intersectionsWithLine: (GLine a: -1 b: 1 c: 0))
+				anySatisfy: [:point | point =~ (1.6641 , 1.6641)]).
+	self
+		assert:
+			(((GEllipse center: 0 , 0 vertex: 0 , 3 coVertex: 2 , 0) intersectionsWithLine: (GLine a: -1 b: 1 c: 0))
+				anySatisfy: [:point | point =~ (-1.6641 , -1.6641)]).
+
+
+	"Test with an ellipse centered at the origin and a line not going through the origin"
+	self
+		assert:
+			(((GEllipse center: 0 , 0 vertex: 0 , 3 coVertex: 2 , 0) intersectionsWithLine: (GLine a: -1 b: 1 c: -1))
+				anySatisfy: [:point | point =~ (0.9065084 , 1.9065084)]).
+	self
+		assert:
+			(((GEllipse center: 0 , 0 vertex: 0 , 3 coVertex: 2 , 0) intersectionsWithLine: (GLine a: -1 b: 1 c: -1))
+				anySatisfy: [:point | point =~ (-2.291123 , -1.291123)]).
+
+
+	"Test with an ellipse not centered at the origin and a line not going through the origin"
+	self
+		assert:
+			(((GEllipse center: 2 , 5 vertex: 2 , 9 coVertex: 5 , 5) intersectionsWithLine: (GLine a: -2 b: 1 c: -8))
+				anySatisfy: [:point | point =~ (-0.263181454 , 7.473637091)]).
+	self
+		assert:
+			(((GEllipse center: 2 , 5 vertex: 2 , 9 coVertex: 5 , 5) intersectionsWithLine: (GLine a: -2 b: 1 c: -8))
+				anySatisfy: [:point | point =~ (-1.873804847 , 4.252390306)]).
+	self
+		assert: ((GEllipse center: 2 , 5 vertex: 2 , 9 coVertex: 5 , 5) intersectionsWith: (GLine a: -2 b: 1 c: -8))
+		equals: ((GEllipse center: 2 , 5 vertex: 2 , 9 coVertex: 5 , 5) intersectionsWithLine: (GLine a: -2 b: 1 c: -8)).
+	self
+		assert: ((GLine a: -2 b: 1 c: -8) intersectionsWith: (GEllipse center: 2 , 5 vertex: 2 , 9 coVertex: 5 , 5))
+		equals: ((GEllipse center: 2 , 5 vertex: 2 , 9 coVertex: 5 , 5) intersectionsWithLine: (GLine a: -2 b: 1 c: -8))
+]
+
+{ #category : #tests }
+GEllipseTest >> testIntersectionsWithLineWithTangent [
+	self
+		assert:
+			((GEllipse center: 2 , 5 vertex: 2 , 9 coVertex: 5 , 5) intersectionsWithLine: (GLine a: -1 b: 1 c: -8)) anyOne
+				=~ (-6 / 5 , (34 / 5)).
+	self
+		assert: ((GEllipse center: 2 , 5 vertex: 2 , 9 coVertex: 5 , 5) intersectionsWithLine: (GLine a: -1 b: 1 c: -8)) size
+		equals: 1
+]
+
+{ #category : #tests }
+GEllipseTest >> testIntersectionsWithLineWithoutIntersections [
+	self assert: ((GEllipse center: 2 , 5 vertex: 2 , 9 coVertex: 5 , 5) intersectionsWithLine: (GLine a: -1 b: 1 c: -20)) isEmpty
+]
+
+{ #category : #tests }
 GEllipseTest >> testMajorAxis [
 	self assert: (GEllipse center: 10 , 10 vertex: 7.1715 , 10 coVertex: 10 , 8) majorAxis equals: (GSegment with: 7.1715 , 10 with: 12.8285 , 10)
 ]

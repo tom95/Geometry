@@ -148,6 +148,16 @@ GLine >> intersectionsWithPolygon: aGPolygon [
 	^ aGPolygon intersectionsWithLine: self
 ]
 
+{ #category : #intersections }
+GLine >> intersectionsWithRay: ray [
+	^ (self intersectionsWithLine: ray asLine) select: [ :point | ray includesPoint: point ]
+]
+
+{ #category : #intersections }
+GLine >> intersectionsWithSegment: aGSegment [
+	^ aGSegment intersectionsWithLine: self
+]
+
 { #category : #properties }
 GLine >> parallelTo: aLine [
 	"If the determinant it 0 then the lines are parallel"

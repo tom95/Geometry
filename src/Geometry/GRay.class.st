@@ -100,6 +100,11 @@ GRay >> intersectionsWith: anElement [
 ]
 
 { #category : #intersections }
+GRay >> intersectionsWithLine: aGLine [
+	^ aGLine intersectionsWithRay: self
+]
+
+{ #category : #intersections }
 GRay >> intersectionsWithSegment: aGSegment [ 
 	^ aGSegment intersectionsWithRay: self
 ]

@@ -151,6 +151,11 @@ GPoint >> includesPoint: aGPoint [
 	^ aGPoint =~ self
 ]
 
+{ #category : #intersections }
+GPoint >> intersectionsWith: anElement [
+	^ anElement intersectionsWithPoint: self
+]
+
 { #category : #accessing }
 GPoint >> segment: aPoint [ 
 	^ GSegment with: self with: aPoint 

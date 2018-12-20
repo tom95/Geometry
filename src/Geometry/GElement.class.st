@@ -51,6 +51,11 @@ GElement >> intersectionsWithLine: aGLine [
 ]
 
 { #category : #intersections }
+GElement >> intersectionsWithPoint: aPoint [
+	^ (self includesPoint: aPoint) ifTrue: [ { aPoint } ] ifFalse: [ {  } ]
+]
+
+{ #category : #intersections }
 GElement >> intersectionsWithPolygon: aGPolygon [
 	"I should return the intersection points between me and a polygon"
 	
@@ -60,7 +65,8 @@ GElement >> intersectionsWithPolygon: aGPolygon [
 { #category : #intersections }
 GElement >> intersectionsWithRay: aGRay [
 	"I should return the intersection points between me and a ray"
-	
+
+	self flag: #todo. "I think we can have a generic solution by getting the intersections with the line going through the two points of the element then selectiong tne points that are on the element."
 	^ self subclassResponsibility
 ]
 
@@ -68,6 +74,7 @@ GElement >> intersectionsWithRay: aGRay [
 GElement >> intersectionsWithSegment: aGSegment [
 	"I should return the intersection points between me and a segment"
 	
+	self flag: #todo. "I think we can have a generic solution by getting the intersections with the line going through the two points of the element then selectiong tne points that are on the element."
 	^ self subclassResponsibility
 ]
 

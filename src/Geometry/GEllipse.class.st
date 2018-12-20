@@ -62,6 +62,14 @@ GEllipse >> encompassingRectangle [
 	^ (radiuxPoints fold: [ :pt1 :pt2 | pt1 upperLimitsWith: pt2 ]) asGPoint corner: (radiuxPoints fold: [ :pt1 :pt2 | pt1 lowerLimitsWith: pt2 ]) asGPoint
 ]
 
+{ #category : #transforming }
+GEllipse >> fitInExtent: extent [
+	| scales |
+	scales := extent coordinatesWith: self encompassingRectangle extent coordinates collect: [ :number1 :number2 | number1 / number2 ].
+	vertex := ((vertex - center) coordinates coordinatesWith: scales collect: [ :a :b | a * b ]) asGVector + center.
+	coVertex := ((coVertex - center) coordinates coordinatesWith: scales collect: [ :a :b | a * b ]) asGVector + center
+]
+
 { #category : #accessing }
 GEllipse >> foci [
 	^ self majorAxis asLine intersectionsWith: (GCircle center: center radius: self fociLocation)

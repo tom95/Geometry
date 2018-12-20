@@ -25,18 +25,17 @@ GEllipseTest >> testEquals [
 { #category : #tests }
 GEllipseTest >> testFitInExtent [
 	| ellipse |
-	self shouldBeImplemented.
-	"ellipse :=  (GOldEllipse center: 10 @ 10 xRadius: 5 yRadius: 10).
-	ellipse fitInExtent: 100@100.
-	self assert: ellipse center equals: 10 @ 10.
-	self assert: ellipse xRadius equals: 25.
-	self assert: ellipse yRadius equals: 50.
+	ellipse :=  (GEllipse center: 10 , 10 vertex: 20, 10 coVertex: 10, 15).
+	ellipse fitInExtent: #(100 100) asGVector.
+	self assert: ellipse center equals: 10 , 10.
+	self assert: ellipse vertex equals: 60, 10.
+	self assert: ellipse coVertex equals: 10, 60.
 	
-	ellipse :=  (GOldEllipse center: 10 @ 10 xRadius: 10 yRadius: 5).
-	ellipse fitInExtent: 100@100.
-	self assert: ellipse center equals: 10 @ 10.
-	self assert: ellipse xRadius equals: 50.
-	self assert: ellipse yRadius equals: 25."
+	ellipse :=  (GEllipse center: 10 , 10 vertex: 20, 10 coVertex: 10, 15).
+	ellipse fitInExtent: #(100 60) asGVector.
+	self assert: ellipse center equals: 10 , 10.
+	self assert: ellipse vertex equals: 60, 10.
+	self assert: ellipse coVertex equals: 10, 40
 ]
 
 { #category : #tests }

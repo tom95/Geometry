@@ -110,11 +110,12 @@ GEllipse >> intersectionsWithLine: aGLine [
 	Line: y = mx + c
 	"
 
-	| h k a b m c e t a2m2 ab a2 b2 m2 k2 t2 tk sqrt abm x1 x2 y1 y2 |
+	| h k a b m c e t a2m2 ab a2 b2 m2 k2 t2 tk sqrt abm x1 x2 y1 y2 sqrtContent |
 	h := center x.
 	k := center y.
 	a := self semiMajorAxisLength.
 	b := self semiMinorAxisLength.
+	aGLine b = 0 ifTrue: [ self flag: #todo. "Not yet supported" ^ {  } ].
 	m := aGLine a / aGLine b negated.
 	c := aGLine c / aGLine b negated.
 	e := c - k.
@@ -128,6 +129,8 @@ GEllipse >> intersectionsWithLine: aGLine [
 	t2 := t squared.
 	a2m2 := a2 * m2.
 	tk := t * k.
+	sqrtContent := (a2m2 + b2 - t2 - k2 + (2 * tk)).
+	sqrtContent >= 0 ifFalse: [ ^ {  } ]. "No intersections"
 	sqrt := (a2m2 + b2 - t2 - k2 + (2 * tk)) sqrt.
 
 	x1 := (h * b2 - (m * a2 * e) + (ab * sqrt)) / (a2m2 + b2).

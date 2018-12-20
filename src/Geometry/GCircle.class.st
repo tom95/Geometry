@@ -89,6 +89,36 @@ GCircle >> intersectionsWith: anElement [
 	^ anElement intersectionsWithCircle: self
 ]
 
+{ #category : #intersections }
+GCircle >> intersectionsWithLine: aGLine [
+	| h k b m c e t b2m2 b2 m2 k2 t2 tk sqrt b2m x1 x2 y1 y2 sqrtContent |
+	h := center x.
+	k := center y.
+	b := self radius.
+	aGLine b = 0 ifTrue: [ self flag: #todo.	"Not yet supported" ^ {} ].
+	m := aGLine a / aGLine b negated.
+	c := aGLine c / aGLine b negated.
+	e := c - k.
+	t := c + (m * h).
+	b2 := b squared.
+	m2 := m squared.
+	k2 := k squared.
+	t2 := t squared.
+	b2m := b2 * m.
+	b2m2 := b2 * m2.
+	tk := t * k.
+	sqrtContent := b2m2 + b2 - t2 - k2 + (2 * tk).
+	sqrtContent >= 0 ifFalse: [ ^ {} ].	"No intersections"
+	sqrt := (b2m2 + b2 - t2 - k2 + (2 * tk)) sqrt.
+
+	x1 := (h * b2 - (m * b2 * e) + (b2 * sqrt)) / (b2m2 + b2).
+	x2 := (h * b2 - (m * b2 * e) - (b2 * sqrt)) / (b2m2 + b2).
+	y1 := (b2 * t + (k * b2m2) + (b2m * sqrt)) / (b2m2 + b2).
+	y2 := (b2 * t + (k * b2m2) - (b2m * sqrt)) / (b2m2 + b2).
+
+	^ {(x1 , y1) . (x2 , y2)} asSet
+]
+
 { #category : #accessing }
 GCircle >> perimeter [
 	^ 2 * self radius * Float pi

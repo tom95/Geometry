@@ -28,24 +28,8 @@ GSegment >> = aSegment [
 ]
 
 { #category : #properties }
-GSegment >> alreadyExistIn: aSet [
-	^ aSet detect: [ :segment | segment asLine = self asLine ] ifFound: [ true ] ifNone: [ false ]
-]
-
-{ #category : #properties }
 GSegment >> asLine [
 	^ GLine through: v1 and: v2
-]
-
-{ #category : #properties }
-GSegment >> belowPoint: aGPoint [
-	self flag: #todo. "This is only for 2D. We should review it to works with v1 and v2 that are 3D."
-	^ (v2 x - v1 x) * (aGPoint y - v1 y) - ((v2 y - v1 y) * (aGPoint x - v1 x)) > 0
-]
-
-{ #category : #properties }
-GSegment >> boundBy: aGPoint [
-	^ self v1 = aGPoint or: [ self v2 = aGPoint ]
 ]
 
 { #category : #properties }
@@ -54,110 +38,6 @@ GSegment >> distanceTo: aGPoint [
 	
 	So apparently this implementation is wrong."
 	^ self asLine distanceTo: aGPoint
-]
-
-{ #category : #properties }
-GSegment >> extendSegmVert: v to: frame [
-	| points ver p |
-	self flag: #todo.	"This is only for 2D. We should review it to works with v1 and v2 that are 3D."
-	points := frame intersectionsWithLine: self asLine.
-	ver := self vertices detect: [ :vi | vi ~= v ].
-	p := ver x = v x
-		ifTrue: [ ver y > v y
-				ifTrue: [ points detect: [ :pi | pi y < v y ] ]
-				ifFalse: [ points detect: [ :pi | pi y > v y ] ] ]
-		ifFalse: [ ver x > v x
-				ifTrue: [ points detect: [ :pi | pi x < v x ] ]
-				ifFalse: [ points detect: [ :pi | pi x > v x ] ] ].
-	^ GSegment with: ver with: p
-]
-
-{ #category : #properties }
-GSegment >> hasOnLinePoint: aGPoint [
-	| e k edges tr v|
-	self flag: #todo. "This is only for 2D. We should rely on GPoints to be able to do it for n-dimensions."
-	(self v1 =~ aGPoint or:[ self v2 =~ aGPoint] ) 
-		ifTrue:[^true]
-		ifFalse:[
-			tr := ( GTriangle with: aGPoint with: self v1 with: self v2 ).
-			edges:= tr edges.
-			k := edges detectMax: [:ed | ed length].
-			e := (1/2)*(
-					(( self v1 x - self v2 x ) * ( aGPoint y - self v2 y )-
-					(( self v1 y - self v2 y ) * ( aGPoint x - self v2 x )))
-					abs
-			/k length).
-			v := tr vertices detect:[ :vi |  vi~= k v1 and:[ vi ~= k v2 ]].
-			^ "k asLine hasPoint: v withApproximation: e."
-			(k distanceTo: v) <=~ (2*e)] 
-	
-
-]
-
-{ #category : #properties }
-GSegment >> hasOnLinePoint: aGPoint withRespectTo: vert [
-	| e k edges tr v|
-	self flag: #todo. "This is only for 2D. We should rely on GPoints to be able to do it for n-dimensions."
-	(self v1 =~ aGPoint or:[ self v2 =~ aGPoint] ) 
-		ifTrue:[^ true]
-		ifFalse:[ "(vert x < self v2 x)
-			ifTrue:[
-				(vert x < p x and:[ p x < self v2 x ])
-				or:[ (vert x < self v2 x and:[ p x > self v2 x ])]]"
-			((
-			( aGPoint x between: vert x and: self v2 x)and:
-			[ aGPoint y between: vert y and: self v2 y]) 
-		or:[ (self v2 x between: vert x and: aGPoint x) and:
-			(self v2 y between: vert y and: aGPoint y)])
-				ifFalse:[^ false]
-				ifTrue:[
-					tr := ( GTriangle with: aGPoint with: self v1 with: self v2 ).
-					edges:= tr edges.
-					k := edges detectMax: [:ed | ed length].
-					e := (1/2)*(
-							(( self v1 x - self v2 x ) * ( aGPoint y - self v2 y )-
-							(( self v1 y - self v2 y ) * ( aGPoint x - self v2 x )))
-							abs
-					/k length).
-					v := tr vertices detect:[ :vi |  vi~= k v1 and:[ vi ~= k v2 ]].
-					^ "k asLine hasPoint: v withApproximation: e."
-					(k distanceTo: v) <=~ (2*e)]] 
-	
-
-]
-
-{ #category : #properties }
-GSegment >> hasOnLinePoint: aGPoint withRespectTo: vert withApprox: apro [
-	| e k edges tr v eps |
-	self flag: #todo.	"This is only for 2D. We should rely on GPoints to be able to do it for n-dimensions."
-	(self v1 =~ aGPoint or: [ self v2 =~ aGPoint ])
-		ifTrue: [ ^ true ]
-		ifFalse: [ tr := GTriangle with: aGPoint with: self v1 with: self v2.
-			edges := tr edges.
-			k := edges detectMax: [ :ed | ed length ].
-			eps := 1 / 2
-				*
-					(((self v1 x - self v2 x) * (aGPoint y - self v2 y)
-						- ((self v1 y - self v2 y) * (aGPoint x - self v2 x))) abs
-						/ k length).
-			e := apro min: eps.
-			(((aGPoint x isBetween: vert x and: self v2 x with: e)
-				and: [ aGPoint y isBetween: vert y and: self v2 y with: e ])
-				or: [ (self v2 x isBetween: vert x and: aGPoint x with: e)
-						and: (self v2 y isBetween: vert y and: aGPoint y with: e) ])
-				ifFalse: [ ^ false ]
-				ifTrue: [ "tr := ( GTriangle with: p with: self v1 with: self v2 ).
-					edges:= tr edges.
-					k := edges detectMax: [:ed | ed length].
-					e := (1/2)*(
-							(( self v1 x - self v2 x ) * ( p y - self v2 y )-
-							(( self v1 y - self v2 y ) * ( p x - self v2 x )))
-							abs
-					/k length)."
-					v := tr vertices detect: [ :vi | vi ~= k v1 and: [ vi ~= k v2 ] ].
-					(k distanceTo: v) <=~ (2 * e)
-						ifTrue: [ ^ true	"(k asLine hasPoint: v withApproximation: e)" ]
-						ifFalse: [ ^ false ] ]	"and:[ self asLine hasPoint: p withApproximation: e ]" ]
 ]
 
 { #category : #initialization }
@@ -196,13 +76,6 @@ GSegment >> intersectionsWithRay: ray [
 { #category : #intersections }
 GSegment >> intersectionsWithSegment: segm [
 	^ (self asLine intersectionsWithLine: segm asLine) select: [ :point | (self includesPoint: point) and: [ segm includesPoint: point ] ]
-]
-
-{ #category : #properties }
-GSegment >> isOnLineWith: segm [
-	self = segm
-		ifTrue: [ ^ true ]
-		ifFalse: [ ^ self asLine = segm asLine ]
 ]
 
 { #category : #properties }

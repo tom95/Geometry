@@ -5,23 +5,6 @@ Class {
 }
 
 { #category : #tests }
-GSegmentTest >> testAlreadyExistIn [
-	| segm aSet |
-	segm := GSegment with: 0 , 0 with: 3 , 3.
-	aSet := Set
-		withAll:
-			{(GSegment with: 5 , 2 with: 3 , 4).
-			(GSegment with: 1 , 1 with: 4 , 8)}.
-	self deny: (segm alreadyExistIn: aSet).
-
-	aSet := Set
-		withAll:
-			{(GSegment with: 1 , 2 with: 3 , 4).
-			(GSegment with: 1 , 1 with: 2 , 2)}.
-	self assert: (segm alreadyExistIn: aSet)
-]
-
-{ #category : #tests }
 GSegmentTest >> testAsLine [
 	| line |
 	line := (GSegment with: 1 , 3 with: 3 , 0) asLine.
@@ -38,15 +21,6 @@ GSegmentTest >> testAsLine [
 	self assert: line a equals: 1.
 	self assert: line b equals: 0.
 	self assert: line c equals: -1
-]
-
-{ #category : #tests }
-GSegmentTest >> testBelowPoint [
-	self deny: ((GSegment with: -2 , 4 with: 2 , 4) belowPoint: -2 , 4).
-	self assert: ((GSegment with: -2 , 4 with: 2 , 4) belowPoint: 0 , 5).
-	self deny: ((GSegment with: -2 , 4 with: 2 , 4) belowPoint: 0 , -5).
-	self assert: ((GSegment with: -2 , 4 with: -2 , 0) belowPoint: 0 , 2).
-	self deny: ((GSegment with: -2 , 4 with: -2 , 0) belowPoint: -4 , 2)
 ]
 
 { #category : #tests }
@@ -89,21 +63,6 @@ GSegmentTest >> testEquals [
 ]
 
 { #category : #tests }
-GSegmentTest >> testExtendSegmVert [
-	| segm1 segm2 segm3 frame |
-	segm1 := GSegment with: -2 , 4 with: 2 , 4.
-	segm2 := GSegment with: -2 , 2 with: -2 , 4.
-	segm3 := GSegment with: -2 , 2 with: 2 , 4.
-	frame := GRectangle origin: -5 , 0 corner: 5 , 5.
-	self assert: (segm1 extendSegmVert: 2 , 4 to: frame) equals: (GSegment with: -2 , 4 with: 5 , 4).
-	self assert: (segm1 extendSegmVert: -2 , 4 to: frame) equals: (GSegment with: -5 , 4 with: 2 , 4).
-	self assert: (segm2 extendSegmVert: -2 , 2 to: frame) equals: (GSegment with: -2 , 0 with: -2 , 4).
-	self assert: (segm2 extendSegmVert: -2 , 4 to: frame) equals: (GSegment with: -2 , 2 with: -2 , 5).
-	self assert: (segm3 extendSegmVert: -2 , 2 to: frame) equals: (GSegment with: -5 , (1 / 2) with: 2 , 4).
-	self assert: (segm3 extendSegmVert: 2 , 4 to: frame) equals: (GSegment with: -2 , 2 with: 4 , 5)
-]
-
-{ #category : #tests }
 GSegmentTest >> testIncludesPoint [
 	self assert: ((GSegment with: 1 , 3 with: 3 , 0) includesPoint: 1 , 3).
 	self assert: ((GSegment with: 1 , 3 with: 3 , 0) includesPoint: 3 , 0).
@@ -127,25 +86,6 @@ GSegmentTest >> testIntersectionsWithSegment [
 	self assertCollection: ((GSegment with: -1 , -1 with: 1 , 1) intersectionsWithSegment: (GSegment with: -3 , 3 with: 2 , -2)) hasSameElements: {(0 , 0)}.
 	self assertCollection: ((GSegment with: 0 , 1 with: 3 , 1) intersectionsWithSegment: (GSegment with: 0 , 3 with: 4 , -1)) hasSameElements: {(2 , 1)}.
 	self assertCollection: ((GSegment with: 0 , 1 with: 3 , 1) intersectionsWith: (GSegment with: 0 , 3 with: 4 , -1)) hasSameElements: {(2 , 1)}.
-]
-
-{ #category : #tests }
-GSegmentTest >> testIsOnLinePointWithRespectWith [
-	self skip.	"The test was commented, I prefer to use skip."
-	self
-		deny:
-			((GSegment with: 18427 / 974 , (57187 / 974) with: 362.2460738148583 , -421.94450334080176)
-				hasOnLinePoint: 838 / 41 , (4811 / 82)
-				withRespectTo: 18427 / 974 , (57187 / 974)
-				withApprox: 0.8902246907382428)
-]
-
-{ #category : #tests }
-GSegmentTest >> testIsOnLineWith [
-	self assert: ((GSegment with: -2 , 4 with: 2 , 4) isOnLineWith: (GSegment with: -2 , 4 with: 2 , 4)).
-	self assert: ((GSegment with: -4 , 4 with: 4 , 4) isOnLineWith: (GSegment with: -2 , 4 with: 2 , 4)).
-	self deny: ((GSegment with: -2 , 3 with: 2 , 4) isOnLineWith: (GSegment with: -2 , 4 with: 2 , 4)).
-	self deny: ((GSegment with: -2 , 4 with: 2 , 4) isOnLineWith: (GSegment with: -2 , 2 with: 2 , 2))
 ]
 
 { #category : #tests }

@@ -40,7 +40,10 @@ GEllipseTest >> testFitInExtent [
 
 { #category : #tests }
 GEllipseTest >> testFoci [
-	self assertCollection: (GEllipse center: 10 , 10 vertex: 7.1715 , 10 coVertex: 10 , 8) foci hasSameElements: {(12 , 10) . (8 , 10)}
+	| foci |
+	foci := (GEllipse center: 10 , 10 vertex: 7.171575 , 10 coVertex: 10 , 8) foci.
+	self assert: (foci anySatisfy: [ :e | e =~ (8 , 10) ]).
+	self assert: (foci anySatisfy: [ :e | e =~ (12 , 10) ])
 ]
 
 { #category : #tests }

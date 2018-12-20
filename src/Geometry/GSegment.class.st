@@ -49,18 +49,6 @@ GSegment >> boundBy: aGPoint [
 ]
 
 { #category : #properties }
-GSegment >> dist: p [
-	self deprecated: 'Use #distanceTo:' transformWith: '`@receiver dist: `@statements' -> '`@receiver distanceTo: `@statements'.
-	^ self distanceTo: p
-]
-
-{ #category : #properties }
-GSegment >> distTo: point [
-	self deprecated: 'Use #distanceTo:' transformWith: '`@receiver distTo: `@statements' -> '`@receiver distanceTo: `@statements'.
-	^ self distanceTo: point
-]
-
-{ #category : #properties }
 GSegment >> distanceTo: aGPoint [
 	self flag: #todo.	"«The distance between segments and rays may not be the same as the distance between their extended lines. » http://geomalgorithms.com/a07-_distance.html
 	

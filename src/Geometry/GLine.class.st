@@ -81,12 +81,6 @@ GLine >> determinantWith: aLine [
 ]
 
 { #category : #'distance functions' }
-GLine >> dist: p [
-	self deprecated: 'Use #distanceTo:' transformWith: '`@receiver dist: `@statements' -> '`@receiver distanceTo: `@statements'.
-	^ self distanceTo: p
-]
-
-{ #category : #'distance functions' }
 GLine >> distanceTo: aGPoint [
 	^ (a * aGPoint x + (b * aGPoint y) + c) abs / (a * a + (b * b)) sqrt
 ]

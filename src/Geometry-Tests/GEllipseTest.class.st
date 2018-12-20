@@ -18,8 +18,8 @@ GEllipseTest >> testEncompassingRectangle [
 GEllipseTest >> testEquals [
 	self assert: (GEllipse center: 10 , 10 vertex: 7 , 10 coVertex: 12 , 10) equals: (GEllipse center: 10 , 10 vertex: 7 , 10 coVertex: 12 , 10).
 	self assert: (GEllipse center: 10 , 10 vertex: 7 , 10 coVertex: 12 , 10) hash equals: (GEllipse center: 10 , 10 vertex: 7 , 10 coVertex: 12 , 10) hash.
-	self deny: (GEllipse center: 10 , 10 vertex: 7 , 10 coVertex: 12 , 10) equals: (GEllipse center: 10 , 10 vertex: 7 , 11 coVertex: 12 , 10).
-	self deny: (GEllipse center: 10 , 10 vertex: 7 , 10 coVertex: 12 , 10) hash equals: (GEllipse center: 10 , 10 vertex: 7 , 11 coVertex: 12 , 10) hash
+	self deny: (GEllipse center: 10 , 10 vertex: 7 , 10 coVertex: 12 , 10) = (GEllipse center: 10 , 10 vertex: 7 , 11 coVertex: 12 , 10).
+	self deny: (GEllipse center: 10 , 10 vertex: 7 , 10 coVertex: 12 , 10) hash = (GEllipse center: 10 , 10 vertex: 7 , 11 coVertex: 12 , 10) hash
 ]
 
 { #category : #tests }

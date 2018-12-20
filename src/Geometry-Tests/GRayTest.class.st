@@ -24,8 +24,8 @@ GRayTest >> testEquals [
 	self assert: ray hash equals: ray2 hash.
 
 	ray2 := GRay origin: 0,0 direction: 2, 3.
-	self deny: ray equals: ray2.
-	self deny: ray hash equals: ray2 hash
+	self deny: ray = ray2.
+	self deny: ray hash = ray2 hash
 ]
 
 { #category : #tests }

@@ -42,7 +42,7 @@ GPointTest >> testCopy [
 	pointCopy := point copy.
 	self assert: point equals: pointCopy.
 	point x: 2.
-	self deny: point equals: pointCopy.
+	self deny: point = pointCopy.
 	self deny: point == pointCopy
 ]
 
@@ -53,15 +53,15 @@ GPointTest >> testDistanceTo [
 	self assert: (5 , 0 distanceTo: 0 , 0) equals: 5.
 	self assert: (3 , 0 distanceTo: 0 , 4) equals: 5.
 	self assert: (5 , 0 distanceTo: 2 , 4) equals: 5.
-	self deny: (0 , 0 distanceTo: 0 , 0) equals: 1
+	self deny: (0 , 0 distanceTo: 0 , 0) = 1
 ]
 
 { #category : #tests }
 GPointTest >> testEquals [
 	self assert: (1 , 2) equals: (1 , 2).
-	self deny: (2 , 4) equals: (1 , 2).
+	self deny: (2 , 4) = (1 , 2).
 	self assert: (1 , 2) hash equals: (1 , 2) hash.
-	self deny: (2 , 4) hash equals: (1 , 2) hash
+	self deny: (2 , 4) hash = (1 , 2) hash
 ]
 
 { #category : #tests }

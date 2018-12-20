@@ -50,7 +50,15 @@ GEllipseTest >> testFociLocation [
 
 { #category : #tests }
 GEllipseTest >> testIncludesPoint [
-	self shouldBeImplemented
+	| ellipse |
+	ellipse := (GEllipse center: 4 , 1 vertex: 6 , 1 coVertex: 4 , 2).
+	self assert: (ellipse includesPoint: 4, 1).
+	self assert: (ellipse includesPoint: 6, 1).
+	self assert: (ellipse includesPoint: 4, 2).
+	self assert: (ellipse includesPoint: 3, 1).
+	self deny: (ellipse includesPoint: 2.1, 0.1).
+	self deny: (ellipse includesPoint: 3, 0.13).
+	self assert: (ellipse includesPoint: 3, 0.15).
 ]
 
 { #category : #tests }

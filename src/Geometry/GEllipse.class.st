@@ -89,6 +89,13 @@ GEllipse >> hash [
 	^ vertex hash bitXor: (center hash bitXor: coVertex hash)
 ]
 
+{ #category : #testing }
+GEllipse >> includesPoint: aPoint [
+	"Solution from: https://math.stackexchange.com/questions/76457/check-if-a-point-is-within-an-ellipse"
+
+	^ (aPoint x - center x) squared / self semiMajorAxisLength squared + ((aPoint y - center y) squared / self semiMinorAxisLength squared) <= 1
+]
+
 { #category : #intersections }
 GEllipse >> intersectionsWith: anElement [
 	^ anElement intersectionsWithEllipse: self

@@ -43,3 +43,22 @@ GRayTest >> testIncludesPoint [
 	self assert: ((GRay origin: 0 , 0 direction: 12 , 9) includesPoint: 13 , (39 / 4)).
 	self assert: ((GRay origin: 28 , 30 direction: 9 , 1) includesPoint: -4.97992 , -20.33777)
 ]
+
+{ #category : #tests }
+GRayTest >> testIntersectionsWithRay [
+	| point |
+	point := 2 , 4.
+	ray := GRay origin: 5 , 6 direction: 7 , 102.
+	self assert: (ray intersectionsWith: point) isEmpty.
+	
+	ray := GRay origin: 1 , 3 direction: 0 , 2.
+	self assert: (ray intersectionsWith: point) isEmpty.
+	
+	ray := GRay origin: 0 , 2 direction: 1 , 3.
+	self assert: (ray intersectionsWith: point) anyOne equals: 2 , 4.
+
+	ray := GRay origin: 1 , 3 direction: 3 , 5.
+	self assert: (ray intersectionsWith: point) anyOne equals: 2 , 4.
+	self assert: (ray intersectionsWith: point) size equals: 1.
+	self assert: (ray intersectionsWith: point) equals: (ray intersectionsWithPoint: point)
+]

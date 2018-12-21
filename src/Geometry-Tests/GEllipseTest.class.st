@@ -14,6 +14,17 @@ GEllipseTest >> testArea [
 ]
 
 { #category : #tests }
+GEllipseTest >> testBoundaryContains [
+	ellipse := (GEllipse center: 4 , 1 vertex: 6 , 1 coVertex: 4 , 2).
+	self deny: (ellipse boundaryContains: 4, 1).
+	self assert: (ellipse boundaryContains: 6, 1).
+	self assert: (ellipse boundaryContains: 4, 2).
+	self deny: (ellipse boundaryContains: 3, 1).
+	self deny: (ellipse boundaryContains: 2.1, 0.1).
+	self deny: (ellipse boundaryContains: 3, 0.13).
+]
+
+{ #category : #tests }
 GEllipseTest >> testEncompassingRectangle [
 	ellipse := GEllipse center: 4 , -1 vertex: 9 , -1 coVertex: 4 , 2.
 	self assert: ellipse encompassingRectangle equals: (-1 , 2 corner: 9 , -4)
@@ -106,6 +117,19 @@ GEllipseTest >> testIntersectionsWithLineWithTangent [
 GEllipseTest >> testIntersectionsWithLineWithoutIntersections [
 	ellipse := GEllipse center: 2 , 5 vertex: 2 , 9 coVertex: 5 , 5.
 	self assert: (ellipse intersectionsWithLine: (GLine a: -1 b: 1 c: -20)) isEmpty
+]
+
+{ #category : #tests }
+GEllipseTest >> testIntersectionsWithPoint [
+	| point |
+	point := 2 , 4.
+	ellipse := GEllipse center: 1, 3 vertex: 5, 6  coVertex: 3, 4 .
+	self assert: (ellipse intersectionsWith: point) isEmpty.
+	
+	ellipse := GEllipse center: 2, 1 vertex: 5 , 1 coVertex: 2, 4.
+	self assert: (ellipse intersectionsWith: point) anyOne equals: 2 , 4.
+	self assert: (ellipse intersectionsWith: point) size equals: 1.
+	self assert: (ellipse intersectionsWith: point) equals: (ellipse intersectionsWithPoint: point)
 ]
 
 { #category : #tests }

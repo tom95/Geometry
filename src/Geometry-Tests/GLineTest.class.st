@@ -1,6 +1,9 @@
 Class {
 	#name : #GLineTest,
 	#superclass : #TestCase,
+	#instVars : [
+		'line'
+	],
 	#category : #'Geometry-Tests'
 }
 
@@ -49,6 +52,19 @@ GLineTest >> testIntersectionsWithLine [
 	self assertCollection: ((GLine a: 2 b: -3 c: 0.5) intersectionsWithLine: (GLine a: 1 b: 1 c: -2)) hasSameElements: {(1.1 , 0.9)}.
 	self assertCollection: ((GLine a: 2 b: -3 c: 0.5) intersectionsWithLine: (GLine a: -2 b: -2 c: 4)) hasSameElements: {(1.1 , 0.9)}.
 	self assert: ((GLine through: 0 , 0 and: 1 , 1) intersectionsWithLine: (GLine through: 3 , 3 and: 5 , 5)) isEmpty
+]
+
+{ #category : #tests }
+GLineTest >> testIntersectionsWithPoint [
+	| point |
+	point := 2 , 4.
+	line := GLine through: 5 , 6 and: 7 , 102.
+	self assert: (line intersectionsWith: point) isEmpty.
+
+	line := GLine through: 1 , 3 and: 3 , 5.
+	self assert: (line intersectionsWith: point) anyOne equals: 2 , 4.
+	self assert: (line intersectionsWith: point) size equals: 1.
+	self assert: (line intersectionsWith: point) equals: (line intersectionsWithPoint: point)
 ]
 
 { #category : #tests }

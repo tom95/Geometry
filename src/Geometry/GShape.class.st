@@ -24,9 +24,31 @@ GShape >> area [
 	^ self subclassResponsibility
 ]
 
+{ #category : #testing }
+GShape >> boundaryContains: aPoint [
+	"Should return true if the border of the shape contains the point. Else it should return false."
+
+	^ self subclassResponsibility
+]
+
+{ #category : #testing }
+GShape >> boundaryContainsAny: points [
+	^ points anySatisfy: [ :point | self boundaryContains: point ]
+]
+
+{ #category : #testing }
+GShape >> boundaryContainsWhichOf: points [
+	^ points select: [ :point | self boundaryContains: point ]
+]
+
 { #category : #accessing }
 GShape >> center [
 	^ self encompassingRectangle center
+]
+
+{ #category : #testing }
+GShape >> contains: aPoint [
+	^ (self includesPoint: aPoint) and: [ (self boundaryContains: aPoint) not ]
 ]
 
 { #category : #accessing }
@@ -49,6 +71,11 @@ GShape >> fitInExtent: anExtent [
 	Note that I should keep proportions. We could maybe implement another method to not keep proportions."
 	
 	self subclassResponsibility
+]
+
+{ #category : #intersections }
+GShape >> intersectionsWithPoint: aPoint [
+	^ (self boundaryContains: aPoint) ifTrue: [ { aPoint } ] ifFalse: [ {  } ]
 ]
 
 { #category : #accessing }

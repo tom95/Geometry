@@ -71,6 +71,11 @@ GPolygon >> = anObject [
 	^ vertices = anObject vertices
 ]
 
+{ #category : #testing }
+GPolygon >> boundaryContains: aGPoint [ 
+	^ self edges anySatisfy: [ :segment | segment includesPoint: aGPoint ]
+]
+
 { #category : #accessing }
 GPolygon >> edges [
 	| edges |

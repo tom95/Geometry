@@ -20,21 +20,6 @@ GCircle >> boundaryContains: aPoint [
 	^ self radius =~ (self center distanceTo: aPoint)
 ]
 
-{ #category : #comparing }
-GCircle >> boundaryContainsAny: points [
-	^ points anySatisfy: [ :point | self boundaryContains: point ]
-]
-
-{ #category : #comparing }
-GCircle >> boundaryContainsWhichOf: points [
-	^ points select: [ :point | self boundaryContains: point ]
-]
-
-{ #category : #testing }
-GCircle >> contains: aPoint [
-	^ (self includesPoint: aPoint) and: [ (self boundaryContains: aPoint) not ]
-]
-
 { #category : #accessing }
 GCircle >> perimeter [
 	^ 2 * self radius * Float pi

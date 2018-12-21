@@ -8,7 +8,6 @@ Class {
 GCircleTest >> testBoundaryContains [
 	self assert: ((GCircle center: (609 / 17) , (10837 / 136) radius: 38.27069133568686) boundaryContains: 5 , 57).
 	self assert: ((GCircle center: (609 / 17) , (10837 / 136) radius: 38.27069133568686) boundaryContains: 74 , 77).
-	"self assert: ((GCircle  center: (609/17),(10837/136) radius: 38.27069133568686) boundaryContains: ((74,72)))"
 	self assert: ((GCircle center: 2 , 2 radius: 3) boundaryContains: 5 , 2).
 	self deny: ((GCircle center: (609 / 17) , (10837 / 136) radius: 38.27069133568686) boundaryContains: 74 , 72)
 ]

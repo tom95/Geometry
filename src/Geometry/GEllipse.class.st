@@ -35,6 +35,13 @@ GEllipse >> area [
 	^ Float pi * self semiMajorAxisLength * self semiMinorAxisLength
 ]
 
+{ #category : #testing }
+GEllipse >> boundaryContains: aPoint [
+	"Solution from: https://math.stackexchange.com/questions/76457/check-if-a-point-is-within-an-ellipse"
+
+	^ (aPoint x - center x) squared / self semiMajorAxisLength squared + ((aPoint y - center y) squared / self semiMinorAxisLength squared) = 1
+]
+
 { #category : #accessing }
 GEllipse >> center [
 	^ center

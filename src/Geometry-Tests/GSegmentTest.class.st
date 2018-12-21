@@ -1,6 +1,9 @@
 Class {
 	#name : #GSegmentTest,
 	#superclass : #TestCase,
+	#instVars : [
+		'segment'
+	],
 	#category : #'Geometry-Tests'
 }
 
@@ -82,10 +85,18 @@ GSegmentTest >> testIntersectionsWithRay [
 
 { #category : #tests }
 GSegmentTest >> testIntersectionsWithSegment [
-	self assert: ((GSegment with: -1 , -1 with: 1 , 1) intersectionsWithSegment: (GSegment with: -3 , 3 with: -1 , 1)) isEmpty.
-	self assertCollection: ((GSegment with: -1 , -1 with: 1 , 1) intersectionsWithSegment: (GSegment with: -3 , 3 with: 2 , -2)) hasSameElements: {(0 , 0)}.
-	self assertCollection: ((GSegment with: 0 , 1 with: 3 , 1) intersectionsWithSegment: (GSegment with: 0 , 3 with: 4 , -1)) hasSameElements: {(2 , 1)}.
-	self assertCollection: ((GSegment with: 0 , 1 with: 3 , 1) intersectionsWith: (GSegment with: 0 , 3 with: 4 , -1)) hasSameElements: {(2 , 1)}.
+	| point |
+	point := 2 , 4.
+	segment := GSegment with: 5 , 6 with: 7 , 102.
+	self assert: (segment intersectionsWith: point) isEmpty.
+	
+	segment := GSegment with: 1 , 3 with: 0 , 2.
+	self assert: (segment intersectionsWith: point) isEmpty.
+
+	segment := GSegment with: 1 , 3 with: 3 , 5.
+	self assert: (segment intersectionsWith: point) anyOne equals: 2 , 4.
+	self assert: (segment intersectionsWith: point) size equals: 1.
+	self assert: (segment intersectionsWith: point) equals: (segment intersectionsWithPoint: point)
 ]
 
 { #category : #tests }

@@ -1,8 +1,17 @@
 Class {
 	#name : #GPolygonTest,
 	#superclass : #TestCase,
+	#instVars : [
+		'polygon'
+	],
 	#category : #'Geometry-Tests'
 }
+
+{ #category : #tests }
+GPolygonTest >> testBoundaryContains [
+	self assert: ((GPolygon vertices: {(10 , 10) . (-10 , 10) . (-10 , -10)}) boundaryContains: 0 , 10).
+	self deny: ((GPolygon vertices: {(10 , 10) . (-10 , 10) . (-10 , -10)}) boundaryContains: -5 , 5)
+]
 
 { #category : #tests }
 GPolygonTest >> testConvexHullOn [
@@ -98,7 +107,6 @@ GPolygonTest >> testEncompassingRectangle [
 
 { #category : #tests }
 GPolygonTest >> testFitInExtent [
-	| polygon |
 	polygon := GPolygon vertices: {(10 , 10) . (-10 , 10) . (-10 , -10)}.
 	polygon fitInExtent: {20 . 20} asGVector.
 	self
@@ -116,15 +124,24 @@ GPolygonTest >> testFitInExtent [
 
 { #category : #tests }
 GPolygonTest >> testIncludesPoint [
-	self
-		assert:
-			((GPolygon vertices: {(10 , 10) . (-10 , 10) . (-10 , -10)})
-				includesPoint: -5 , 5)
+	self assert: ((GPolygon vertices: {(10 , 10) . (-10 , 10) . (-10 , -10)}) includesPoint: -5 , 5)
+]
+
+{ #category : #tests }
+GPolygonTest >> testIntersectionsWithPolygon [
+	| point |
+	point := 2 , 4.
+	polygon := GPolygon vertices: {(1 , 5) . (6 , 4) . (6 , 1) . (3 , 2)}.
+	self assert: (polygon intersectionsWith: point) isEmpty.
+
+	polygon := GPolygon vertices: {(1 , 4) . (6 , 4) . (6 , 1) . (3 , 2)}.
+	self assert: (polygon intersectionsWith: point) anyOne equals: 2 , 4.
+	self assert: (polygon intersectionsWith: point) size equals: 1.
+	self assert: (polygon intersectionsWith: point) equals: (polygon intersectionsWithPoint: point)
 ]
 
 { #category : #tests }
 GPolygonTest >> testScaleBy [
-	| polygon |
 	polygon := GPolygon vertices: {(10 , 4) . (-4 , 10) . (-10 , -8)}.
 	polygon scaleBy: 1.
 	self assert: polygon vertices equals: {(10 , 4) . (-4 , 10) . (-10 , -8)}.
@@ -142,10 +159,7 @@ GPolygonTest >> testScaleBy [
 
 { #category : #tests }
 GPolygonTest >> testTranslateBy [
-	| polygon |
 	polygon := GPolygon vertices: {(10 , 10) . (-10 , 10) . (-10 , -10)}.
 	polygon translateBy: 10 , 10.
-	self
-		assert: polygon vertices
-		equals: {(20 , 20) . (0 , 20) . (0 , 0)}
+	self assert: polygon vertices equals: {(20 , 20) . (0 , 20) . (0 , 0)}
 ]

@@ -111,11 +111,14 @@ GEllipse >> intersectionsWithLine: aGLine [
 	"
 
 	| h k a b m c e t a2m2 ab a2 b2 m2 k2 t2 tk sqrt abm x1 x2 y1 y2 sqrtContent |
+	
+	"If b = 0 this is a vertical line"
+	aGLine b = 0 ifTrue: [ ^ self intersectionsWithVerticalLine: aGLine ].
+	
 	h := center x.
 	k := center y.
 	a := self semiMajorAxisLength.
 	b := self semiMinorAxisLength.
-	aGLine b = 0 ifTrue: [ self flag: #todo. "Not yet supported" ^ {  } ].
 	m := aGLine a / aGLine b negated.
 	c := aGLine c / aGLine b negated.
 	e := c - k.
@@ -139,6 +142,28 @@ GEllipse >> intersectionsWithLine: aGLine [
 	y2 := (b2 * t + (k * a2m2) - (abm * sqrt)) / (a2m2 + b2).
 
 	^ {(x1 , y1) . (x2 , y2)} asSet
+]
+
+{ #category : #intersections }
+GEllipse >> intersectionsWithVerticalLine: aGLine [
+	"
+	Ellipse: ((x-h)²/a²) + ((y - k)²/b²) = 1
+	Line: x = -c/a 
+	"
+
+	| h k a2 b2 x sqrt y1 y2 tmp |
+	h := center x.
+	k := center y.
+	a2 := self semiMajorAxisLength squared.
+	b2 := self semiMinorAxisLength squared.
+	x := aGLine c negated / aGLine a.
+	tmp := (x - h) squared / a2.
+	sqrt := (b2 * (1 - tmp)) sqrt.
+
+	y1 := k + sqrt.
+	y2 := k - sqrt.
+
+	^ {(x , y1) . (x , y2)} asSet
 ]
 
 { #category : #accessing }

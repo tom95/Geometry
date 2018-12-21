@@ -1,30 +1,35 @@
 Class {
 	#name : #GEllipseTest,
 	#superclass : #TestCase,
+	#instVars : [
+		'ellipse'
+	],
 	#category : #'Geometry-Tests'
 }
 
 { #category : #tests }
 GEllipseTest >> testArea [
-	self assert: (GEllipse center: 5 , -1 vertex: 10 , -1 coVertex: 5 , 2) area =~ 47.123889
+	ellipse := GEllipse center: 5 , -1 vertex: 10 , -1 coVertex: 5 , 2.
+	self assert: ellipse area =~ 47.123889
 ]
 
 { #category : #tests }
 GEllipseTest >> testEncompassingRectangle [
-	self assert: (GEllipse center: 4 , -1 vertex: 9 , -1 coVertex: 4 , 2) encompassingRectangle equals: (-1 , 2 corner: 9 , -4)
+	ellipse := GEllipse center: 4 , -1 vertex: 9 , -1 coVertex: 4 , 2.
+	self assert: ellipse encompassingRectangle equals: (-1 , 2 corner: 9 , -4)
 ]
 
 { #category : #tests }
 GEllipseTest >> testEquals [
-	self assert: (GEllipse center: 10 , 10 vertex: 7 , 10 coVertex: 12 , 10) equals: (GEllipse center: 10 , 10 vertex: 7 , 10 coVertex: 12 , 10).
-	self assert: (GEllipse center: 10 , 10 vertex: 7 , 10 coVertex: 12 , 10) hash equals: (GEllipse center: 10 , 10 vertex: 7 , 10 coVertex: 12 , 10) hash.
-	self deny: (GEllipse center: 10 , 10 vertex: 7 , 10 coVertex: 12 , 10) = (GEllipse center: 10 , 10 vertex: 7 , 11 coVertex: 12 , 10).
-	self deny: (GEllipse center: 10 , 10 vertex: 7 , 10 coVertex: 12 , 10) hash = (GEllipse center: 10 , 10 vertex: 7 , 11 coVertex: 12 , 10) hash
+	ellipse := GEllipse center: 10 , 10 vertex: 7 , 10 coVertex: 12 , 10.
+	self assert: ellipse equals: (GEllipse center: 10 , 10 vertex: 7 , 10 coVertex: 12 , 10).
+	self assert: ellipse hash equals: (GEllipse center: 10 , 10 vertex: 7 , 10 coVertex: 12 , 10) hash.
+	self deny: ellipse = (GEllipse center: 10 , 10 vertex: 7 , 11 coVertex: 12 , 10).
+	self deny: ellipse hash = (GEllipse center: 10 , 10 vertex: 7 , 11 coVertex: 12 , 10) hash
 ]
 
 { #category : #tests }
 GEllipseTest >> testFitInExtent [
-	| ellipse |
 	ellipse :=  (GEllipse center: 10 , 10 vertex: 20, 10 coVertex: 10, 15).
 	ellipse fitInExtent: #(100 100) asGVector.
 	self assert: ellipse center equals: 10 , 10.
@@ -48,12 +53,12 @@ GEllipseTest >> testFoci [
 
 { #category : #tests }
 GEllipseTest >> testFociLocation [
-	self assert: (GEllipse center: 4 , -1 vertex: 9 , -1 coVertex: 4 , 2) fociLocation equals: 4
+	ellipse := GEllipse center: 4 , -1 vertex: 9 , -1 coVertex: 4 , 2.
+	self assert: ellipse fociLocation equals: 4
 ]
 
 { #category : #tests }
 GEllipseTest >> testIncludesPoint [
-	| ellipse |
 	ellipse := (GEllipse center: 4 , 1 vertex: 6 , 1 coVertex: 4 , 2).
 	self assert: (ellipse includesPoint: 4, 1).
 	self assert: (ellipse includesPoint: 6, 1).
@@ -66,75 +71,67 @@ GEllipseTest >> testIncludesPoint [
 
 { #category : #tests }
 GEllipseTest >> testIntersectionsWithLine [
+	| line |
+
 	"Test with an ellipse centered at the origin and a line going through the origin"
-
-	self
-		assert:
-			(((GEllipse center: 0 , 0 vertex: 0 , 3 coVertex: 2 , 0) intersectionsWithLine: (GLine a: -1 b: 1 c: 0))
-				anySatisfy: [:point | point =~ (1.6641 , 1.6641)]).
-	self
-		assert:
-			(((GEllipse center: 0 , 0 vertex: 0 , 3 coVertex: 2 , 0) intersectionsWithLine: (GLine a: -1 b: 1 c: 0))
-				anySatisfy: [:point | point =~ (-1.6641 , -1.6641)]).
-
+	ellipse := GEllipse center: 0 , 0 vertex: 0 , 3 coVertex: 2 , 0.
+	line := GLine a: -1 b: 1 c: 0.
+	self assert: ((ellipse intersectionsWithLine: line) anySatisfy: [ :point | point =~ (1.6641 , 1.6641) ]).
+	self assert: ((ellipse intersectionsWithLine: line) anySatisfy: [ :point | point =~ (-1.6641 , -1.6641) ]).
 
 	"Test with an ellipse centered at the origin and a line not going through the origin"
-	self
-		assert:
-			(((GEllipse center: 0 , 0 vertex: 0 , 3 coVertex: 2 , 0) intersectionsWithLine: (GLine a: -1 b: 1 c: -1))
-				anySatisfy: [:point | point =~ (0.9065084 , 1.9065084)]).
-	self
-		assert:
-			(((GEllipse center: 0 , 0 vertex: 0 , 3 coVertex: 2 , 0) intersectionsWithLine: (GLine a: -1 b: 1 c: -1))
-				anySatisfy: [:point | point =~ (-2.291123 , -1.291123)]).
-
+	line := GLine a: -1 b: 1 c: -1.
+	self assert: ((ellipse intersectionsWithLine: line) anySatisfy: [ :point | point =~ (0.9065084 , 1.9065084) ]).
+	self assert: ((ellipse intersectionsWithLine: line) anySatisfy: [ :point | point =~ (-2.291123 , -1.291123) ]).
 
 	"Test with an ellipse not centered at the origin and a line not going through the origin"
-	self
-		assert:
-			(((GEllipse center: 2 , 5 vertex: 2 , 9 coVertex: 5 , 5) intersectionsWithLine: (GLine a: -2 b: 1 c: -8))
-				anySatisfy: [:point | point =~ (-0.263181454 , 7.473637091)]).
-	self
-		assert:
-			(((GEllipse center: 2 , 5 vertex: 2 , 9 coVertex: 5 , 5) intersectionsWithLine: (GLine a: -2 b: 1 c: -8))
-				anySatisfy: [:point | point =~ (-1.873804847 , 4.252390306)]).
-	self
-		assert: ((GEllipse center: 2 , 5 vertex: 2 , 9 coVertex: 5 , 5) intersectionsWith: (GLine a: -2 b: 1 c: -8))
-		equals: ((GEllipse center: 2 , 5 vertex: 2 , 9 coVertex: 5 , 5) intersectionsWithLine: (GLine a: -2 b: 1 c: -8)).
-	self
-		assert: ((GLine a: -2 b: 1 c: -8) intersectionsWith: (GEllipse center: 2 , 5 vertex: 2 , 9 coVertex: 5 , 5))
-		equals: ((GEllipse center: 2 , 5 vertex: 2 , 9 coVertex: 5 , 5) intersectionsWithLine: (GLine a: -2 b: 1 c: -8))
+	ellipse := GEllipse center: 2 , 5 vertex: 2 , 9 coVertex: 5 , 5.
+	line := GLine a: -2 b: 1 c: -8.
+	self assert: ((ellipse intersectionsWithLine: line) anySatisfy: [ :point | point =~ (-0.263181454 , 7.473637091) ]).
+	self assert: ((ellipse intersectionsWithLine: line) anySatisfy: [ :point | point =~ (-1.873804847 , 4.252390306) ]).
+	self assert: (ellipse intersectionsWith: line) equals: (ellipse intersectionsWithLine: line).
+	self assert: (line intersectionsWith: ellipse) equals: (ellipse intersectionsWithLine: line)
 ]
 
 { #category : #tests }
 GEllipseTest >> testIntersectionsWithLineWithTangent [
-	self
-		assert:
-			((GEllipse center: 2 , 5 vertex: 2 , 9 coVertex: 5 , 5) intersectionsWithLine: (GLine a: -1 b: 1 c: -8)) anyOne
-				=~ (-6 / 5 , (34 / 5)).
-	self
-		assert: ((GEllipse center: 2 , 5 vertex: 2 , 9 coVertex: 5 , 5) intersectionsWithLine: (GLine a: -1 b: 1 c: -8)) size
-		equals: 1
+	| line |
+	ellipse := GEllipse center: 2 , 5 vertex: 2 , 9 coVertex: 5 , 5.
+	line := GLine a: -1 b: 1 c: -8.
+	self assert: (ellipse intersectionsWithLine: line) anyOne =~ (-6 / 5 , (34 / 5)).
+	self assert: (ellipse intersectionsWithLine: line) size equals: 1
 ]
 
 { #category : #tests }
 GEllipseTest >> testIntersectionsWithLineWithoutIntersections [
-	self assert: ((GEllipse center: 2 , 5 vertex: 2 , 9 coVertex: 5 , 5) intersectionsWithLine: (GLine a: -1 b: 1 c: -20)) isEmpty
+	ellipse := GEllipse center: 2 , 5 vertex: 2 , 9 coVertex: 5 , 5.
+	self assert: (ellipse intersectionsWithLine: (GLine a: -1 b: 1 c: -20)) isEmpty
+]
+
+{ #category : #tests }
+GEllipseTest >> testIntersectionsWithVerticalLine [
+	| line |
+	ellipse := GEllipse center: 3.5 , 2 vertex: 6 , 2 coVertex: 3.5 , 4.
+	line := GLine a: 1 b: 0 c: -2.
+	self assert: ((ellipse intersectionsWithVerticalLine: line) anySatisfy: [ :point | point =~ (2 , 0.3999999) ]).
+	self assert: ((ellipse intersectionsWithVerticalLine: line) anySatisfy: [ :point | point =~ (2 , 3.6) ]).
+	self assert: (ellipse intersectionsWithLine: line) equals: (ellipse intersectionsWithVerticalLine: line)
 ]
 
 { #category : #tests }
 GEllipseTest >> testMajorAxis [
-	self assert: (GEllipse center: 10 , 10 vertex: 7.1715 , 10 coVertex: 10 , 8) majorAxis equals: (GSegment with: 7.1715 , 10 with: 12.8285 , 10)
+	ellipse := GEllipse center: 10 , 10 vertex: 7.1715 , 10 coVertex: 10 , 8.
+	self assert: (ellipse) majorAxis equals: (GSegment with: 7.1715 , 10 with: 12.8285 , 10)
 ]
 
 { #category : #tests }
 GEllipseTest >> testMinorAxis [
-	self assert: (GEllipse center: 10 , 10 vertex: 7.1715 , 10 coVertex: 10 , 8) minorAxis equals: (GSegment with: 10 , 8 with: 10 , 12)
+	ellipse := GEllipse center: 10 , 10 vertex: 7.1715 , 10 coVertex: 10 , 8.
+	self assert: ellipse minorAxis equals: (GSegment with: 10 , 8 with: 10 , 12)
 ]
 
 { #category : #tests }
 GEllipseTest >> testTranslateBy [
-	| ellipse |
 	ellipse :=  (GEllipse center: 4 , -1 vertex: 9 , -1 coVertex: 4 , 2).
 	ellipse translateBy: { 1 . 1} asGVector.
 	self assert: ellipse center equals: 5 , 0.

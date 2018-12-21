@@ -7,9 +7,6 @@ a * (x^2) + a * (y^2) + d * x + e * y + f = 0
 Class {
 	#name : #GCircle,
 	#superclass : #GEllipse,
-	#instVars : [
-		'radius'
-	],
 	#category : #'Geometry-Shapes'
 }
 

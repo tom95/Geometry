@@ -75,16 +75,19 @@ GSegmentTest >> testIncludesPoint [
 ]
 
 { #category : #tests }
-GSegmentTest >> testIntersectionsWithRay [
-	self assert: ((GSegment with: 2 , 0 with: 2 , 3) intersectionsWithRay: (GRay origin: 0 , 0 direction: 3 , 2)) hasCloseElementsTo: {(2 , (4 / 3))}.
-	self assert: ((GSegment with: 2 , 0 with: 2 , 3) intersectionsWithRay: (GRay origin: 0 , 0 direction: 1 , 1)) hasCloseElementsTo: {(2 , 2)}.
-	self assert: ((GSegment with: 2 , 0 with: 2 , 3) intersectionsWith: (GRay origin: 0 , 0 direction: 1 , 1)) hasCloseElementsTo: {(2 , 2)}.
-	self assert: ((GSegment with: -2 , 0 with: -2 , 3) intersectionsWithRay: (GRay origin: 0 , 0 direction: 1 , 1)) isEmpty.
-	self assert: ((GSegment with: 0 , 0 with: 0 , 3) intersectionsWithRay: (GRay origin: 0 , 0 direction: 1 , 1)) hasCloseElementsTo: {(0 , 0)}
+GSegmentTest >> testIntersectionsWithLine [
+	| line |
+	line := GLine through: -5 , 1 and: -3 , 3.
+	segment := GSegment with: -7 , 2  with: -4, 3 .
+	self assert: (segment intersectionsWith: line) isEmpty.
+	
+	segment := GSegment with: -6 , 4  with: -3, 1 .
+	self assert: (segment intersectionsWith: line) hasCloseElementsTo: {(-4 , 2)}.
+	self assert: (segment intersectionsWith: line) equals: (segment intersectionsWithLine: line)
 ]
 
 { #category : #tests }
-GSegmentTest >> testIntersectionsWithSegment [
+GSegmentTest >> testIntersectionsWithPoint [
 	| point |
 	point := 2 , 4.
 	segment := GSegment with: 5 , 6 with: 7 , 102.
@@ -96,6 +99,23 @@ GSegmentTest >> testIntersectionsWithSegment [
 	segment := GSegment with: 1 , 3 with: 3 , 5.
 	self assert: (segment intersectionsWith: point) hasCloseElementsTo: {(2 , 4)}.
 	self assert: (segment intersectionsWith: point) equals: (segment intersectionsWithPoint: point)
+]
+
+{ #category : #tests }
+GSegmentTest >> testIntersectionsWithRay [
+	self assert: ((GSegment with: 2 , 0 with: 2 , 3) intersectionsWithRay: (GRay origin: 0 , 0 direction: 3 , 2)) hasCloseElementsTo: {(2 , (4 / 3))}.
+	self assert: ((GSegment with: 2 , 0 with: 2 , 3) intersectionsWithRay: (GRay origin: 0 , 0 direction: 1 , 1)) hasCloseElementsTo: {(2 , 2)}.
+	self assert: ((GSegment with: 2 , 0 with: 2 , 3) intersectionsWith: (GRay origin: 0 , 0 direction: 1 , 1)) hasCloseElementsTo: {(2 , 2)}.
+	self assert: ((GSegment with: -2 , 0 with: -2 , 3) intersectionsWithRay: (GRay origin: 0 , 0 direction: 1 , 1)) isEmpty.
+	self assert: ((GSegment with: 0 , 0 with: 0 , 3) intersectionsWithRay: (GRay origin: 0 , 0 direction: 1 , 1)) hasCloseElementsTo: {(0 , 0)}
+]
+
+{ #category : #tests }
+GSegmentTest >> testIntersectionsWithSegment [
+	self assert: ((GSegment with: -1 , -1 with: 1 , 1) intersectionsWithSegment: (GSegment with: -3 , 3 with: -1 , 1)) isEmpty.
+	self assertCollection: ((GSegment with: -1 , -1 with: 1 , 1) intersectionsWithSegment: (GSegment with: -3 , 3 with: 2 , -2)) hasSameElements: {(0 , 0)}.
+	self assertCollection: ((GSegment with: 0 , 1 with: 3 , 1) intersectionsWithSegment: (GSegment with: 0 , 3 with: 4 , -1)) hasSameElements: {(2 , 1)}.
+	self assertCollection: ((GSegment with: 0 , 1 with: 3 , 1) intersectionsWith: (GSegment with: 0 , 3 with: 4 , -1)) hasSameElements: {(2 , 1)}.
 ]
 
 { #category : #tests }

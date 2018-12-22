@@ -135,17 +135,17 @@ GPolygon >> intersectionsWith: anElement [
 
 { #category : #intersections }
 GPolygon >> intersectionsWithLine: aGLine [
-	^ self edges flatCollect: [ :segment | segment intersectionsWithLine: aGLine ]
+	^ (self edges flatCollect: [ :segment | segment intersectionsWithLine: aGLine ]) asSet
 ]
 
 { #category : #intersections }
 GPolygon >> intersectionsWithRay: ray [
-	^ self edges flatCollect: [ :edge | edge intersectionsWithRay: ray ]
+	^ (self edges flatCollect: [ :edge | edge intersectionsWithRay: ray ]) asSet
 ]
 
 { #category : #intersections }
 GPolygon >> intersectionsWithSegment: aGSegment [
-	^ self edges flatCollect: [ :edge | edge intersectionsWithSegment: aGSegment ]
+	^ (self edges flatCollect: [ :edge | edge intersectionsWithSegment: aGSegment ]) asSet
 ]
 
 { #category : #accessing }

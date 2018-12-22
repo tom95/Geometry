@@ -48,10 +48,48 @@ GLineTest >> testIncludesPoint [
 ]
 
 { #category : #tests }
+GLineTest >> testIntersectionsWithEllipse [
+	| ellipse |
+	"Test without intersection"
+	ellipse := GEllipse center: 2 , 5 vertex: 2 , 9 coVertex: 5 , 5.
+	line := (GLine a: -1 b: 1 c: -20).
+	self assert: (line intersectionsWith: ellipse) isEmpty.
+	
+	"Test with an ellipse centered at the origin and a line going through the origin"
+	ellipse := GEllipse center: 0 , 0 vertex: 0 , 3 coVertex: 2 , 0.
+	line := GLine a: -1 b: 1 c: 0.
+	self assert: (line intersectionsWith: ellipse) hasCloseElementsTo: {(1.6641 , 1.6641) . (-1.6641 , -1.6641)}.
+
+	"Test with an ellipse centered at the origin and a line not going through the origin"
+	line := GLine a: -1 b: 1 c: -1.
+	self assert: (line intersectionsWith: ellipse) hasCloseElementsTo: {(0.9065084 , 1.9065084) . (-2.291123 , -1.291123)}.
+
+	"Test with an ellipse not centered at the origin and a line not going through the origin"
+	ellipse := GEllipse center: 2 , 5 vertex: 2 , 9 coVertex: 5 , 5.
+	line := GLine a: -2 b: 1 c: -8.
+	self assert: (line intersectionsWith: ellipse) hasCloseElementsTo: {(-0.263181454 , 7.473637091) . (-1.873804847 , 4.252390306)}.
+	self assert: (line intersectionsWith: ellipse) equals: (line intersectionsWithEllipse: ellipse).
+	
+	"Test with tangent"
+	ellipse := GEllipse center: 2 , 5 vertex: 2 , 9 coVertex: 5 , 5.
+	line := GLine a: -1 b: 1 c: -8.
+	self assert: (line intersectionsWith: ellipse) hasCloseElementsTo: {(-6 / 5 , (34 / 5))}
+]
+
+{ #category : #tests }
 GLineTest >> testIntersectionsWithLine [
-	self assert: ((GLine a: 2 b: -3 c: 0.5) intersectionsWithLine: (GLine a: 1 b: 1 c: -2)) hasCloseElementsTo: {(1.1 , 0.9)}.
-	self assert: ((GLine a: 2 b: -3 c: 0.5) intersectionsWithLine: (GLine a: -2 b: -2 c: 4)) hasCloseElementsTo: {(1.1 , 0.9)}.
-	self assert: ((GLine through: 0 , 0 and: 1 , 1) intersectionsWithLine: (GLine through: 3 , 3 and: 5 , 5)) isEmpty
+	| line2 |
+	line := GLine through: 0 , 0 and: 1 , 1.
+	line2 := GLine through: 3 , 3 and: 5 , 5.
+	self assert: (line intersectionsWith: line2) isEmpty.
+
+	line := GLine a: 2 b: -3 c: 0.5.
+	line2 := GLine a: 1 b: 1 c: -2.
+	self assert: (line intersectionsWith: line2) hasCloseElementsTo: {(1.1 , 0.9)}.
+
+	line2 := GLine a: -2 b: -2 c: 4.
+	self assert: (line intersectionsWith: line2) hasCloseElementsTo: {(1.1 , 0.9)}.
+	self assert: (line intersectionsWith: line2) equals: (line intersectionsWithLine: line2)
 ]
 
 { #category : #tests }
@@ -64,6 +102,45 @@ GLineTest >> testIntersectionsWithPoint [
 	line := GLine through: 1 , 3 and: 3 , 5.
 	self assert: (line intersectionsWith: point) hasCloseElementsTo: {(2 , 4)}.
 	self assert: (line intersectionsWith: point) equals: (line intersectionsWithPoint: point)
+]
+
+{ #category : #tests }
+GLineTest >> testIntersectionsWithPolygon [
+	| polygon |
+	line := GLine through: 0 , 1 and: 5 , 6.
+	polygon := GPolygon vertices: {(3 , 3) . (6 , 4) . (6 , 1) . (3 , 2)}.
+	self assert: (line intersectionsWith: polygon) isEmpty.
+
+	polygon := GPolygon vertices: {(1 , 4) . (6 , 4) . (6 , 1) . (3 , 2)}.
+	self assert: (line intersectionsWith: polygon) hasCloseElementsTo: {(3 , 4) . (2 , 3)}.
+	self assert: (line intersectionsWith: polygon) equals: (line intersectionsWithPolygon: polygon).
+
+	polygon := GPolygon vertices: {(2 , 3) . (6 , 4) . (6 , 1) . (3 , 2)}.
+	self assert: (line intersectionsWith: polygon) hasCloseElementsTo: {(2 , 3)}
+]
+
+{ #category : #tests }
+GLineTest >> testIntersectionsWithRay [
+	| ray |
+	line := GLine through: -5 , 1 and: -3 , 3.	
+	ray := GRay origin: -5 , 3  direction: -7, 5 .
+	self assert: (line intersectionsWith: ray) isEmpty.
+	
+	ray := GRay origin: -7 , 5  direction: -5, 3 .
+	self assert: (line intersectionsWith: ray) hasCloseElementsTo: {(-4 , 2)}.
+	self assert: (line intersectionsWith: ray) equals: (line intersectionsWithRay: ray)
+]
+
+{ #category : #tests }
+GLineTest >> testIntersectionsWithSegment [
+	| segment |
+	line := GLine through: -5 , 1 and: -3 , 3.
+	segment := GSegment with: -7 , 2  with: -4, 3 .
+	self assert: (line intersectionsWith: segment) isEmpty.
+	
+	segment := GSegment with: -6 , 4  with: -3, 1 .
+	self assert: (line intersectionsWith: segment) hasCloseElementsTo: {(-4 , 2)}.
+	self assert: (line intersectionsWith: segment) equals: (line intersectionsWithSegment: segment)
 ]
 
 { #category : #tests }

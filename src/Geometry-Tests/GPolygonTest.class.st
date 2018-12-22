@@ -128,6 +128,21 @@ GPolygonTest >> testIncludesPoint [
 ]
 
 { #category : #tests }
+GPolygonTest >> testIntersectionsWithLine [
+	| line |
+	line := GLine through: 0 , 1 and: 5 , 6.
+	polygon := GPolygon vertices: {(3 , 3) . (6 , 4) . (6 , 1) . (3 , 2)}.
+	self assert: (polygon intersectionsWith: line) isEmpty.
+
+	polygon := GPolygon vertices: {(1 , 4) . (6 , 4) . (6 , 1) . (3 , 2)}.
+	self assert: (polygon intersectionsWith: line) hasCloseElementsTo: {(3 , 4) . (2 , 3)}.
+	self assert: (polygon intersectionsWith: line) equals: (polygon intersectionsWithLine: line).
+
+	polygon := GPolygon vertices: {(2 , 3) . (6 , 4) . (6 , 1) . (3 , 2)}.
+	self assert: (polygon intersectionsWith: line) hasCloseElementsTo: {(2 , 3)}
+]
+
+{ #category : #tests }
 GPolygonTest >> testIntersectionsWithPolygon [
 	| point |
 	point := 2 , 4.

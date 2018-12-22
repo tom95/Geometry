@@ -1,6 +1,6 @@
 Class {
 	#name : #GPointTest,
-	#superclass : #TestCase,
+	#superclass : #GTestCase,
 	#instVars : [
 		'point'
 	],
@@ -75,12 +75,11 @@ GPointTest >> testIncludesPoint [
 GPointTest >> testIntersectionsWithEllipse [
 	| ellipse |
 	point := 2 , 4.
-	ellipse := GEllipse center: 1, 3 vertex: 5, 6  coVertex: 3, 4 .
+	ellipse := GEllipse center: 1 , 3 vertex: 5 , 6 coVertex: 3 , 4.
 	self assert: (point intersectionsWith: ellipse) isEmpty.
-	
-	ellipse := GEllipse center: 2, 1 vertex: 5 , 1 coVertex: 2, 4.
-	self assert: (point intersectionsWith: ellipse) anyOne equals: 2 , 4.
-	self assert: (point intersectionsWith: ellipse) size equals: 1.
+
+	ellipse := GEllipse center: 2 , 1 vertex: 5 , 1 coVertex: 2 , 4.
+	self assert: (point intersectionsWith: ellipse) hasCloseElementsTo: {(2 , 4)}.
 	self assert: (point intersectionsWith: ellipse) equals: (point intersectionsWithEllipse: ellipse)
 ]
 
@@ -92,8 +91,7 @@ GPointTest >> testIntersectionsWithLine [
 	self assert: (point intersectionsWith: line) isEmpty.
 
 	line := GLine through: 1 , 3 and: 3 , 5.
-	self assert: (point intersectionsWith: line) anyOne equals: 2 , 4.
-	self assert: (point intersectionsWith: line) size equals: 1.
+	self assert: (point intersectionsWith: line) hasCloseElementsTo: {(2 , 4)}.
 	self assert: (point intersectionsWith: line) equals: (point intersectionsWithLine: line)
 ]
 
@@ -101,8 +99,7 @@ GPointTest >> testIntersectionsWithLine [
 GPointTest >> testIntersectionsWithPoint [
 	point := 2 , 4.
 	self assert: (point intersectionsWith: 3 , 4) isEmpty.
-	self assert: (point intersectionsWith: 2 , 4) anyOne equals: 2 , 4.
-	self assert: (point intersectionsWith: 2 , 4) size equals: 1.
+	self assert: (point intersectionsWith: 2 , 4) hasCloseElementsTo: {(2 , 4)}.
 	self assert: (point intersectionsWith: 2 , 4) equals: (point intersectionsWithPoint: 2 , 4)
 ]
 
@@ -114,8 +111,7 @@ GPointTest >> testIntersectionsWithPolygon [
 	self assert: (point intersectionsWith: polygon) isEmpty.
 
 	polygon := GPolygon vertices: {(1 , 4) . (6 , 4) . (6 , 1) . (3 , 2)}.
-	self assert: (point intersectionsWith: polygon) anyOne equals: 2 , 4.
-	self assert: (point intersectionsWith: polygon) size equals: 1.
+	self assert: (point intersectionsWith: polygon) hasCloseElementsTo: {(2 , 4)}.
 	self assert: (point intersectionsWith: polygon) equals: (point intersectionsWithPolygon: polygon)
 ]
 
@@ -125,16 +121,15 @@ GPointTest >> testIntersectionsWithRay [
 	point := 2 , 4.
 	ray := GRay origin: 5 , 6 direction: 7 , 102.
 	self assert: (point intersectionsWith: ray) isEmpty.
-	
+
 	ray := GRay origin: 1 , 3 direction: 0 , 2.
 	self assert: (point intersectionsWith: ray) isEmpty.
-	
+
 	ray := GRay origin: 0 , 2 direction: 1 , 3.
-	self assert: (point intersectionsWith: ray) anyOne equals: 2 , 4.
+	self assert: (point intersectionsWith: ray) hasCloseElementsTo: {(2 , 4)}.
 
 	ray := GRay origin: 1 , 3 direction: 3 , 5.
-	self assert: (point intersectionsWith: ray) anyOne equals: 2 , 4.
-	self assert: (point intersectionsWith: ray) size equals: 1.
+	self assert: (point intersectionsWith: ray) hasCloseElementsTo: {(2 , 4)}.
 	self assert: (point intersectionsWith: ray) equals: (point intersectionsWithRay: ray)
 ]
 
@@ -144,13 +139,12 @@ GPointTest >> testIntersectionsWithSegment [
 	point := 2 , 4.
 	segment := GSegment with: 5 , 6 with: 7 , 102.
 	self assert: (point intersectionsWith: segment) isEmpty.
-	
+
 	segment := GSegment with: 1 , 3 with: 0 , 2.
 	self assert: (point intersectionsWith: segment) isEmpty.
 
 	segment := GSegment with: 1 , 3 with: 3 , 5.
-	self assert: (point intersectionsWith: segment) anyOne equals: 2 , 4.
-	self assert: (point intersectionsWith: segment) size equals: 1.
+	self assert: (point intersectionsWith: segment) hasCloseElementsTo: {(2 , 4)}.
 	self assert: (point intersectionsWith: segment) equals: (point intersectionsWithSegment: segment)
 ]
 

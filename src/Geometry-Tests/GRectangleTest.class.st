@@ -1,6 +1,6 @@
 Class {
 	#name : #GRectangleTest,
-	#superclass : #TestCase,
+	#superclass : #GTestCase,
 	#instVars : [
 		'rectangle'
 	],
@@ -103,18 +103,12 @@ GRectangleTest >> testIncludesPoint [
 GRectangleTest >> testIntersectionsWithLine [
 	| intersections |
 	intersections := (GRectangle origin: 1 , 3 corner: 3 , 0) intersectionsWithLine: (GSegment with: 0 , 3 with: 4 , 1) asLine.
-	self assert: (intersections anySatisfy: [ :e | e =~ (1 , (5 / 2)) ]).
-	self assert: (intersections anySatisfy: [ :e | e =~ (3 , (3 / 2)) ]).
-
-	intersections := (GRectangle origin: -60 , -80 corner: 80 , 60)
-		intersectionsWithLine: (GSegment with: 174.8683298050514 , -174.86832980505142 with: -14.868329805051376 , 14.868329805051385) asLine.
-	self assert: (intersections anySatisfy: [ :e | e =~ (-60 , 60) ]).
-	self assert: (intersections anySatisfy: [ :e | e =~ (80 , -80) ])
+	self assert: intersections hasCloseElementsTo: {(1 , (5 / 2)) . (3 , (3 / 2))}
 ]
 
 { #category : #tests }
 GRectangleTest >> testIntersectionsWithRay [
-	self assertCollection: ((GRectangle origin: 1 , 3 corner: 3 , 0) intersectionsWithRay: (GRay origin: 2 , 1 direction: 4 , 1)) hasSameElements: {(3 , 1)}
+	self assert: ((GRectangle origin: 1 , 3 corner: 3 , 0) intersectionsWithRay: (GRay origin: 2 , 1 direction: 4 , 1)) hasCloseElementsTo: {(3 , 1)}
 ]
 
 { #category : #tests }

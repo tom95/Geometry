@@ -1,6 +1,6 @@
 Class {
 	#name : #GPolygonTest,
-	#superclass : #TestCase,
+	#superclass : #GTestCase,
 	#instVars : [
 		'polygon'
 	],
@@ -135,8 +135,7 @@ GPolygonTest >> testIntersectionsWithPolygon [
 	self assert: (polygon intersectionsWith: point) isEmpty.
 
 	polygon := GPolygon vertices: {(1 , 4) . (6 , 4) . (6 , 1) . (3 , 2)}.
-	self assert: (polygon intersectionsWith: point) anyOne equals: 2 , 4.
-	self assert: (polygon intersectionsWith: point) size equals: 1.
+	self assert: (polygon intersectionsWith: point) hasCloseElementsTo: {(2 , 4)}.
 	self assert: (polygon intersectionsWith: point) equals: (polygon intersectionsWithPoint: point)
 ]
 
@@ -145,15 +144,15 @@ GPolygonTest >> testScaleBy [
 	polygon := GPolygon vertices: {(10 , 4) . (-4 , 10) . (-10 , -8)}.
 	polygon scaleBy: 1.
 	self assert: polygon vertices equals: {(10 , 4) . (-4 , 10) . (-10 , -8)}.
-	
+
 	polygon := GPolygon vertices: {(5 , 2) . (-2 , 5) . (-5 , -5)}.
 	polygon scaleBy: 2.
 	self assert: polygon vertices equals: {(10 , 4) . (-4 , 10) . (-10 , -10)}.
-	
+
 	polygon := GPolygon vertices: {(10 , 4) . (-4 , 10) . (-10 , -10)}.
 	polygon scaleBy: 1 / 2.
 	self assert: polygon vertices equals: {(5 , 2) . (-2 , 5) . (-5 , -5)}.
-	
+
 	self should: [ polygon scaleBy: 0 ] raise: GError
 ]
 

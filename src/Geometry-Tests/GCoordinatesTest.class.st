@@ -1,6 +1,6 @@
 Class {
 	#name : #GCoordinatesTest,
-	#superclass : #TestCase,
+	#superclass : #GTestCase,
 	#instVars : [
 		'coordinates'
 	],

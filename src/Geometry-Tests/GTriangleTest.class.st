@@ -1,6 +1,6 @@
 Class {
 	#name : #GTriangleTest,
-	#superclass : #TestCase,
+	#superclass : #GTestCase,
 	#category : #'Geometry-Tests'
 }
 

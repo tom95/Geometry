@@ -1,6 +1,6 @@
 Class {
 	#name : #GSegmentTest,
-	#superclass : #TestCase,
+	#superclass : #GTestCase,
 	#instVars : [
 		'segment'
 	],
@@ -76,11 +76,11 @@ GSegmentTest >> testIncludesPoint [
 
 { #category : #tests }
 GSegmentTest >> testIntersectionsWithRay [
-	self assert: ((GSegment with: 2 , 0 with: 2 , 3) intersectionsWithRay: (GRay origin: 0 , 0 direction: 3 , 2)) anyOne equals: 2 , (4 / 3).
-	self assert: ((GSegment with: 2 , 0 with: 2 , 3) intersectionsWithRay: (GRay origin: 0 , 0 direction: 1 , 1)) anyOne equals: 2 , 2.
-	self assert: ((GSegment with: 2 , 0 with: 2 , 3) intersectionsWith: (GRay origin: 0 , 0 direction: 1 , 1)) anyOne equals: 2 , 2.
+	self assert: ((GSegment with: 2 , 0 with: 2 , 3) intersectionsWithRay: (GRay origin: 0 , 0 direction: 3 , 2)) hasCloseElementsTo: {(2 , (4 / 3))}.
+	self assert: ((GSegment with: 2 , 0 with: 2 , 3) intersectionsWithRay: (GRay origin: 0 , 0 direction: 1 , 1)) hasCloseElementsTo: {(2 , 2)}.
+	self assert: ((GSegment with: 2 , 0 with: 2 , 3) intersectionsWith: (GRay origin: 0 , 0 direction: 1 , 1)) hasCloseElementsTo: {(2 , 2)}.
 	self assert: ((GSegment with: -2 , 0 with: -2 , 3) intersectionsWithRay: (GRay origin: 0 , 0 direction: 1 , 1)) isEmpty.
-	self assert: ((GSegment with: 0 , 0 with: 0 , 3) intersectionsWithRay: (GRay origin: 0 , 0 direction: 1 , 1)) anyOne equals: 0 , 0
+	self assert: ((GSegment with: 0 , 0 with: 0 , 3) intersectionsWithRay: (GRay origin: 0 , 0 direction: 1 , 1)) hasCloseElementsTo: {(0 , 0)}
 ]
 
 { #category : #tests }
@@ -89,13 +89,12 @@ GSegmentTest >> testIntersectionsWithSegment [
 	point := 2 , 4.
 	segment := GSegment with: 5 , 6 with: 7 , 102.
 	self assert: (segment intersectionsWith: point) isEmpty.
-	
+
 	segment := GSegment with: 1 , 3 with: 0 , 2.
 	self assert: (segment intersectionsWith: point) isEmpty.
 
 	segment := GSegment with: 1 , 3 with: 3 , 5.
-	self assert: (segment intersectionsWith: point) anyOne equals: 2 , 4.
-	self assert: (segment intersectionsWith: point) size equals: 1.
+	self assert: (segment intersectionsWith: point) hasCloseElementsTo: {(2 , 4)}.
 	self assert: (segment intersectionsWith: point) equals: (segment intersectionsWithPoint: point)
 ]
 

@@ -1,6 +1,6 @@
 Class {
 	#name : #GRayTest,
-	#superclass : #TestCase,
+	#superclass : #GTestCase,
 	#instVars : [
 		'ray'
 	],
@@ -50,15 +50,14 @@ GRayTest >> testIntersectionsWithRay [
 	point := 2 , 4.
 	ray := GRay origin: 5 , 6 direction: 7 , 102.
 	self assert: (ray intersectionsWith: point) isEmpty.
-	
+
 	ray := GRay origin: 1 , 3 direction: 0 , 2.
 	self assert: (ray intersectionsWith: point) isEmpty.
-	
+
 	ray := GRay origin: 0 , 2 direction: 1 , 3.
-	self assert: (ray intersectionsWith: point) anyOne equals: 2 , 4.
+	self assert: (ray intersectionsWith: point) hasCloseElementsTo: {(2 , 4)}.
 
 	ray := GRay origin: 1 , 3 direction: 3 , 5.
-	self assert: (ray intersectionsWith: point) anyOne equals: 2 , 4.
-	self assert: (ray intersectionsWith: point) size equals: 1.
+	self assert: (ray intersectionsWith: point) hasCloseElementsTo: {(2 , 4)}.
 	self assert: (ray intersectionsWith: point) equals: (ray intersectionsWithPoint: point)
 ]

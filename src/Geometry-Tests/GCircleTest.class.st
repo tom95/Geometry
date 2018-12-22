@@ -1,6 +1,6 @@
 Class {
 	#name : #GCircleTest,
-	#superclass : #TestCase,
+	#superclass : #GTestCase,
 	#category : #'Geometry-Tests'
 }
 

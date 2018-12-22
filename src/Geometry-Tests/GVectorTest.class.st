@@ -1,6 +1,6 @@
 Class {
 	#name : #GVectorTest,
-	#superclass : #TestCase,
+	#superclass : #GTestCase,
 	#instVars : [
 		'vector'
 	],

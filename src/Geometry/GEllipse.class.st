@@ -152,6 +152,11 @@ GEllipse >> intersectionsWithLine: aGLine [
 ]
 
 { #category : #intersections }
+GEllipse >> intersectionsWithSegment: aGSegment [ 
+	^ aGSegment intersectionsWithEllipse: self
+]
+
+{ #category : #intersections }
 GEllipse >> intersectionsWithVerticalLine: aGLine [
 	"
 	Ellipse: ((x-h)²/a²) + ((y - k)²/b²) = 1

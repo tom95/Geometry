@@ -57,7 +57,7 @@ GRayTest >> testIntersectionsWithLine [
 ]
 
 { #category : #tests }
-GRayTest >> testIntersectionsWithRay [
+GRayTest >> testIntersectionsWithPoint [
 	| point |
 	point := 2 , 4.
 	ray := GRay origin: 5 , 6 direction: 7 , 102.
@@ -72,4 +72,19 @@ GRayTest >> testIntersectionsWithRay [
 	ray := GRay origin: 1 , 3 direction: 3 , 5.
 	self assert: (ray intersectionsWith: point) hasCloseElementsTo: {(2 , 4)}.
 	self assert: (ray intersectionsWith: point) equals: (ray intersectionsWithPoint: point)
+]
+
+{ #category : #tests }
+GRayTest >> testIntersectionsWithSegment [
+	| segment |
+	segment := GSegment with: -2 , 0 with: -2 , 3.
+	ray := GRay origin: 0 , 0 direction: 1 , 1.
+	self assert: (ray intersectionsWith: segment) isEmpty.
+
+	segment := GSegment with: 2 , 0 with: 2 , 3.
+	self assert: (ray intersectionsWith: segment) hasCloseElementsTo: {(2 , 2)}.
+	self assert: (ray intersectionsWith: segment) equals: (ray intersectionsWithSegment: segment).
+
+	ray := GRay origin: 1 , 1 direction: 0 , 0.
+	self assert: (ray intersectionsWith: segment) isEmpty
 ]

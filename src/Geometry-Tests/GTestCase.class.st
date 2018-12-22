@@ -19,7 +19,7 @@ GTestCase >> assert: aCollection hasCloseElementsTo: anotherCollection [
 	"Assertion pass if the collections have the same elements using the =~ comparaison operator."
 
 	self
-		assert: [ aCollection size = anotherCollection size and: [ aCollection allSatisfy: [ :each | anotherCollection anySatisfy: [ :expected | expected =~ each ] ] ] ]
+		assert: (aCollection size = anotherCollection size and: [ aCollection allSatisfy: [ :each | anotherCollection anySatisfy: [ :expected | expected =~ each ] ] ])
 		description:
 			(String
 				streamContents: [ :stream | 

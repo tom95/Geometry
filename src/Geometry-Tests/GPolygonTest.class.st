@@ -143,7 +143,7 @@ GPolygonTest >> testIntersectionsWithLine [
 ]
 
 { #category : #tests }
-GPolygonTest >> testIntersectionsWithPolygon [
+GPolygonTest >> testIntersectionsWithPoint [
 	| point |
 	point := 2 , 4.
 	polygon := GPolygon vertices: {(1 , 5) . (6 , 4) . (6 , 1) . (3 , 2)}.
@@ -152,6 +152,21 @@ GPolygonTest >> testIntersectionsWithPolygon [
 	polygon := GPolygon vertices: {(1 , 4) . (6 , 4) . (6 , 1) . (3 , 2)}.
 	self assert: (polygon intersectionsWith: point) hasCloseElementsTo: {(2 , 4)}.
 	self assert: (polygon intersectionsWith: point) equals: (polygon intersectionsWithPoint: point)
+]
+
+{ #category : #tests }
+GPolygonTest >> testIntersectionsWithSegment [
+	| segment |
+	segment := GSegment with: 0 , -1 with: 0 , 4.
+	polygon := GPolygon vertices: {(1 , 4) . (6 , 4) . (6 , 1) . (3 , 2)}.
+	self assert: (polygon intersectionsWith: segment) isEmpty.
+
+	segment := GSegment with: 0 , -1 with: 1 , 3.
+	self assert: (polygon intersectionsWith: segment) isEmpty.
+
+	segment := GSegment with: 0 , 1 with: 5 , 6.
+	self assert: (polygon intersectionsWith: segment) hasCloseElementsTo: {(2 , 3) . (3 , 4)}.
+	self assert: (polygon intersectionsWith: segment) equals: (polygon intersectionsWithSegment: segment)
 ]
 
 { #category : #tests }

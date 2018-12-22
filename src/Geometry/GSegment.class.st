@@ -69,6 +69,11 @@ GSegment >> intersectionsWithLine: aLine [
 ]
 
 { #category : #intersections }
+GSegment >> intersectionsWithPolygon: aGPolygon [ 
+	^ aGPolygon intersectionsWithSegment: self
+]
+
+{ #category : #intersections }
 GSegment >> intersectionsWithRay: ray [
 	^ (self asLine intersectionsWithLine: ray asLine) select: [ :point | (self includesPoint: point) and: [ ray includesPoint: point ] ]
 ]

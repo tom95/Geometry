@@ -120,6 +120,21 @@ GEllipseTest >> testIntersectionsWithPoint [
 ]
 
 { #category : #tests }
+GEllipseTest >> testIntersectionsWithSegment [
+	| segment |
+	segment := GSegment with: 0 , -1 with: 1 , 4.
+	ellipse := GEllipse center: 3.5 , 2 vertex: 6 , 2 coVertex: 3.5 , 4.
+	self assert: (ellipse intersectionsWith: segment) isEmpty.
+
+	segment := GSegment with: 0 , 1 with: 2 , 3.
+	self assert: (ellipse intersectionsWith: segment) hasCloseElementsTo: {(1 , 2)}.
+
+	segment := GSegment with: 0 , 1 with: 5 , 6.
+	self assert: (ellipse intersectionsWith: segment) hasCloseElementsTo: {(1 , 2) . (2.951219 , 3.951219)}.
+	self assert: (ellipse intersectionsWith: segment) equals: (ellipse intersectionsWithSegment: segment)
+]
+
+{ #category : #tests }
 GEllipseTest >> testIntersectionsWithVerticalLine [
 	| line |
 	ellipse := GEllipse center: 3.5 , 2 vertex: 6 , 2 coVertex: 3.5 , 4.

@@ -143,16 +143,6 @@ GPolygon >> intersectionsWithLine: aGLine [
 	^ aGLine intersectionsWithPolygon: self
 ]
 
-{ #category : #intersections }
-GPolygon >> intersectionsWithRay: aGRay [
-	^ aGRay intersectionsWithPolygon: self
-]
-
-{ #category : #intersections }
-GPolygon >> intersectionsWithSegment: aGSegment [
-	^ aGSegment intersectionsWithPolygon: self
-]
-
 { #category : #accessing }
 GPolygon >> perimeter [
 	^ self edges sum: #length

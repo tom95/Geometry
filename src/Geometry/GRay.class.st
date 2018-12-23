@@ -109,16 +109,6 @@ GRay >> intersectionsWithLine: aGLine [
 	^ aGLine intersectionsWithRay: self
 ]
 
-{ #category : #intersections }
-GRay >> intersectionsWithRay: aGRay [ 
-	^ (self asLine intersectionsWithRay: aGRay asLine) select: [ :each | self includesPoint: each ]
-]
-
-{ #category : #intersections }
-GRay >> intersectionsWithSegment: aGSegment [ 
-	^ aGSegment intersectionsWithRay: self
-]
-
 { #category : #accessing }
 GRay >> length [
 	"A ray is not finite."

@@ -56,18 +56,12 @@ GElement >> intersectionsWithPolygon: aGPolygon [
 
 { #category : #intersections }
 GElement >> intersectionsWithRay: aGRay [
-	"I should return the intersection points between me and a ray"
-
-	self flag: #todo. "I think we can have a generic solution by getting the intersections with the line going through the two points of the element then selectiong tne points that are on the element."
-	^ self subclassResponsibility
+	^ (aGRay asLine intersectionsWith: self) select: [ :point | aGRay includesPoint: point ]
 ]
 
 { #category : #intersections }
 GElement >> intersectionsWithSegment: aGSegment [
-	"I should return the intersection points between me and a segment"
-	
-	self flag: #todo. "I think we can have a generic solution by getting the intersections with the line going through the two points of the element then selectiong tne points that are on the element."
-	^ self subclassResponsibility
+	^ (aGSegment asLine intersectionsWith: self) select: [ :point | aGSegment includesPoint: point ]
 ]
 
 { #category : #transforming }

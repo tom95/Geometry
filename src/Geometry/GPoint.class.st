@@ -166,16 +166,6 @@ GPoint >> intersectionsWithLine: aGLine [
 	^ aGLine intersectionsWithPoint: self
 ]
 
-{ #category : #intersections }
-GPoint >> intersectionsWithRay: aGRay [ 
-	^ aGRay intersectionsWithPoint: self
-]
-
-{ #category : #intersections }
-GPoint >> intersectionsWithSegment: aGSegment [
-	^ aGSegment intersectionsWithPoint: self
-]
-
 { #category : #accessing }
 GPoint >> segment: aPoint [ 
 	^ GSegment with: self with: aPoint 

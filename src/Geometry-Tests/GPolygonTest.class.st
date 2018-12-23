@@ -155,6 +155,21 @@ GPolygonTest >> testIntersectionsWithPoint [
 ]
 
 { #category : #tests }
+GPolygonTest >> testIntersectionsWithRay [
+	| ray |
+	ray := GRay origin: 0 , -1 direction: 0 , 4.
+	polygon := GPolygon vertices: {(1 , 4) . (6 , 4) . (6 , 1) . (3 , 2)}.
+	self assert: (polygon intersectionsWith: ray) isEmpty.
+
+	ray := GRay origin: 1 , 3 direction: 0 , -1.
+	self assert: (polygon intersectionsWith: ray) isEmpty.
+
+	ray := GRay origin: 0 , 1 direction: 5 , 6.
+	self assert: (polygon intersectionsWith: ray) hasCloseElementsTo: {(2 , 3) . (3 , 4)}.
+	self assert: (polygon intersectionsWith: ray) equals: (polygon intersectionsWithRay: ray)
+]
+
+{ #category : #tests }
 GPolygonTest >> testIntersectionsWithSegment [
 	| segment |
 	segment := GSegment with: 0 , -1 with: 0 , 4.

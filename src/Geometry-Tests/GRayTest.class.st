@@ -45,6 +45,21 @@ GRayTest >> testIncludesPoint [
 ]
 
 { #category : #tests }
+GRayTest >> testIntersectionsWithEllipse [
+	| ellipse |
+	ray := GRay origin: 0 , -1 direction: 1 , 4.
+	ellipse := GEllipse center: 3.5 , 2 vertex: 6 , 2 coVertex: 3.5 , 4.
+	self assert: (ray intersectionsWith: ellipse) isEmpty.
+
+	ray := GRay origin: 2 , 3 direction: 0 , 1.
+	self assert: (ray intersectionsWith: ellipse) hasCloseElementsTo: {(1 , 2)}.
+
+	ray := GRay origin: 0 , 1 direction: 5 , 6.
+	self assert: (ray intersectionsWith: ellipse) hasCloseElementsTo: {(1 , 2) . (2.951219 , 3.951219)}.
+	self assert: (ray intersectionsWith: ellipse) equals: (ray intersectionsWithEllipse: ellipse)
+]
+
+{ #category : #tests }
 GRayTest >> testIntersectionsWithLine [
 	| line |
 	line := GLine through: -5 , 1 and: -3 , 3.	
@@ -72,6 +87,36 @@ GRayTest >> testIntersectionsWithPoint [
 	ray := GRay origin: 1 , 3 direction: 3 , 5.
 	self assert: (ray intersectionsWith: point) hasCloseElementsTo: {(2 , 4)}.
 	self assert: (ray intersectionsWith: point) equals: (ray intersectionsWithPoint: point)
+]
+
+{ #category : #tests }
+GRayTest >> testIntersectionsWithPolygon [
+	| polygon |
+	ray := GRay origin: 0 , -1 direction: 0 , 4.
+	polygon := GPolygon vertices: {(1 , 4) . (6 , 4) . (6 , 1) . (3 , 2)}.
+	self assert: (ray intersectionsWith: polygon) isEmpty.
+
+	ray := GRay origin: 1 , 3 direction: 0 , -1.
+	self assert: (ray intersectionsWith: polygon) isEmpty.
+
+	ray := GRay origin: 0 , 1 direction: 5 , 6.
+	self assert: (ray intersectionsWith: polygon) hasCloseElementsTo: {(2 , 3) . (3 , 4)}.
+	self assert: (ray intersectionsWith: polygon) equals: (ray intersectionsWithPolygon: polygon)
+]
+
+{ #category : #tests }
+GRayTest >> testIntersectionsWithRay [
+	| ray2 |
+	ray2 := GRay origin: -2 , 0 direction: -2 , 3.
+	ray := GRay origin: 0 , 0 direction: 1 , 1.
+	self assert: (ray2 intersectionsWithRay: ray) isEmpty.
+
+	ray2 := GRay origin: 2 , 3 direction: 2 , 0.
+	self assert: (ray2 intersectionsWith: ray) hasCloseElementsTo: {(2 , 2)}.
+	self assert: (ray2 intersectionsWith: ray) equals: (ray2 intersectionsWithRay: ray).
+
+	ray := GRay origin: 1 , 1 direction: 0 , 0.
+	self assert: (ray2 intersectionsWith: ray) isEmpty
 ]
 
 { #category : #tests }

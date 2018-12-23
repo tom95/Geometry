@@ -120,6 +120,21 @@ GEllipseTest >> testIntersectionsWithPoint [
 ]
 
 { #category : #tests }
+GEllipseTest >> testIntersectionsWithRay [
+	| ray |
+	ray := GRay origin: 0 , -1 direction: 1 , 4.
+	ellipse := GEllipse center: 3.5 , 2 vertex: 6 , 2 coVertex: 3.5 , 4.
+	self assert: (ellipse intersectionsWith: ray) isEmpty.
+
+	ray := GRay origin: 2 , 3 direction: 0 , 1.
+	self assert: (ellipse intersectionsWith: ray) hasCloseElementsTo: {(1 , 2)}.
+
+	ray := GRay origin: 0 , 1 direction: 5 , 6.
+	self assert: (ellipse intersectionsWith: ray) hasCloseElementsTo: {(1 , 2) . (2.951219 , 3.951219)}.
+	self assert: (ellipse intersectionsWith: ray) equals: (ellipse intersectionsWithRay: ray)
+]
+
+{ #category : #tests }
 GEllipseTest >> testIntersectionsWithSegment [
 	| segment |
 	segment := GSegment with: 0 , -1 with: 1 , 4.

@@ -3,7 +3,7 @@ I am a segment between two vertices
 "
 Class {
 	#name : #GSegment,
-	#superclass : #GElement,
+	#superclass : #G1DElement,
 	#instVars : [
 		'v1',
 		'v2'

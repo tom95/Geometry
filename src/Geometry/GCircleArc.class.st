@@ -3,7 +3,7 @@ I represent a circle arc described by the underlying GCircle and the start and e
 "
 Class {
 	#name : #GCircleArc,
-	#superclass : #GElement,
+	#superclass : #G1DElement,
 	#instVars : [
 		'circle',
 		'startAngle',

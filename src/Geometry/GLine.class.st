@@ -6,7 +6,7 @@ ax+by+c=0
 "
 Class {
 	#name : #GLine,
-	#superclass : #GElement,
+	#superclass : #G1DElement,
 	#instVars : [
 		'a',
 		'b',
@@ -141,6 +141,11 @@ GLine >> intersectionsWithEllipse: aGEllipse [
 { #category : #intersections }
 GLine >> intersectionsWithLine: aGLine [
 	^ (self intersectionWithLine: aGLine) ifNil: [ #() ] ifNotNil: [ :point | { point } ]
+]
+
+{ #category : #accessing }
+GLine >> length [
+	^ Float infinity
 ]
 
 { #category : #properties }

@@ -21,7 +21,7 @@ Internal Representation and Key Implementation Points.
 "
 Class {
 	#name : #GRay,
-	#superclass : #GElement,
+	#superclass : #G1DElement,
 	#instVars : [
 		'initialPoint',
 		'directionPoint'

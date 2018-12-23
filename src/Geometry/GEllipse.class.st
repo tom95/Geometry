@@ -79,7 +79,7 @@ GEllipse >> fitInExtent: extent [
 
 { #category : #accessing }
 GEllipse >> foci [
-	^ self majorAxis asLine intersectionsWith: (GCircle center: center radius: self fociLocation)
+	^ self majorAxis asGLine intersectionsWith: (GCircle center: center radius: self fociLocation)
 ]
 
 { #category : #accessing }

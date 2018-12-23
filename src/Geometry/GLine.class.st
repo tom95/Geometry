@@ -60,7 +60,7 @@ GLine >> a: anObject [
 ]
 
 { #category : #converting }
-GLine >> asLine [
+GLine >> asGLine [
 	^ self 
 ]
 

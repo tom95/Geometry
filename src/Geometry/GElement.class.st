@@ -85,12 +85,12 @@ GElement >> intersectionsWithPolygon: aGPolygon [
 
 { #category : #intersections }
 GElement >> intersectionsWithRay: aGRay [
-	^ (aGRay asLine intersectionsWith: self) select: [ :point | aGRay includes: point ]
+	^ (aGRay asGLine intersectionsWith: self) select: [ :point | aGRay includes: point ]
 ]
 
 { #category : #intersections }
 GElement >> intersectionsWithSegment: aGSegment [
-	^ (aGSegment asLine intersectionsWith: self) select: [ :point | aGSegment includes: point ]
+	^ (aGSegment asGLine intersectionsWith: self) select: [ :point | aGSegment includes: point ]
 ]
 
 { #category : #transforming }

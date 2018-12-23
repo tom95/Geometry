@@ -51,13 +51,8 @@ GRay >> angleInRadiansWith: aGRay [
 ]
 
 { #category : #converting }
-GRay >> asLine [
+GRay >> asGLine [
 	^ GLine through: self initialPoint and: self directionPoint
-]
-
-{ #category : #converting }
-GRay >> asSegment [
-	^ GSegment with: initialPoint with: directionPoint
 ]
 
 { #category : #accessing }

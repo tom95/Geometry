@@ -10,17 +10,17 @@ Class {
 { #category : #tests }
 GSegmentTest >> testAsLine [
 	| line |
-	line := (GSegment with: 1 , 3 with: 3 , 0) asLine.
+	line := (GSegment with: 1 , 3 with: 3 , 0) asGLine.
 	self assert: line a equals: 3.
 	self assert: line b equals: 2.
 	self assert: line c equals: -9.
 	
-	line := (GSegment with: -2 , 4 with: 2 , 4) asLine.
+	line := (GSegment with: -2 , 4 with: 2 , 4) asGLine.
 	self assert: line a equals: 0.
 	self assert: line b equals: 1.
 	self assert: line c equals: -4.
 	
-	line := (GSegment with: 1 , 3 with: 1 , 0) asLine.
+	line := (GSegment with: 1 , 3 with: 1 , 0) asGLine.
 	self assert: line a equals: 1.
 	self assert: line b equals: 0.
 	self assert: line c equals: -1
@@ -47,15 +47,15 @@ GSegmentTest >> testEquals [
 	self flag: #pharo6. "Use #deny:equals: when Pharo 7 will be the minimum requirement"
 	segm1 := GSegment with: 1 , 2 with: 3 , 4.
 	segm2 := GSegment with: 0 , 0 with: 3 , 3.
-	self deny: segm1 asLine = segm2 asLine.
+	self deny: segm1 asGLine = segm2 asGLine.
 	
 	segm1 := GSegment with: 1 , 1 with: 3 , 3.
 	segm2 := GSegment with: 0 , 0 with: 3 , 3.
-	self assert: segm1 asLine equals: segm2 asLine.
+	self assert: segm1 asGLine equals: segm2 asGLine.
 	
 	segm1 := GSegment with: -24.494897427831784 , -24.494897427831795 with: 24.494897427831784 , 24.49489742783178.
 	segm2 := GSegment with: 24.494897427831784 , 24.49489742783178 with: -24.494897427831784 , -24.494897427831795.
-	self assert: segm1 asLine equals: segm2 asLine .
+	self assert: segm1 asGLine equals: segm2 asGLine .
 	
 	segm1 := GSegment with: -24.494897427831784 , -24.494897427831795 with: 24.494897427831784 , 24.49489742783178.
 	segm2 := GSegment with: 24.494897427831784 , 24.49489742783178 with: -24.494897427831784 , -24.494897427831795.

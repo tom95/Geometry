@@ -29,7 +29,7 @@ GSegment >> = aSegment [
 ]
 
 { #category : #properties }
-GSegment >> asLine [
+GSegment >> asGLine [
 	^ GLine through: v1 and: v2
 ]
 
@@ -38,7 +38,7 @@ GSegment >> distanceTo: aGPoint [
 	self flag: #todo.	"«The distance between segments and rays may not be the same as the distance between their extended lines. » http://geomalgorithms.com/a07-_distance.html
 	
 	So apparently this implementation is wrong."
-	^ self asLine distanceTo: aGPoint
+	^ self asGLine distanceTo: aGPoint
 ]
 
 { #category : #initialization }

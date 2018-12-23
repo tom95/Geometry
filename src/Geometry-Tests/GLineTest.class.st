@@ -27,16 +27,16 @@ GLineTest >> testEquals [
 	self assert: (GLine a: 0 b: 1 c: -13) equals: (GLine a: 0 b: 6 c: -78).
 	self assert: (GLine a: -48.989794855663575 b: 48.98979485566357 c: 4.547473508864641e-13) equals: (GLine a: -138.58803762173304 b: 138.58803762173304 c: 1.8189894035458565e-12).
 	self
-		assert: (GSegment with: -24.494897427831784 , -24.494897427831795 with: 24.494897427831784 , 24.49489742783178) asLine
-		equals: (GSegment with: -99.30232333601874 , -99.30232333601876 with: 39.285714285714285 , 39.28571428571428) asLine.
+		assert: (GSegment with: -24.494897427831784 , -24.494897427831795 with: 24.494897427831784 , 24.49489742783178) asGLine
+		equals: (GSegment with: -99.30232333601874 , -99.30232333601876 with: 39.285714285714285 , 39.28571428571428) asGLine.
 	self
-		assert: (GSegment with: -24.494897427831784 , -24.494897427831795 with: 24.494897427831784 , 24.49489742783178) asLine
-		equals: (GSegment with: 24.494897427831784 , 24.49489742783178 with: -24.494897427831784 , -24.494897427831795) asLine
+		assert: (GSegment with: -24.494897427831784 , -24.494897427831795 with: 24.494897427831784 , 24.49489742783178) asGLine
+		equals: (GSegment with: 24.494897427831784 , 24.49489742783178 with: -24.494897427831784 , -24.494897427831795) asGLine
 ]
 
 { #category : #tests }
 GLineTest >> testIncludes [
-	self deny: ((GSegment with: 17674 / 229 , (14582 / 229) with: 76.82622578909061 , 64.97050543967634) asLine includes: -28206 / 397 , (50382 / 397)).
+	self deny: ((GSegment with: 17674 / 229 , (14582 / 229) with: 76.82622578909061 , 64.97050543967634) asGLine includes: -28206 / 397 , (50382 / 397)).
 	self assert: ((GLine through: 1 , 3 and: 3 , 0) includes: 1 , 3).
 	self assert: ((GLine through: 1 , 3 and: 3 , 0) includes: 3 , 0).
 	self assert: ((GLine through: -1 , 1 and: 1 , -1) includes: 0 , 0).

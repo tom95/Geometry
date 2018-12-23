@@ -109,6 +109,13 @@ GEllipse >> intersectionsWith: anElement [
 ]
 
 { #category : #intersections }
+GEllipse >> intersectionsWithEllipse: aGEllipse [
+	"And also tested"
+
+	self shouldBeImplemented
+]
+
+{ #category : #intersections }
 GEllipse >> intersectionsWithLine: aGLine [
 	"
 	http://www.ambrsoft.com/TrigoCalc/Circles2/Ellipse/EllipseLine.htm

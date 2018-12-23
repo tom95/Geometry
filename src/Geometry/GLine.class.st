@@ -144,11 +144,6 @@ GLine >> intersectionsWithLine: aGLine [
 ]
 
 { #category : #intersections }
-GLine >> intersectionsWithPolygon: aGPolygon [
-	^ aGPolygon intersectionsWithLine: self
-]
-
-{ #category : #intersections }
 GLine >> intersectionsWithRay: ray [
 	^ (self intersectionsWithLine: ray asLine) select: [ :point | ray includesPoint: point ]
 ]

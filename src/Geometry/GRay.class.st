@@ -110,11 +110,6 @@ GRay >> intersectionsWithLine: aGLine [
 ]
 
 { #category : #intersections }
-GRay >> intersectionsWithPolygon: aGPolygon [ 
-	^ aGPolygon intersectionsWithRay: self
-]
-
-{ #category : #intersections }
 GRay >> intersectionsWithRay: aGRay [ 
 	^ (self asLine intersectionsWithRay: aGRay asLine) select: [ :each | self includesPoint: each ]
 ]

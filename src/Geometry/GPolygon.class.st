@@ -134,28 +134,23 @@ GPolygon >> intersectionsWith: anElement [
 ]
 
 { #category : #intersections }
-GPolygon >> intersectionsWithEllipse: aGEllipse [	
-	^ (self edges flatCollect: [ :segment | segment intersectionsWithEllipse: aGEllipse]) asSet
+GPolygon >> intersectionsWithEllipse: aGEllipse [
+	^ aGEllipse intersectionsWithPolygon: self
 ]
 
 { #category : #intersections }
 GPolygon >> intersectionsWithLine: aGLine [
-	^ (self edges flatCollect: [ :segment | segment intersectionsWithLine: aGLine ]) asSet
+	^ aGLine intersectionsWithPolygon: self
 ]
 
 { #category : #intersections }
-GPolygon >> intersectionsWithPolygon: aGPolygon [ 
-	^ (self edges flatCollect: [ :each | aGPolygon intersectionsWithSegment: each ]) asSet
-]
-
-{ #category : #intersections }
-GPolygon >> intersectionsWithRay: ray [
-	^ (self edges flatCollect: [ :edge | edge intersectionsWithRay: ray ]) asSet
+GPolygon >> intersectionsWithRay: aGRay [
+	^ aGRay intersectionsWithPolygon: self
 ]
 
 { #category : #intersections }
 GPolygon >> intersectionsWithSegment: aGSegment [
-	^ (self edges flatCollect: [ :edge | edge intersectionsWithSegment: aGSegment ]) asSet
+	^ aGSegment intersectionsWithPolygon: self
 ]
 
 { #category : #accessing }

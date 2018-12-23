@@ -167,11 +167,6 @@ GPoint >> intersectionsWithLine: aGLine [
 ]
 
 { #category : #intersections }
-GPoint >> intersectionsWithPolygon: aGPolygon [ 
-	^ aGPolygon intersectionsWithPoint: self
-]
-
-{ #category : #intersections }
 GPoint >> intersectionsWithRay: aGRay [ 
 	^ aGRay intersectionsWithPoint: self
 ]

@@ -15,16 +15,16 @@ Class {
 	#category : #'Geometry-Elements'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance creation' }
 GLine class >> a: aNumber1 b: aNumber2 c: aNumber3 [
 	^ self new initializeWithA: aNumber1 b: aNumber2 c: aNumber3
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance creation' }
 GLine class >> through: aPoint1 and: aPoint2 [
 	| ai bi ci |
-	aPoint1 y = aPoint2 y ifTrue: [ ^ GLine a: 0 b: 1 c: aPoint1 y negated ].
-	aPoint1 x = aPoint2 x ifTrue: [ ^ GLine a: 1 b: 0 c: aPoint1 x negated ].
+	aPoint1 y = aPoint2 y ifTrue: [ ^ self a: 0 b: 1 c: aPoint1 y negated ].
+	aPoint1 x = aPoint2 x ifTrue: [ ^ self a: 1 b: 0 c: aPoint1 x negated ].
 	
 	ai := aPoint1 y - aPoint2 y.
 	bi := aPoint2 x - aPoint1 x.

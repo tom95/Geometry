@@ -140,7 +140,7 @@ GLine >> intersectionsWithEllipse: aGEllipse [
 
 { #category : #intersections }
 GLine >> intersectionsWithLine: aGLine [
-	^ (self intersectionWithLine: aGLine) ifNil: [ OrderedCollection new ] ifNotNil: [ :point | OrderedCollection with: point ]
+	^ (self intersectionWithLine: aGLine) ifNil: [ #() ] ifNotNil: [ :point | { point } ]
 ]
 
 { #category : #properties }

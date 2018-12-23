@@ -44,7 +44,7 @@ Internal Representation and Key Implementation Points.
 "
 Class {
 	#name : #GPoint,
-	#superclass : #GElement,
+	#superclass : #G1DElement,
 	#traits : 'TGWithCoordinates',
 	#classTraits : 'TGWithCoordinates classTrait',
 	#instVars : [
@@ -147,7 +147,7 @@ GPoint >> hash [
 ]
 
 { #category : #testing }
-GPoint >> includesPoint: aGPoint [
+GPoint >> includes: aGPoint [
 	^ aGPoint =~ self
 ]
 
@@ -164,6 +164,13 @@ GPoint >> intersectionsWithEllipse: aGEllipse [
 { #category : #intersections }
 GPoint >> intersectionsWithLine: aGLine [ 
 	^ aGLine intersectionsWithPoint: self
+]
+
+{ #category : #accessing }
+GPoint >> length [
+	"https://math.stackexchange.com/questions/1936865/what-is-the-length-of-a-point-on-the-real-number-line"
+
+	^ 0
 ]
 
 { #category : #accessing }

@@ -84,7 +84,7 @@ GRay >> hash [
 ]
 
 { #category : #testing }
-GRay >> includesPoint: aPoint [
+GRay >> includes: aPoint [
 	^ ((self directionPoint - self initialPoint) angleInRadiansWith: (aPoint - self initialPoint)) =~ 0
 ]
 

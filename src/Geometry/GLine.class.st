@@ -117,7 +117,7 @@ GLine >> hash [
 ]
 
 { #category : #properties }
-GLine >> includesPoint: aPoint [
+GLine >> includes: aPoint [
 
 	^ a * aPoint x + (b * aPoint y) + c =~ 0
 ]
@@ -169,15 +169,17 @@ GLine >> parallelTo: aLine [
 
 { #category : #printing }
 GLine >> printOn: aStream [
-	a ~~ 1 ifTrue: [a printOn: aStream].
-	aStream nextPutAll: 'x '.
-	b sign >= 0 ifTrue: [aStream nextPutAll: '+ '].
-	b ~~ 1 ifTrue: [b printOn: aStream].
-	aStream nextPutAll: 'y'.
+	a ~~ 0
+		ifTrue: [ a ~~ 1 ifTrue: [ a printOn: aStream ].
+			aStream nextPutAll: 'x '.
+			b sign >= 0 ifTrue: [ aStream nextPutAll: '+ ' ] ].
+	b ~~ 0
+		ifTrue: [ b ~~ 1 ifTrue: [ b printOn: aStream ].
+			aStream nextPutAll: 'y' ].
 	c ~~ 0
-		ifTrue: [aStream space.
-			c sign >= 0 ifTrue: [aStream nextPutAll: '+ '].
-			c printOn: aStream].
+		ifTrue: [ aStream space.
+			c sign >= 0 ifTrue: [ aStream nextPutAll: '+ ' ].
+			c printOn: aStream ].
 	aStream nextPutAll: ' = 0'
 ]
 

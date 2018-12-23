@@ -72,7 +72,7 @@ GPolygon >> = anObject [
 
 { #category : #testing }
 GPolygon >> boundaryContains: aGPoint [ 
-	^ self edges anySatisfy: [ :segment | segment includesPoint: aGPoint ]
+	^ self edges anySatisfy: [ :segment | segment includes: aGPoint ]
 ]
 
 { #category : #accessing }
@@ -107,7 +107,7 @@ GPolygon >> fitInExtent: extent [
 
 { #category : #testing }
 GPolygon >> hasOnBoundary: point [
-	^ self edges anySatisfy: [ :edge | edge includesPoint: point ]
+	^ self edges anySatisfy: [ :edge | edge includes: point ]
 ]
 
 { #category : #comparing }
@@ -118,8 +118,8 @@ GPolygon >> hash [
 ]
 
 { #category : #testing }
-GPolygon >> includesPoint: point [
-	^ (AthensPolygonTester new polygon: vertices) includesPoint: point
+GPolygon >> includes: point [
+	^ (AthensPolygonTester new polygon: vertices) includes: point
 ]
 
 { #category : #intersections }
@@ -152,7 +152,7 @@ GPolygon >> scaleBy: anInteger [
 
 { #category : #enumerating }
 GPolygon >> sideWhichHas: point [
-	^ self edges detect: [ :edge | edge includesPoint: point ]
+	^ self edges detect: [ :edge | edge includes: point ]
 ]
 
 { #category : #transforming }

@@ -97,7 +97,7 @@ GEllipse >> hash [
 ]
 
 { #category : #testing }
-GEllipse >> includesPoint: aPoint [
+GEllipse >> includes: aPoint [
 	"Solution from: https://math.stackexchange.com/questions/76457/check-if-a-point-is-within-an-ellipse"
 
 	^ (aPoint x - center x) squared / self semiMajorAxisLength squared + ((aPoint y - center y) squared / self semiMinorAxisLength squared) <= 1

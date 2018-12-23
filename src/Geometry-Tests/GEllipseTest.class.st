@@ -41,17 +41,17 @@ GEllipseTest >> testEquals [
 
 { #category : #tests }
 GEllipseTest >> testFitInExtent [
-	ellipse :=  (GEllipse center: 10 , 10 vertex: 20, 10 coVertex: 10, 15).
+	ellipse := GEllipse center: 10 , 10 vertex: 20 , 10 coVertex: 10 , 15.
 	ellipse fitInExtent: #(100 100) asGVector.
 	self assert: ellipse center equals: 10 , 10.
-	self assert: ellipse vertex equals: 60, 10.
-	self assert: ellipse coVertex equals: 10, 60.
-	
-	ellipse :=  (GEllipse center: 10 , 10 vertex: 20, 10 coVertex: 10, 15).
+	self assert: ellipse vertex equals: 60 , 10.
+	self assert: ellipse coVertex equals: 10 , 60.
+
+	ellipse := GEllipse center: 10 , 10 vertex: 20 , 10 coVertex: 10 , 15.
 	ellipse fitInExtent: #(100 60) asGVector.
 	self assert: ellipse center equals: 10 , 10.
-	self assert: ellipse vertex equals: 60, 10.
-	self assert: ellipse coVertex equals: 10, 40
+	self assert: ellipse vertex equals: 60 , 10.
+	self assert: ellipse coVertex equals: 10 , 40
 ]
 
 { #category : #tests }
@@ -68,15 +68,15 @@ GEllipseTest >> testFociLocation [
 ]
 
 { #category : #tests }
-GEllipseTest >> testIncludesPoint [
+GEllipseTest >> testIncludes [
 	ellipse := (GEllipse center: 4 , 1 vertex: 6 , 1 coVertex: 4 , 2).
-	self assert: (ellipse includesPoint: 4, 1).
-	self assert: (ellipse includesPoint: 6, 1).
-	self assert: (ellipse includesPoint: 4, 2).
-	self assert: (ellipse includesPoint: 3, 1).
-	self deny: (ellipse includesPoint: 2.1, 0.1).
-	self deny: (ellipse includesPoint: 3, 0.13).
-	self assert: (ellipse includesPoint: 3, 0.15).
+	self assert: (ellipse includes: 4, 1).
+	self assert: (ellipse includes: 6, 1).
+	self assert: (ellipse includes: 4, 2).
+	self assert: (ellipse includes: 3, 1).
+	self deny: (ellipse includes: 2.1, 0.1).
+	self deny: (ellipse includes: 3, 0.13).
+	self assert: (ellipse includes: 3, 0.15).
 ]
 
 { #category : #tests }
@@ -190,9 +190,9 @@ GEllipseTest >> testPerimeter [
 
 { #category : #tests }
 GEllipseTest >> testTranslateBy [
-	ellipse :=  (GEllipse center: 4 , -1 vertex: 9 , -1 coVertex: 4 , 2).
-	ellipse translateBy: { 1 . 1} asGVector.
+	ellipse := GEllipse center: 4 , -1 vertex: 9 , -1 coVertex: 4 , 2.
+	ellipse translateBy: {1 . 1} asGVector.
 	self assert: ellipse center equals: 5 , 0.
-	self assert: ellipse vertex equals: 10, 0.
-	self assert: ellipse coVertex equals: 5, 3
+	self assert: ellipse vertex equals: 10 , 0.
+	self assert: ellipse coVertex equals: 5 , 3
 ]

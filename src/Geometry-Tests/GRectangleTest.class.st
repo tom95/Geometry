@@ -88,15 +88,15 @@ GRectangleTest >> testHeight [
 ]
 
 { #category : #tests }
-GRectangleTest >> testIncludesPoint [
-	self assert: (rectangle includesPoint: 11 , 11).
-	self assert: (rectangle includesPoint: 10 , 10).
-	self deny: (rectangle includesPoint: 9 , 9).
-	self deny: (rectangle includesPoint: 21 , 21).
-	self deny: (rectangle includesPoint: 15 , 21).
-	self deny: (rectangle includesPoint: 9 , 15).
-	self assert: ((GRectangle origin: 1 , 3 corner: 3 , 0) includesPoint: 2 , 1).
-	self deny: ((GRectangle origin: 1 , 3 corner: 3 , 0) includesPoint: 0 , 0)
+GRectangleTest >> testIncludes [
+	self assert: (rectangle includes: 11 , 11).
+	self assert: (rectangle includes: 10 , 10).
+	self deny: (rectangle includes: 9 , 9).
+	self deny: (rectangle includes: 21 , 21).
+	self deny: (rectangle includes: 15 , 21).
+	self deny: (rectangle includes: 9 , 15).
+	self assert: ((GRectangle origin: 1 , 3 corner: 3 , 0) includes: 2 , 1).
+	self deny: ((GRectangle origin: 1 , 3 corner: 3 , 0) includes: 0 , 0)
 ]
 
 { #category : #tests }

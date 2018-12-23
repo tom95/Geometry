@@ -66,12 +66,12 @@ GSegmentTest >> testEquals [
 ]
 
 { #category : #tests }
-GSegmentTest >> testIncludesPoint [
-	self assert: ((GSegment with: 1 , 3 with: 3 , 0) includesPoint: 1 , 3).
-	self assert: ((GSegment with: 1 , 3 with: 3 , 0) includesPoint: 3 , 0).
-	self assert: ((GSegment with: -1 , 1 with: 1 , -1) includesPoint: 0 , 0).
-	self deny: ((GSegment with: 0 , 0 with: 12 , 9) includesPoint: 13 , (39 / 4)).
-	self assert: ((GSegment with: 0 , 0 with: 13 , (39 / 4)) includesPoint: 12 , 9)
+GSegmentTest >> testIncludes [
+	self assert: ((GSegment with: 1 , 3 with: 3 , 0) includes: 1 , 3).
+	self assert: ((GSegment with: 1 , 3 with: 3 , 0) includes: 3 , 0).
+	self assert: ((GSegment with: -1 , 1 with: 1 , -1) includes: 0 , 0).
+	self deny: ((GSegment with: 0 , 0 with: 12 , 9) includes: 13 , (39 / 4)).
+	self assert: ((GSegment with: 0 , 0 with: 13 , (39 / 4)) includes: 12 , 9)
 ]
 
 { #category : #tests }

@@ -53,19 +53,19 @@ GCircleTest >> testEquals [
 ]
 
 { #category : #tests }
-GCircleTest >> testIncludesPoint [
-	self assert: ((GCircle center: 2 , 2 radius: 3) includesPoint: 2 , 2).
-	self deny: ((GCircle center: 2 , 2 radius: 3) includesPoint: 6 , 2).
-	self assert: ((GCircle center: 30 , 30 radius: 20) includesPoint: 50 , 30).
-	self assert: ((GCircle center: 30 , 30 radius: 20) includesPoint: 10 , 30).
-	self assert: ((GCircle center: 30 , 30 radius: 20) includesPoint: 30 , 10).
-	self assert: ((GCircle center: 30 , 30 radius: 20) includesPoint: 30 , 30).
-	self assert: ((GCircle center: 0 , 0 radius: 31.62277660168381) includesPoint: -30 , -10).
-	self assert: ((GCircle center: 0 , 0 radius: 31.62277660168381) includesPoint: 10 , -30).
-	self assert: ((GCircle center: 0 , 0 radius: 31.62277660168381) includesPoint: 30 , 10).
-	self deny: ((GCircle center: 0 , 0 radius: 31.62277660168381) includesPoint: 30 , 30).
-	self deny: ((GCircle center: 0 , 0 radius: 31.61277660168381) includesPoint: 30 , 10).
-	self assert: ((GCircle center: 0 , 0 radius: 31.62277660168381) includesPoint: 10 , 10)
+GCircleTest >> testIncludes [
+	self assert: ((GCircle center: 2 , 2 radius: 3) includes: 2 , 2).
+	self deny: ((GCircle center: 2 , 2 radius: 3) includes: 6 , 2).
+	self assert: ((GCircle center: 30 , 30 radius: 20) includes: 50 , 30).
+	self assert: ((GCircle center: 30 , 30 radius: 20) includes: 10 , 30).
+	self assert: ((GCircle center: 30 , 30 radius: 20) includes: 30 , 10).
+	self assert: ((GCircle center: 30 , 30 radius: 20) includes: 30 , 30).
+	self assert: ((GCircle center: 0 , 0 radius: 31.62277660168381) includes: -30 , -10).
+	self assert: ((GCircle center: 0 , 0 radius: 31.62277660168381) includes: 10 , -30).
+	self assert: ((GCircle center: 0 , 0 radius: 31.62277660168381) includes: 30 , 10).
+	self deny: ((GCircle center: 0 , 0 radius: 31.62277660168381) includes: 30 , 30).
+	self deny: ((GCircle center: 0 , 0 radius: 31.61277660168381) includes: 30 , 10).
+	self assert: ((GCircle center: 0 , 0 radius: 31.62277660168381) includes: 10 , 10)
 ]
 
 { #category : #tests }

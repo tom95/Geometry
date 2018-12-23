@@ -16,9 +16,29 @@ GElement class >> isAbstract [
 ]
 
 { #category : #testing }
-GElement >> includesPoint: aPoint [
-	"I should return true if the points is contained in the shape. Else I will answer false."
+GElement >> boundaryContains: aPoint [
+	"Should return true if the boundaries of the element contains the point. Else it should return false.
+	
+	For 1D elements it is equivalent to #includes:"
 
+	^ self subclassResponsibility
+]
+
+{ #category : #testing }
+GElement >> boundaryContainsAny: points [
+	^ points anySatisfy: [ :point | self boundaryContains: point ]
+]
+
+{ #category : #testing }
+GElement >> boundaryContainsWhichOf: points [
+	^ points select: [ :point | self boundaryContains: point ]
+]
+
+{ #category : #testing }
+GElement >> includes: aPoint [
+	"I should return true if the points is contained in the element including the boundaries. Else I will answer false."
+
+	self flag: #todo. "Maybe later we could use double dispatch to be able to do something like `aPolygon includes: aCricle` like with intersections"
 	^ self subclassResponsibility
 ]
 
@@ -45,7 +65,7 @@ GElement >> intersectionsWithLine: aGLine [
 
 { #category : #intersections }
 GElement >> intersectionsWithPoint: aPoint [
-	^ (self includesPoint: aPoint) ifTrue: [ { aPoint } ] ifFalse: [ {  } ]
+	^ (self includes: aPoint) ifTrue: [ { aPoint } ] ifFalse: [ {  } ]
 ]
 
 { #category : #intersections }
@@ -56,12 +76,12 @@ GElement >> intersectionsWithPolygon: aGPolygon [
 
 { #category : #intersections }
 GElement >> intersectionsWithRay: aGRay [
-	^ (aGRay asLine intersectionsWith: self) select: [ :point | aGRay includesPoint: point ]
+	^ (aGRay asLine intersectionsWith: self) select: [ :point | aGRay includes: point ]
 ]
 
 { #category : #intersections }
 GElement >> intersectionsWithSegment: aGSegment [
-	^ (aGSegment asLine intersectionsWith: self) select: [ :point | aGSegment includesPoint: point ]
+	^ (aGSegment asLine intersectionsWith: self) select: [ :point | aGSegment includes: point ]
 ]
 
 { #category : #transforming }

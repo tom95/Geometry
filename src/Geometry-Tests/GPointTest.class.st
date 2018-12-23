@@ -65,10 +65,10 @@ GPointTest >> testEquals [
 ]
 
 { #category : #tests }
-GPointTest >> testIncludesPoint [
+GPointTest >> testIncludes [
 	point := 2 , 4.
-	self deny: (point includesPoint: 3, 4).
-	self assert: (point includesPoint: 2, 4)
+	self deny: (point includes: 3, 4).
+	self assert: (point includes: 2, 4)
 ]
 
 { #category : #tests }

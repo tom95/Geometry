@@ -47,7 +47,7 @@ GSegment >> hash [
 ]
 
 { #category : #properties }
-GSegment >> includesPoint: aGPoint [
+GSegment >> includes: aGPoint [
 	"The point is on the segment if the sum of the distance from v1 to aGPoint and the distance of a GPoint to v2 is my length"
 
 	^ (v2 distanceTo: aGPoint) + (aGPoint distanceTo: v1) =~ self length

@@ -123,8 +123,8 @@ GPolygonTest >> testFitInExtent [
 ]
 
 { #category : #tests }
-GPolygonTest >> testIncludesPoint [
-	self assert: ((GPolygon vertices: {(10 , 10) . (-10 , 10) . (-10 , -10)}) includesPoint: -5 , 5)
+GPolygonTest >> testIncludes [
+	self assert: ((GPolygon vertices: {(10 , 10) . (-10 , 10) . (-10 , -10)}) includes: -5 , 5)
 ]
 
 { #category : #tests }

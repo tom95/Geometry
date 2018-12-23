@@ -35,13 +35,13 @@ GRayTest >> testFlipped [
 ]
 
 { #category : #tests }
-GRayTest >> testIncludesPoint [
-	self deny: ((GRay origin: 100 , 100 direction: 80 , 110) includesPoint: 120 , 90).
-	self assert: ((GRay origin: 100 , 100 direction: 120 , 90) includesPoint: 120 , 90).
-	self assert: ((GRay origin: 100 , 100 direction: 120 , 90) includesPoint: 100 , 100).
-	self assert: ((GRay origin: 100 , 100 direction: 110 , 110) includesPoint: 150 , 150).
-	self assert: ((GRay origin: 0 , 0 direction: 12 , 9) includesPoint: 13 , (39 / 4)).
-	self assert: ((GRay origin: 28 , 30 direction: 9 , 1) includesPoint: -4.97992 , -20.33777)
+GRayTest >> testIncludes [
+	self deny: ((GRay origin: 100 , 100 direction: 80 , 110) includes: 120 , 90).
+	self assert: ((GRay origin: 100 , 100 direction: 120 , 90) includes: 120 , 90).
+	self assert: ((GRay origin: 100 , 100 direction: 120 , 90) includes: 100 , 100).
+	self assert: ((GRay origin: 100 , 100 direction: 110 , 110) includes: 150 , 150).
+	self assert: ((GRay origin: 0 , 0 direction: 12 , 9) includes: 13 , (39 / 4)).
+	self assert: ((GRay origin: 28 , 30 direction: 9 , 1) includes: -4.97992 , -20.33777)
 ]
 
 { #category : #tests }

@@ -100,6 +100,11 @@ GRay >> intersectionsWith: anElement [
 ]
 
 { #category : #intersections }
+GRay >> intersectionsWithEllipse: aGEllipse [	
+	^ (self asLine intersectionsWithEllipse: aGEllipse) select: [ :each | self includesPoint: each ]
+]
+
+{ #category : #intersections }
 GRay >> intersectionsWithLine: aGLine [
 	^ aGLine intersectionsWithRay: self
 ]

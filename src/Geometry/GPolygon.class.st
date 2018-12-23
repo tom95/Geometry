@@ -134,8 +134,18 @@ GPolygon >> intersectionsWith: anElement [
 ]
 
 { #category : #intersections }
+GPolygon >> intersectionsWithEllipse: aGEllipse [	
+	^ (self edges flatCollect: [ :segment | segment intersectionsWithEllipse: aGEllipse]) asSet
+]
+
+{ #category : #intersections }
 GPolygon >> intersectionsWithLine: aGLine [
 	^ (self edges flatCollect: [ :segment | segment intersectionsWithLine: aGLine ]) asSet
+]
+
+{ #category : #intersections }
+GPolygon >> intersectionsWithPolygon: aGPolygon [ 
+	^ (self edges flatCollect: [ :each | aGPolygon intersectionsWithSegment: each ]) asSet
 ]
 
 { #category : #intersections }

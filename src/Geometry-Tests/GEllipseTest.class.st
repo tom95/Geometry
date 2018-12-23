@@ -120,6 +120,18 @@ GEllipseTest >> testIntersectionsWithPoint [
 ]
 
 { #category : #tests }
+GEllipseTest >> testIntersectionsWithPolygon [
+	| polygon |
+	polygon := GPolygon vertices: {(5 , 1) . (9 , 1) . (8 , 0) . (6 , -1)}.
+	ellipse := GEllipse center: 2,6 vertex: 7, 6 coVertex: 2,9 .
+	self assert: (ellipse intersectionsWith: polygon) isEmpty.
+
+	polygon := GPolygon vertices: {(1 , 4) . (6 , 4) . (6 , 1) . (3 , 2)}.
+	self assert: (ellipse intersectionsWith: polygon) hasCloseElementsTo: {(2 , 3) . (5.7267799 , 4)}.
+	self assert: (ellipse intersectionsWith: polygon) equals: (ellipse intersectionsWithPolygon: polygon)
+]
+
+{ #category : #tests }
 GEllipseTest >> testIntersectionsWithRay [
 	| ray |
 	ray := GRay origin: 0 , -1 direction: 1 , 4.

@@ -30,8 +30,10 @@ GElement >> intersectionsWith: anElement [
 ]
 
 { #category : #intersections }
-GElement >> intersectionsWithEllipse: aGEllipse [	
-	^ (self asLine intersectionsWithEllipse: aGEllipse) select: [ :each | self includesPoint: each ]
+GElement >> intersectionsWithEllipse: aGEllipse [
+	"I should return the intersection points between me and an ellipse"
+	
+	^ self subclassResponsibility
 ]
 
 { #category : #intersections }

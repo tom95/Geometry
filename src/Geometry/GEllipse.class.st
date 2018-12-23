@@ -152,6 +152,11 @@ GEllipse >> intersectionsWithLine: aGLine [
 ]
 
 { #category : #intersections }
+GEllipse >> intersectionsWithPolygon: aGPolygon [ 
+	^ aGPolygon intersectionsWithEllipse: self
+]
+
+{ #category : #intersections }
 GEllipse >> intersectionsWithRay: aGRay [ 
 	^ aGRay intersectionsWithEllipse: self
 ]

@@ -128,6 +128,18 @@ GPolygonTest >> testIncludesPoint [
 ]
 
 { #category : #tests }
+GPolygonTest >> testIntersectionsWithEllipse [
+	| ellipse |
+	polygon := GPolygon vertices: {(5 , 1) . (9 , 1) . (8 , 0) . (6 , -1)}.
+	ellipse := GEllipse center: 2,6 vertex: 7, 6 coVertex: 2,9 .
+	self assert: (polygon intersectionsWith: ellipse) isEmpty.
+
+	polygon := GPolygon vertices: {(1 , 4) . (6 , 4) . (6 , 1) . (3 , 2)}.
+	self assert: (polygon intersectionsWith: ellipse) hasCloseElementsTo: {(2 , 3) . (5.7267799 , 4)}.
+	self assert: (polygon intersectionsWith: ellipse) equals: (polygon intersectionsWithEllipse: ellipse)
+]
+
+{ #category : #tests }
 GPolygonTest >> testIntersectionsWithLine [
 	| line |
 	line := GLine through: 0 , 1 and: 5 , 6.
@@ -152,6 +164,21 @@ GPolygonTest >> testIntersectionsWithPoint [
 	polygon := GPolygon vertices: {(1 , 4) . (6 , 4) . (6 , 1) . (3 , 2)}.
 	self assert: (polygon intersectionsWith: point) hasCloseElementsTo: {(2 , 4)}.
 	self assert: (polygon intersectionsWith: point) equals: (polygon intersectionsWithPoint: point)
+]
+
+{ #category : #tests }
+GPolygonTest >> testIntersectionsWithPolygon [
+	| polygon2 |
+	polygon := GPolygon vertices: {(1 , 4) . (6 , 4) . (6 , 1) . (3 , 2)}.
+	polygon2 := GPolygon vertices: {(-3 , 5) . (0 , 5) . (1 , 2) . (-1 , 4)}.
+	self assert: (polygon intersectionsWith: polygon2) isEmpty.
+
+	polygon2 := GPolygon vertices: {(5 , 1) . (8 , 1) . (8 , 0) . (6 , -1)}.
+	self assert: (polygon intersectionsWith: polygon2) hasCloseElementsTo: {(6 , 1)}.
+
+	polygon2 := GPolygon vertices: {(5 , 6) . (8 , 7) . (8 , 3) . (5 , 3)}.
+	self assert: (polygon intersectionsWith: polygon2) hasCloseElementsTo: {(6 , 3) . (5 , 4)}.
+	self assert: (polygon intersectionsWith: polygon2) equals: (polygon intersectionsWithPolygon: polygon2)
 ]
 
 { #category : #tests }

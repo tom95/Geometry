@@ -118,8 +118,26 @@ GPolygon >> hash [
 ]
 
 { #category : #testing }
-GPolygon >> includes: point [
-	^ (AthensPolygonTester new polygon: vertices) includes: point
+GPolygon >> includes: aPoint [
+	" Thanks to Google and Randolph Franklin i don't have to reinvent this very simple algorithm. See [ 1 ] for details, copyrights etc.
+
+	https://wrf.ecse.rpi.edu//Research/Short_Notes/pnpoly.html"
+
+	| inside testX testY j |
+	inside := false.
+	j := self vertices size.
+	testX := aPoint x.
+	testY := aPoint y.
+
+	self vertices doWithIndex: [ :pi :i | 
+		| pj |
+		pj := self vertices at: j.
+
+		(pi y > testY ~= (pj y > testY) and: [ testX < ((pj x - pi x) * (testY - pi y) / (pj y - pi y) + pi x) ]) ifTrue: [ inside := inside not ].
+
+		j := i ].
+
+	^ inside
 ]
 
 { #category : #intersections }

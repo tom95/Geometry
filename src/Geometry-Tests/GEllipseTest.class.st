@@ -183,6 +183,12 @@ GEllipseTest >> testMinorAxis [
 ]
 
 { #category : #tests }
+GEllipseTest >> testPerimeter [
+	ellipse := GEllipse center: 2,6 vertex: 7, 6 coVertex: 2,9.
+	self assert: ellipse perimeter =~ 25.32480
+]
+
+{ #category : #tests }
 GEllipseTest >> testTranslateBy [
 	ellipse :=  (GEllipse center: 4 , -1 vertex: 9 , -1 coVertex: 4 , 2).
 	ellipse translateBy: { 1 . 1} asGVector.

@@ -200,6 +200,17 @@ GEllipse >> minorAxisLength [
 	^ self minorAxis length
 ]
 
+{ #category : #accessing }
+GEllipse >> perimeter [
+	"The perimeter of an ellipse cannot be calculated easily. This method will give an approximation with Ramanujan II"
+
+	| h semiMajorAndMinorLength |
+	semiMajorAndMinorLength := self semiMajorAxisLength + self semiMinorAxisLength.
+	h := (self semiMajorAxisLength - self semiMinorAxisLength) squared / semiMajorAndMinorLength squared.
+
+	^ Float pi * semiMajorAndMinorLength * (1 + (3 * h / (10 + (4 - (3 * h)) squared)))
+]
+
 { #category : #printing }
 GEllipse >> printOn: aStream [
 	aStream nextPutAll: ('((x - {1})²/{2}) + ((y - {3})²/{4}) = 1' format: {center x . self semiMajorAxisLength squared . center y . self semiMinorAxisLength squared})

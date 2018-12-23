@@ -29,11 +29,6 @@ GShape >> center [
 	^ self encompassingRectangle center
 ]
 
-{ #category : #testing }
-GShape >> contains: aPoint [
-	^ (self includes: aPoint) and: [ (self boundaryContains: aPoint) not ]
-]
-
 { #category : #accessing }
 GShape >> encompassingRectangle [
 	"I should return a rectangle on the minimum size that contains the shape"

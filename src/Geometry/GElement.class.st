@@ -35,6 +35,15 @@ GElement >> boundaryContainsWhichOf: points [
 ]
 
 { #category : #testing }
+GElement >> contains: aPoint [
+	"Return true if the element includes the argument but not in its boundaries.
+	
+	Will always be false for 1D elements."
+
+	^ (self includes: aPoint) and: [ (self boundaryContains: aPoint) not ]
+]
+
+{ #category : #testing }
 GElement >> includes: aPoint [
 	"I should return true if the points is contained in the element including the boundaries. Else I will answer false."
 

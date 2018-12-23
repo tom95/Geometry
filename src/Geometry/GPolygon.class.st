@@ -55,10 +55,9 @@ GPolygon class >> newVertices: aCollection [
 
 { #category : #'instance creation' }
 GPolygon class >> vertices: aCollection [
-	
 	^ self new
-		initializeVertices: aCollection;
-		yourself.
+		vertices: aCollection;
+		yourself
 ]
 
 { #category : #comparing }
@@ -123,11 +122,6 @@ GPolygon >> includesPoint: point [
 	^ (AthensPolygonTester new polygon: vertices) includesPoint: point
 ]
 
-{ #category : #initialization }
-GPolygon >> initializeVertices: aCollection [
-	vertices := aCollection collect: #asGPoint
-]
-
 { #category : #intersections }
 GPolygon >> intersectionsWith: anElement [
 	^ anElement intersectionsWithPolygon: self
@@ -175,6 +169,6 @@ GPolygon >> vertices [
 ]
 
 { #category : #accessing }
-GPolygon >> vertices: anObject [
-	vertices := anObject
+GPolygon >> vertices: aCollection [
+	vertices := aCollection collect: #asGPoint
 ]

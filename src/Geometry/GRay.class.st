@@ -32,7 +32,8 @@ Class {
 { #category : #'instance creation' }
 GRay class >> origin: aGPoint direction: anotherPoint [
 	^ self new
-		initializeWithOrigin: aGPoint direction: anotherPoint;
+		initialPoint: aGPoint;
+		directionPoint: anotherPoint;
 		yourself
 ]
 
@@ -65,6 +66,11 @@ GRay >> directionPoint [
 
 ]
 
+{ #category : #accessing }
+GRay >> directionPoint: aGPoint [
+	directionPoint := aGPoint asGPoint
+]
+
 { #category : #properties }
 GRay >> flipped [
 	^ self class origin: self initialPoint direction: initialPoint + (initialPoint - directionPoint)
@@ -88,10 +94,9 @@ GRay >> initialPoint [
 
 ]
 
-{ #category : #initialization }
-GRay >> initializeWithOrigin: aGPoint direction: anotherGPoints [
-	initialPoint  := aGPoint asGPoint.
-	directionPoint  := anotherGPoints asGPoint
+{ #category : #accessing }
+GRay >> initialPoint: aGPoint [
+	initialPoint := aGPoint asGPoint
 ]
 
 { #category : #intersections }

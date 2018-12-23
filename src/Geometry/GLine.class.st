@@ -17,7 +17,11 @@ Class {
 
 { #category : #'instance creation' }
 GLine class >> a: aNumber1 b: aNumber2 c: aNumber3 [
-	^ self new initializeWithA: aNumber1 b: aNumber2 c: aNumber3
+	^ self new
+		a: aNumber1;
+		b: aNumber2;
+		c: aNumber3;
+		yourself
 ]
 
 { #category : #'instance creation' }
@@ -50,6 +54,11 @@ GLine >> a [
 
 ]
 
+{ #category : #accessing }
+GLine >> a: anObject [
+	a := anObject
+]
+
 { #category : #converting }
 GLine >> asLine [
 	^ self 
@@ -62,9 +71,19 @@ GLine >> b [
 ]
 
 { #category : #accessing }
+GLine >> b: anObject [
+	b := anObject
+]
+
+{ #category : #accessing }
 GLine >> c [
 	^c
 
+]
+
+{ #category : #accessing }
+GLine >> c: anObject [
+	c := anObject
 ]
 
 { #category : #accessing }
@@ -101,13 +120,6 @@ GLine >> hash [
 GLine >> includesPoint: aPoint [
 
 	^ a * aPoint x + (b * aPoint y) + c =~ 0
-]
-
-{ #category : #initialization }
-GLine >> initializeWithA: aNumber1 b: aNumber2 c: aNumber3 [
-	a := aNumber1.
-	b := aNumber2.
-	c := aNumber3
 ]
 
 { #category : #intersections }

@@ -11,10 +11,11 @@ Class {
 	#category : #'Geometry-Elements'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance creation' }
 GSegment class >> with: aPoint1 with: aPoint2 [
 	^ self new
-		initializeWith: aPoint1 with: aPoint2;
+		v1: aPoint1;
+		v2: aPoint2;
 		yourself
 ]
 
@@ -50,12 +51,6 @@ GSegment >> includesPoint: aGPoint [
 	"The point is on the segment if the sum of the distance from v1 to aGPoint and the distance of a GPoint to v2 is my length"
 
 	^ (v2 distanceTo: aGPoint) + (aGPoint distanceTo: v1) =~ self length
-]
-
-{ #category : #initialization }
-GSegment >> initializeWith: aPoint1 with: aPoint2 [
-	v1 := aPoint1 asGPoint.
-	v2 := aPoint2 asGPoint
 ]
 
 { #category : #intersections }
@@ -106,7 +101,7 @@ GSegment >> v1 [
 
 { #category : #accessing }
 GSegment >> v1: aGPoint [
-	v1 := aGPoint
+	v1 := aGPoint asGPoint
 ]
 
 { #category : #accessing }
@@ -116,7 +111,7 @@ GSegment >> v2 [
 
 { #category : #accessing }
 GSegment >> v2: aGPoint [
-	v2 := aGPoint
+	v2 := aGPoint asGPoint
 ]
 
 { #category : #initialization }

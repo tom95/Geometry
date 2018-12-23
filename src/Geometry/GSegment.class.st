@@ -65,12 +65,12 @@ GSegment >> intersectionsWith: anElement [
 
 { #category : #intersections }
 GSegment >> intersectionsWithEllipse: aGEllipse [ 
-	^ (self asLine intersectionsWith: aGEllipse) select: [ :each | self includesPoint: each ]
+	^ aGEllipse intersectionsWithSegment: self
 ]
 
 { #category : #intersections }
 GSegment >> intersectionsWithLine: aLine [
-	^ (self asLine intersectionsWithLine: aLine) select: [ :point | self includesPoint: point ]
+	^ aLine intersectionsWithSegment: self
 ]
 
 { #category : #properties }

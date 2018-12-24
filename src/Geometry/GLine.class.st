@@ -104,13 +104,6 @@ GLine >> distanceTo: aGPoint [
 	^ (a * aGPoint x + (b * aGPoint y) + c) abs / (a * a + (b * b)) sqrt
 ]
 
-{ #category : #properties }
-GLine >> hasPoint: aPoint withApproximation: approx [
-	self a * aPoint x + (self b * aPoint y) + self c
-		- ((self a * approx + (self b * approx)) abs + self c) <=~ 0.
-	^ (self distanceTo: aPoint) <=~ (2 * approx)	"(self a * aPoint x) + (self b * aPoint y) + self c <=~ (2 * approx)"
-]
-
 { #category : #comparing }
 GLine >> hash [
 	^ (a hash bitXor: b hash) bitXor: c hash
@@ -152,7 +145,18 @@ GLine >> intersectionsWithEllipse: aGEllipse [
 
 { #category : #intersections }
 GLine >> intersectionsWithLine: aGLine [
-	^ (self intersectionWithLine: aGLine) ifNil: [ #() ] ifNotNil: [ :point | { point } ]
+	| p q r x y determinant |
+	determinant := self determinantWith: aGLine.
+
+	determinant =~ 0 ifTrue: [ ^ { } "Line are parallel if determinant = 0" ].
+
+	p := aGLine a.
+	q := aGLine b.
+	r := aGLine c.
+	
+	x := (c negated * q - (r negated * b)) / determinant.
+	y := (a * r negated - (p * c negated)) / determinant.
+	^ { (x , y) }
 ]
 
 { #category : #accessing }
@@ -181,12 +185,6 @@ GLine >> printOn: aStream [
 			c sign >= 0 ifTrue: [ aStream nextPutAll: '+ ' ].
 			c printOn: aStream ].
 	aStream nextPutAll: ' = 0'
-]
-
-{ #category : #properties }
-GLine >> through: aPoint1 and: aPoint2 hasPoint: aPoint [
-
-	^(GTriangle with: aPoint1 with: aPoint2 with: aPoint) isDegenerate . 
 ]
 
 { #category : #properties }

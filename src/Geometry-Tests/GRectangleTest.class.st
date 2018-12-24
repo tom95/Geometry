@@ -22,6 +22,13 @@ GRectangleTest >> testArea [
 ]
 
 { #category : #tests }
+GRectangleTest >> testBoundaryContains [
+	self assert: ((GRectangle origin: 1 , 3 corner: 3 , 0) boundaryContains: 1 , 3).
+	self assert: ((GRectangle origin: 1 , 3 corner: 3 , 0) boundaryContains: 2 , 3).
+	self deny: ((GRectangle origin: 1 , 3 corner: 3 , 0) boundaryContains: 0 , 0)
+]
+
+{ #category : #tests }
 GRectangleTest >> testCenter [
 	| translated1 translated2 |
 	rectangle := GRectangle vertices: {(1 , 1) . (5 , 1) . (5 , 6) . (1 , 6)}.
@@ -76,13 +83,6 @@ GRectangleTest >> testExtent [
 ]
 
 { #category : #tests }
-GRectangleTest >> testHasOnBoundary [
-	self assert: ((GRectangle origin: 1 , 3 corner: 3 , 0) hasOnBoundary: 1 , 3).
-	self assert: ((GRectangle origin: 1 , 3 corner: 3 , 0) hasOnBoundary: 2 , 3).
-	self deny: ((GRectangle origin: 1 , 3 corner: 3 , 0) hasOnBoundary: 0 , 0)
-]
-
-{ #category : #tests }
 GRectangleTest >> testHeight [
 	self assert: rectangle height equals: 10
 ]
@@ -109,11 +109,6 @@ GRectangleTest >> testIntersectionsWithLine [
 { #category : #tests }
 GRectangleTest >> testIntersectionsWithRay [
 	self assert: ((GRectangle origin: 1 , 3 corner: 3 , 0) intersectionsWithRay: (GRay origin: 2 , 1 direction: 4 , 1)) hasCloseElementsTo: {(3 , 1)}
-]
-
-{ #category : #tests }
-GRectangleTest >> testSideWhichHas [
-	self assert: ((GRectangle origin: 1 , 3 corner: 3 , 0) sideWhichHas: 1 , 2.5) equals: (GSegment with: 1 , 3 with: 1 , 0)
 ]
 
 { #category : #tests }

@@ -150,10 +150,3 @@ GLineTest >> testParallelTo [
 	self assert: ((GLine a: 1 b: 2 c: 0.5) parallelTo: (GLine a: 2 b: 4 c: 4)).
 	self assert: ((GLine a: 0 b: 2 c: 0.5) parallelTo: (GLine a: 0 b: 2 c: 0.5))
 ]
-
-{ #category : #tests }
-GLineTest >> testThroughAndHasPoint [
-	self assert: ((GLine through: 1 , 1 and: 3 , 3) through: 1 , 1 and: 3 , 3 hasPoint: 2 , 2).
-	self assert: ((GLine through: 1 , 1 and: 2 , 2) through: 1 , 1 and: 2 , 2 hasPoint: 3 , 3).
-	self deny: ((GLine through: 1 , 1 and: 2 , 2) through: 1 , 1 and: 2 , 2 hasPoint: 2 , 1)
-]

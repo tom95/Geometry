@@ -116,24 +116,6 @@ GLine >> includes: aPoint [
 ]
 
 { #category : #intersections }
-GLine >> intersectionWithLine: aGLine [
-	"ax + by = c and px + qy = r"
-
-	| p q r x y determinant |
-	determinant := self determinantWith: aGLine.
-
-	determinant =~ 0 ifTrue: [ ^ nil "Line are parallel if determinant = 0" ].
-
-	p := aGLine a.
-	q := aGLine b.
-	r := aGLine c.
-	
-	x := (c negated * q - (r negated * b)) / determinant.
-	y := (a * r negated - (p * c negated)) / determinant.
-	^ (x , y)
-]
-
-{ #category : #intersections }
 GLine >> intersectionsWith: anElement [
 	^ anElement intersectionsWithLine: self
 ]

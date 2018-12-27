@@ -44,6 +44,11 @@ GCircle >> polygonOn: points [
 	^ polygonSegm
 ]
 
+{ #category : #printing }
+GCircle >> printOn: aStream [
+	aStream nextPutAll: ('x² + y² = {1}²' format: {self radius})
+]
+
 { #category : #accessing }
 GCircle >> radius [
 	^ self semiMajorAxisLength

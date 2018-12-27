@@ -47,7 +47,7 @@ GSegmentTest >> testEquals [
 	segm1 := GSegment with: 1 , 1 with: 3 , 3.
 	segm2 := GSegment with: 0 , 0 with: 3 , 3.
 	self assert: segm1 asGLine equals: segm2 asGLine.
-	self deny: segm1 equals: segm2.
+	self deny: segm1 = segm2.
 	
 	segm1 := GSegment with: -24.494897427831784 , -24.494897427831795 with: 24.494897427831784 , 24.49489742783178.
 	segm2 := GSegment with: 24.494897427831784 , 24.49489742783178 with: -24.494897427831784 , -24.494897427831795.

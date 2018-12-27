@@ -45,7 +45,9 @@ GCircleTest >> testEncompassingRectangle [
 { #category : #tests }
 GCircleTest >> testEquals [
 	self assert: (GCircle center: 1 , 1 radius: 3) equals: (GCircle center: 1 , 1 radius: 3).
+	self assert: (GCircle center: 1 , 1 radius: 3) hash equals: (GCircle center: 1 , 1 radius: 3) hash.
 	self deny: (GCircle center: 1 , 1 radius: 3) = (GCircle center: 1.002 , 1.009 radius: 3).
+	self deny: (GCircle center: 1 , 1 radius: 3) hash = (GCircle center: 1.002 , 1.009 radius: 3) hash.
 	self assert: (GCircle center: 1 , 1 radius: 3) equals: (GCircle center: 1 , 1 radius: 2.999999999).
 	self assert: (GCircle center: 1 , 1 radius: 3) equals: (GCircle center: 1.00000001 , 0.9999991 radius: 2.999999999).
 	self deny: (GCircle center: 1 , 1 radius: 3) = (GCircle center: 1 , 1 radius: 34).

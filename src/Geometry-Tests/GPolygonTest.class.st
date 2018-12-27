@@ -106,6 +106,15 @@ GPolygonTest >> testEncompassingRectangle [
 ]
 
 { #category : #tests }
+GPolygonTest >> testEquals [
+	polygon := GPolygon vertices: {(1 , 1) . (2 , 3) . (5 , 8) . (2 , 5)}.
+	self assert: polygon equals: (GPolygon vertices: {(1 , 1) . (2 , 3) . (5 , 8) . (2 , 5)}).
+	self assert: polygon hash equals: (GPolygon vertices: {(1 , 1) . (2 , 3) . (5 , 8) . (2 , 5)}) hash.
+	self deny: polygon = (GPolygon vertices: {(1 , 1) . (2 , 4) . (5 , 8) . (2 , 5)}).
+	self deny: polygon hash = (GPolygon vertices: {(1 , 1) . (2 , 4) . (5 , 8) . (2 , 5)}) hash
+]
+
+{ #category : #tests }
 GPolygonTest >> testFitInExtent [
 	polygon := GPolygon vertices: {(10 , 10) . (-10 , 10) . (-10 , -10)}.
 	polygon fitInExtent: {20 . 20} asGVector.

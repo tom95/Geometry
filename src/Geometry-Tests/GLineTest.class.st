@@ -17,6 +17,7 @@ GLineTest >> testDistanceTo [
 { #category : #tests }
 GLineTest >> testEquals [
 	self assert: (GLine a: 1 b: 1 c: -13) equals: (GLine a: 6 b: 6 c: -78).
+	self assert: (GLine a: 1 b: 1 c: -13) hash equals: (GLine a: 1 b: 1 c: -13) hash.
 	self assert: (GLine a: 0 b: 1 c: -13) equals: (GLine a: 0 b: 6 c: -78).
 	self deny: (GLine a: 1 b: 1 c: -13) = (GLine a: 1 b: 6 c: -78).
 	self deny: (GLine a: 1 b: 1 c: -13) = (GLine a: 6 b: 6 c: -7).

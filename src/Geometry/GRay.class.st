@@ -115,3 +115,9 @@ GRay >> length [
 
 	^ Float infinity
 ]
+
+{ #category : #transforming }
+GRay >> translateBy: aGVector [ 
+	initialPoint := initialPoint + aGVector.
+	directionPoint := directionPoint + aGVector
+]

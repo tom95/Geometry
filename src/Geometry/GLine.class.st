@@ -169,6 +169,19 @@ GLine >> printOn: aStream [
 	aStream nextPutAll: ' = 0'
 ]
 
+{ #category : #transforming }
+GLine >> translateBy: aGVector [
+	| translatedLine |
+	self flag: #todo. "I think we can do better, especialy for perfs but for now I want something working."
+
+	translatedLine := a = 0
+		ifTrue: [ GLine through: ((self xFor: 1) , 1) + aGVector and: ((self xFor: 2) , 2) + aGVector ]
+		ifFalse: [ GLine through: (1 , (self yFor: 1)) + aGVector and: (2 , (self yFor: 2)) + aGVector ].
+	a := translatedLine a.
+	b := translatedLine b.
+	c := translatedLine c
+]
+
 { #category : #properties }
 GLine >> xFor: anY [
 	a = 0 ifTrue: [self error: 'Cannot answer a x if a = 0'].

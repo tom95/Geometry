@@ -106,6 +106,14 @@ GCircleTest >> testPolygonOn [
 ]
 
 { #category : #tests }
+GCircleTest >> testTranslateBy [
+	circle := GCircle center: 3,4 radius: 2.
+	circle translateBy: #(1 -2) asGVector.
+	self assert: circle center equals: 4, 2.
+	self assert: circle radius equals: 2
+]
+
+{ #category : #tests }
 GCircleTest >> testUpperPoint [
 	circle := GCircle center: 1 , 1 radius: 3.
 	self assert: circle upperPoint equals: 1 , 4

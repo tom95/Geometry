@@ -133,3 +133,10 @@ GRayTest >> testIntersectionsWithSegment [
 	ray := GRay origin: 1 , 1 direction: 0 , 0.
 	self assert: (ray intersectionsWith: segment) isEmpty
 ]
+
+{ #category : #tests }
+GRayTest >> testTranslateBy [
+	ray := GRay origin: -1 , -4 direction: 1 , -2.
+	ray translateBy: #(1 -2) asGVector.
+	self assert: ray initialPoint equals: 0 , -6
+]

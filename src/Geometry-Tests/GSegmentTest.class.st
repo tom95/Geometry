@@ -193,3 +193,11 @@ GSegmentTest >> testPerpendicularBisector [
 GSegmentTest >> testSegmentFromPoints [
 	self assert: (1 , 2 segment: 2 , 3) equals: (GSegment with: 1 , 2 with: 2 , 3)
 ]
+
+{ #category : #tests }
+GSegmentTest >> testTranslateBy [
+	segment := GSegment with: -1 , -4 with: 1 , -2.
+	segment translateBy: #(1 -2) asGVector.
+	self assert: segment v1 equals: 0 , -6.
+	self assert: segment v2 equals: 2 , -4
+]

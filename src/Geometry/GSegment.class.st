@@ -94,6 +94,12 @@ GSegment >> printOn: aStream [
 	v2 printOn: aStream
 ]
 
+{ #category : #transforming }
+GSegment >> translateBy: aGVector [ 
+	v1 := v1 + aGVector.
+	v2 := v2 + aGVector
+]
+
 { #category : #accessing }
 GSegment >> v1 [
 	^ v1

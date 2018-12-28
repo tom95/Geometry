@@ -1,5 +1,7 @@
 # Geometry
 
+[![Coverage Status](https://coveralls.io/repos/github/TelescopeSt/Geometry/badge.svg?branch=master)](https://coveralls.io/github/TelescopeSt/Geometry?branch=master) [![Build Status](https://travis-ci.org/TelescopeSt/Geometry.svg?branch=master)](https://travis-ci.org/TelescopeSt/Geometry)
+
 A simple work-in-progress library for representing basic geometry shapes (line, circle, ellipse, ...) and doing some computations of top (mainly intersection).
 
 The original repository is: http://smalltalkhub.com/#!/~NataliaTymchuk/Geometry

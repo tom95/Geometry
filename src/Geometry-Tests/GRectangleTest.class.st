@@ -10,15 +10,15 @@ Class {
 { #category : #running }
 GRectangleTest >> setUp [
 	super setUp.
-	rectangle := 10 , 10 corner: 20 , 20
+	rectangle := GRectangle origin: 10 , 10 corner: 20 , 20
 ]
 
 { #category : #tests }
 GRectangleTest >> testArea [
-	self assert: (0 , 0 corner: 5 , 5) area equals: 25.
-	self assert: (2 , 3 corner: 10 , 8) area equals: 40.
-	self assert: (5 , 5 corner: 6 , 6) area equals: 1.
-	self assert: (-1 , -2 corner: 2 , 1) area equals: 9
+	self assert: (GRectangle origin: 0 , 0 corner: 5 , 5) area equals: 25.
+	self assert: (GRectangle origin: 2 , 3 corner: 10 , 8) area equals: 40.
+	self assert: (GRectangle origin: 5 , 5 corner: 6 , 6) area equals: 1.
+	self assert: (GRectangle origin: -1 , -2 corner: 2 , 1) area equals: 9
 ]
 
 { #category : #tests }

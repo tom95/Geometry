@@ -53,7 +53,7 @@ GCircleTest >> testContains [
 { #category : #tests }
 GCircleTest >> testEncompassingRectangle [
 	circle := GCircle center: 2 , 2 radius: 3.
-	self assert: circle encompassingRectangle equals: (-1 , -1 corner: 5 , 5)
+	self assert: circle encompassingRectangle equals: (GRectangle origin: -1 , -1 corner: 5 , 5)
 ]
 
 { #category : #tests }
@@ -97,12 +97,6 @@ GCircleTest >> testIncludes [
 GCircleTest >> testPerimeter [
 	circle := GCircle center: (609 / 17) , (10837 / 136) radius: 38.27069133568686.
 	self assert: circle perimeter equals: 240.46184549599278
-]
-
-{ #category : #tests }
-GCircleTest >> testPolygonOn [
-	circle := GCircle center: 1 , 1 radius: 3.
-	self assert: ((circle polygonOn: {(-20 , 10) . (40 , 10) . (10 , -20)}) at: 1) v1 equals: -20 , 10
 ]
 
 { #category : #tests }

@@ -131,11 +131,6 @@ GCoordinates >> coordinatesCollect: aBlock [
 ]
 
 { #category : #enumerating }
-GCoordinates >> coordinatesDo: aBlock [
-	coordinates do: aBlock
-]
-
-{ #category : #enumerating }
 GCoordinates >> coordinatesWith: aCollection collect: aBlock [
 	^ coordinates with: aCollection collect: aBlock
 ]

@@ -41,7 +41,7 @@ GLine >> = line [
 	self == line ifTrue: [^ true].
 	self class = line class ifFalse: [^ false].
 
-	(self parallelTo: line) ifFalse: [^ false].
+	(self isParallelTo: line) ifFalse: [^ false].
 
 	^ [(self yFor: 1) =~ (line yFor: 1)]
 		on: GError
@@ -141,16 +141,16 @@ GLine >> intersectionsWithLine: aGLine [
 	^ { (x , y) }
 ]
 
-{ #category : #accessing }
-GLine >> length [
-	^ Float infinity
-]
-
 { #category : #properties }
-GLine >> parallelTo: aLine [
+GLine >> isParallelTo: aLine [
 	"If the determinant it 0 then the lines are parallel"
 
 	^ (self determinantWith: aLine) =~ 0
+]
+
+{ #category : #accessing }
+GLine >> length [
+	^ Float infinity
 ]
 
 { #category : #printing }

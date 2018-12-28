@@ -25,25 +25,6 @@ GCircle >> perimeter [
 	^ 2 * self radius * Float pi
 ]
 
-{ #category : #'public interface' }
-GCircle >> polygonOn: points [
-	| polygonSegm firstP notUsedPoints currentP |
-	currentP := points anyOne.
-	firstP := currentP.
-	notUsedPoints := points asOrderedCollection
-		remove: currentP;
-		yourself.
-	polygonSegm := OrderedCollection new.
-	[ notUsedPoints isNotEmpty ]
-		whileTrue: [ | nextP |
-			nextP := notUsedPoints detectMin: [ :point | point distanceTo: currentP ].
-			polygonSegm add: (GSegment with: currentP with: nextP).
-			currentP := nextP.
-			notUsedPoints remove: currentP ].
-	polygonSegm add: (GSegment with: currentP with: firstP).
-	^ polygonSegm
-]
-
 { #category : #printing }
 GCircle >> printOn: aStream [
 	aStream nextPutAll: ('x² + y² = {1}²' format: {self radius})

@@ -145,18 +145,18 @@ GLineTest >> testIntersectionsWithSegment [
 ]
 
 { #category : #tests }
-GLineTest >> testParallelTo [
-	self deny: ((GLine a: 0 b: -3 c: 0.5) parallelTo: (GLine a: -2 b: 0 c: 4)).
-	self deny: ((GLine a: 0 b: -3 c: 0.5) parallelTo: (GLine a: -2 b: 1 c: 4)).
-	self assert: ((GLine a: 1 b: 2 c: 0.5) parallelTo: (GLine a: 2 b: 4 c: 4)).
-	self assert: ((GLine a: 0 b: 2 c: 0.5) parallelTo: (GLine a: 0 b: 2 c: 0.5))
+GLineTest >> testIsParallelTo [
+	self deny: ((GLine a: 0 b: -3 c: 0.5) isParallelTo: (GLine a: -2 b: 0 c: 4)).
+	self deny: ((GLine a: 0 b: -3 c: 0.5) isParallelTo: (GLine a: -2 b: 1 c: 4)).
+	self assert: ((GLine a: 1 b: 2 c: 0.5) isParallelTo: (GLine a: 2 b: 4 c: 4)).
+	self assert: ((GLine a: 0 b: 2 c: 0.5) isParallelTo: (GLine a: 0 b: 2 c: 0.5))
 ]
 
 { #category : #tests }
 GLineTest >> testTranslateBy [
 	line := GLine through: -1 , -4 and: 1 , -2.
 	line translateBy: #(1 -2) asGVector.
-	self assert: (line parallelTo: (GLine through: -1 , -4 and: 1 , -2)).
+	self assert: (line isParallelTo: (GLine through: -1 , -4 and: 1 , -2)).
 	self assert: (line includes: 0 , -6).
 	self assert: (line includes: 3 , -3).
 	self assert: (line includes: -1 , -7)

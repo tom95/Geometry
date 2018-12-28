@@ -27,7 +27,7 @@ GEllipseTest >> testBoundaryContains [
 { #category : #tests }
 GEllipseTest >> testEncompassingRectangle [
 	ellipse := GEllipse center: 4 , -1 vertex: 9 , -1 coVertex: 4 , 2.
-	self assert: ellipse encompassingRectangle equals: (-1 , 2 corner: 9 , -4)
+	self assert: ellipse encompassingRectangle equals: (GRectangle origin: -1 , 2 corner: 9 , -4)
 ]
 
 { #category : #tests }

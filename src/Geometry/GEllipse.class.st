@@ -66,7 +66,7 @@ GEllipse >> coVertex: anObject [
 GEllipse >> encompassingRectangle [
 	| radiuxPoints |
 	radiuxPoints := { vertex . (center + (center - vertex)). coVertex . (center + (center - coVertex)) } collect: #coordinates.
-	^ (radiuxPoints fold: [ :pt1 :pt2 | pt1 upperLimitsWith: pt2 ]) asGPoint corner: (radiuxPoints fold: [ :pt1 :pt2 | pt1 lowerLimitsWith: pt2 ]) asGPoint
+	^ GRectangle origin: (radiuxPoints fold: [ :pt1 :pt2 | pt1 upperLimitsWith: pt2 ]) asGPoint corner: (radiuxPoints fold: [ :pt1 :pt2 | pt1 lowerLimitsWith: pt2 ]) asGPoint
 ]
 
 { #category : #transforming }

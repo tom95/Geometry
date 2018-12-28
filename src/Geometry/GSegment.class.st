@@ -89,9 +89,9 @@ GSegment >> perpendicularBisector [
 
 { #category : #printing }
 GSegment >> printOn: aStream [
-	v1 printOn: aStream.
+	v1 coordinates printOn: aStream.
 	aStream nextPutAll: '>-<'.
-	v2 printOn: aStream
+	v2 coordinates printOn: aStream
 ]
 
 { #category : #transforming }

@@ -150,13 +150,16 @@ GSegmentTest >> testIntersectionsWithSegment [
 	segment2 := GSegment with: -3 , 3 with: -1 , 1.
 	self assert: (segment intersectionsWith: segment2) isEmpty.
 
-	segment := GSegment with: -3, 1 with: -4, 0.
+	segment := GSegment with: -3 , 1 with: -4 , 0.
 	self assert: (segment intersectionsWith: segment2) isEmpty.
 
 	segment := GSegment with: 0 , 1 with: 3 , 1.
 	segment2 := GSegment with: 0 , 3 with: 4 , -1.
 	self assert: (segment intersectionsWith: segment2) hasCloseElementsTo: {(2 , 1)}.
-	self assert: (segment intersectionsWith: segment2) equals: (segment intersectionsWithSegment: segment2)
+	self assert: (segment intersectionsWith: segment2) equals: (segment intersectionsWithSegment: segment2).
+
+	segment2 := GSegment with: 0 , 1 with: 2 , 8.
+	self assert: (segment intersectionsWith: segment2) hasCloseElementsTo: {(0 , 1)}
 ]
 
 { #category : #tests }

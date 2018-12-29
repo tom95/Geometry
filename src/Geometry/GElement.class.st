@@ -79,8 +79,8 @@ GElement >> intersectionsWithPoint: aPoint [
 
 { #category : #intersections }
 GElement >> intersectionsWithPolygon: aGPolygon [
-	self flag: #todo. "I do not like the asSet asArray. We should see to improve that later to have better perfs."
-	^ (aGPolygon edges flatCollect: [ :segment | segment intersectionsWith: self]) asSet asArray
+	self flag: #todo.	"I do not like the asSet asArray. We should see to improve that later to have better perfs."
+	^ (aGPolygon edges flatCollect: [ :segment | segment intersectionsWith: self ]) asSet asArray
 ]
 
 { #category : #intersections }

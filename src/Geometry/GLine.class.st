@@ -175,8 +175,8 @@ GLine >> translateBy: aGVector [
 	self flag: #todo. "I think we can do better, especialy for perfs but for now I want something working."
 
 	translatedLine := a = 0
-		ifTrue: [ GLine through: ((self xFor: 1) , 1) + aGVector and: ((self xFor: 2) , 2) + aGVector ]
-		ifFalse: [ GLine through: (1 , (self yFor: 1)) + aGVector and: (2 , (self yFor: 2)) + aGVector ].
+		ifTrue: [ self class through: ((self xFor: 1) , 1) + aGVector and: ((self xFor: 2) , 2) + aGVector ]
+		ifFalse: [ self class through: (1 , (self yFor: 1)) + aGVector and: (2 , (self yFor: 2)) + aGVector ].
 	a := translatedLine a.
 	b := translatedLine b.
 	c := translatedLine c

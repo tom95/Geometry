@@ -7,6 +7,8 @@ I am a coordinates set for plans. (2D space).
 Examples
 --------------------
 
+	GCoordinates withCollection: #(1 3).
+
 	G2DCoordinates coordinates: #(1 3).
 	
 	G2DCoordinates x: 1 y: 2

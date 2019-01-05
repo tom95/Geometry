@@ -29,6 +29,14 @@ GCoordinatesTest >> test2DCoordinates [
 ]
 
 { #category : #tests }
+GCoordinatesTest >> test3DCoordinates [
+	coordinates := G3DCoordinates x: 1 y: 2 z: 3.
+	self assert: coordinates x equals: 1.
+	self assert: coordinates y equals: 2.
+	self assert: coordinates z equals: 3
+]
+
+{ #category : #tests }
 GCoordinatesTest >> testAddition [
 	| coordinates2 coordinates3 |
 	coordinates := G2DCoordinates x: 1 y: 2.
@@ -36,6 +44,19 @@ GCoordinatesTest >> testAddition [
 	coordinates3 := coordinates + coordinates2.
 	self assert: coordinates3 x equals: 5.
 	self assert: coordinates3 y equals: 10
+]
+
+{ #category : #tests }
+GCoordinatesTest >> testCoordinates [
+	coordinates := GCoordinates withCollection: #(1 2).
+	self assert: coordinates x equals: 1.
+	self assert: coordinates y equals: 2.
+	self should: [ coordinates z ] raise: MessageNotUnderstood.
+	
+	coordinates := GCoordinates withCollection: #(1 2 3).
+	self assert: coordinates x equals: 1.
+	self assert: coordinates y equals: 2.
+	self assert: coordinates z equals: 3
 ]
 
 { #category : #tests }

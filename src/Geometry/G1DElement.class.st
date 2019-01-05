@@ -5,6 +5,11 @@ Class {
 }
 
 { #category : #testing }
+G1DElement class >> isAbstract [
+	^ self = G1DElement
+]
+
+{ #category : #testing }
 G1DElement >> boundaryContains: aPoint [
 	^ self includes: aPoint
 ]

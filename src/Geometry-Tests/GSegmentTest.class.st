@@ -7,6 +7,11 @@ Class {
 	#category : #'Geometry-Tests'
 }
 
+{ #category : #accessing }
+GSegmentTest >> actualClass [
+	^ GSegment
+]
+
 { #category : #tests }
 GSegmentTest >> testAsLine [
 	| line |

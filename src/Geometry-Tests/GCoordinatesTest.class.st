@@ -7,6 +7,16 @@ Class {
 	#category : #'Geometry-Tests'
 }
 
+{ #category : #accessing }
+GCoordinatesTest >> actualClass [
+	^ GCoordinates
+]
+
+{ #category : #accessing }
+GCoordinatesTest >> newInstance [
+	^ self actualClass withCollection: #(1 2)
+]
+
 { #category : #tests }
 GCoordinatesTest >> test2DCoordinates [
 	coordinates := G2DCoordinates x: 1 y: 2.

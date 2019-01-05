@@ -4,6 +4,11 @@ Class {
 	#category : #'Geometry-Tests'
 }
 
+{ #category : #accessing }
+GTriangleTest >> actualClass [
+	^ GTriangle
+]
+
 { #category : #tests }
 GTriangleTest >> testArea [
 	self assert: ((GTriangle with: 0 , 0 with: 2 , 0 with: 0 , 2) area closeTo: 2)

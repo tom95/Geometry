@@ -7,6 +7,11 @@ Class {
 	#category : #'Geometry-Tests'
 }
 
+{ #category : #accessing }
+GPointTest >> actualClass [
+	^ GPoint 
+]
+
 { #category : #tests }
 GPointTest >> test2DPoint [
 	point := GPoint x: 1 y: 2.

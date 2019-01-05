@@ -7,6 +7,11 @@ Class {
 	#category : #'Geometry-Tests'
 }
 
+{ #category : #accessing }
+GCircleTest >> actualClass [
+	^ GCircle
+]
+
 { #category : #tests }
 GCircleTest >> testBoundaryContains [
 	circle := GCircle center: 609 / 17 , (10837 / 136) radius: 38.27069133568686.

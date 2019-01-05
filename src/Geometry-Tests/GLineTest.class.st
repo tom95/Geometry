@@ -7,6 +7,11 @@ Class {
 	#category : #'Geometry-Tests'
 }
 
+{ #category : #accessing }
+GLineTest >> actualClass [
+	^ GLine
+]
+
 { #category : #tests }
 GLineTest >> testDistanceTo [
 	self assert: ((GLine a: 1 b: 0 c: -7) distanceTo: 7 , 0) equals: 0.

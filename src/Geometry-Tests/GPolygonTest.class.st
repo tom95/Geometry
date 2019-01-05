@@ -7,6 +7,11 @@ Class {
 	#category : #'Geometry-Tests'
 }
 
+{ #category : #accessing }
+GPolygonTest >> actualClass [
+	^ GPolygon
+]
+
 { #category : #tests }
 GPolygonTest >> testBoundaryContains [
 	self assert: ((GPolygon vertices: {(10 , 10) . (-10 , 10) . (-10 , -10)}) boundaryContains: 0 , 10).

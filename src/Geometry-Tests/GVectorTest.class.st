@@ -7,6 +7,11 @@ Class {
 	#category : #'Geometry-Tests'
 }
 
+{ #category : #accessing }
+GVectorTest >> actualClass [
+	^ GVector
+]
+
 { #category : #tests }
 GVectorTest >> test2DVector [
 	vector := GVector x: 1 y: 2.

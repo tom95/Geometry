@@ -14,6 +14,11 @@ GTestCase class >> shouldInheritSelectors [
 	^ true
 ]
 
+{ #category : #accessing }
+GTestCase >> actualClass [
+	^ self subclassResponsibility
+]
+
 { #category : #asserting }
 GTestCase >> assert: aCollection hasCloseElementsTo: anotherCollection [
 	"Assertion pass if the collections have the same elements using the =~ comparaison operator."
@@ -34,4 +39,15 @@ GTestCase >> assert: aCollection hasCloseElementsTo: anotherCollection [
 						nextPutAll: 'Got : ';
 						print: aCollection asArray;
 						lf ])
+]
+
+{ #category : #accessing }
+GTestCase >> newInstance [
+	^ self actualClass new
+]
+
+{ #category : #tests }
+GTestCase >> testErrorsArePersonnalized [
+	self should: [ self newInstance error ] raise: GError.
+	self should: [ self newInstance error: 'Error' ] raise: GError
 ]

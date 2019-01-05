@@ -7,6 +7,11 @@ Class {
 	#category : #'Geometry-Tests'
 }
 
+{ #category : #accessing }
+GRectangleTest >> actualClass [
+	^ GRectangle
+]
+
 { #category : #running }
 GRectangleTest >> setUp [
 	super setUp.

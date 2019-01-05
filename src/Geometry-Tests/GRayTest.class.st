@@ -7,6 +7,11 @@ Class {
 	#category : #'Geometry-Tests'
 }
 
+{ #category : #accessing }
+GRayTest >> actualClass [
+	^ GRay
+]
+
 { #category : #tests }
 GRayTest >> testAngleInRadiansWith [
 	| ray2 |

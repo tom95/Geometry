@@ -7,6 +7,11 @@ Class {
 	#category : #'Geometry-Tests'
 }
 
+{ #category : #accessing }
+GEllipseTest >> actualClass [
+	^ GEllipse
+]
+
 { #category : #tests }
 GEllipseTest >> testArea [
 	ellipse := GEllipse center: 5 , -1 vertex: 10 , -1 coVertex: 5 , 2.

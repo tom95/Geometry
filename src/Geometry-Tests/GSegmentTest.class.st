@@ -13,7 +13,7 @@ GSegmentTest >> actualClass [
 ]
 
 { #category : #tests }
-GSegmentTest >> testAsLine [
+GSegmentTest >> testAsGLine [
 	| line |
 	line := (GSegment with: 1 , 3 with: 3 , 0) asGLine.
 	self assert: line a equals: 3.

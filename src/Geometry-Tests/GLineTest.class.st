@@ -13,6 +13,12 @@ GLineTest >> actualClass [
 ]
 
 { #category : #tests }
+GLineTest >> testAsGLine [
+	line := GLine through: 1 , 2 and: 3 , 5.
+	self assert: line asGLine equals: line
+]
+
+{ #category : #tests }
 GLineTest >> testDistanceTo [
 	self assert: ((GLine a: 1 b: 0 c: -7) distanceTo: 7 , 0) equals: 0.
 	self assert: ((GLine a: 1 b: 0 c: -7) distanceTo: 7 , 7) equals: 0.

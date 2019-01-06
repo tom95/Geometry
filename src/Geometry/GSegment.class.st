@@ -1,5 +1,33 @@
 "
-I am a segment between two vertices
+Description
+--------------------
+
+I am a geometric segment. I am defined by two points which are my limits.
+
+As a goemetric segment, I have no direction, so the order of the two points during the creation has no importance.
+
+Examples
+--------------------
+
+	GSegment with: 1 , 2 with: 3 , 4.
+	
+	(GSegment with: 1 , 3 with: 3 , 0) includes: 1 , 3.
+	
+	(GSegment with: -1 , -1 with: 1 , 1) intersectionsWith: (GSegment with: -3 , 3 with: -1 , 1).
+	
+	(GSegment with: 0 , 0 with: 3 , 4) length.
+	
+	(GSegment with: -1 , 2 with: 2 , 1) midPoint.
+	
+	(GSegment with: -1 , -4 with: 1 , -2) translateBy: #(1 -2) asGVector.
+ 
+Internal Representation and Key Implementation Points.
+--------------------
+
+    Instance Variables
+	v1:		<aGPoint>		One of the two limit of the segment.
+	v2:		<aGPoint>		Second limit of the segment. 
+
 "
 Class {
 	#name : #GSegment,

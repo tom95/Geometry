@@ -9,7 +9,15 @@ A ray is a geometry figure defined by an initial point, the origin, and another 
 Examples
 --------------------
 
-TODO	
+	GRay origin: 0 , -1 direction: 1 , 4.
+	
+	(GRay origin: 100 , 100 direction: 80 , 110) flipped.
+	
+	(GRay origin: 100 , 100 direction: 80 , 110) includes: 120 , 90.
+	
+	(GRay origin: 0 , 0 direction: 1 , 1) intersectionsWith: GRay origin: 2 , 3 direction: 2 , 0.
+	
+	(GRay origin: -1 , -4 direction: 1 , -2) translateBy: #(1 -2).
  
 Internal Representation and Key Implementation Points.
 --------------------

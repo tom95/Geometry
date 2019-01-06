@@ -15,6 +15,8 @@ Examples
 	
 	GPoint withCollection: #(1 2).	 ""a GPoint(1,2)""
 	
+	GPoint withCollection: #(1 4 2). ""a GPoint(1,4,2)""
+	
 	GPoint coordinates: (GCoordinates withCollection: #(1 3)). 	""a GPoint(1,3)""
 	
 	(GCoordinates withCollection: #(1 3)) asGPoint.	""a GPoint(1,3)""

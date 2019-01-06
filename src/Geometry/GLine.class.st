@@ -23,9 +23,9 @@ Internal Representation and Key Implementation Points.
 --------------------
 
     Instance Variables
-	a:		<anInteger>		a coefficient in the ax + by + c = 0 line equation.
-	b:		<anInteger>		b coefficient in the ax + by + c = 0 line equation.
-	c:		<anInteger>		c coefficient in the ax + by + c = 0 line equation.
+	a:		<aNumber>		a coefficient in the ax + by + c = 0 line equation.
+	b:		<aNumber>		b coefficient in the ax + by + c = 0 line equation.
+	c:		<aNumber>		c coefficient in the ax + by + c = 0 line equation.
 
 "
 Class {
@@ -62,25 +62,24 @@ GLine class >> through: aPoint1 and: aPoint2 [
 
 { #category : #comparing }
 GLine >> = line [
-	self == line ifTrue: [^ true].
-	self class = line class ifFalse: [^ false].
+	self == line ifTrue: [ ^ true ].
+	self class = line class ifFalse: [ ^ false ].
 
-	(self isParallelTo: line) ifFalse: [^ false].
+	(self isParallelTo: line) ifFalse: [ ^ false ].
 
-	^ [(self yFor: 1) =~ (line yFor: 1)]
+	^ [ (self yFor: 1) =~ (line yFor: 1) ]
 		on: GError
-		do: ["This can happen if b = 0" (self xFor: 1) =~ (line xFor: 1)]
+		do: [ "This can happen if b = 0" (self xFor: 1) =~ (line xFor: 1) ]
 ]
 
 { #category : #accessing }
 GLine >> a [
-	^a
-
+	^ a
 ]
 
 { #category : #accessing }
-GLine >> a: anObject [
-	a := anObject
+GLine >> a: aNumber [
+	a := aNumber
 ]
 
 { #category : #converting }
@@ -90,24 +89,23 @@ GLine >> asGLine [
 
 { #category : #accessing }
 GLine >> b [
-	^b
-
+	^ b
 ]
 
 { #category : #accessing }
-GLine >> b: anObject [
-	b := anObject
+GLine >> b: aNumber [
+	b := aNumber
 ]
 
 { #category : #accessing }
 GLine >> c [
-	^c
+	^ c
 
 ]
 
 { #category : #accessing }
-GLine >> c: anObject [
-	c := anObject
+GLine >> c: aNumber [
+	c := aNumber
 ]
 
 { #category : #accessing }
@@ -133,9 +131,8 @@ GLine >> hash [
 	^ (a hash bitXor: b hash) bitXor: c hash
 ]
 
-{ #category : #properties }
+{ #category : #testing }
 GLine >> includes: aPoint [
-
 	^ a * aPoint x + (b * aPoint y) + c =~ 0
 ]
 
@@ -198,6 +195,7 @@ GLine >> translateBy: aGVector [
 	| translatedLine |
 	self flag: #todo. "I think we can do better, especialy for perfs but for now I want something working."
 
+	"If a = 0 we cannot find a x for a y value since the line to parallel to the y axis"
 	translatedLine := a = 0
 		ifTrue: [ self class through: ((self xFor: 1) , 1) + aGVector and: ((self xFor: 2) , 2) + aGVector ]
 		ifFalse: [ self class through: (1 , (self yFor: 1)) + aGVector and: (2 , (self yFor: 2)) + aGVector ].
@@ -208,14 +206,14 @@ GLine >> translateBy: aGVector [
 
 { #category : #properties }
 GLine >> xFor: anY [
-	a = 0 ifTrue: [self error: 'Cannot answer a x if a = 0'].
+	a = 0 ifTrue: [ self error: 'Cannot answer a x if a = 0' ].
 
 	^ ((anY * b + c) / a) negated
 ]
 
 { #category : #properties }
 GLine >> yFor: anX [
-	b = 0 ifTrue: [self error: 'Cannot answer an y if b = 0'].
+	b = 0 ifTrue: [ self error: 'Cannot answer an y if b = 0' ].
 
 	^ ((anX * a + c) / b) negated
 ]

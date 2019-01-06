@@ -1,3 +1,9 @@
+"
+Description
+--------------------
+
+I am the common superclass to all 1D elements. A 1D elements covers elements such as points, lines, segments, rays...
+"
 Class {
 	#name : #G1DElement,
 	#superclass : #GElement,

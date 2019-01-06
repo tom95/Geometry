@@ -1,7 +1,31 @@
 "
-A GLine has 3 instance variables, which are koeficients  of line:
-ax+by+c=0
+Description
+--------------------
 
+A GLine has 3 instance variables, which are coeficients of line: ax + by + c = 0.
+
+Maybe later the implementation will change to have one point and one vector to be able to implement in a simpler way features such as translations. 
+
+Examples
+--------------------
+
+	GLine a: 1 b: 1 c: -13.
+	
+	GLine through: 1 , 3 and: 3 , 0.
+	
+	(GLine a: 2 b: -3 c: 0.5) intersectionsWith: (GLine a: -2 b: -2 c: 4).
+	
+	(GLine a: 1 b: 2 c: 0.5) isParallelTo: (GLine a: 2 b: 4 c: 4).
+	
+	(GLine through: -1 , -4 and: 1 , -2) translateBy: #(1 -2) asGVector.
+ 
+Internal Representation and Key Implementation Points.
+--------------------
+
+    Instance Variables
+	a:		<anInteger>		a coefficient in the ax + by + c = 0 line equation.
+	b:		<anInteger>		b coefficient in the ax + by + c = 0 line equation.
+	c:		<anInteger>		c coefficient in the ax + by + c = 0 line equation.
 
 "
 Class {

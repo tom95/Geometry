@@ -88,7 +88,7 @@ GSegmentTest >> testIntersectionsWithEllipse [
 
 	segment := GSegment with: 0 , 1 with: 5 , 6.
 	self assert: (segment intersectionsWith: ellipse) hasCloseElementsTo: {(1 , 2) . (2.951219 , 3.951219)}.
-	self assert: (segment intersectionsWith: ellipse) equals: (segment intersectionsWithEllipse: ellipse)
+	self assertCollection: (segment intersectionsWith: ellipse) hasSameElements: (segment intersectionsWithEllipse: ellipse)
 ]
 
 { #category : #tests }
@@ -100,7 +100,7 @@ GSegmentTest >> testIntersectionsWithLine [
 	
 	segment := GSegment with: -6 , 4  with: -3, 1 .
 	self assert: (segment intersectionsWith: line) hasCloseElementsTo: {(-4 , 2)}.
-	self assert: (segment intersectionsWith: line) equals: (segment intersectionsWithLine: line)
+	self assertCollection: (segment intersectionsWith: line) hasSameElements: (segment intersectionsWithLine: line)
 ]
 
 { #category : #tests }
@@ -115,7 +115,7 @@ GSegmentTest >> testIntersectionsWithPoint [
 
 	segment := GSegment with: 1 , 3 with: 3 , 5.
 	self assert: (segment intersectionsWith: point) hasCloseElementsTo: {(2 , 4)}.
-	self assert: (segment intersectionsWith: point) equals: (segment intersectionsWithPoint: point)
+	self assertCollection: (segment intersectionsWith: point) hasSameElements: (segment intersectionsWithPoint: point)
 ]
 
 { #category : #tests }
@@ -130,7 +130,7 @@ GSegmentTest >> testIntersectionsWithPolygon [
 
 	segment := GSegment with: 0 , 1 with: 5 , 6.
 	self assert: (segment intersectionsWith: polygon) hasCloseElementsTo: {(2 , 3) . (3 , 4)}.
-	self assert: (segment intersectionsWith: polygon) equals: (segment intersectionsWithPolygon: polygon)
+	self assertCollection: (segment intersectionsWith: polygon) hasSameElements: (segment intersectionsWithPolygon: polygon)
 ]
 
 { #category : #tests }
@@ -142,7 +142,7 @@ GSegmentTest >> testIntersectionsWithRay [
 
 	segment := GSegment with: 2 , 0 with: 2 , 3.
 	self assert: (segment intersectionsWith: ray) hasCloseElementsTo: {(2 , 2)}.
-	self assert: (segment intersectionsWith: ray) equals: (segment intersectionsWithRay: ray).
+	self assertCollection: (segment intersectionsWith: ray) hasSameElements: (segment intersectionsWithRay: ray).
 
 	ray := GRay origin: 1 , 1 direction: 0 , 0.
 	self assert: (segment intersectionsWith: ray) isEmpty
@@ -161,7 +161,7 @@ GSegmentTest >> testIntersectionsWithSegment [
 	segment := GSegment with: 0 , 1 with: 3 , 1.
 	segment2 := GSegment with: 0 , 3 with: 4 , -1.
 	self assert: (segment intersectionsWith: segment2) hasCloseElementsTo: {(2 , 1)}.
-	self assert: (segment intersectionsWith: segment2) equals: (segment intersectionsWithSegment: segment2).
+	self assertCollection: (segment intersectionsWith: segment2) hasSameElements: (segment intersectionsWithSegment: segment2).
 
 	segment2 := GSegment with: 0 , 1 with: 2 , 8.
 	self assert: (segment intersectionsWith: segment2) hasCloseElementsTo: {(0 , 1)}

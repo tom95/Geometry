@@ -150,7 +150,7 @@ GPolygonTest >> testIntersectionsWithEllipse [
 
 	polygon := GPolygon vertices: {(1 , 4) . (6 , 4) . (6 , 1) . (3 , 2)}.
 	self assert: (polygon intersectionsWith: ellipse) hasCloseElementsTo: {(2 , 3) . (5.7267799 , 4)}.
-	self assert: (polygon intersectionsWith: ellipse) equals: (polygon intersectionsWithEllipse: ellipse)
+	self assertCollection: (polygon intersectionsWith: ellipse) hasSameElements: (polygon intersectionsWithEllipse: ellipse)
 ]
 
 { #category : #tests }
@@ -162,7 +162,7 @@ GPolygonTest >> testIntersectionsWithLine [
 
 	polygon := GPolygon vertices: {(1 , 4) . (6 , 4) . (6 , 1) . (3 , 2)}.
 	self assert: (polygon intersectionsWith: line) hasCloseElementsTo: {(3 , 4) . (2 , 3)}.
-	self assert: (polygon intersectionsWith: line) equals: (polygon intersectionsWithLine: line).
+	self assertCollection: (polygon intersectionsWith: line) hasSameElements: (polygon intersectionsWithLine: line).
 
 	polygon := GPolygon vertices: {(2 , 3) . (6 , 4) . (6 , 1) . (3 , 2)}.
 	self assert: (polygon intersectionsWith: line) hasCloseElementsTo: {(2 , 3)}
@@ -177,7 +177,7 @@ GPolygonTest >> testIntersectionsWithPoint [
 
 	polygon := GPolygon vertices: {(1 , 4) . (6 , 4) . (6 , 1) . (3 , 2)}.
 	self assert: (polygon intersectionsWith: point) hasCloseElementsTo: {(2 , 4)}.
-	self assert: (polygon intersectionsWith: point) equals: (polygon intersectionsWithPoint: point)
+	self assertCollection: (polygon intersectionsWith: point) hasSameElements: (polygon intersectionsWithPoint: point)
 ]
 
 { #category : #tests }
@@ -192,7 +192,7 @@ GPolygonTest >> testIntersectionsWithPolygon [
 
 	polygon2 := GPolygon vertices: {(5 , 6) . (8 , 7) . (8 , 3) . (5 , 3)}.
 	self assert: (polygon intersectionsWith: polygon2) hasCloseElementsTo: {(6 , 3) . (5 , 4)}.
-	self assert: (polygon intersectionsWith: polygon2) equals: (polygon intersectionsWithPolygon: polygon2)
+	self assertCollection: (polygon intersectionsWith: polygon2) hasSameElements: (polygon intersectionsWithPolygon: polygon2)
 ]
 
 { #category : #tests }
@@ -207,7 +207,7 @@ GPolygonTest >> testIntersectionsWithRay [
 
 	ray := GRay origin: 0 , 1 direction: 5 , 6.
 	self assert: (polygon intersectionsWith: ray) hasCloseElementsTo: {(2 , 3) . (3 , 4)}.
-	self assert: (polygon intersectionsWith: ray) equals: (polygon intersectionsWithRay: ray)
+	self assertCollection: (polygon intersectionsWith: ray) hasSameElements: (polygon intersectionsWithRay: ray)
 ]
 
 { #category : #tests }
@@ -222,7 +222,7 @@ GPolygonTest >> testIntersectionsWithSegment [
 
 	segment := GSegment with: 0 , 1 with: 5 , 6.
 	self assert: (polygon intersectionsWith: segment) hasCloseElementsTo: {(2 , 3) . (3 , 4)}.
-	self assert: (polygon intersectionsWith: segment) equals: (polygon intersectionsWithSegment: segment)
+	self assertCollection: (polygon intersectionsWith: segment) hasSameElements: (polygon intersectionsWithSegment: segment)
 ]
 
 { #category : #tests }

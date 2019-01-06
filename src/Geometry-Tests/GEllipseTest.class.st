@@ -104,7 +104,7 @@ GEllipseTest >> testIntersectionsWithLine [
 	ellipse := GEllipse center: 2 , 5 vertex: 2 , 9 coVertex: 5 , 5.
 	line := GLine a: -2 b: 1 c: -8.
 	self assert: (ellipse intersectionsWith: line) hasCloseElementsTo: {(-0.263181454 , 7.473637091) . (-1.873804847 , 4.252390306)}.
-	self assert: (ellipse intersectionsWith: line) equals: (ellipse intersectionsWithLine: line).
+	self assertCollection: (ellipse intersectionsWith: line) hasSameElements: (ellipse intersectionsWithLine: line).
 	
 	"Test with tangent"
 	ellipse := GEllipse center: 2 , 5 vertex: 2 , 9 coVertex: 5 , 5.
@@ -121,7 +121,7 @@ GEllipseTest >> testIntersectionsWithPoint [
 
 	ellipse := GEllipse center: 2 , 1 vertex: 5 , 1 coVertex: 2 , 4.
 	self assert: (ellipse intersectionsWith: point) hasCloseElementsTo: {(2 , 4)}.
-	self assert: (ellipse intersectionsWith: point) equals: (ellipse intersectionsWithPoint: point)
+	self assertCollection: (ellipse intersectionsWith: point) hasSameElements: (ellipse intersectionsWithPoint: point)
 ]
 
 { #category : #tests }
@@ -133,7 +133,7 @@ GEllipseTest >> testIntersectionsWithPolygon [
 
 	polygon := GPolygon vertices: {(1 , 4) . (6 , 4) . (6 , 1) . (3 , 2)}.
 	self assert: (ellipse intersectionsWith: polygon) hasCloseElementsTo: {(2 , 3) . (5.7267799 , 4)}.
-	self assert: (ellipse intersectionsWith: polygon) equals: (ellipse intersectionsWithPolygon: polygon)
+	self assertCollection: (ellipse intersectionsWith: polygon) hasSameElements: (ellipse intersectionsWithPolygon: polygon)
 ]
 
 { #category : #tests }
@@ -148,7 +148,7 @@ GEllipseTest >> testIntersectionsWithRay [
 
 	ray := GRay origin: 0 , 1 direction: 5 , 6.
 	self assert: (ellipse intersectionsWith: ray) hasCloseElementsTo: {(1 , 2) . (2.951219 , 3.951219)}.
-	self assert: (ellipse intersectionsWith: ray) equals: (ellipse intersectionsWithRay: ray)
+	self assertCollection: (ellipse intersectionsWith: ray) hasSameElements: (ellipse intersectionsWithRay: ray)
 ]
 
 { #category : #tests }
@@ -163,7 +163,7 @@ GEllipseTest >> testIntersectionsWithSegment [
 
 	segment := GSegment with: 0 , 1 with: 5 , 6.
 	self assert: (ellipse intersectionsWith: segment) hasCloseElementsTo: {(1 , 2) . (2.951219 , 3.951219)}.
-	self assert: (ellipse intersectionsWith: segment) equals: (ellipse intersectionsWithSegment: segment)
+	self assertCollection: (ellipse intersectionsWith: segment) hasSameElements: (ellipse intersectionsWithSegment: segment)
 ]
 
 { #category : #tests }
@@ -172,7 +172,7 @@ GEllipseTest >> testIntersectionsWithVerticalLine [
 	ellipse := GEllipse center: 3.5 , 2 vertex: 6 , 2 coVertex: 3.5 , 4.
 	line := GLine a: 1 b: 0 c: -2.
 	self assert: (ellipse intersectionsWithVerticalLine: line) hasCloseElementsTo: {(2 , 0.3999999) . (2 , 3.6)}.
-	self assert: (ellipse intersectionsWithLine: line) equals: (ellipse intersectionsWithVerticalLine: line)
+	self assertCollection: (ellipse intersectionsWithLine: line) hasSameElements: (ellipse intersectionsWithVerticalLine: line)
 ]
 
 { #category : #tests }

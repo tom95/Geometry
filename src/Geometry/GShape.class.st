@@ -51,11 +51,6 @@ GShape >> fitInExtent: anExtent [
 	self subclassResponsibility
 ]
 
-{ #category : #intersections }
-GShape >> intersectionsWithPoint: aPoint [
-	^ (self boundaryContains: aPoint) ifTrue: [ { aPoint } ] ifFalse: [ {  } ]
-]
-
 { #category : #accessing }
 GShape >> perimeter [
 	"Return the perimeter of the shape"

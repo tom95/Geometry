@@ -74,7 +74,7 @@ GLineTest >> testIntersectionsWithEllipse [
 	ellipse := GEllipse center: 2 , 5 vertex: 2 , 9 coVertex: 5 , 5.
 	line := GLine a: -2 b: 1 c: -8.
 	self assert: (line intersectionsWith: ellipse) hasCloseElementsTo: {(-0.263181454 , 7.473637091) . (-1.873804847 , 4.252390306)}.
-	self assert: (line intersectionsWith: ellipse) equals: (line intersectionsWithEllipse: ellipse).
+	self assertCollection: (line intersectionsWith: ellipse) hasSameElements: (line intersectionsWithEllipse: ellipse).
 	
 	"Test with tangent"
 	ellipse := GEllipse center: 2 , 5 vertex: 2 , 9 coVertex: 5 , 5.
@@ -95,7 +95,7 @@ GLineTest >> testIntersectionsWithLine [
 
 	line2 := GLine a: -2 b: -2 c: 4.
 	self assert: (line intersectionsWith: line2) hasCloseElementsTo: {(1.1 , 0.9)}.
-	self assert: (line intersectionsWith: line2) equals: (line intersectionsWithLine: line2)
+	self assertCollection: (line intersectionsWith: line2) hasSameElements: (line intersectionsWithLine: line2)
 ]
 
 { #category : #tests }
@@ -107,7 +107,7 @@ GLineTest >> testIntersectionsWithPoint [
 
 	line := GLine through: 1 , 3 and: 3 , 5.
 	self assert: (line intersectionsWith: point) hasCloseElementsTo: {(2 , 4)}.
-	self assert: (line intersectionsWith: point) equals: (line intersectionsWithPoint: point)
+	self assertCollection: (line intersectionsWith: point) hasSameElements: (line intersectionsWithPoint: point)
 ]
 
 { #category : #tests }
@@ -119,7 +119,7 @@ GLineTest >> testIntersectionsWithPolygon [
 
 	polygon := GPolygon vertices: {(1 , 4) . (6 , 4) . (6 , 1) . (3 , 2)}.
 	self assert: (line intersectionsWith: polygon) hasCloseElementsTo: {(3 , 4) . (2 , 3)}.
-	self assert: (line intersectionsWith: polygon) equals: (line intersectionsWithPolygon: polygon).
+	self assertCollection: (line intersectionsWith: polygon) hasSameElements: (line intersectionsWithPolygon: polygon).
 
 	polygon := GPolygon vertices: {(2 , 3) . (6 , 4) . (6 , 1) . (3 , 2)}.
 	self assert: (line intersectionsWith: polygon) hasCloseElementsTo: {(2 , 3)}
@@ -134,7 +134,7 @@ GLineTest >> testIntersectionsWithRay [
 	
 	ray := GRay origin: -7 , 5  direction: -5, 3 .
 	self assert: (line intersectionsWith: ray) hasCloseElementsTo: {(-4 , 2)}.
-	self assert: (line intersectionsWith: ray) equals: (line intersectionsWithRay: ray)
+	self assertCollection: (line intersectionsWith: ray) hasSameElements: (line intersectionsWithRay: ray)
 ]
 
 { #category : #tests }
@@ -146,7 +146,7 @@ GLineTest >> testIntersectionsWithSegment [
 	
 	segment := GSegment with: -6 , 4  with: -3, 1 .
 	self assert: (line intersectionsWith: segment) hasCloseElementsTo: {(-4 , 2)}.
-	self assert: (line intersectionsWith: segment) equals: (line intersectionsWithSegment: segment)
+	self assertCollection: (line intersectionsWith: segment) hasSameElements: (line intersectionsWithSegment: segment)
 ]
 
 { #category : #tests }

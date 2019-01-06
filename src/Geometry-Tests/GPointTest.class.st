@@ -85,7 +85,7 @@ GPointTest >> testIntersectionsWithEllipse [
 
 	ellipse := GEllipse center: 2 , 1 vertex: 5 , 1 coVertex: 2 , 4.
 	self assert: (point intersectionsWith: ellipse) hasCloseElementsTo: {(2 , 4)}.
-	self assert: (point intersectionsWith: ellipse) equals: (point intersectionsWithEllipse: ellipse)
+	self assertCollection: (point intersectionsWith: ellipse) hasSameElements: (point intersectionsWithEllipse: ellipse)
 ]
 
 { #category : #tests }
@@ -97,7 +97,7 @@ GPointTest >> testIntersectionsWithLine [
 
 	line := GLine through: 1 , 3 and: 3 , 5.
 	self assert: (point intersectionsWith: line) hasCloseElementsTo: {(2 , 4)}.
-	self assert: (point intersectionsWith: line) equals: (point intersectionsWithLine: line)
+	self assertCollection: (point intersectionsWith: line) hasSameElements: (point intersectionsWithLine: line)
 ]
 
 { #category : #tests }
@@ -105,7 +105,7 @@ GPointTest >> testIntersectionsWithPoint [
 	point := 2 , 4.
 	self assert: (point intersectionsWith: 3 , 4) isEmpty.
 	self assert: (point intersectionsWith: 2 , 4) hasCloseElementsTo: {(2 , 4)}.
-	self assert: (point intersectionsWith: 2 , 4) equals: (point intersectionsWithPoint: 2 , 4)
+	self assertCollection: (point intersectionsWith: 2 , 4) hasSameElements: (point intersectionsWithPoint: 2 , 4)
 ]
 
 { #category : #tests }
@@ -117,7 +117,7 @@ GPointTest >> testIntersectionsWithPolygon [
 
 	polygon := GPolygon vertices: {(1 , 4) . (6 , 4) . (6 , 1) . (3 , 2)}.
 	self assert: (point intersectionsWith: polygon) hasCloseElementsTo: {(2 , 4)}.
-	self assert: (point intersectionsWith: polygon) equals: (point intersectionsWithPolygon: polygon)
+	self assertCollection: (point intersectionsWith: polygon) hasSameElements: (point intersectionsWithPolygon: polygon)
 ]
 
 { #category : #tests }
@@ -135,7 +135,7 @@ GPointTest >> testIntersectionsWithRay [
 
 	ray := GRay origin: 1 , 3 direction: 3 , 5.
 	self assert: (point intersectionsWith: ray) hasCloseElementsTo: {(2 , 4)}.
-	self assert: (point intersectionsWith: ray) equals: (point intersectionsWithRay: ray)
+	self assertCollection: (point intersectionsWith: ray) hasSameElements: (point intersectionsWithRay: ray)
 ]
 
 { #category : #tests }
@@ -150,7 +150,7 @@ GPointTest >> testIntersectionsWithSegment [
 
 	segment := GSegment with: 1 , 3 with: 3 , 5.
 	self assert: (point intersectionsWith: segment) hasCloseElementsTo: {(2 , 4)}.
-	self assert: (point intersectionsWith: segment) equals: (point intersectionsWithSegment: segment)
+	self assertCollection: (point intersectionsWith: segment) hasSameElements: (point intersectionsWithSegment: segment)
 ]
 
 { #category : #tests }

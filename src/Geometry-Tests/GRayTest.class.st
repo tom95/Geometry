@@ -61,7 +61,7 @@ GRayTest >> testIntersectionsWithEllipse [
 
 	ray := GRay origin: 0 , 1 direction: 5 , 6.
 	self assert: (ray intersectionsWith: ellipse) hasCloseElementsTo: {(1 , 2) . (2.951219 , 3.951219)}.
-	self assert: (ray intersectionsWith: ellipse) equals: (ray intersectionsWithEllipse: ellipse)
+	self assertCollection: (ray intersectionsWith: ellipse) hasSameElements: (ray intersectionsWithEllipse: ellipse)
 ]
 
 { #category : #tests }
@@ -73,7 +73,7 @@ GRayTest >> testIntersectionsWithLine [
 	
 	ray := GRay origin: -7 , 5  direction: -5, 3 .
 	self assert: (ray intersectionsWith: line) hasCloseElementsTo: {(-4 , 2)}.
-	self assert: (ray intersectionsWith: line) equals: (ray intersectionsWithLine: line)
+	self assertCollection: (ray intersectionsWith: line) hasSameElements: (ray intersectionsWithLine: line)
 ]
 
 { #category : #tests }
@@ -91,7 +91,7 @@ GRayTest >> testIntersectionsWithPoint [
 
 	ray := GRay origin: 1 , 3 direction: 3 , 5.
 	self assert: (ray intersectionsWith: point) hasCloseElementsTo: {(2 , 4)}.
-	self assert: (ray intersectionsWith: point) equals: (ray intersectionsWithPoint: point)
+	self assertCollection: (ray intersectionsWith: point) hasSameElements: (ray intersectionsWithPoint: point)
 ]
 
 { #category : #tests }
@@ -106,7 +106,7 @@ GRayTest >> testIntersectionsWithPolygon [
 
 	ray := GRay origin: 0 , 1 direction: 5 , 6.
 	self assert: (ray intersectionsWith: polygon) hasCloseElementsTo: {(2 , 3) . (3 , 4)}.
-	self assert: (ray intersectionsWith: polygon) equals: (ray intersectionsWithPolygon: polygon)
+	self assertCollection: (ray intersectionsWith: polygon) hasSameElements: (ray intersectionsWithPolygon: polygon)
 ]
 
 { #category : #tests }
@@ -118,7 +118,7 @@ GRayTest >> testIntersectionsWithRay [
 
 	ray2 := GRay origin: 2 , 3 direction: 2 , 0.
 	self assert: (ray2 intersectionsWith: ray) hasCloseElementsTo: {(2 , 2)}.
-	self assert: (ray2 intersectionsWith: ray) equals: (ray2 intersectionsWithRay: ray).
+	self assertCollection: (ray2 intersectionsWith: ray) hasSameElements: (ray2 intersectionsWithRay: ray).
 
 	ray := GRay origin: 1 , 1 direction: 0 , 0.
 	self assert: (ray2 intersectionsWith: ray) isEmpty
@@ -133,7 +133,7 @@ GRayTest >> testIntersectionsWithSegment [
 
 	segment := GSegment with: 2 , 0 with: 2 , 3.
 	self assert: (ray intersectionsWith: segment) hasCloseElementsTo: {(2 , 2)}.
-	self assert: (ray intersectionsWith: segment) equals: (ray intersectionsWithSegment: segment).
+	self assertCollection: (ray intersectionsWith: segment) hasSameElements: (ray intersectionsWithSegment: segment).
 
 	ray := GRay origin: 1 , 1 direction: 0 , 0.
 	self assert: (ray intersectionsWith: segment) isEmpty

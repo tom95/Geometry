@@ -150,3 +150,17 @@ GVector >> multiplyWithVector: aGVector [
 	
 	self shouldBeImplemented
 ]
+
+{ #category : #arithmetic }
+GVector >> orientedAngleInRadiansWith: aGVector [ 
+	| a b c d angle |
+	self flag: #todo. "This implementation is only for 2D vectors. Later we should support it for n-dimension vectors."
+	
+	a := self x.
+	b := self y.
+	c := aGVector x.
+	d := aGVector y.
+	angle := self angleInRadiansWith: aGVector.
+	
+	^ (a * d) - (b * c) > 0 ifTrue: [ angle ] ifFalse: [ angle negated ]
+]

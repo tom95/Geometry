@@ -153,11 +153,15 @@ GVector >> multiplyWithVector: aGVector [
 ]
 
 { #category : #arithmetic }
-GVector >> nonOrientedAngleWith: aGVector [ 
+GVector >> nonOrientedAngleWith: aGVector [
 	"angle = cos^-1 a . b / (|a| * |b|)"
-	
+
 	"If we have a zero vector, delegate it the computation to avoid a zero divide."
+
 	aGVector isZeroVector ifTrue: [ ^ aGVector angleWith: self ].
 
-	^ ((self dotProduct: aGVector) / (self length * aGVector length)) arcCos
+	^ [ ((self dotProduct: aGVector) / (self length * aGVector length)) arcCos ]
+		on: DomainError
+		do:
+			[ "Sometimes we can get a Domain Error because of some missprecision of floats... In that case we will reduce the precision to get a result" ((self dotProduct: aGVector) / (self length * aGVector length) roundTo: 0.00000000000001) arcCos ]
 ]

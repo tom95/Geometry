@@ -82,6 +82,14 @@ GLine >> a: aNumber [
 	a := aNumber
 ]
 
+{ #category : #arithmetic }
+GLine >> angleWith: aLine [
+	| line1Points line2Points |
+	line1Points := self getTwoRandomPoints.
+	line2Points := aLine getTwoRandomPoints.
+	^ line1Points first - line1Points second angleWith: line2Points first - line2Points second
+]
+
 { #category : #converting }
 GLine >> asGLine [
 	^ self 
@@ -117,13 +125,21 @@ GLine >> determinantWith: aLine [
 	
 	Determinant: a*q - p*b
 	"
-	
-	^ a * aLine b - (aLine a * b)
+
+	^ (GMatrix rows: {{a . b} . {aLine a . aLine b}}) determinant
 ]
 
 { #category : #'distance functions' }
 GLine >> distanceTo: aGPoint [
 	^ (a * aGPoint x + (b * aGPoint y) + c) abs / (a * a + (b * b)) sqrt
+]
+
+{ #category : #accessing }
+GLine >> getTwoRandomPoints [
+	"Since we represent the line with is equation, there is multiple thing we will need to resolve with two points on the line. This method will retrun those two points"
+
+	"If a = 0 we cannot find a x for a y value since the line to parallel to the y axis"
+	^ a = 0 ifTrue: [ {((self xFor: 1) , 1) . ((self xFor: 2) , 2)} ] ifFalse: [ {(1 , (self yFor: 1)) . (2 , (self yFor: 2))} ]
 ]
 
 { #category : #comparing }
@@ -192,13 +208,11 @@ GLine >> printOn: aStream [
 
 { #category : #transforming }
 GLine >> translateBy: aGVector [
-	| translatedLine |
-	self flag: #todo. "I think we can do better, especialy for perfs but for now I want something working."
-
-	"If a = 0 we cannot find a x for a y value since the line to parallel to the y axis"
-	translatedLine := a = 0
-		ifTrue: [ self class through: ((self xFor: 1) , 1) + aGVector and: ((self xFor: 2) , 2) + aGVector ]
-		ifFalse: [ self class through: (1 , (self yFor: 1)) + aGVector and: (2 , (self yFor: 2)) + aGVector ].
+	| translatedLine points |
+	self flag: #todo.	"I think we can do better, especialy for perfs but for now I want something working."
+	points := self getTwoRandomPoints collect: [ :point | point + aGVector ].
+	translatedLine := self class through: points first and: points second.
+	
 	a := translatedLine a.
 	b := translatedLine b.
 	c := translatedLine c

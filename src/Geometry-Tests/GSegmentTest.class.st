@@ -13,6 +13,14 @@ GSegmentTest >> actualClass [
 ]
 
 { #category : #tests }
+GSegmentTest >> testAngleWith [
+	| segment2 |
+	segment := GSegment with: 0 , 0 with: 5 , 24.
+	segment2 := GSegment with: 3 , 4 with: 4 , 7.
+	self assert: (segment angleWith: segment2) closeTo: -0.11635
+]
+
+{ #category : #tests }
 GSegmentTest >> testAsGLine [
 	| line |
 	line := (GSegment with: 1 , 3 with: 3 , 0) asGLine.

@@ -13,6 +13,14 @@ GLineTest >> actualClass [
 ]
 
 { #category : #tests }
+GLineTest >> testAngleWith [
+	| line2 |
+	line := GLine through: 0 , 0 and: 5 , 24.
+	line2 := GLine through: 3 , 4 and: 4 , 7.
+	self assert: (line angleWith: line2) closeTo: -0.11635
+]
+
+{ #category : #tests }
 GLineTest >> testAsGLine [
 	line := GLine through: 1 , 2 and: 3 , 5.
 	self assert: line asGLine equals: line

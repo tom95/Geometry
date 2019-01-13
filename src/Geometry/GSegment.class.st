@@ -56,6 +56,11 @@ GSegment >> = aSegment [
 		or: [ v1 =~ aSegment v2 and: [ v2 =~ aSegment v1 ] ]
 ]
 
+{ #category : #arithmetic }
+GSegment >> angleWith: aSegment [
+	^ self v1 - self v2 angleWith: aSegment v1 - aSegment v2
+]
+
 { #category : #properties }
 GSegment >> asGLine [
 	^ GLine through: v1 and: v2

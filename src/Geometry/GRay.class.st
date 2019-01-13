@@ -50,12 +50,12 @@ GRay >> = aRay [
 	self == aRay ifTrue: [ ^ true ].
 	self class = aRay class ifFalse: [ ^ false ].
 
-	^ self initialPoint =~ aRay initialPoint and: [ (self angleInRadiansWith: aRay) closeTo: 0 ]
+	^ self initialPoint =~ aRay initialPoint and: [ (self angleWith: aRay) closeTo: 0 ]
 ]
 
 { #category : #arithmetic }
-GRay >> angleInRadiansWith: aGRay [ 
-	^ (self directionPoint - self initialPoint) angleInRadiansWith: (aGRay directionPoint - aGRay initialPoint)
+GRay >> angleWith: aGRay [ 
+	^ (self directionPoint - self initialPoint) angleWith: (aGRay directionPoint - aGRay initialPoint)
 ]
 
 { #category : #converting }
@@ -83,12 +83,12 @@ GRay >> flipped [
 GRay >> hash [
 	"We define the hash by its origin and the angle the ray has with the x axis."
 
-	^ self initialPoint hash bitXor: (self directionPoint - self initialPoint angleInRadiansWith: {1 . 1} asGVector) hash
+	^ self initialPoint hash bitXor: (self directionPoint - self initialPoint angleWith: {1 . 1} asGVector) hash
 ]
 
 { #category : #testing }
 GRay >> includes: aPoint [
-	^ ((self directionPoint - self initialPoint) angleInRadiansWith: (aPoint - self initialPoint)) =~ 0
+	^ ((self directionPoint - self initialPoint) angleWith: (aPoint - self initialPoint)) =~ 0
 ]
 
 { #category : #accessing }

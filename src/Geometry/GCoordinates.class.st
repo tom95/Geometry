@@ -121,6 +121,11 @@ GCoordinates >> asGVector [
 ]
 
 { #category : #accessing }
+GCoordinates >> at: anInteger [
+	^ self coordinates at: anInteger
+]
+
+{ #category : #accessing }
 GCoordinates >> coordinates [
 	^ coordinates
 ]

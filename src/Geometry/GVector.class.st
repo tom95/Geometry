@@ -95,17 +95,18 @@ GVector >> additionWithVector: aGVector [
 
 { #category : #arithmetic }
 GVector >> angleInDegreesWith: aGVector [ 
-	^ (self angleInRadiansWith: aGVector) radiansToDegrees
+	^ (self angleWith: aGVector) radiansToDegrees
 ]
 
 { #category : #arithmetic }
-GVector >> angleInRadiansWith: aGVector [ 
-	"angle = cos^-1 a . b / (|a| * |b|)"
+GVector >> angleWith: aGVector [
+	| angle |
+	self flag: #todo.	"This implementation is only for 2D vectors. Later we should support it for n-dimension vectors."
+	self coordinates numberOfDimensions ~= 2 ifTrue: [ self error: 'For now oriented angle is only implemented for 2D vectors. Feel free to contribute.' ]. 
 	
-	"If we have a zero vector, delegate it the computation to avoid a zero divide."
-	aGVector isZeroVector ifTrue: [ ^ aGVector angleInRadiansWith: self ].
+	angle := self nonOrientedAngleWith: aGVector.
 
-	^ ((self dotProduct: aGVector) / (self length * aGVector length)) arcCos
+	^ (GMatrix rows: {self coordinates . aGVector coordinates}) determinant > 0 ifTrue: [ angle ] ifFalse: [ angle negated ]
 ]
 
 { #category : #accessing }
@@ -152,15 +153,11 @@ GVector >> multiplyWithVector: aGVector [
 ]
 
 { #category : #arithmetic }
-GVector >> orientedAngleInRadiansWith: aGVector [ 
-	| a b c d angle |
-	self flag: #todo. "This implementation is only for 2D vectors. Later we should support it for n-dimension vectors."
+GVector >> nonOrientedAngleWith: aGVector [ 
+	"angle = cos^-1 a . b / (|a| * |b|)"
 	
-	a := self x.
-	b := self y.
-	c := aGVector x.
-	d := aGVector y.
-	angle := self angleInRadiansWith: aGVector.
-	
-	^ (a * d) - (b * c) > 0 ifTrue: [ angle ] ifFalse: [ angle negated ]
+	"If we have a zero vector, delegate it the computation to avoid a zero divide."
+	aGVector isZeroVector ifTrue: [ ^ aGVector angleWith: self ].
+
+	^ ((self dotProduct: aGVector) / (self length * aGVector length)) arcCos
 ]

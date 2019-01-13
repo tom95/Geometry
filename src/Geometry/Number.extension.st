@@ -10,6 +10,20 @@ Number >> =~ aNumber [
 	^((self - aNumber) abs) < Number epsilon.
 ]
 
+{ #category : #'*Geometry' }
+Number >> angleIsInferiorTo: anAngle [
+	"Return if an angle in radian is inferior to another angle.
+	
+	Here we manage the case one of the angle is negative"
+
+	^ self asPositiveAngle between: 0 and: anAngle asPositiveAngle
+]
+
+{ #category : #'*Geometry' }
+Number >> asPositiveAngle [
+	^ self positive ifTrue: [ self ] ifFalse: [ 2 * Float pi + self ]
+]
+
 { #category : #'*geometry' }
 Number class >> epsilon [
 	^ 0.00001

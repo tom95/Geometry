@@ -90,7 +90,7 @@ GArc >> endPoint [
 GArc >> includes: aGPoint [
 	"An arc includes a point in the angle between the vector defined by the origin and center and the vector defined by the point and the center is between 0 and the arc angle and if the distance of the point from the center is equals to the radius."
 
-	^ ((self origin - self center angleWith: aGPoint - self center) asPositiveRadianAngle between: 0 and: self angle asPositiveRadianAngle)
+	^ ((self origin - self center angleWith: aGPoint - self center) angleIsInferiorTo: self angle)
 		and: [ (aGPoint distanceTo: self center) =~ self radius ]
 ]
 

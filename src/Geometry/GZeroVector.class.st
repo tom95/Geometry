@@ -17,6 +17,11 @@ GZeroVector class >> coordinates: aCoordinates [
 		yourself
 ]
 
+{ #category : #arithmetic }
+GZeroVector >> angleWith: aGVector [
+	^ 0
+]
+
 { #category : #testing }
 GZeroVector >> isZeroVector [
 	^ true

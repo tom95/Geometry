@@ -20,10 +20,10 @@ GAngle class >> degrees: anInteger [
 
 { #category : #'class initialization' }
 GAngle class >> initialize [
+	TwoPi := 2 * Float pi.
 	ZeroAngle := 0 radians.
 	RightAngle := (0.5 * Float pi) radians.
-	StraightAngle := Float pi radians.
-	TwoPi := 2 * Float pi
+	StraightAngle := Float pi radians
 ]
 
 { #category : #'instance creation' }

@@ -11,20 +11,6 @@ Number >> =~ aNumber [
 ]
 
 { #category : #'*Geometry' }
-Number >> angleIsInferiorTo: anAngle [
-	"Return if an angle in radian is inferior to another angle.
-	
-	Here we manage the case one of the angle is negative"
-
-	^ self asPositiveAngle between: 0 and: anAngle asPositiveAngle
-]
-
-{ #category : #'*Geometry' }
-Number >> asPositiveAngle [
-	^ self positive ifTrue: [ self ] ifFalse: [ 2 * Float pi + self ]
-]
-
-{ #category : #'*Geometry' }
 Number >> degrees [
 	^ GAngle degrees: self
 ]
@@ -52,4 +38,9 @@ Number >> multiplyWithVector: aGVector [
 { #category : #'*Geometry' }
 Number >> radians [
 	^ GAngle radians: self
+]
+
+{ #category : #'*Geometry' }
+Number >> π [
+	^ self * Float pi
 ]

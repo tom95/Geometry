@@ -18,13 +18,13 @@ GArcTest >> actualClass [
 { #category : #test }
 GArcTest >> testAngle [
 	arc := GArc center: 6 , 6 origin: 8 , 4 direction: 10 , 10.
-	self assert: arc angle equals: 1.5707963267948966
+	self assert: arc angle equals: 90 degrees
 ]
 
 { #category : #test }
 GArcTest >> testCentralAngle [
 	arc := GArc center: 6 , 6 origin: 8 , 4 direction: 10 , 10.
-	self assert: arc centralAngle equals: 1.5707963267948966.
+	self assert: arc centralAngle equals: 90 degrees.
 	self assert: arc centralAngle equals: arc angle.
 ]
 

@@ -1,3 +1,49 @@
+"
+Description
+--------------------
+
+I represent a geometric angle. 
+
+For now I can manage angle in radians or degrees.
+
+If the angle is not in [0;2π[ , I'll take care to convert it in order to store the angle as a radian value in [0;2π[.
+
+Examples
+--------------------
+
+	90 degrees. ""90.0°""
+
+	(0.5 * Float pi)  radians. ""90.0°""
+	
+	0.5π radians. ""90.0°""	
+	
+	450 degrees. ""90.0°""
+	
+	0.5π radians + 0.5π radians. ""180.0°""
+	
+	0.5π radians - 0.25π radians. ""45.0°""
+	
+	0.5π radians * 6. ""180.0°""
+	
+	6 * 0.5π radians. ""180.0°""
+	
+	90 degrees < 100 degrees. ""true""
+	
+	90 degrees < -270 degrees. ""false""
+	
+	90 degrees < 460 degrees. ""false""
+	
+	0 radians isZero. ""true""
+	
+	90 degrees explementary. ""270.0°""
+ 
+Internal Representation and Key Implementation Points.
+--------------------
+
+    Instance Variables
+	radians:		<aNumber>		The angle in radians in bounds [0;2π[
+
+"
 Class {
 	#name : #GAngle,
 	#superclass : #GObject,
@@ -20,10 +66,10 @@ GAngle class >> degrees: anInteger [
 
 { #category : #'class initialization' }
 GAngle class >> initialize [
-	TwoPi := 2 * Float pi.
+	TwoPi := 2π.
 	ZeroAngle := 0 radians.
-	RightAngle := (0.5 * Float pi) radians.
-	StraightAngle := Float pi radians
+	RightAngle := 0.5π radians.
+	StraightAngle := 1π radians
 ]
 
 { #category : #'instance creation' }
@@ -70,7 +116,7 @@ GAngle >> = anObject [
 	self == anObject ifTrue: [ ^ true ].
 	self class = anObject class ifFalse: [ ^ false ].
 
-	^ radians =~ anObject radians
+	^ (radians - anObject radians) =~ 0 or: [ (radians - anObject radians) =~ TwoPi ]
 ]
 
 { #category : #comparison }
@@ -85,7 +131,7 @@ GAngle >> >= aGAngle [
 
 { #category : #arithmetic }
 GAngle >> adaptToNumber: anInteger andSend: aString [ 
-	aString = #/ ifTrue: [ self error: 'Cannot divide an integer by an angle' ]. "I think we can do better than an if here but no time."
+	(#(#/ #+) anySatisfy: [ :forgivenSelector | aString = forgivenSelector ]) ifTrue: [ self error: 'Cannot execute ' , aString , ' on an Integer with an angle' ]. "I think we can do better than an if here but no time."
 	^ self perform: aString with: anInteger
 ]
 

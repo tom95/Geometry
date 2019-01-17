@@ -42,7 +42,7 @@ GPolygon class >> newRegularPolygonWithEdgeNumber: aNumber [
 	If Y give 8 as parameter I get an octogon."
 
 	| angle encompassingCircleRadius |
-	angle := 2 * Float pi / aNumber.
+	angle := 2π / aNumber.
 	encompassingCircleRadius := 0.5.
 	^ self newVertices: ((1 to: aNumber) collect: [ :index | ((encompassingCircleRadius + index) * angle) sin , ((encompassingCircleRadius + index) * angle) cos negated ])
 ]

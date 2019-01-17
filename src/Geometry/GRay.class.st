@@ -50,7 +50,7 @@ GRay >> = aRay [
 	self == aRay ifTrue: [ ^ true ].
 	self class = aRay class ifFalse: [ ^ false ].
 
-	^ self initialPoint =~ aRay initialPoint and: [ (self angleWith: aRay) closeTo: 0 ]
+	^ self initialPoint =~ aRay initialPoint and: [ (self angleWith: aRay) isZero ]
 ]
 
 { #category : #arithmetic }
@@ -88,7 +88,7 @@ GRay >> hash [
 
 { #category : #testing }
 GRay >> includes: aPoint [
-	^ ((self directionPoint - self initialPoint) angleWith: (aPoint - self initialPoint)) =~ 0
+	^ ((self directionPoint - self initialPoint) angleWith: (aPoint - self initialPoint)) isZero
 ]
 
 { #category : #accessing }

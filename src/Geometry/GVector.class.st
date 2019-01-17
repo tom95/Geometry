@@ -94,11 +94,6 @@ GVector >> additionWithVector: aGVector [
 ]
 
 { #category : #arithmetic }
-GVector >> angleInDegreesWith: aGVector [ 
-	^ (self angleWith: aGVector) radiansToDegrees
-]
-
-{ #category : #arithmetic }
 GVector >> angleWith: aGVector [
 	| angle |
 	self flag: #todo.	"This implementation is only for 2D vectors. Later we should support it for n-dimension vectors."
@@ -106,7 +101,7 @@ GVector >> angleWith: aGVector [
 	
 	angle := self nonOrientedAngleWith: aGVector.
 
-	^ (GMatrix rows: {self coordinates . aGVector coordinates}) determinant > 0 ifTrue: [ angle ] ifFalse: [ angle negated ]
+	^ (GMatrix rows: {self coordinates . aGVector coordinates}) determinant > 0 ifTrue: [ angle ] ifFalse: [ angle explementary ]
 ]
 
 { #category : #accessing }
@@ -160,8 +155,8 @@ GVector >> nonOrientedAngleWith: aGVector [
 
 	aGVector isZeroVector ifTrue: [ ^ aGVector angleWith: self ].
 
-	^ [ ((self dotProduct: aGVector) / (self length * aGVector length)) arcCos ]
+	^ ([ ((self dotProduct: aGVector) / (self length * aGVector length)) arcCos ]
 		on: DomainError
 		do:
-			[ "Sometimes we can get a Domain Error because of some missprecision of floats... In that case we will reduce the precision to get a result" ((self dotProduct: aGVector) / (self length * aGVector length) roundTo: 0.00000000000001) arcCos ]
+			[ "Sometimes we can get a Domain Error because of some missprecision of floats... In that case we will reduce the precision to get a result" ((self dotProduct: aGVector) / (self length * aGVector length) roundTo: 0.00000000000001) arcCos ]) radians
 ]

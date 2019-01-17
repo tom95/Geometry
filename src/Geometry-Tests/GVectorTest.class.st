@@ -28,27 +28,15 @@ GVectorTest >> test2DVector [
 ]
 
 { #category : #tests }
-GVectorTest >> testAngleInDegreesWith [
-	vector := {2 . 0} asGVector.
-	self assert: (vector angleInDegreesWith: vector) equals: 0.
-	self assert: (vector angleInDegreesWith: {2 . 1} asGVector) closeTo: 26.565051177078.
-	self assert: ({2 . 1} asGVector angleInDegreesWith: vector) closeTo: -26.565051177078.
-	self assert: (vector angleInDegreesWith: {2 . 2} asGVector) closeTo: 45.
-	self assert: ({2 . 2} asGVector angleInDegreesWith: vector) closeTo: -45.
-	self assert: (vector angleInDegreesWith: {1 . 2} asGVector) closeTo: 63.43494882292211.
-	self assert: ({1 . 2} asGVector angleInDegreesWith: vector) closeTo: -63.43494882292211
-]
-
-{ #category : #tests }
 GVectorTest >> testAngleWith [
 	vector := {2 . 0} asGVector.
-	self assert: (vector angleWith: vector) equals: 0.
-	self assert: (vector angleWith: {2 . 1} asGVector) closeTo: 0.4636476090008063.
-	self assert: ({2 . 1} asGVector angleWith: vector) closeTo: -0.4636476090008063.
-	self assert: (vector angleWith: {2 . 2} asGVector) closeTo: 0.7853981633974483.
-	self assert: ({2 . 2} asGVector angleWith: vector) closeTo: -0.7853981633974483.
-	self assert: (vector angleWith: {1 . 2} asGVector) closeTo: 1.1071487177940922.
-	self assert: ({1 . 2} asGVector angleWith: vector) closeTo: -1.1071487177940922
+	self assert: (vector angleWith: vector) isZero.
+	self assert: (vector angleWith: {2 . 1} asGVector) equals: 0.4636476090008063 radians.
+	self assert: ({2 . 1} asGVector angleWith: vector) equals: -0.4636476090008063 radians.
+	self assert: (vector angleWith: {2 . 2} asGVector) equals: 0.7853981633974483 radians.
+	self assert: ({2 . 2} asGVector angleWith: vector) equals: -0.7853981633974483 radians.
+	self assert: (vector angleWith: {1 . 2} asGVector) equals: 1.1071487177940922 radians.
+	self assert: ({1 . 2} asGVector angleWith: vector) equals: -1.1071487177940922 radians
 ]
 
 { #category : #tests }
@@ -84,17 +72,17 @@ GVectorTest >> testMultiplication [
 { #category : #tests }
 GVectorTest >> testNonOrientedAngleWith [
 	vector := {2 . 9 . -3} asGVector.
-	self assert: (vector nonOrientedAngleWith: {-3 . -4 . 8} asGVector) closeTo: 2.37687.
+	self assert: (vector nonOrientedAngleWith: {-3 . -4 . 8} asGVector) equals: 2.37687 radians.
 
 	vector := {5 . 24} asGVector.
-	self assert: (vector nonOrientedAngleWith: {1 . 3} asGVector) closeTo: 0.11635.
+	self assert: (vector nonOrientedAngleWith: {1 . 3} asGVector) equals: 0.11635 radians.
 
 	vector := {2 . 0} asGVector.
-	self assert: (vector nonOrientedAngleWith: vector) equals: 0.
-	self assert: (vector nonOrientedAngleWith: {2 . 1} asGVector) closeTo: 0.4636476090008063.
-	self assert: ({2 . 1} asGVector nonOrientedAngleWith: vector) closeTo: 0.4636476090008063.
-	self assert: (vector nonOrientedAngleWith: {2 . 2} asGVector) closeTo: 0.7853981633974483.
-	self assert: ({2 . 2} asGVector nonOrientedAngleWith: vector) closeTo: 0.7853981633974483.
-	self assert: (vector nonOrientedAngleWith: {1 . 2} asGVector) closeTo: 1.1071487177940922.
-	self assert: ({1 . 2} asGVector nonOrientedAngleWith: vector) closeTo: 1.1071487177940922
+	self assert: (vector nonOrientedAngleWith: vector) isZero.
+	self assert: (vector nonOrientedAngleWith: {2 . 1} asGVector) equals: 0.4636476090008063 radians.
+	self assert: ({2 . 1} asGVector nonOrientedAngleWith: vector) equals: 0.4636476090008063 radians.
+	self assert: (vector nonOrientedAngleWith: {2 . 2} asGVector) equals: 0.7853981633974483 radians.
+	self assert: ({2 . 2} asGVector nonOrientedAngleWith: vector) equals: 0.7853981633974483 radians.
+	self assert: (vector nonOrientedAngleWith: {1 . 2} asGVector) equals: 1.1071487177940922 radians.
+	self assert: ({1 . 2} asGVector nonOrientedAngleWith: vector) equals: 1.1071487177940922 radians
 ]

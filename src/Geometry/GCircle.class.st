@@ -22,7 +22,7 @@ GCircle >> boundaryContains: aPoint [
 
 { #category : #accessing }
 GCircle >> perimeter [
-	^ 2 * self radius * Float pi
+	^ 2π * self radius
 ]
 
 { #category : #printing }

@@ -19,7 +19,7 @@ GZeroVector class >> coordinates: aCoordinates [
 
 { #category : #arithmetic }
 GZeroVector >> angleWith: aGVector [
-	^ 0
+	^ 0 radians
 ]
 
 { #category : #testing }

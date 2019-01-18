@@ -43,6 +43,16 @@ GArc class >> center: aGPoint origin: anotherGPoint direction: yetAnotherGPoint 
 		yourself
 ]
 
+{ #category : #comparing }
+GArc >> = anObject [
+	"Answer whether the receiver and anObject represent the same object."
+
+	self == anObject ifTrue: [ ^ true ].
+	self class = anObject class ifFalse: [ ^ false ].
+	
+	^ origin = anObject origin and: [ center = anObject center and: [ self angle = anObject angle ] ]
+]
+
 { #category : #accessing }
 GArc >> angle [
 	^ (self origin - self center) angleWith: (self direction - self center)
@@ -86,6 +96,13 @@ GArc >> endPoint [
 	^ ((GRay origin: self center direction: self direction) intersectionsWith: (GCircle center: self center radius: self radius)) anyOne
 ]
 
+{ #category : #comparing }
+GArc >> hash [
+	"Answer an integer value that is related to the identity of the receiver."
+
+	^ origin hash bitXor: (center hash bitXor: self angle hash)
+]
+
 { #category : #testing }
 GArc >> includes: aGPoint [
 	"An arc includes a point in the angle between the vector defined by the origin and center and the vector defined by the point and the center is between 0 and the arc angle and if the distance of the point from the center is equals to the radius."
@@ -109,7 +126,29 @@ GArc >> origin: anObject [
 	origin := anObject
 ]
 
+{ #category : #comparing }
+GArc >> printOn: aStream [
+	super printOn: aStream.
+
+	aStream
+		<< $(;
+		<< 'center: ';
+		print: center coordinates;
+		<< ' | origin: ';
+		print: origin coordinates;
+		<< ' | angle: ';
+		print: self angle;
+		<< $)
+]
+
 { #category : #accessing }
 GArc >> radius [
 	^ (self origin - self center) length
+]
+
+{ #category : #comparing }
+GArc >> translateBy: aGVector [ 
+	self center: self center + aGVector.
+	self origin: self origin + aGVector.
+	self direction: self direction + aGVector
 ]

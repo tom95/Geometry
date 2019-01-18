@@ -35,6 +35,20 @@ GArcTest >> testEndPoint [
 ]
 
 { #category : #test }
+GArcTest >> testEquals [
+	arc := GArc center: 6 , 6 origin: 8 , 4 direction: 10 , 10.
+	self assert: arc equals: (GArc center: 6 , 6 origin: 8 , 4 direction: 10 , 10).
+	self assert: arc hash equals: (GArc center: 6 , 6 origin: 8 , 4 direction: 10 , 10) hash.
+	self assert: arc equals: (GArc center: 6 , 6 origin: 8 , 4 direction: 11 , 11).
+	self assert: arc hash equals: (GArc center: 6 , 6 origin: 8 , 4 direction: 11 , 11) hash.
+	
+	self deny: arc = (GArc center: 5 , 6 origin: 8 , 4 direction: 11 , 11).
+	self deny: arc hash = (GArc center: 5 , 6 origin: 8 , 4 direction: 11 , 11) hash.
+	self deny: arc = (GArc center: 6 , 6 origin: 8 , 4 direction: 10 , 11).
+	self deny: arc hash = (GArc center: 6 , 6 origin: 8 , 4 direction: 10 , 11) hash.
+]
+
+{ #category : #test }
 GArcTest >> testIncludes [
 	arc := GArc center: 6 , 6 origin: 8 , 4 direction: 10 , 10.
 	self assert: (arc includes: 8.8284271247462 , 6).
@@ -59,4 +73,11 @@ GArcTest >> testLength [
 GArcTest >> testRadius [
 	arc := GArc center: 6 , 6 origin: 10 , 6 direction: 10 , 10.
 	self assert: arc radius equals: 4
+]
+
+{ #category : #test }
+GArcTest >> testTranslateBy [
+	arc := GArc center: 6 , 6 origin: 10 , 6 direction: 10 , 10.
+	arc translateBy: #(1 -2) asGVector.
+	self assert: arc equals: (GArc center: 7 , 4 origin: 11 , 4 direction: 11 , 8)
 ]

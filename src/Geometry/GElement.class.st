@@ -71,6 +71,11 @@ GElement >> intersectionsWith: anElement [
 ]
 
 { #category : #intersections }
+GElement >> intersectionsWithArc: anArc [
+	^ (self intersectionsWithEllipse: (GCircle center: anArc center radius: anArc radius)) select: [ :point | anArc includes: point ]
+]
+
+{ #category : #intersections }
 GElement >> intersectionsWithEllipse: aGEllipse [
 	"I should return the intersection points between me and an ellipse"
 	

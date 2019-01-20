@@ -68,6 +68,18 @@ GLineTest >> testIncludes [
 ]
 
 { #category : #tests }
+GLineTest >> testIntersectionsWithArc [
+	| arc |
+	line := GLine through: 0 , 0 and: 1 , 1.
+	arc := GArc center: 1 , 0 origin: 4 , 0 direction: 3 , 2.
+	self assert: (line intersectionsWith: arc) isEmpty.
+
+	arc := GArc center: -1 , 0 origin: 4 , 0 direction: 1 , 4.
+	self assert: (line intersectionsWith: arc) hasCloseElementsTo: {(3 , 3)}.
+	self assertCollection: (line intersectionsWith: arc) hasSameElements: (line intersectionsWithArc: arc)
+]
+
+{ #category : #tests }
 GLineTest >> testIntersectionsWithEllipse [
 	| ellipse |
 	"Test without intersection"

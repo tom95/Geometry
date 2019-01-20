@@ -165,14 +165,19 @@ GEllipse >> intersectionsWithVerticalLine: aGLine [
 	Line: x = -c/a 
 	"
 
-	| h k a2 b2 x sqrt y1 y2 tmp |
+	| h k a2 b2 x sqrt y1 y2 tmp tmp2 |
 	h := center x.
 	k := center y.
 	a2 := self semiMajorAxisLength squared.
 	b2 := self semiMinorAxisLength squared.
 	x := aGLine c negated / aGLine a.
 	tmp := (x - h) squared / a2.
-	sqrt := (b2 * (1 - tmp)) sqrt.
+	tmp2 := (b2 * (1 - tmp)).
+	
+	"I am not sure this is correct but I have the impression that if this is negative, there is no intersection."
+	tmp2 < 0 ifTrue: [ ^ {  } ].
+	
+	sqrt := tmp2 sqrt.
 
 	y1 := k + sqrt.
 	y2 := k - sqrt.

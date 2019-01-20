@@ -111,6 +111,21 @@ GArc >> includes: aGPoint [
 		and: [ (aGPoint distanceTo: self center) =~ self radius ]
 ]
 
+{ #category : #intersections }
+GArc >> intersectionsWith: anElement [
+	^ anElement intersectionsWithArc: self
+]
+
+{ #category : #intersections }
+GArc >> intersectionsWithEllipse: aGEllipse [
+	^ aGEllipse intersectionsWithArc: self
+]
+
+{ #category : #intersections }
+GArc >> intersectionsWithLine: aGLine [ 
+	^ aGLine intersectionsWithArc: self
+]
+
 { #category : #accessing }
 GArc >> length [
 	^ self angle radians * self radius

@@ -4,23 +4,39 @@ Description
 
 In Euclidean geometry, an arc is a closed segment of a differentiable curve.
 
-It is defined by 3 points:
+It is defined by 3 parameters
 - The center of the arc
 - The origin of the arc
-- A point defining the direction of the arc in the trigonometric direction
+- The oriented angle of the arc
 
 Examples
 --------------------
 
-	TODO
+	GArc center: 3 , 3 origin: 5 , 6 angle: 0.5π radians.
+	
+	GArc center: 3 , 3 origin: 5 , 6 angle: 90 degrees.
+	
+	GArc center: 6 , 6 origin: 8 , 4 direction: 10 , 10.
+	
+	(GArc center: 6 , 6 origin: 8 , 4 direction: 10 , 10) endPoint.
+	
+	(GArc center: 1 , 0 origin: 4 , 0 direction: -1 , 2) includes: 1 , 3.
+	
+	(GArc center: -1 , 0 origin: 4 , 0 direction: 1 , 4) intersectionsWith: (GLine through: 0 , 0 and: 1 , 1).
+	
+	(GArc center: 6 , 6 origin: 8 , 4 direction: 10 , 10) length.
+	
+	(GArc center: 6 , 6 origin: 8 , 4 direction: 10 , 10) radius.
+	
+	(GArc center: 6 , 6 origin: 8 , 4 direction: 10 , 10) translateBy: #(1 -2) asGVector.
  
 Internal Representation and Key Implementation Points.
 --------------------
 
     Instance Variables
-	center:		<Object>
-	direction:		<Object>
-	origin:		<Object>
+	center:			<aGPoint>		Center of the circle whose bounds contains the arc.
+	direction:		<aGPoint>		Origin point of the arc.
+	angle:				<aGAngle>		Angle betweent the vector center-origin and the vector center-endpoint of the arc.
 
 "
 Class {
@@ -29,18 +45,34 @@ Class {
 	#instVars : [
 		'center',
 		'origin',
-		'direction'
+		'angle'
 	],
 	#category : #'Geometry-Elements'
 }
 
 { #category : #'instance creation' }
-GArc class >> center: aGPoint origin: anotherGPoint direction: yetAnotherGPoint [
+GArc class >> center: aGPoint origin: anotherGPoint angle: aGAngle [
+	"Take three parameters to create a new arc:
+	- A point representing the center of the arc (center of the circle whose bond contains the arc circle)
+	- A point defining the origin of the arc
+	- An angle representing the angle between the vector center-origin and the vector center-endpoint of the arc."
+
 	^ self new
 		center: aGPoint;
 		origin: anotherGPoint;
-		direction: yetAnotherGPoint;
+		angle: aGAngle;
 		yourself
+]
+
+{ #category : #'instance creation' }
+GArc class >> center: aGPoint origin: anotherGPoint direction: yetAnotherGPoint [
+	"Take three parameters to create a new arc:
+	- A point representing the center of the arc (center of the circle whose bond contains the arc circle)
+	- A point defining the origin of the arc
+	- A point denining the direction of the arc in the trigonometric direction"
+	
+	"The conventional representation of an arc it a center, an origin and an angle. To determine the angle we compute the oriented angle between the vector center-origin and the vector center-direction."
+	^ self center: aGPoint origin: anotherGPoint angle: (aGPoint - anotherGPoint angleWith: aGPoint - yetAnotherGPoint)
 ]
 
 { #category : #comparing }
@@ -50,12 +82,17 @@ GArc >> = anObject [
 	self == anObject ifTrue: [ ^ true ].
 	self class = anObject class ifFalse: [ ^ false ].
 	
-	^ origin = anObject origin and: [ center = anObject center and: [ self angle = anObject angle ] ]
+	^ origin = anObject origin and: [ center = anObject center and: [ angle = anObject angle ] ]
 ]
 
 { #category : #accessing }
 GArc >> angle [
-	^ (self origin - self center) angleWith: (self direction - self center)
+	^ angle
+]
+
+{ #category : #accessing }
+GArc >> angle: anObject [
+	angle := anObject
 ]
 
 { #category : #accessing }
@@ -76,31 +113,17 @@ GArc >> centralAngle [
 ]
 
 { #category : #accessing }
-GArc >> direction [
-	"The direction is a point defining the arc angle of the arc from the origin in the trigonometric direct sense. It does not need to be in the circle defined by the center and the origin."
-
-	^ direction
-]
-
-{ #category : #accessing }
-GArc >> direction: anObject [
-	direction := anObject
-]
-
-{ #category : #accessing }
 GArc >> endPoint [
-	"The end point is the point at the end of the arc (opposed to the origin).
-	
-	We can find it by finding the intersection point of the circle containing the arc and a ray from the center to the direction point"
+	"The end point is the point at the end of the arc (opposed to the origin)."
 
-	^ ((GRay origin: self center direction: self direction) intersectionsWith: (GCircle center: self center radius: self radius)) anyOne
+	^ self origin rotatedBy: self angle about: self center
 ]
 
 { #category : #comparing }
 GArc >> hash [
 	"Answer an integer value that is related to the identity of the receiver."
 
-	^ origin hash bitXor: (center hash bitXor: self angle hash)
+	^ origin hash bitXor: (center hash bitXor: angle hash)
 ]
 
 { #category : #testing }
@@ -164,6 +187,5 @@ GArc >> radius [
 { #category : #comparing }
 GArc >> translateBy: aGVector [ 
 	self center: self center + aGVector.
-	self origin: self origin + aGVector.
-	self direction: self direction + aGVector
+	self origin: self origin + aGVector
 ]

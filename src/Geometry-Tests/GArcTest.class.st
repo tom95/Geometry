@@ -46,6 +46,10 @@ GArcTest >> testEquals [
 	self deny: arc hash = (GArc center: 5 , 6 origin: 8 , 4 direction: 11 , 11) hash.
 	self deny: arc = (GArc center: 6 , 6 origin: 8 , 4 direction: 10 , 11).
 	self deny: arc hash = (GArc center: 6 , 6 origin: 8 , 4 direction: 10 , 11) hash.
+	
+	arc := GArc center: 6 , 6 origin: 8 , 4 angle: 0.5π radians.
+	self assert: arc equals: (GArc center: 6 , 6 origin: 8 , 4 angle: 0.5π radians).
+	self assert: arc hash equals: (GArc center: 6 , 6 origin: 8 , 4 angle: 0.5π radians) hash.
 ]
 
 { #category : #test }

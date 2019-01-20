@@ -166,6 +166,38 @@ GPointTest >> testIntersectionsWithSegment [
 ]
 
 { #category : #tests }
+GPointTest >> testRotateBy [
+	point := 5 , 5.
+	point rotateBy: 90 degrees.
+	self assert: point =~ (-5 , 5).
+	point rotateBy: 90 degrees.
+	self assert: point =~ (-5 , -5)
+]
+
+{ #category : #tests }
+GPointTest >> testRotateByAbout [
+	point := 5 , 5.
+	point rotateBy: 90 degrees about: 3 , 3.
+	self assert: point =~ (1 , 5).
+	point rotateBy: 90 degrees about: 3 , 3.
+	self assert: point =~ (1 , 1)
+]
+
+{ #category : #tests }
+GPointTest >> testRotatedBy [
+	point := 5 , 5.
+	self assert: (point rotatedBy: 90 degrees) =~ (-5 , 5).
+	self deny: (point rotatedBy: 90 degrees) == point
+]
+
+{ #category : #tests }
+GPointTest >> testRotatedByAbout [
+	point := 5 , 5.
+	self assert: (point rotatedBy: 90 degrees about: 3 , 3) =~ (1 , 5).
+	self deny: (point rotatedBy: 90 degrees about: 3 , 3) == point
+]
+
+{ #category : #tests }
 GPointTest >> testTranslateBy [
 	| vector |
 	point := (1, 2).

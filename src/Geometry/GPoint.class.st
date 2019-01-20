@@ -169,6 +169,61 @@ GPoint >> length [
 	^ 0
 ]
 
+{ #category : #transformations }
+GPoint >> rotateBy: aGAngle [
+	"Rotate the point around the origin (0,0) of the plan.
+	
+	This will change the receiver. To get a new point use #rotatedBy:.
+	
+	This is only valid for 2D points."
+
+	self rotateBy: aGAngle about: 0 , 0
+]
+
+{ #category : #transformations }
+GPoint >> rotateBy: aGAngle about: aGPoint [
+	"Rotate the point around the another point of the plan.
+	
+	This will change the receiver. To get a new point use #rotatedBy:about:.
+	
+	This is only valid for 2D points."
+
+	| cos sin diffX diffY |
+	cos := aGAngle cos.
+	sin := aGAngle sin.
+	diffX := self x - aGPoint x.
+	diffY := self y - aGPoint y.
+	self x: cos * diffX - (sin * diffY) + aGPoint x.
+	self y: sin * diffX + (cos * diffY) + aGPoint y
+]
+
+{ #category : #transformations }
+GPoint >> rotatedBy: aGAngle [
+	"Rotate the point around the origin (0,0) of the plan.
+	
+	This will return a new point. To change the receiver use #rotateBy:.
+	
+	This is only valid for 2D points."
+
+	^ self rotatedBy: aGAngle about: 0 , 0
+]
+
+{ #category : #transformations }
+GPoint >> rotatedBy: aGAngle about: aGPoint [
+	"Rotate the point around another point of the plan.
+	
+	This will return a new point. To change the receiver use #rotateBy:about:.
+	
+	This is only valid for 2D points."
+
+	| cos sin diffX diffY |
+	cos := aGAngle cos.
+	sin := aGAngle sin.
+	diffX := self x - aGPoint x.
+	diffY := self y - aGPoint y.
+	^ cos * diffX - (sin * diffY) + aGPoint x , (sin * diffX + (cos * diffY) + aGPoint y)
+]
+
 { #category : #accessing }
 GPoint >> segment: aPoint [ 
 	^ GSegment with: self with: aPoint 

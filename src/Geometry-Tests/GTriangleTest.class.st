@@ -1,6 +1,9 @@
 Class {
 	#name : #GTriangleTest,
 	#superclass : #GTestCase,
+	#instVars : [
+		'triangle'
+	],
 	#category : #'Geometry-Tests'
 }
 
@@ -31,6 +34,15 @@ GTriangleTest >> testCircumscribedCircle [
 	
 	circle := (GTriangle with: 2 , 3 with: 7 , 4 with: 5 , 7) circumscribedCircle.
 	self assert: circle center equals: (147 / 34) , (149 / 34)
+]
+
+{ #category : #tests }
+GTriangleTest >> testEquals [
+	triangle := GTriangle with: 0 , 0 with: 2 , 0 with: 0 , 2.
+	self assert: triangle equals: (GTriangle with: 0 , 0 with: 2 , 0 with: 0 , 2).
+	self assert: triangle hash equals: (GTriangle with: 0 , 0 with: 2 , 0 with: 0 , 2) hash.
+	self deny: triangle = (GTriangle with: 1 , 0 with: 2 , 0 with: 0 , 2).
+	self deny: triangle hash = (GTriangle with: 1 , 0 with: 2 , 0 with: 0 , 2) hash
 ]
 
 { #category : #tests }

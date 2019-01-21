@@ -1,6 +1,6 @@
 Class {
 	#name : #GEllipseTest,
-	#superclass : #GTestCase,
+	#superclass : #GShapeTestCase,
 	#instVars : [
 		'ellipse'
 	],
@@ -96,6 +96,11 @@ GEllipseTest >> testIntersectionsWithArc [
 	arc := GArc center: 1 , 0 origin: 4 , 0 direction: -1 , 2.
 	self assert: (ellipse intersectionsWith: arc) hasCloseElementsTo: {(1 , 3)}.
 	self assertCollection: (ellipse intersectionsWith: arc) hasSameElements: (ellipse intersectionsWithArc: arc)
+]
+
+{ #category : #tests }
+GEllipseTest >> testIntersectionsWithEllipse [
+	self flag: #todo
 ]
 
 { #category : #tests }

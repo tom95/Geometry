@@ -46,6 +46,11 @@ GTestCase >> newInstance [
 	^ self actualClass new
 ]
 
+{ #category : #accessing }
+GTestCase >> testEquals [
+	^ self subclassResponsibility
+]
+
 { #category : #tests }
 GTestCase >> testErrorsArePersonnalized [
 	self should: [ self newInstance error ] raise: GError.

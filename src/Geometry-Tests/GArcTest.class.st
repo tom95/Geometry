@@ -3,7 +3,7 @@ A G1DElementTest is a test class for testing the behavior of G1DElement
 "
 Class {
 	#name : #GArcTest,
-	#superclass : #GTestCase,
+	#superclass : #GElementTestCase,
 	#instVars : [
 		'arc'
 	],

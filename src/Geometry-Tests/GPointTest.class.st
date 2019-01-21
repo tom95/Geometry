@@ -1,6 +1,6 @@
 Class {
 	#name : #GPointTest,
-	#superclass : #GTestCase,
+	#superclass : #GElementTestCase,
 	#instVars : [
 		'point'
 	],

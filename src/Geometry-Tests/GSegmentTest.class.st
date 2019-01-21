@@ -1,6 +1,6 @@
 Class {
 	#name : #GSegmentTest,
-	#superclass : #GTestCase,
+	#superclass : #GElementTestCase,
 	#instVars : [
 		'segment'
 	],

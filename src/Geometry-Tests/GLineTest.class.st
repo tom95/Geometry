@@ -1,6 +1,6 @@
 Class {
 	#name : #GLineTest,
-	#superclass : #GTestCase,
+	#superclass : #GElementTestCase,
 	#instVars : [
 		'line'
 	],

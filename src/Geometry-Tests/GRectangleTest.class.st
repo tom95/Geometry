@@ -65,6 +65,15 @@ GRectangleTest >> testDiagonals [
 ]
 
 { #category : #tests }
+GRectangleTest >> testEquals [
+	rectangle := GRectangle origin: 0 , 0 corner: 5 , 5.
+	self assert: rectangle equals: (GRectangle origin: 0 , 0 corner: 5 , 5).
+	self assert: rectangle hash equals: (GRectangle origin: 0 , 0 corner: 5 , 5) hash.
+	self deny: rectangle = (GRectangle origin: 1 , 0 corner: 5 , 5).
+	self deny: rectangle hash = (GRectangle origin: 1 , 0 corner: 5 , 5) hash
+]
+
+{ #category : #tests }
 GRectangleTest >> testExpandBy [
 	rectangle := GRectangle vertices: {(-1 , -1) . (-1 , 1) . (1 , 1) . (1 , -1)}.
 	rectangle expandBy: 0.5.

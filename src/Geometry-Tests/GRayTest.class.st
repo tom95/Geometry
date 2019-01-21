@@ -1,6 +1,6 @@
 Class {
 	#name : #GRayTest,
-	#superclass : #GTestCase,
+	#superclass : #GElementTestCase,
 	#instVars : [
 		'ray'
 	],

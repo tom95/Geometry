@@ -1,6 +1,6 @@
 Class {
 	#name : #GPolygonTest,
-	#superclass : #GTestCase,
+	#superclass : #GShapeTestCase,
 	#instVars : [
 		'polygon'
 	],

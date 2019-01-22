@@ -2,9 +2,7 @@
 Description
 --------------------
 
-A GLine has 3 instance variables, which are coeficients of line: ax + by + c = 0.
-
-Maybe later the implementation will change to have one point and one vector to be able to implement in a simpler way features such as translations. 
+A GLine goes through two points and can be represented by an equation of the form ax + by + c = 0.
 
 Examples
 --------------------
@@ -23,41 +21,42 @@ Internal Representation and Key Implementation Points.
 --------------------
 
     Instance Variables
-	a:		<aNumber>		a coefficient in the ax + by + c = 0 line equation.
-	b:		<aNumber>		b coefficient in the ax + by + c = 0 line equation.
-	c:		<aNumber>		c coefficient in the ax + by + c = 0 line equation.
+	v1:						<aGPoint>				One points on the line.
+	v2:						<aGPoint>				Another point on the line.
+	equationCache:		<aDictionary>		Dictionary caching the values of the equation ax + by + c = 0.
 
 "
 Class {
 	#name : #GLine,
 	#superclass : #G1DElement,
 	#instVars : [
-		'a',
-		'b',
-		'c'
+		'v1',
+		'v2',
+		'equationCache'
 	],
 	#category : #'Geometry-Elements'
 }
 
 { #category : #'instance creation' }
-GLine class >> a: aNumber1 b: aNumber2 c: aNumber3 [
-	^ self new
-		a: aNumber1;
-		b: aNumber2;
-		c: aNumber3;
-		yourself
+GLine class >> a: a b: b c: c [
+	"ax + by + c = 0
+	ax + c = -by
+	-((ax + c) / b) = y
+	
+	ax + by + c = 0
+	by + c = -ax
+	-((by + c) / a) = x
+	"
+
+	^ b = 0 ifFalse: [ self through: 1 , ((a * 1 + c) / b) negated and: 2 , ((a * 2 + c) / b) negated ] ifTrue: [ self through: ((b * 1 + c) / a) negated , 1 and: ((b * 2 + c) / a) negated , 2 ]
 ]
 
 { #category : #'instance creation' }
 GLine class >> through: aPoint1 and: aPoint2 [
-	| ai bi ci |
-	aPoint1 y = aPoint2 y ifTrue: [ ^ self a: 0 b: 1 c: aPoint1 y negated ].
-	aPoint1 x = aPoint2 x ifTrue: [ ^ self a: 1 b: 0 c: aPoint1 x negated ].
-	
-	ai := aPoint1 y - aPoint2 y.
-	bi := aPoint2 x - aPoint1 x.
-	ci := (aPoint1 x - aPoint2 x) * aPoint1 y + ((aPoint2 y - aPoint1 y) * aPoint1 x).
-	^ self a: ai b: bi c: ci
+	^ self new
+		v1: aPoint1;
+		v2: aPoint2;
+		yourself
 ]
 
 { #category : #comparing }
@@ -74,20 +73,12 @@ GLine >> = line [
 
 { #category : #accessing }
 GLine >> a [
-	^ a
-]
-
-{ #category : #accessing }
-GLine >> a: aNumber [
-	a := aNumber
+	^ self linearEquation at: #a
 ]
 
 { #category : #arithmetic }
 GLine >> angleWith: aLine [
-	| line1Points line2Points |
-	line1Points := self getTwoRandomPoints.
-	line2Points := aLine getTwoRandomPoints.
-	^ line1Points first - line1Points second angleWith: line2Points first - line2Points second
+	^ self v1 - self v2 angleWith: aLine v1 - aLine v2
 ]
 
 { #category : #converting }
@@ -97,23 +88,12 @@ GLine >> asGLine [
 
 { #category : #accessing }
 GLine >> b [
-	^ b
-]
-
-{ #category : #accessing }
-GLine >> b: aNumber [
-	b := aNumber
+	^ self linearEquation at: #b
 ]
 
 { #category : #accessing }
 GLine >> c [
-	^ c
-
-]
-
-{ #category : #accessing }
-GLine >> c: aNumber [
-	c := aNumber
+	^ self linearEquation at: #c
 ]
 
 { #category : #accessing }
@@ -126,30 +106,24 @@ GLine >> determinantWith: aLine [
 	Determinant: a*q - p*b
 	"
 
-	^ (GMatrix rows: {{a . b} . {aLine a . aLine b}}) determinant
+	^ (GMatrix rows: {{self a . self b} . {aLine a . aLine b}}) determinant
 ]
 
 { #category : #'distance functions' }
 GLine >> distanceTo: aGPoint [
-	^ (a * aGPoint x + (b * aGPoint y) + c) abs / (a * a + (b * b)) sqrt
-]
-
-{ #category : #accessing }
-GLine >> getTwoRandomPoints [
-	"Since we represent the line with is equation, there is multiple thing we will need to resolve with two points on the line. This method will retrun those two points"
-
-	"If a = 0 we cannot find a x for a y value since the line to parallel to the y axis"
-	^ a = 0 ifTrue: [ {((self xFor: 1) , 1) . ((self xFor: 2) , 2)} ] ifFalse: [ {(1 , (self yFor: 1)) . (2 , (self yFor: 2))} ]
+	^ (self a * aGPoint x + (self b * aGPoint y) + self c) abs / (self a squared + self b squared) sqrt
 ]
 
 { #category : #comparing }
 GLine >> hash [
-	^ (a hash bitXor: b hash) bitXor: c hash
+	^ ([ self yFor: 1 ]
+		on: GError
+		do: [ "This can happen if b = 0" self xFor: 1 ]) hash
 ]
 
 { #category : #testing }
 GLine >> includes: aPoint [
-	^ a * aPoint x + (b * aPoint y) + c =~ 0
+	^ self a * aPoint x + (self b * aPoint y) + self c =~ 0
 ]
 
 { #category : #intersections }
@@ -173,8 +147,8 @@ GLine >> intersectionsWithLine: aGLine [
 	q := aGLine b.
 	r := aGLine c.
 	
-	x := (c negated * q - (r negated * b)) / determinant.
-	y := (a * r negated - (p * c negated)) / determinant.
+	x := (self c negated * q - (r negated * self b)) / determinant.
+	y := (self a * r negated - (p * self c negated)) / determinant.
 	^ { (x , y) }
 ]
 
@@ -190,44 +164,80 @@ GLine >> length [
 	^ Float infinity
 ]
 
+{ #category : #accessing }
+GLine >> linearEquation [
+	"Return a dictionary with value for a, b and c representing the line with an equation of the form: ax + by + c = 0"
+
+	^ equationCache ifNil: [ equationCache := self privateLinearEquationComputation ]
+]
+
 { #category : #printing }
 GLine >> printOn: aStream [
-	a ~~ 0
-		ifTrue: [ a ~~ 1 ifTrue: [ a printOn: aStream ].
+	self a ~~ 0
+		ifTrue: [ self a ~~ 1 ifTrue: [ self a printOn: aStream ].
 			aStream nextPutAll: 'x '.
-			b sign >= 0 ifTrue: [ aStream nextPutAll: '+ ' ] ].
-	b ~~ 0
-		ifTrue: [ b ~~ 1 ifTrue: [ b printOn: aStream ].
+			self b sign >= 0 ifTrue: [ aStream nextPutAll: '+ ' ] ].
+	self b ~~ 0
+		ifTrue: [ self b ~~ 1 ifTrue: [ self b printOn: aStream ].
 			aStream nextPutAll: 'y' ].
-	c ~~ 0
+	self c ~~ 0
 		ifTrue: [ aStream space.
-			c sign >= 0 ifTrue: [ aStream nextPutAll: '+ ' ].
-			c printOn: aStream ].
+			self c sign >= 0 ifTrue: [ aStream nextPutAll: '+ ' ].
+			self c printOn: aStream ].
 	aStream nextPutAll: ' = 0'
+]
+
+{ #category : #private }
+GLine >> privateLinearEquationComputation [
+	v1 y = v2 y ifTrue: [ ^ Dictionary with: #a -> 0 with: #b -> 1 with: #c -> v1 y negated ].
+	v1 x = v2 x ifTrue: [ ^ Dictionary with: #a -> 1 with: #b -> 0 with: #c -> v1 x negated ].
+
+	^ Dictionary with: #a -> (v1 y - v2 y) with: #b -> (v2 x - v1 x) with: #c -> ((v1 x - v2 x) * v1 y + ((v2 y - v1 y) * v1 x))
+]
+
+{ #category : #initialization }
+GLine >> resetEquationCache [
+	equationCache := nil
 ]
 
 { #category : #transforming }
 GLine >> translateBy: aGVector [
-	| translatedLine points |
-	self flag: #todo.	"I think we can do better, especialy for perfs but for now I want something working."
-	points := self getTwoRandomPoints collect: [ :point | point + aGVector ].
-	translatedLine := self class through: points first and: points second.
-	
-	a := translatedLine a.
-	b := translatedLine b.
-	c := translatedLine c
+	self v1: self v1 + aGVector.
+	self v2: self v2 + aGVector
+]
+
+{ #category : #accessing }
+GLine >> v1 [
+	^ v1
+]
+
+{ #category : #accessing }
+GLine >> v1: aPoint [
+	v1 := aPoint.
+	self resetEquationCache
+]
+
+{ #category : #accessing }
+GLine >> v2 [
+	^ v2
+]
+
+{ #category : #accessing }
+GLine >> v2: aPoint [
+	v2 := aPoint.
+	self resetEquationCache
 ]
 
 { #category : #properties }
 GLine >> xFor: anY [
-	a = 0 ifTrue: [ self error: 'Cannot answer a x if a = 0' ].
+	self a = 0 ifTrue: [ self error: 'Cannot answer a x if a = 0' ].
 
-	^ ((anY * b + c) / a) negated
+	^ ((anY * self b + self c) / self a) negated
 ]
 
 { #category : #properties }
 GLine >> yFor: anX [
-	b = 0 ifTrue: [ self error: 'Cannot answer an y if b = 0' ].
+	self b = 0 ifTrue: [ self error: 'Cannot answer an y if b = 0' ].
 
-	^ ((anX * a + c) / b) negated
+	^ ((anX * self a + self c) / self b) negated
 ]

@@ -204,20 +204,9 @@ GSegmentTest >> testMidPoint [
 
 { #category : #tests }
 GSegmentTest >> testPerpendicularBisector [
-	| line |
-	self assert: (GSegment with: -1 , 2 with: 0 , 0) perpendicularBisector a equals: 1.
-	
-	line := (GSegment with: 1 , 3 with: -1 , 1) perpendicularBisector.
-	self assert: line a equals: -2.
-	self assert: line b equals: -2.
-	self assert: line c equals: 4.
-	
-	self assert: (GSegment with: -1 , 2 with: 0 , 0) perpendicularBisector b equals: -2.
-
-	line := (GSegment with: 3 , 0 with: 1 , 3) perpendicularBisector.
-	self assert: line a equals: -2.
-	self assert: line b equals: 3.
-	self assert: line c equals: -1 / 2
+	self assert: (GSegment with: -1 , 2 with: 0 , 0) perpendicularBisector equals: (GLine a: -1 b: 2 c: -2.5).
+	self assert: (GSegment with: 1 , 3 with: -1 , 1) perpendicularBisector equals: (GLine a: -2 b: -2 c: 4).
+	self assert: (GSegment with: 3 , 0 with: 1 , 3) perpendicularBisector equals: (GLine a: -2 b: 3 c: -1 / 2)
 ]
 
 { #category : #tests }

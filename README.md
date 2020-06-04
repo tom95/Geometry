@@ -1,6 +1,6 @@
 # Geometry
 
-[![Coverage Status](https://coveralls.io/repos/github/TelescopeSt/Geometry/badge.svg?branch=master)](https://coveralls.io/github/TelescopeSt/Geometry?branch=master) [![Build Status](https://travis-ci.org/TelescopeSt/Geometry.svg?branch=master)](https://travis-ci.org/TelescopeSt/Geometry)
+[![Coverage Status](https://coveralls.io/repos/github/pharo-contributions/Geometry/badge.svg?branch=master)](https://coveralls.io/github/pharo-contributions/Geometry?branch=master) [![Build Status](https://travis-ci.org/pharo-contributions/Geometry.svg?branch=master)](https://travis-ci.org/pharo-contributions/Geometry)
 
 A simple work-in-progress library for representing basic geometry shapes (line, circle, ellipse, ...) and doing some computations of top (mainly intersection).
 
@@ -24,7 +24,7 @@ To install Geometry on your Pharo image you can just execute the following scrip
 
 ```Smalltalk
     Metacello new
-    	githubUser: 'TelescopeSt' project: 'Geometry' commitish: 'v1.x.x' path: 'src';
+    	githubUser: 'pharo-contributions' project: 'Geometry' commitish: 'v1.x.x' path: 'src';
     	baseline: 'Geometry';
     	load
 ```
@@ -34,7 +34,7 @@ To add Geometry to your baseline just add this:
 ```Smalltalk
     spec
     	baseline: 'Geometry'
-    	with: [ spec repository: 'github://TelescopeSt/Geometry:v1.x.x/src' ]
+    	with: [ spec repository: 'github://pharo-contributions/Geometry:v1.x.x/src' ]
 ```
 
 Note that you can replace the v2.x.x tag by a branch as #master or #development or a tag as #v1.0.0, #v1.? or #v1.0.x or a commit SHA.

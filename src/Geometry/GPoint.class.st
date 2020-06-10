@@ -116,6 +116,11 @@ GPoint >> asGPoint [
 	^ self
 ]
 
+{ #category : #converting }
+GPoint >> asPoint [
+	^ self x @ self y
+]
+
 { #category : #accessing }
 GPoint >> coordinates [
 	^ coordinates

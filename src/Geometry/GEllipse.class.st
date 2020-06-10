@@ -1,3 +1,13 @@
+"
+I am ellipse I have center and 2 vertices.
+
+Example
+
+```Smalltalk
+""circle radius = 10""
+GEllipse center: 0@0 vertex: 0@10 coVertex: 10@0
+``` 
+"
 Class {
 	#name : #GEllipse,
 	#superclass : #GShape,
@@ -133,6 +143,8 @@ GEllipse >> intersectionsWithLine: aGLine [
 	k := center y.
 	a := self semiMajorAxisLength.
 	b := self semiMinorAxisLength.
+	
+	(a = b and: [ a = 0 ]) ifTrue: [ ^ {center} asSet ].
 	m := aGLine a / aGLine b negated.
 	c := aGLine c / aGLine b negated.
 	e := c - k.
@@ -149,7 +161,6 @@ GEllipse >> intersectionsWithLine: aGLine [
 	sqrtContent := (a2m2 + b2 - t2 - k2 + (2 * tk)).
 	sqrtContent >= 0 ifFalse: [ ^ {  } ]. "No intersections"
 	sqrt := (a2m2 + b2 - t2 - k2 + (2 * tk)) sqrt.
-
 	x1 := (h * b2 - (m * a2 * e) + (ab * sqrt)) / (a2m2 + b2).
 	x2 := (h * b2 - (m * a2 * e) - (ab * sqrt)) / (a2m2 + b2).
 	y1 := (b2 * t + (k * a2m2) + (abm * sqrt)) / (a2m2 + b2).

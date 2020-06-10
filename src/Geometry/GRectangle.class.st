@@ -28,8 +28,6 @@ GRectangle class >> origin: point1 corner: point2 [
 	or := (point1 x min: point2 x) , (point1 y min: point2 y).
 	cor := (point1 x max: point2 x) , (point1 y max: point2 y).
 	
-	or = cor ifTrue: [ self error: 'This is not a rectangle but a point.' ].
-	
 	^ self vertices: { or . (cor x , or y). cor. (or x , cor y) }
 ]
 

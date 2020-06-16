@@ -144,7 +144,7 @@ GEllipse >> intersectionsWithLine: aGLine [
 	a := self semiMajorAxisLength.
 	b := self semiMinorAxisLength.
 	
-	(a = b and: [ a = 0 ]) ifTrue: [ ^ {center} asSet ].
+	(a = b and: [ a = 0 ]) ifTrue: [ ^ Set with: center ].
 	m := aGLine a / aGLine b negated.
 	c := aGLine c / aGLine b negated.
 	e := c - k.

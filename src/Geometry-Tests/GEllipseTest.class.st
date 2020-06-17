@@ -37,26 +37,9 @@ GEllipseTest >> testBoundaryContains [
 
 { #category : #tests }
 GEllipseTest >> testEmpty [
-	| shape line intersections |
-	shape := GEllipse center: 0@0 vertex: 0@0 coVertex: 0@0.
-	line := GLine through: shape center and: 10@10.
-	intersections := self sortedIntersectionsBetween: shape and: line.
-	
-	self assert: intersections isNotEmpty.
-	self assert: (intersections first asPoint closeTo: 0@0).
-	
-	"horizontal line "
-	line := GLine through: 10@20 and: 20@10.
-	intersections := self sortedIntersectionsBetween: shape and: line.
-	self assert: intersections isEmpty.
-	
-	"vertical line"
-	"intersectionsWithVerticalLine: 
-	does not work with an empty ellipse"
-	shape := GEllipse center: 0@0 vertex: 9@0 coVertex: 0@9.
-	line := GLine through: 10@10 and: 10@20.
-	intersections := self sortedIntersectionsBetween: shape and: line.
-	self assert: intersections isEmpty.
+	self should: [ GEllipse center: 0,0 vertex: 0,0 coVertex: 0,0. ] raise: Error.
+	self should: [ GEllipse center: 10,10 vertex: 10,10 coVertex: 10,10. ] raise: Error.
+	self should: [ GEllipse center: 0,0 vertex: 0,0 coVertex: 0,3. ] raise: Error.
 ]
 
 { #category : #tests }

@@ -21,6 +21,14 @@ Class {
 
 { #category : #'instance creation' }
 GEllipse class >> center: aGPoint vertex: aGPoint2 coVertex: aGPoint3 [
+	| d1 d2 zero |
+	d1 := aGPoint - aGPoint2.
+	d2 := aGPoint - aGPoint3.
+	zero := GVector x: 0 y: 0."Zero vector"
+	(d1 = zero and: [ d2 = zero ]) ifTrue: [ 
+		self error: 'This is not an ellipse but a point.'  ].
+	(d1 = zero or: [ d2 = zero ]) ifTrue: [ 
+		self error: 'This is not an ellipse but a line.' ].
 	^ self new
 		center: aGPoint;
 		vertex: aGPoint2;
@@ -159,7 +167,7 @@ GEllipse >> intersectionsWithLine: aGLine [
 	tk := t * k.
 	sqrtContent := (a2m2 + b2 - t2 - k2 + (2 * tk)).
 	sqrtContent >= 0 ifFalse: [ ^ {  } ]. "No intersections"
-	(a = b and: [ a = 0 ]) ifTrue: [ ^ Set with: center ].
+	
 	sqrt := (a2m2 + b2 - t2 - k2 + (2 * tk)) sqrt.
 	x1 := (h * b2 - (m * a2 * e) + (ab * sqrt)) / (a2m2 + b2).
 	x2 := (h * b2 - (m * a2 * e) - (ab * sqrt)) / (a2m2 + b2).

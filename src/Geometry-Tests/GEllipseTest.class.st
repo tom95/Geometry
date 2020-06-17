@@ -12,6 +12,12 @@ GEllipseTest >> actualClass [
 	^ GEllipse
 ]
 
+{ #category : #util }
+GEllipseTest >> sortedIntersectionsBetween: shape and: line [
+	^ (shape intersectionsWith: line) asOrderedCollection 
+		sorted: [ :a :b | a asPoint < b asPoint ].
+]
+
 { #category : #tests }
 GEllipseTest >> testArea [
 	ellipse := GEllipse center: 5 , -1 vertex: 10 , -1 coVertex: 5 , 2.
@@ -27,6 +33,30 @@ GEllipseTest >> testBoundaryContains [
 	self deny: (ellipse boundaryContains: 3, 1).
 	self deny: (ellipse boundaryContains: 2.1, 0.1).
 	self deny: (ellipse boundaryContains: 3, 0.13).
+]
+
+{ #category : #tests }
+GEllipseTest >> testEmpty [
+	| shape line intersections |
+	shape := GEllipse center: 0@0 vertex: 0@0 coVertex: 0@0.
+	line := GLine through: shape center and: 10@10.
+	intersections := self sortedIntersectionsBetween: shape and: line.
+	
+	self assert: intersections isNotEmpty.
+	self assert: (intersections first asPoint closeTo: 0@0).
+	
+	"horizontal line "
+	line := GLine through: 10@20 and: 20@10.
+	intersections := self sortedIntersectionsBetween: shape and: line.
+	self assert: intersections isEmpty.
+	
+	"vertical line"
+	"intersectionsWithVerticalLine: 
+	does not work with an empty ellipse"
+	shape := GEllipse center: 0@0 vertex: 9@0 coVertex: 0@9.
+	line := GLine through: 10@10 and: 10@20.
+	intersections := self sortedIntersectionsBetween: shape and: line.
+	self assert: intersections isEmpty.
 ]
 
 { #category : #tests }
@@ -208,6 +238,17 @@ GEllipseTest >> testMajorAxis [
 GEllipseTest >> testMinorAxis [
 	ellipse := GEllipse center: 10 , 10 vertex: 7.1715 , 10 coVertex: 10 , 8.
 	self assert: ellipse minorAxis equals: (GSegment with: 10 , 8 with: 10 , 12)
+]
+
+{ #category : #tests }
+GEllipseTest >> testNonEmpty [
+	| shape line intersections |
+	shape := GEllipse center: 0@0 vertex: 0@10 coVertex: 5@10.
+	line := GLine through: shape center and: 10@10.
+	intersections := self sortedIntersectionsBetween: shape and: line.
+	self assert: intersections isNotEmpty.
+	self assert: (intersections first asPoint closeTo: -7.4535599249993@ -7.4535599249993).
+	self assert: (intersections second asPoint closeTo: 7.4535599249993@ 7.4535599249993).
 ]
 
 { #category : #tests }

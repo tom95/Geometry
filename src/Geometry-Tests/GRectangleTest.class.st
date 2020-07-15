@@ -127,8 +127,8 @@ GRectangleTest >> testIntersectionsWithRay [
 
 { #category : #tests }
 GRectangleTest >> testVertices [
-	self should: [ GRectangle vertices: {(1 , 1) . (2 , 2) . (3 , 5)} ] raise: GError.
-	self should: [ GRectangle vertices: {(0 , 0) . (2 , 0) . (2 , -2) . (-1 , -2)} ] raise: GError
+	self should: [ GRectangle vertices: {(1 , 1) . (2 , 2) . (3 , 5)} ] raise: GeometryError.
+	self should: [ GRectangle vertices: {(0 , 0) . (2 , 0) . (2 , -2) . (-1 , -2)} ] raise: GeometryError
 ]
 
 { #category : #tests }

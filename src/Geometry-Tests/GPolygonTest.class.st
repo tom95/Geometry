@@ -251,7 +251,7 @@ GPolygonTest >> testScaleBy [
 	polygon scaleBy: 1 / 2.
 	self assert: polygon vertices equals: {(5 , 2) . (-2 , 5) . (-5 , -5)}.
 
-	self should: [ polygon scaleBy: 0 ] raise: GError
+	self should: [ polygon scaleBy: 0 ] raise: GeometryError
 ]
 
 { #category : #tests }

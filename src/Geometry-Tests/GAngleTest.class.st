@@ -181,7 +181,7 @@ GAngleTest >> testMultiplication [
 	self assert: angle * 2 equals: 180 degrees.
 	self assert: 2 * angle equals: 180 degrees.
 	self assert: angle * 1 equals: 90 degrees.
-	self should: [ angle * 10 degrees ] raise: GError description: 'It should not be possible to multiple two angles'
+	self should: [ angle * 10 degrees ] raise: GeometryError description: 'It should not be possible to multiple two angles'
 ]
 
 { #category : #tests }

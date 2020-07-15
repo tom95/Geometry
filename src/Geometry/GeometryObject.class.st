@@ -12,12 +12,12 @@ Class {
 
 { #category : #'error handling' }
 GeometryObject class >> error [
-	GError signal
+	GeometryError signal
 ]
 
 { #category : #'error handling' }
 GeometryObject class >> error: aString [
-	GError signal: aString
+	GeometryError signal: aString
 ]
 
 { #category : #'error handling' }

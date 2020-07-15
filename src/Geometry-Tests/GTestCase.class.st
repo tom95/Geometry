@@ -53,6 +53,6 @@ GTestCase >> testEquals [
 
 { #category : #tests }
 GTestCase >> testErrorsArePersonnalized [
-	self should: [ self newInstance error ] raise: GError.
-	self should: [ self newInstance error: 'Error' ] raise: GError
+	self should: [ self newInstance error ] raise: GeometryError.
+	self should: [ self newInstance error: 'Error' ] raise: GeometryError
 ]

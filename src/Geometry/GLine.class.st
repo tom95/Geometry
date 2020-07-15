@@ -67,7 +67,7 @@ GLine >> = line [
 	(self isParallelTo: line) ifFalse: [ ^ false ].
 
 	^ [ (self yFor: 1) =~ (line yFor: 1) ]
-		on: GError
+		on: GeometryError
 		do: [ "This can happen if b = 0" (self xFor: 1) =~ (line xFor: 1) ]
 ]
 
@@ -117,7 +117,7 @@ GLine >> distanceTo: aGPoint [
 { #category : #comparing }
 GLine >> hash [
 	^ ([ self yFor: 1 ]
-		on: GError
+		on: GeometryError
 		do: [ "This can happen if b = 0" self xFor: 1 ]) hash
 ]
 

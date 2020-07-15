@@ -46,7 +46,7 @@ Internal Representation and Key Implementation Points.
 "
 Class {
 	#name : #GAngle,
-	#superclass : #GObject,
+	#superclass : #GeometryObject,
 	#instVars : [
 		'radians'
 	],

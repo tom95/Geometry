@@ -30,7 +30,7 @@ Internal Representation and Key Implementation Points.
 "
 Class {
 	#name : #GVector,
-	#superclass : #GObject,
+	#superclass : #GeometryObject,
 	#traits : 'TGWithCoordinates',
 	#classTraits : 'TGWithCoordinates classTrait',
 	#instVars : [

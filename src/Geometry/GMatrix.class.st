@@ -16,7 +16,7 @@ Internal Representation and Key Implementation Points.
 "
 Class {
 	#name : #GMatrix,
-	#superclass : #GObject,
+	#superclass : #GeometryObject,
 	#instVars : [
 		'rows'
 	],

@@ -5,27 +5,27 @@ Description
 I am a common superclass for all Geometry object. Concrete (points, segments, polygons...) and abstract objects (coordinates, vectors, ...).
 "
 Class {
-	#name : #GObject,
+	#name : #GeometryObject,
 	#superclass : #Object,
 	#category : #'Geometry-Elements'
 }
 
 { #category : #'error handling' }
-GObject class >> error [
+GeometryObject class >> error [
 	GError signal
 ]
 
 { #category : #'error handling' }
-GObject class >> error: aString [
+GeometryObject class >> error: aString [
 	GError signal: aString
 ]
 
 { #category : #'error handling' }
-GObject >> error [
+GeometryObject >> error [
 	^ self class error
 ]
 
 { #category : #'error handling' }
-GObject >> error: aString [
+GeometryObject >> error: aString [
 	^ self class error: aString
 ]

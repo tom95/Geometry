@@ -34,7 +34,7 @@ Internal Representation and Key Implementation Points.
 "
 Class {
 	#name : #GCoordinates,
-	#superclass : #GObject,
+	#superclass : #GeometryObject,
 	#instVars : [
 		'coordinates'
 	],

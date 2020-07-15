@@ -17,7 +17,7 @@ Public API and Key Messages
 "
 Class {
 	#name : #GElement,
-	#superclass : #GObject,
+	#superclass : #GeometryObject,
 	#category : #'Geometry-Elements'
 }
 

@@ -74,7 +74,7 @@ GSegment >> distanceTo: aGPoint [
 	^ self asGLine distanceTo: aGPoint
 ]
 
-{ #category : #initialization }
+{ #category : #comparing }
 GSegment >> hash [
 	^ v1 hash bitXor: v2 hash
 ]

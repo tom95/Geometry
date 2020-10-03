@@ -41,6 +41,6 @@ Number >> radians [
 ]
 
 { #category : #'*Geometry' }
-Number >> π [
+Number >> pi [
 	^ self * Float pi
 ]

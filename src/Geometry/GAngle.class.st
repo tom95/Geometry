@@ -6,7 +6,7 @@ I represent a geometric angle.
 
 For now I can manage angle in radians or degrees.
 
-If the angle is not in [0;2π[ , I'll take care to convert it in order to store the angle as a radian value in [0;2π[.
+If the angle is not in [0;2pi[ , I'll take care to convert it in order to store the angle as a radian value in [0;2pi[.
 
 Examples
 --------------------
@@ -15,17 +15,17 @@ Examples
 
 	(0.5 * Float pi)  radians. ""90.0°""
 	
-	0.5π radians. ""90.0°""	
+	0.5pi radians. ""90.0°""	
 	
 	450 degrees. ""90.0°""
 	
-	0.5π radians + 0.5π radians. ""180.0°""
+	0.5pi radians + 0.5pi radians. ""180.0°""
 	
-	0.5π radians - 0.25π radians. ""45.0°""
+	0.5pi radians - 0.25pi radians. ""45.0°""
 	
-	0.5π radians * 6. ""180.0°""
+	0.5pi radians * 6. ""180.0°""
 	
-	6 * 0.5π radians. ""180.0°""
+	6 * 0.5pi radians. ""180.0°""
 	
 	90 degrees < 100 degrees. ""true""
 	
@@ -41,7 +41,7 @@ Internal Representation and Key Implementation Points.
 --------------------
 
     Instance Variables
-	radians:		<aNumber>		The angle in radians in bounds [0;2π[
+	radians:		<aNumber>		The angle in radians in bounds [0;2pi[
 
 "
 Class {
@@ -66,10 +66,10 @@ GAngle class >> degrees: anInteger [
 
 { #category : #'class initialization' }
 GAngle class >> initialize [
-	TwoPi := 2π.
+	TwoPi := 2pi.
 	ZeroAngle := 0 radians.
-	RightAngle := 0.5π radians.
-	StraightAngle := 1π radians
+	RightAngle := 0.5pi radians.
+	StraightAngle := 1pi radians
 ]
 
 { #category : #'instance creation' }

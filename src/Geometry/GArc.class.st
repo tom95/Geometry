@@ -12,7 +12,7 @@ It is defined by 3 parameters
 Examples
 --------------------
 
-	GArc center: 3 , 3 origin: 5 , 6 angle: 0.5π radians.
+	GArc center: 3 , 3 origin: 5 , 6 angle: 0.5pi radians.
 	
 	GArc center: 3 , 3 origin: 5 , 6 angle: 90 degrees.
 	

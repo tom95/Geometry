@@ -40,8 +40,8 @@ GAngleTest >> testCreation [
 	angle := 90 degrees.
 	self assert: angle equals: (GAngle degrees: 90).
 
-	angle := 1π radians.
-	self assert: angle equals: (GAngle radians: 1π)
+	angle := 1pi radians.
+	self assert: angle equals: (GAngle radians: 1pi)
 ]
 
 { #category : #tests }
@@ -187,7 +187,7 @@ GAngleTest >> testMultiplication [
 { #category : #tests }
 GAngleTest >> testRadianNumber [
 	angle := 90 degrees.
-	self assert: angle radianNumber equals: 0.5π
+	self assert: angle radianNumber equals: 0.5pi
 ]
 
 { #category : #tests }

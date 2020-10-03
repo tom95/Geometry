@@ -50,7 +50,7 @@ GEllipse >> = anObject [
 GEllipse >> area [
 	"pi * a * b"
 
-	^ (self semiMajorAxisLength * self semiMinorAxisLength)π
+	^ (self semiMajorAxisLength * self semiMinorAxisLength)pi
 ]
 
 { #category : #testing }
@@ -232,7 +232,7 @@ GEllipse >> perimeter [
 	semiMajorAndMinorLength := self semiMajorAxisLength + self semiMinorAxisLength.
 	h := (self semiMajorAxisLength - self semiMinorAxisLength) squared / semiMajorAndMinorLength squared.
 
-	^ (semiMajorAndMinorLength * (1 + (3 * h / (10 + (4 - (3 * h)) squared))))π
+	^ (semiMajorAndMinorLength * (1 + (3 * h / (10 + (4 - (3 * h)) squared))))pi
 ]
 
 { #category : #printing }
